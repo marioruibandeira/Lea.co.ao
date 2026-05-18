@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEA Literatura — Livros, Poesias e Frases Angolanas</title>
+
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --lea-blue:        #2563B0;
+      --lea-blue-dark:   #1A4A8A;
+      --lea-blue-light:  #E8F0FB;
+      --lea-blue-mid:    #3B7DD8;
+      --lea-teal:        #1D9E75;
+      --lea-purple:      #534AB7;
+      --lea-amber:       #C07A1A;
+      --lea-amber-light: #FEF3C7;
+      --lea-surface:     #f5f7fb;
+      --lea-white:       #ffffff;
+      --lea-border:      rgba(37,99,176,0.12);
+      --lea-text:        #111827;
+      --lea-muted:       #6B7280;
+
+      /* Literatura — paleta quente e editorial */
+      --lit-ink:         #1C1410;   /* quase preto com toque sépia */
+      --lit-paper:       #FAF7F2;   /* papel antigo */
+      --lit-paper2:      #F3EFE8;   /* papel mais escuro */
+      --lit-gold:        #8B6914;   /* dourado literário */
+      --lit-gold-light:  #FDF6E3;
+      --lit-border:      rgba(139,105,20,0.15);
+      --lit-muted:       #8B7355;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--lit-paper); color: var(--lit-ink); margin: 0; }
+    h1,h2,h3,h4,h5 { font-family: 'Sora', sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--lit-paper); }
+    ::-webkit-scrollbar-thumb { background: var(--lit-border); border-radius: 99px; }
+
+    /* ── Navbar ── */
+    .navbar { background: var(--lit-ink) !important; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .navbar-brand { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: #fff !important; }
+    .navbar-brand span { color: var(--lea-blue); }
+    .nav-link { font-size: 13px; color: rgba(255,255,255,0.6) !important; padding: 4px 10px !important; border-radius: 6px; }
+    .nav-link:hover { color: #fff !important; background: rgba(255,255,255,0.08); }
+    .nav-link.active { color: var(--lea-blue) !important; background: rgba(37,99,176,0.2) !important; }
+    .navbar-toggler-icon { filter: invert(1); }
+    .navbar-toggler { border-color: rgba(255,255,255,0.2) !important; }
+    .navbar-collapse { background: var(--lit-ink); padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+    .nav-search { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 12px; font-size: 12px; color: rgba(255,255,255,0.5); min-width: 150px; cursor: pointer; }
+    .btn-entrar { background: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; padding: 7px 16px; cursor: pointer; }
+    .btn-entrar:hover { background: var(--lea-blue-dark); }
+    .btn-lea-sm { background: var(--lea-blue); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; padding: 6px 14px; cursor: pointer; white-space: nowrap; }
+
+    .ad-pill { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: #bbb; border: 1px solid #ddd; border-radius: 4px; padding: 2px 6px; flex-shrink: 0; }
+    .ann { font-size: 10px; color: var(--lea-blue); display: flex; align-items: center; gap: 4px; margin-bottom: 5px; }
+
+    /* =============================================
+       HERO — livraria / editorial
+       ============================================= */
+    .lit-hero {
+      background: var(--lit-ink);
+      padding: 52px 0 0;
+      position: relative; overflow: hidden;
+    }
+    .lit-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 80% 20%, rgba(139,105,20,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 10% 90%, rgba(37,99,176,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* Linhas decorativas de texto ao fundo */
+    .lit-hero::after {
+      content: '"A palavra escrita é a memória de um povo..."';
+      position: absolute; bottom: 60px; right: -20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 80px; font-style: italic;
+      color: rgba(255,255,255,0.025);
+      white-space: nowrap; pointer-events: none;
+      transform: rotate(-5deg);
+    }
+    .lit-hero .container { position: relative; z-index: 2; }
+
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 12px; }
+    .hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--lit-gold); }
+
+    .lit-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4.5vw, 52px);
+      font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 12px;
+    }
+    .lit-hero h1 em { font-style: italic; color: var(--lit-gold); }
+    .lit-hero p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 460px; margin-bottom: 24px; }
+
+    /* Search */
+    .lit-search { display: flex; align-items: center; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 16px; gap: 10px; max-width: 440px; }
+    .lit-search:focus-within { background: rgba(255,255,255,0.11); border-color: rgba(139,105,20,0.4); }
+    .lit-search input { background: none; border: none; outline: none; font-size: 14px; color: #fff; flex: 1; font-family: 'DM Sans', sans-serif; }
+    .lit-search input::placeholder { color: rgba(255,255,255,0.3); }
+    .lit-search i { font-size: 18px; color: rgba(255,255,255,0.35); }
+
+    /* Stats */
+    .hero-stats { display: flex; gap: 28px; margin-top: 24px; flex-wrap: wrap; }
+    .hstat-num { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; color: #fff; }
+    .hstat-num span { color: var(--lit-gold); }
+    .hstat-lbl { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+    /* Livro destaque no hero */
+    .hero-book-showcase { display: flex; gap: 12px; align-items: flex-end; }
+    .hero-book {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      cursor: pointer; text-decoration: none;
+      transition: transform .2s;
+    }
+    .hero-book:hover { transform: translateY(-6px); }
+    .hero-book-cover {
+      width: 80px; border-radius: 4px; overflow: hidden;
+      box-shadow: 4px 6px 20px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .hero-book-cover img { width: 100%; display: block; }
+    .hero-book-cover .cover-placeholder { width: 100%; aspect-ratio: 2/3; display: flex; align-items: center; justify-content: center; font-size: 22px; color: rgba(255,255,255,0.3); }
+    .hero-book.featured .hero-book-cover { width: 110px; }
+    .hero-book-title { font-size: 10px; color: rgba(255,255,255,0.5); text-align: center; max-width: 80px; line-height: 1.3; }
+
+    /* Barra gold separadora */
+    .hero-gold-bar { height: 3px; background: linear-gradient(90deg, var(--lit-gold) 0%, transparent 100%); margin-top: 32px; }
+
+    /* =============================================
+       FILTER BAR
+       ============================================= */
+    .filter-bar { background: var(--lit-paper2); border-bottom: 1px solid var(--lit-border); padding: 0 20px; display: flex; align-items: center; overflow-x: auto; position: sticky; top: 56px; z-index: 90; }
+    .filter-bar::-webkit-scrollbar { height: 0; }
+    .filter-tab { font-size: 13px; font-weight: 500; color: var(--lit-muted); padding: 13px 16px; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: all .15s; text-decoration: none; display: block; }
+    .filter-tab:hover { color: var(--lit-ink); }
+    .filter-tab.active { color: var(--lit-gold); border-bottom-color: var(--lit-gold); }
+    .filter-right { margin-left: auto; display: flex; align-items: center; gap: 8px; padding: 8px 0; flex-shrink: 0; }
+    .filter-select { background: var(--lit-paper); border: 1px solid var(--lit-border); border-radius: 8px; color: var(--lit-muted); font-size: 12px; padding: 6px 10px; cursor: pointer; outline: none; font-family: 'DM Sans', sans-serif; }
+
+    /* =============================================
+       LAYOUT
+       ============================================= */
+    .page-layout { display: grid; grid-template-columns: 1fr 280px; gap: 28px; padding: 28px 0 48px; }
+
+    /* =============================================
+       SEC HEADER
+       ============================================= */
+    .sec-hdr { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--lit-border); }
+    .sec-hdr h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin: 0; color: var(--lit-ink); }
+    .sec-hdr h2 span { color: var(--lit-gold); }
+    .sec-link { font-size: 12px; color: var(--lit-gold); text-decoration: none; font-style: italic; }
+    .sec-link:hover { text-decoration: underline; }
+
+    /* =============================================
+       LIVROS — grid
+       ============================================= */
+    .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; margin-bottom: 32px; }
+
+    .book-card {
+      display: flex; flex-direction: column; gap: 10px;
+      cursor: pointer; text-decoration: none;
+      transition: transform .2s;
+    }
+    .book-card:hover { transform: translateY(-4px); }
+
+    .book-cover {
+      width: 100%; aspect-ratio: 2/3;
+      border-radius: 4px; overflow: hidden;
+      box-shadow: 3px 5px 16px rgba(28,20,16,0.25);
+      position: relative; background: var(--lit-paper2);
+    }
+    .book-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+    .book-card:hover .book-cover img { transform: scale(1.04); }
+    .book-cover .cover-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 28px; color: rgba(139,105,20,0.25); }
+    .book-cover .cover-placeholder span { font-size: 10px; color: var(--lit-muted); text-align: center; padding: 0 8px; }
+
+    /* Faixa de preço na capa */
+    .book-price-badge { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(28,20,16,0.75); padding: 5px 8px; text-align: center; }
+    .book-price-badge span { font-size: 11px; font-weight: 700; color: #fff; }
+
+    .book-title { font-size: 12px; font-weight: 600; color: var(--lit-ink); line-height: 1.4; }
+    .book-card:hover .book-title { color: var(--lit-gold); }
+    .book-author { font-size: 11px; color: var(--lit-muted); font-style: italic; }
+    .book-actions { display: flex; gap: 6px; }
+    .btn-book-buy { flex: 1; background: var(--lit-gold); color: #fff; border: none; border-radius: 6px; font-size: 11px; font-weight: 600; padding: 6px; cursor: pointer; transition: background .15s; text-align: center; text-decoration: none; display: block; }
+    .btn-book-buy:hover { background: #6B4F10; color: #fff; }
+    .btn-book-more { background: var(--lit-paper2); color: var(--lit-muted); border: 1px solid var(--lit-border); border-radius: 6px; font-size: 11px; font-weight: 500; padding: 6px 10px; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; }
+
+    /* =============================================
+       POESIAS — cards estilo pergaminho
+       ============================================= */
+    .poems-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+
+    .poem-card {
+      background: var(--lit-paper);
+      border: 1px solid var(--lit-border);
+      border-left: 4px solid var(--lit-gold);
+      border-radius: 8px; padding: 20px 22px;
+      text-decoration: none; display: block;
+      transition: box-shadow .2s, border-left-color .2s;
+      position: relative;
+    }
+    .poem-card:hover { box-shadow: 0 4px 20px rgba(139,105,20,0.12); border-left-color: var(--lea-blue); }
+
+    .poem-category {
+      display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
+      color: var(--lit-gold); background: var(--lit-gold-light); padding: 2px 8px; border-radius: 99px; margin-bottom: 10px;
+    }
+    .poem-excerpt {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px; font-style: italic; color: var(--lit-ink);
+      line-height: 1.85; margin-bottom: 12px;
+    }
+    .poem-excerpt::before { content: '\201C'; color: var(--lit-gold); font-size: 20px; line-height: 0; vertical-align: -6px; margin-right: 2px; }
+    .poem-excerpt::after  { content: '\201D'; color: var(--lit-gold); font-size: 20px; line-height: 0; vertical-align: -6px; margin-left: 2px; }
+    .poem-footer { display: flex; align-items: center; justify-content: space-between; }
+    .poem-author { display: flex; align-items: center; gap: 8px; }
+    .poem-author-avatar { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .poem-author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .poem-author-avatar .av-fall { width: 100%; height: 100%; background: var(--lit-gold); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; }
+    .poem-author-name { font-size: 12px; font-weight: 600; color: var(--lit-ink); }
+    .poem-title-link { font-size: 11px; color: var(--lit-gold); font-style: italic; }
+    .poem-reads { font-size: 11px; color: var(--lit-muted); display: flex; align-items: center; gap: 4px; }
+    .poem-reads i { font-size: 12px; }
+
+    /* =============================================
+       FRASES — masonry style
+       ============================================= */
+    .quotes-grid { columns: 2; gap: 14px; margin-bottom: 32px; }
+    @media (max-width: 600px) { .quotes-grid { columns: 1; } }
+
+    .quote-card {
+      break-inside: avoid;
+      background: var(--lit-paper);
+      border: 1px solid var(--lit-border);
+      border-radius: 10px; padding: 16px 18px;
+      margin-bottom: 14px; display: block;
+      text-decoration: none;
+      transition: box-shadow .2s;
+      position: relative; overflow: hidden;
+    }
+    .quote-card::before {
+      content: '\201C';
+      position: absolute; top: -8px; left: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 72px; color: rgba(139,105,20,0.08);
+      line-height: 1; pointer-events: none;
+    }
+    .quote-card:hover { box-shadow: 0 4px 18px rgba(139,105,20,0.10); }
+
+    .quote-category {
+      display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 99px; margin-bottom: 8px;
+    }
+    .qcat-reflexao    { background: #EDE9FE; color: #7C3AED; }
+    .qcat-encorajamento { background: #D1FAE5; color: #059669; }
+    .qcat-motivacao   { background: #FEF3C7; color: #D97706; }
+    .qcat-lamentos    { background: #FEE2E2; color: #DC2626; }
+    .qcat-vida        { background: var(--lea-blue-light); color: var(--lea-blue); }
+    .qcat-atitude     { background: #FCE7F3; color: #DB2777; }
+    .qcat-inspiracao  { background: #FDF6E3; color: var(--lit-gold); }
+    .qcat-positividade { background: #D1FAE5; color: #059669; }
+    .qcat-lideranca   { background: #E5E7EB; color: #374151; }
+    .qcat-amizade     { background: #DBEAFE; color: #2563B0; }
+    .qcat-relacionamentos { background: #FCE7F3; color: #DB2777; }
+
+    .quote-text { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; color: var(--lit-ink); line-height: 1.75; margin-bottom: 10px; position: relative; z-index: 1; }
+    .quote-author { display: flex; align-items: center; gap: 8px; }
+    .quote-author-avatar { width: 26px; height: 26px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .quote-author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .quote-author-avatar .qav-fall { width: 100%; height: 100%; background: var(--lit-gold); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #fff; }
+    .quote-author-name { font-size: 11px; font-weight: 600; color: var(--lit-ink); }
+    .quote-reads { font-size: 10px; color: var(--lit-muted); margin-left: auto; }
+
+    /* =============================================
+       SIDEBAR
+       ============================================= */
+    .lit-sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+    .sidebar-card { background: var(--lit-paper); border: 1px solid var(--lit-border); border-radius: 12px; overflow: hidden; }
+    .sidebar-card-header { padding: 12px 14px; border-bottom: 1px solid var(--lit-border); display: flex; align-items: center; gap: 8px; background: var(--lit-paper2); }
+    .sidebar-card-header h3 { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; margin: 0; color: var(--lit-ink); }
+    .sidebar-card-header i { font-size: 16px; color: var(--lit-gold); }
+
+    /* Mais lidos */
+    .popular-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--lit-border); text-decoration: none; transition: background .12s; }
+    .popular-item:last-child { border-bottom: none; }
+    .popular-item:hover { background: var(--lit-paper2); }
+    .popular-num { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; line-height: 1; flex-shrink: 0; width: 24px; }
+    .popular-num.p1 { color: var(--lit-gold); }
+    .popular-num.p2 { color: rgba(139,105,20,0.5); }
+    .popular-num.p3 { color: rgba(139,105,20,0.35); }
+    .popular-num.rest { color: rgba(139,105,20,0.2); }
+    .popular-avatar { width: 32px; height: 32px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .popular-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .popular-avatar .pav-fall { width: 100%; height: 100%; background: var(--lit-gold); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; }
+    .popular-title { font-size: 12px; font-weight: 500; color: var(--lit-ink); line-height: 1.4; margin-bottom: 2px; }
+    .popular-item:hover .popular-title { color: var(--lit-gold); }
+    .popular-meta { font-size: 10px; color: var(--lit-muted); display: flex; align-items: center; gap: 4px; }
+
+    /* Livros em destaque na sidebar */
+    .sidebar-book { display: flex; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--lit-border); text-decoration: none; transition: background .12s; }
+    .sidebar-book:last-child { border-bottom: none; }
+    .sidebar-book:hover { background: var(--lit-paper2); }
+    .sidebar-book-cover { width: 40px; height: 56px; border-radius: 3px; overflow: hidden; flex-shrink: 0; box-shadow: 2px 3px 8px rgba(0,0,0,0.2); }
+    .sidebar-book-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .sidebar-book-cover .sbc-fall { width: 100%; height: 100%; background: linear-gradient(135deg, var(--lit-gold), #6B4F10); display: flex; align-items: center; justify-content: center; font-size: 14px; color: rgba(255,255,255,0.3); }
+    .sidebar-book-title { font-size: 12px; font-weight: 600; color: var(--lit-ink); line-height: 1.35; margin-bottom: 3px; }
+    .sidebar-book:hover .sidebar-book-title { color: var(--lit-gold); }
+    .sidebar-book-author { font-size: 11px; color: var(--lit-muted); font-style: italic; }
+    .sidebar-book-price { font-size: 12px; font-weight: 700; color: var(--lit-gold); margin-top: 4px; }
+
+    /* Frase do dia */
+    .frase-dia-card {
+      background: linear-gradient(135deg, var(--lit-ink) 0%, #2C1F0E 100%);
+      border-radius: 12px; padding: 20px;
+      position: relative; overflow: hidden;
+    }
+    .frase-dia-card::before { content: '\201C'; position: absolute; top: -10px; left: 8px; font-family: 'Playfair Display', serif; font-size: 80px; color: rgba(139,105,20,0.15); line-height: 1; pointer-events: none; }
+    .frase-dia-label { font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--lit-gold); margin-bottom: 10px; }
+    .frase-dia-text { font-family: 'Playfair Display', serif; font-size: 14px; font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.75; margin-bottom: 14px; position: relative; z-index: 1; }
+    .frase-dia-author { display: flex; align-items: center; gap: 8px; }
+    .frase-dia-avatar { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .frase-dia-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .frase-dia-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75); }
+    .btn-share-frase { display: block; width: 100%; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-size: 12px; padding: 8px; cursor: pointer; transition: all .15s; text-align: center; margin-top: 12px; }
+    .btn-share-frase:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+    /* =============================================
+       AD STRIP
+       ============================================= */
+    .ad-strip { background: var(--lit-paper); border: 1px dashed rgba(139,105,20,0.2); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .ad-strip-thumb { width: 52px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .ad-strip-copy { flex: 1; }
+    .ad-strip-copy strong { font-size: 13px; font-weight: 500; color: var(--lit-ink); }
+    .ad-strip-copy span { font-size: 11px; color: var(--lit-muted); }
+
+    /* =============================================
+       PAGINATION
+       ============================================= */
+    .lea-pagination { display: flex; align-items: center; gap: 4px; }
+    .page-btn { width: 36px; height: 36px; border-radius: 8px; background: var(--lit-paper); border: 1px solid var(--lit-border); color: var(--lit-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .12s; text-decoration: none; }
+    .page-btn:hover { background: var(--lit-gold-light); color: var(--lit-gold); border-color: rgba(139,105,20,0.3); }
+    .page-btn.active { background: var(--lit-gold); color: #fff; border-color: var(--lit-gold); font-weight: 700; }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    .lea-footer { background: var(--lit-ink); border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-link { font-size: 12px; color: rgba(255,255,255,0.45); text-decoration: none; }
+    .footer-link:hover { color: rgba(255,255,255,0.8); }
+    .footer-social { color: var(--lea-blue); font-size: 20px; text-decoration: none; transition: opacity .15s; }
+    .footer-social:hover { opacity: .7; }
+
+    /* =============================================
+       MOBILE
+       ============================================= */
+    .desktop-only { display: block; }
+    .mobile-only  { display: none; }
+    .bottom-nav { background: var(--lit-ink); border-top: 1px solid rgba(255,255,255,0.08); position: fixed; bottom: 0; left: 0; right: 0; height: 62px; display: none; align-items: center; justify-content: space-around; z-index: 200; padding-bottom: env(safe-area-inset-bottom, 0); }
+    .bnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 22px; color: rgba(255,255,255,0.35); cursor: pointer; text-decoration: none; flex: 1; justify-content: center; transition: color .12s; }
+    .bnav-item.active, .bnav-item:hover { color: var(--lit-gold); }
+    .bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+
+    @media (max-width: 991px) {
+      .desktop-only { display: none !important; }
+      .mobile-only  { display: block; }
+      .bottom-nav   { display: flex; }
+      body          { padding-bottom: 62px; }
+      .page-layout  { grid-template-columns: 1fr; }
+      .books-grid   { grid-template-columns: repeat(3,1fr); }
+      .quotes-grid  { columns: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .books-grid { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       NAVBAR
+       ============================================= -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="assets/img/logo.png" alt="LEA" height="32">
+      </a>
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav me-auto mb-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="artistas.html">Artistas</a></li>
+          <li class="nav-item"><a class="nav-link" href="musica.html">Músicas</a></li>
+          <li class="nav-item"><a class="nav-link" href="videos.html">Vídeos</a></li>
+          <li class="nav-item"><a class="nav-link active" href="literatura.html">Literatura</a></li>
+          <li class="nav-item"><a class="nav-link" href="noticias.html">Notícias</a></li>
+          <li class="nav-item"><a class="nav-link" href="eventos.html">Eventos</a></li>
+          <li class="nav-item"><a class="nav-link" href="loja.html">Loja</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2 mt-2 mt-lg-0">
+          <div class="nav-search d-none d-md-flex align-items-center gap-2">
+            <i class="ti ti-search" style="font-size:13px;"></i> Pesquisar…
+          </div>
+          <button class="btn-entrar">Entrar</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =============================================
+       HERO
+       ============================================= -->
+  <div class="lit-hero">
+    <div class="container pb-4">
+      <div class="row g-4 align-items-end">
+
+        <div class="col-lg-6">
+          <div class="hero-eyebrow">Literatura Angolana</div>
+          <h1>A alma de Angola<br><em>em palavras</em></h1>
+          <p>Descobre livros, poemas e frases dos escritores e poetas angolanos. Da geração de Agostinho Neto aos novos talentos de hoje.</p>
+          <div class="lit-search">
+            <i class="ti ti-search"></i>
+            <input type="text" placeholder="Pesquisar livro, poema, autor…">
+          </div>
+          <div class="hero-stats">
+            <div><div class="hstat-num">112<span>+</span></div><div class="hstat-lbl">Livros</div></div>
+            <div><div class="hstat-num">37</div><div class="hstat-lbl">Poemas</div></div>
+            <div><div class="hstat-num">58</div><div class="hstat-lbl">Frases</div></div>
+            <div><div class="hstat-num">60<span>+</span></div><div class="hstat-lbl">Autores</div></div>
+          </div>
+        </div>
+
+        <!-- Showcase de capas no hero -->
+        <div class="col-lg-6 desktop-only">
+          <div class="hero-book-showcase justify-content-center">
+            <a class="hero-book" href="https://lea.co.ao/literatura/exemplar.php?code=MTEy&artst=MjI2Mw==" target="_blank">
+              <div class="hero-book-cover">
+                <img src="https://lea.co.ao/images/livros/O-SENTIMENTO-NA-ESCRITA.jpg" alt="" onerror="this.style.display='none'">
+                <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+              </div>
+              <div class="hero-book-title">O Sentimento Na Escrita</div>
+            </a>
+            <a class="hero-book" href="https://lea.co.ao/literatura/exemplar.php?code=MTA5&artst=MjI2MA==" target="_blank">
+              <div class="hero-book-cover">
+                <img src="https://lea.co.ao/images/livros/Sagrado-Prazer.jpg" alt="" onerror="this.style.display='none'">
+                <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+              </div>
+              <div class="hero-book-title">Sagrado Prazer</div>
+            </a>
+            <a class="hero-book featured" href="https://lea.co.ao/literatura/exemplar.php?code=MTAx&artst=MjIyMw==" target="_blank">
+              <div class="hero-book-cover">
+                <img src="https://lea.co.ao/images/livros/Hematoma-Social.jpg" alt="" onerror="this.style.display='none'">
+                <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+                <div class="book-price-badge"><span>⭐ Destaque</span></div>
+              </div>
+              <div class="hero-book-title">Hematoma Social</div>
+            </a>
+            <a class="hero-book" href="https://lea.co.ao/literatura/exemplar.php?code=MTAw&artst=MjIyMw==" target="_blank">
+              <div class="hero-book-cover">
+                <img src="https://lea.co.ao/images/livros/Sorriso-Nao-e-Felicidade.jpg" alt="" onerror="this.style.display='none'">
+                <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+              </div>
+              <div class="hero-book-title">Sorriso Não é Felicidade</div>
+            </a>
+            <a class="hero-book" href="https://lea.co.ao/literatura/exemplar.php?code=OTk=&artst=MjIyMw==" target="_blank">
+              <div class="hero-book-cover">
+                <img src="https://lea.co.ao/images/livros/O-Futuro-Nao-Muda-com-as-Palavras.jpg" alt="" onerror="this.style.display='none'">
+                <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+              </div>
+              <div class="hero-book-title">O Futuro Não Muda</div>
+            </a>
+            <a class="hero-book" href="https://lea.co.ao/literatura/exemplar.php?code=OTQ=&artst=MTQ2Ng==" target="_blank">
+              <div class="hero-book-cover">
+                <img src="https://lea.co.ao/images/livros/O-Pequeno-Mona-e-a-Arvore-dos-Direitos.jpg" alt="" onerror="this.style.display='none'">
+                <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+              </div>
+              <div class="hero-book-title">O Pequeno Mona</div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="hero-gold-bar"></div>
+  </div>
+
+
+  <!-- FILTER TABS -->
+  <div class="filter-bar">
+    <a class="filter-tab active" href="#">Tudo</a>
+    <a class="filter-tab" href="https://lea.co.ao/downloads/todos-livros.php?strt=0&acc=1" target="_blank">📚 Livros</a>
+    <a class="filter-tab" href="https://lea.co.ao/literatura/poemas.php?ini=0" target="_blank">✍️ Poesias</a>
+    <a class="filter-tab" href="https://lea.co.ao/literatura/dizeres.php?strt=0" target="_blank">💬 Frases</a>
+    <div class="filter-right">
+      <select class="filter-select">
+        <option>Mais recentes</option>
+        <option>Mais lidos</option>
+        <option>A-Z</option>
+      </select>
+    </div>
+  </div>
+
+
+  <!-- =============================================
+       CONTEÚDO PRINCIPAL
+       ============================================= -->
+  <div class="container">
+    <div class="page-layout">
+
+      <main>
+
+        <!-- ── LIVROS ── -->
+        <div class="sec-hdr">
+          <h2>📚 <span>Livros</span> à venda</h2>
+          <a class="sec-link" href="https://lea.co.ao/downloads/todos-livros.php?strt=0&acc=1" target="_blank">Ver todos os livros →</a>
+        </div>
+
+        <div class="books-grid">
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/O-SENTIMENTO-NA-ESCRITA.jpg" alt="O Sentimento Na Escrita" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">O Sentimento Na Escrita</div>
+            <div class="book-author">Adão Zina</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=MTEy&artst=MjI2Mw==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=MTEy&artst=MjI2Mw==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/Gravador-de-Sentimentos.jpg" alt="Gravador de Sentimentos" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">Gravador de Sentimentos</div>
+            <div class="book-author">Adão Zina</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=MTEx&artst=MjI2Mw==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=MTEx&artst=MjI2Mw==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/Testemunho-de-um-Coracao.jpg" alt="Testemunho de um Coração" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">Testemunho de um Coração</div>
+            <div class="book-author">Adão Zina</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=MTEw&artst=MjI2Mw==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=MTEw&artst=MjI2Mw==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/Sagrado-Prazer.jpg" alt="Sagrado Prazer" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">Sagrado Prazer</div>
+            <div class="book-author">Lwinizia Fernandes</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=MTA5&artst=MjI2MA==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=MTA5&artst=MjI2MA==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/Hematoma-Social.jpg" alt="Hematoma Social" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">Hematoma Social</div>
+            <div class="book-author">Poeta Falso</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=MTAx&artst=MjIyMw==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=MTAx&artst=MjIyMw==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/Sorriso-Nao-e-Felicidade.jpg" alt="Sorriso Não é Felicidade" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">Sorriso Não é Felicidade</div>
+            <div class="book-author">Poeta Falso</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=MTAw&artst=MjIyMw==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=MTAw&artst=MjIyMw==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/O-Futuro-Nao-Muda-com-as-Palavras.jpg" alt="" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">O Futuro Não Muda com as Palavras</div>
+            <div class="book-author">Poeta Falso</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=OTk=&artst=MjIyMw==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=OTk=&artst=MjIyMw==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/Censurado-no-Pais-das-Maravilhas.jpg" alt="" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">Censurado no País das Maravilhas</div>
+            <div class="book-author">Poeta Falso</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=OTg=&artst=MjIyMw==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=OTg=&artst=MjIyMw==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/Cabo-Delgado-em-Gritos.jpg" alt="" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">Cabo Delgado em Gritos</div>
+            <div class="book-author">Poeta Falso</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=OTY=&artst=MjIyMw==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=OTY=&artst=MjIyMw==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/O-Pequeno-Mona-e-a-Arvore-dos-Direitos.jpg" alt="" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">O Pequeno Mona e a Árvore dos Direitos</div>
+            <div class="book-author">Bel Neto</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=OTQ=&artst=MTQ2Ng==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=OTQ=&artst=MTQ2Ng==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/Quinhao-diz-Nao.jpeg" alt="" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">Quinhão diz Não</div>
+            <div class="book-author">Suzana Diogo</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=MTA4&artst=MjI1Mw==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=MTA4&artst=MjI1Mw==" target="_blank">+</a>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-cover">
+              <img src="https://lea.co.ao/images/livros/Adelina-Rosa-Migalhas.jpg" alt="" onerror="this.style.display='none'">
+              <div class="cover-placeholder"><i class="ti ti-book"></i></div>
+            </div>
+            <div class="book-title">Migalhas</div>
+            <div class="book-author">Poetisa dos Pés Descalços</div>
+            <div class="book-actions">
+              <a class="btn-book-buy" href="https://lea.co.ao/literatura/exemplar.php?code=MTA2&artst=MjIzNg==" target="_blank">Comprar</a>
+              <a class="btn-book-more" href="https://lea.co.ao/literatura/exemplar.php?code=MTA2&artst=MjIzNg==" target="_blank">+</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- paginação livros -->
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <div style="font-size:13px;color:var(--lit-muted);">Mostrando 12 de 112 livros</div>
+          <div class="lea-pagination">
+            <a class="page-btn" href="#"><i class="ti ti-chevron-left"></i></a>
+            <a class="page-btn active" href="#">1</a>
+            <a class="page-btn" href="#">2</a>
+            <a class="page-btn" href="#">3</a>
+            <span style="color:var(--lit-muted);font-size:13px;padding:0 4px;">…</span>
+            <a class="page-btn" href="#">6</a>
+            <a class="page-btn" href="#"><i class="ti ti-chevron-right"></i></a>
+          </div>
+        </div>
+
+
+        <!-- AD 1 -->
+        <div class="mb-4">
+          <div class="ann"><i class="ti ti-ad"></i> Leaderboard 728×90</div>
+          <div class="ad-strip">
+            <span class="ad-pill">Pub</span>
+            <div class="ad-strip-thumb" style="background:var(--lea-blue);">UN</div>
+            <div class="ad-strip-copy">
+              <strong>Unitel — Plano Ilimitado por Kz 3.500/mês</strong><br>
+              <span>Ligação rápida em todo o país · unitel.ao</span>
+            </div>
+            <button class="btn-lea-sm">Ver oferta</button>
+          </div>
+        </div>
+
+
+        <!-- ── POESIAS ── -->
+        <div class="sec-hdr">
+          <h2>✍️ <span>Poesias</span></h2>
+          <a class="sec-link" href="https://lea.co.ao/literatura/poemas.php?ini=0" target="_blank">Ver todas →</a>
+        </div>
+
+        <div class="poems-grid">
+
+          <a class="poem-card" href="https://lea.co.ao/literatura/poema.php?poe=37" target="_blank">
+            <span class="poem-category">Reflexão</span>
+            <div class="poem-excerpt">
+              Congo… Ho, Congo… Congo, tu, filha antiga de África. Quem te disse que não podes ser linda? Que não podes vestir-te de luz, pintar o rosto de esperança…
+            </div>
+            <div class="poem-footer">
+              <div class="poem-author">
+                <div class="poem-author-avatar">
+                  <img src="https://lea.co.ao/artistas/imgs/Ci.jpg" alt="" onerror="this.style.display='none'">
+                  <div class="av-fall">CI</div>
+                </div>
+                <div>
+                  <div class="poem-author-name">Ci</div>
+                  <div class="poem-title-link">Congo — Filha Antiga de África</div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a class="poem-card" href="https://lea.co.ao/literatura/poema.php?poe=36" target="_blank">
+            <span class="poem-category">Reflexão</span>
+            <div class="poem-excerpt">
+              Andei descalço sobre o mal, caminhei longas distâncias para alcançar as montanhas e para poder ver os icebergs, neles fiz marcantes pinturas com água salgada indelével…
+            </div>
+            <div class="poem-footer">
+              <div class="poem-author">
+                <div class="poem-author-avatar">
+                  <img src="https://lea.co.ao/artistas/imgs/Jose-Carlos-De-Almeida.jpg" alt="" onerror="this.style.display='none'">
+                  <div class="av-fall">JC</div>
+                </div>
+                <div>
+                  <div class="poem-author-name">José Carlos De Almeida</div>
+                  <div class="poem-title-link">Mar</div>
+                </div>
+              </div>
+              <div class="poem-reads"><i class="ti ti-eye"></i> —</div>
+            </div>
+          </a>
+
+          <a class="poem-card" href="https://lea.co.ao/literatura/poema.php?poe=35" target="_blank">
+            <span class="poem-category">Reflexão</span>
+            <div class="poem-excerpt">
+              Pesada é a bagagem do viajante que vai do não existir ao existir e do existir ao não existir. Enquanto me dura essa viagem que outros me doaram como herança…
+            </div>
+            <div class="poem-footer">
+              <div class="poem-author">
+                <div class="poem-author-avatar">
+                  <img src="https://lea.co.ao/artistas/imgs/Rui-Augusto.jpg" alt="" onerror="this.style.display='none'">
+                  <div class="av-fall">RA</div>
+                </div>
+                <div>
+                  <div class="poem-author-name">Rui Augusto</div>
+                  <div class="poem-title-link">Talismã</div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a class="poem-card" href="https://lea.co.ao/literatura/poema.php?poe=34" target="_blank">
+            <span class="poem-category">Romance</span>
+            <div class="poem-excerpt">
+              São diferentes hoje os olhos com que te abraço a cintura azul. Ó mar diferentes também as nossas posturas ontológicas. Hoje sou eu que te tenho…
+            </div>
+            <div class="poem-footer">
+              <div class="poem-author">
+                <div class="poem-author-avatar">
+                  <img src="https://lea.co.ao/artistas/imgs/Rui-Augusto.jpg" alt="" onerror="this.style.display='none'">
+                  <div class="av-fall">RA</div>
+                </div>
+                <div>
+                  <div class="poem-author-name">Rui Augusto</div>
+                  <div class="poem-title-link">As Minhas Águas</div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a class="poem-card" href="https://lea.co.ao/literatura/poema.php?poe=1" target="_blank">
+            <span class="poem-category">Reflexão</span>
+            <div class="poem-excerpt">
+              As belas meninas pardas que passam na rua, de vestidos coloridos e sandálias de lacetes, com sorrisos de marfim e olhos de azeviche…
+            </div>
+            <div class="poem-footer">
+              <div class="poem-author">
+                <div class="poem-author-avatar">
+                  <img src="https://lea.co.ao/artistas/imgs/Alda Lara.jpg" alt="" onerror="this.style.display='none'">
+                  <div class="av-fall">AL</div>
+                </div>
+                <div>
+                  <div class="poem-author-name">Alda Lara</div>
+                  <div class="poem-title-link">As belas meninas pardas</div>
+                </div>
+              </div>
+              <div class="poem-reads"><i class="ti ti-eye"></i> 1.359</div>
+            </div>
+          </a>
+
+          <a class="poem-card" href="https://lea.co.ao/literatura/poema.php?poe=3" target="_blank">
+            <span class="poem-category">Reflexão</span>
+            <div class="poem-excerpt">
+              Havemos de voltar à ilha do Cabo Verde, à Guiné, a São Tomé, a Angola, a Moçambique. Havemos de voltar. Na força da luz e do amor da vida…
+            </div>
+            <div class="poem-footer">
+              <div class="poem-author">
+                <div class="poem-author-avatar">
+                  <img src="https://lea.co.ao/artistas/imgs/Agostinho Neto.jpg" alt="" onerror="this.style.display='none'">
+                  <div class="av-fall">AN</div>
+                </div>
+                <div>
+                  <div class="poem-author-name">Agostinho Neto</div>
+                  <div class="poem-title-link">Havemos de voltar</div>
+                </div>
+              </div>
+              <div class="poem-reads"><i class="ti ti-eye"></i> 1.172</div>
+            </div>
+          </a>
+
+        </div>
+
+
+        <!-- AD 2 -->
+        <div class="mb-4">
+          <div class="ann"><i class="ti ti-ad"></i> In-content nativo</div>
+          <div class="ad-strip">
+            <span class="ad-pill">Pub</span>
+            <div class="ad-strip-thumb" style="background:#1D9E75;">BAI</div>
+            <div class="ad-strip-copy">
+              <strong>BAI — Conta jovem sem comissões</strong><br>
+              <span>Abre já online · bai.ao</span>
+            </div>
+            <button class="btn-lea-sm" style="background:#1D9E75;">Saber mais</button>
+          </div>
+        </div>
+
+
+        <!-- ── FRASES ── -->
+        <div class="sec-hdr">
+          <h2>💬 <span>Frases</span> & Dizeres</h2>
+          <a class="sec-link" href="https://lea.co.ao/literatura/dizeres.php?strt=0" target="_blank">Ver todas →</a>
+        </div>
+
+        <div class="quotes-grid">
+
+          <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MjIyMw==&dzr=58" target="_blank">
+            <span class="quote-category qcat-reflexao">Reflexão</span>
+            <div class="quote-text">Só quem já errou entende o peso e o valor do recomeço.</div>
+            <div class="quote-author">
+              <div class="quote-author-avatar"><img src="https://lea.co.ao/artistas/imgs/Poeta-Falso.jpg" alt="" onerror="this.style.display='none'"><div class="qav-fall">PF</div></div>
+              <span class="quote-author-name">Poeta Falso</span>
+              <span class="quote-reads ms-auto">Abr 2026</span>
+            </div>
+          </a>
+
+          <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MjIyMw==&dzr=57" target="_blank">
+            <span class="quote-category qcat-encorajamento">Encorajamento</span>
+            <div class="quote-text">Perdoar-se é curar-se e encontrar a paz mental.</div>
+            <div class="quote-author">
+              <div class="quote-author-avatar"><img src="https://lea.co.ao/artistas/imgs/Poeta-Falso.jpg" alt="" onerror="this.style.display='none'"><div class="qav-fall">PF</div></div>
+              <span class="quote-author-name">Poeta Falso</span>
+              <span class="quote-reads ms-auto">Abr 2026</span>
+            </div>
+          </a>
+
+          <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=ODQ1&dzr=56" target="_blank">
+            <span class="quote-category qcat-lamentos">Lamentos</span>
+            <div class="quote-text">Nos deixem crescer também, nos deixem sonhar e ser o que somos.</div>
+            <div class="quote-author">
+              <div class="quote-author-avatar"><img src="https://lea.co.ao/artistas/imgs/Gato Preto.jpg" alt="" onerror="this.style.display='none'"><div class="qav-fall">GP</div></div>
+              <span class="quote-author-name">Gato Preto</span>
+              <span class="quote-reads ms-auto">507 leituras</span>
+            </div>
+          </a>
+
+          <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=NDk0&dzr=55" target="_blank">
+            <span class="quote-category qcat-lamentos">Lamentos</span>
+            <div class="quote-text">África parece um corpo inerte onde circula sangue mas cuja alma não se manifesta.</div>
+            <div class="quote-author">
+              <div class="quote-author-avatar"><img src="https://lea.co.ao/artistas/imgs/Agostinho Neto.jpg" alt="" onerror="this.style.display='none'"><div class="qav-fall">AN</div></div>
+              <span class="quote-author-name">Agostinho Neto</span>
+            </div>
+          </a>
+
+          <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=ODQ1&dzr=53" target="_blank">
+            <span class="quote-category qcat-vida">Vida</span>
+            <div class="quote-text">Não sou o que sonhei, mas amo o que eu sou.</div>
+            <div class="quote-author">
+              <div class="quote-author-avatar"><img src="https://lea.co.ao/artistas/imgs/Gato Preto.jpg" alt="" onerror="this.style.display='none'"><div class="qav-fall">GP</div></div>
+              <span class="quote-author-name">Gato Preto</span>
+              <span class="quote-reads ms-auto">507 leituras</span>
+            </div>
+          </a>
+
+          <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MTQ=&dzr=51" target="_blank">
+            <span class="quote-category qcat-atitude">Atitude</span>
+            <div class="quote-text">Há gente que teve de mudar o discurso, porque a realidade não lhes deu razão.</div>
+            <div class="quote-author">
+              <div class="quote-author-avatar"><img src="https://lea.co.ao/artistas/imgs/Mc K.jpg" alt="" onerror="this.style.display='none'"><div class="qav-fall">MK</div></div>
+              <span class="quote-author-name">Mc K</span>
+              <span class="quote-reads ms-auto">498 leituras</span>
+            </div>
+          </a>
+
+          <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=OTg2&dzr=46" target="_blank">
+            <span class="quote-category qcat-lideranca">Liderança</span>
+            <div class="quote-text">Acredito que o que falta em nós, angolanos, é a capacidade de nos assumirmos como líderes das nossas próprias vidas.</div>
+            <div class="quote-author">
+              <div class="quote-author-avatar"><img src="https://lea.co.ao/artistas/imgs/Tomas Gaspar.jpg" alt="" onerror="this.style.display='none'"><div class="qav-fall">TG</div></div>
+              <span class="quote-author-name">Tomás Gaspar</span>
+              <span class="quote-reads ms-auto">500 leituras</span>
+            </div>
+          </a>
+
+          <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=ODEz&dzr=47" target="_blank">
+            <span class="quote-category qcat-inspiracao">Inspiração</span>
+            <div class="quote-text">De onde eu vim nem nos era permitido sonhar. E eu sonhei. E cheguei até aqui.</div>
+            <div class="quote-author">
+              <div class="quote-author-avatar"><img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'"><div class="qav-fall">FD</div></div>
+              <span class="quote-author-name">Francisco Destino</span>
+              <span class="quote-reads ms-auto">525 leituras</span>
+            </div>
+          </a>
+
+          <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=NTA=&dzr=52" target="_blank">
+            <span class="quote-category qcat-relacionamentos">Relacionamentos</span>
+            <div class="quote-text">Quando os ratos se vêm encurralados, mordem até o gato.</div>
+            <div class="quote-author">
+              <div class="quote-author-avatar"><img src="https://lea.co.ao/artistas/imgs/Yola Araujo.jpg" alt="" onerror="this.style.display='none'"><div class="qav-fall">YA</div></div>
+              <span class="quote-author-name">Yola Araújo</span>
+            </div>
+          </a>
+
+          <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MjMw&dzr=40" target="_blank">
+            <span class="quote-category qcat-reflexao">Reflexão</span>
+            <div class="quote-text">A morte e o sono, são filhos do mesmo pai.</div>
+            <div class="quote-author">
+              <div class="quote-author-avatar"><img src="https://lea.co.ao/artistas/imgs/Nagrelha.jpg" alt="" onerror="this.style.display='none'"><div class="qav-fall">NA</div></div>
+              <span class="quote-author-name">Nagrelha</span>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- paginação frases -->
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div style="font-size:13px;color:var(--lit-muted);">Mostrando 10 de 58 frases</div>
+          <div class="lea-pagination">
+            <a class="page-btn" href="#"><i class="ti ti-chevron-left"></i></a>
+            <a class="page-btn active" href="#">1</a>
+            <a class="page-btn" href="#">2</a>
+            <a class="page-btn" href="#">3</a>
+            <a class="page-btn" href="#"><i class="ti ti-chevron-right"></i></a>
+          </div>
+        </div>
+
+      </main>
+
+
+      <!-- =============================================
+           SIDEBAR
+           ============================================= -->
+      <aside class="lit-sidebar desktop-only">
+
+        <!-- Frase do dia -->
+        <div class="frase-dia-card">
+          <div class="frase-dia-label">✨ Frase do dia</div>
+          <div class="frase-dia-text">
+            O objetivo é mexer com a mente das pessoas, para que possam pensar e agir diferente.
+          </div>
+          <div class="frase-dia-author">
+            <div class="frase-dia-avatar">
+              <img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'">
+            </div>
+            <div>
+              <div class="frase-dia-name">Francisco Destino</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);">Inspiração</div>
+            </div>
+          </div>
+          <button class="btn-share-frase"><i class="ti ti-share"></i> Partilhar esta frase</button>
+        </div>
+
+        <!-- Poemas mais lidos -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-header">
+            <i class="ti ti-feather"></i>
+            <h3>Poemas mais lidos</h3>
+          </div>
+          <a class="popular-item" href="https://lea.co.ao/literatura/poema.php?poe=1" target="_blank">
+            <span class="popular-num p1">1</span>
+            <div class="popular-avatar"><img src="https://lea.co.ao/artistas/imgs/Alda Lara.jpg" alt="" onerror="this.style.display='none'"><div class="pav-fall">AL</div></div>
+            <div><div class="popular-title">As belas meninas pardas</div><div class="popular-meta"><i class="ti ti-eye"></i> 1.359 leituras · Alda Lara</div></div>
+          </a>
+          <a class="popular-item" href="https://lea.co.ao/literatura/poema.php?poe=3" target="_blank">
+            <span class="popular-num p2">2</span>
+            <div class="popular-avatar"><img src="https://lea.co.ao/artistas/imgs/Agostinho Neto.jpg" alt="" onerror="this.style.display='none'"><div class="pav-fall">AN</div></div>
+            <div><div class="popular-title">Havemos de voltar</div><div class="popular-meta"><i class="ti ti-eye"></i> 1.172 leituras · Agostinho Neto</div></div>
+          </a>
+          <a class="popular-item" href="https://lea.co.ao/literatura/poema.php?poe=16" target="_blank">
+            <span class="popular-num p3">3</span>
+            <div class="popular-avatar"><img src="https://lea.co.ao/artistas/imgs/Viriato da Cruz.jpg" alt="" onerror="this.style.display='none'"><div class="pav-fall">VC</div></div>
+            <div><div class="popular-title">Namoro</div><div class="popular-meta"><i class="ti ti-eye"></i> 1.045 leituras · Viriato da Cruz</div></div>
+          </a>
+          <a class="popular-item" href="https://lea.co.ao/literatura/poema.php?poe=6" target="_blank">
+            <span class="popular-num rest">4</span>
+            <div class="popular-avatar"><img src="https://lea.co.ao/artistas/imgs/Jofre Rocha.jpg" alt="" onerror="this.style.display='none'"><div class="pav-fall">JR</div></div>
+            <div><div class="popular-title">De mãos Vazias</div><div class="popular-meta"><i class="ti ti-eye"></i> 1.040 leituras · Jofre Rocha</div></div>
+          </a>
+          <a class="popular-item" href="https://lea.co.ao/literatura/poema.php?poe=8" target="_blank">
+            <span class="popular-num rest">5</span>
+            <div class="popular-avatar"><img src="https://lea.co.ao/artistas/imgs/Satira Mc Furia.jpg" alt="" onerror="this.style.display='none'"><div class="pav-fall">SM</div></div>
+            <div><div class="popular-title">A Fê</div><div class="popular-meta"><i class="ti ti-eye"></i> 1.034 leituras · Satira Mc Furia</div></div>
+          </a>
+        </div>
+
+        <!-- Livros em destaque sidebar -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-header">
+            <i class="ti ti-book"></i>
+            <h3>Livros em destaque</h3>
+          </div>
+          <a class="sidebar-book" href="https://lea.co.ao/literatura/exemplar.php?code=ODk=&artst=MjA1MA==" target="_blank">
+            <div class="sidebar-book-cover"><img src="https://lea.co.ao/images/livros/Poder Ancestral.jpg" alt="" onerror="this.style.display='none'"><div class="sbc-fall"><i class="ti ti-book"></i></div></div>
+            <div><div class="sidebar-book-title">Poder Ancestral</div><div class="sidebar-book-author">—</div><div class="sidebar-book-price">Kz 3.450</div></div>
+          </a>
+          <a class="sidebar-book" href="https://lea.co.ao/literatura/exemplar.php?code=Mzk=&artst=MTA4NQ==" target="_blank">
+            <div class="sidebar-book-cover"><img src="https://lea.co.ao/images/livros/Jonas Savimbi do lado errado da historia.jpg" alt="" onerror="this.style.display='none'"><div class="sbc-fall"><i class="ti ti-book"></i></div></div>
+            <div><div class="sidebar-book-title">Jonas Savimbi</div><div class="sidebar-book-author">—</div><div class="sidebar-book-price">Kz 9.800</div></div>
+          </a>
+          <a class="sidebar-book" href="https://lea.co.ao/literatura/exemplar.php?code=MzU=&artst=MjE3" target="_blank">
+            <div class="sidebar-book-cover"><img src="https://lea.co.ao/images/livros/Voce e maior que o seu sonho.jpg" alt="" onerror="this.style.display='none'"><div class="sbc-fall"><i class="ti ti-book"></i></div></div>
+            <div><div class="sidebar-book-title">Você é Maior Que Seus Sonhos</div><div class="sidebar-book-author">—</div><div class="sidebar-book-price">Kz 5.300</div></div>
+          </a>
+          <a class="sidebar-book" href="https://lea.co.ao/literatura/exemplar.php?code=MTY=&artst=Nzgz" target="_blank">
+            <div class="sidebar-book-cover"><img src="https://lea.co.ao/images/livros/Muana puo.jpg" alt="" onerror="this.style.display='none'"><div class="sbc-fall"><i class="ti ti-book"></i></div></div>
+            <div><div class="sidebar-book-title">Muana Puó</div><div class="sidebar-book-author">—</div><div class="sidebar-book-price">Kz 10.500</div></div>
+          </a>
+          <a class="sidebar-book" href="https://lea.co.ao/literatura/exemplar.php?code=MzM=&artst=Nzgw" target="_blank">
+            <div class="sidebar-book-cover"><img src="https://lea.co.ao/images/livros/a professora de filosofia.jpg" alt="" onerror="this.style.display='none'"><div class="sbc-fall"><i class="ti ti-book"></i></div></div>
+            <div><div class="sidebar-book-title">A Professora de Filosofia</div><div class="sidebar-book-author">—</div><div class="sidebar-book-price">Kz 6.500</div></div>
+          </a>
+        </div>
+
+        <!-- Frases mais lidas -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-header">
+            <i class="ti ti-quote"></i>
+            <h3>Frases mais lidas</h3>
+          </div>
+          <a class="popular-item" href="https://lea.co.ao/literatura/dizere.php?art=ODEz&dzr=47" target="_blank">
+            <span class="popular-num p1">1</span>
+            <div class="popular-avatar"><img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'"><div class="pav-fall">FD</div></div>
+            <div><div class="popular-title">De onde eu vim nem nos era permitido…</div><div class="popular-meta"><i class="ti ti-eye"></i> 525 · Francisco Destino</div></div>
+          </a>
+          <a class="popular-item" href="https://lea.co.ao/literatura/dizere.php?art=ODEz&dzr=48" target="_blank">
+            <span class="popular-num p2">2</span>
+            <div class="popular-avatar"><img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'"><div class="pav-fall">FD</div></div>
+            <div><div class="popular-title">O objetivo é mexer com a mente das…</div><div class="popular-meta"><i class="ti ti-eye"></i> 513 · Francisco Destino</div></div>
+          </a>
+          <a class="popular-item" href="https://lea.co.ao/literatura/dizere.php?art=ODQ1&dzr=53" target="_blank">
+            <span class="popular-num p3">3</span>
+            <div class="popular-avatar"><img src="https://lea.co.ao/artistas/imgs/Gato Preto.jpg" alt="" onerror="this.style.display='none'"><div class="pav-fall">GP</div></div>
+            <div><div class="popular-title">Não sou o que sonhei, mas amo o que eu…</div><div class="popular-meta"><i class="ti ti-eye"></i> 507 · Gato Preto</div></div>
+          </a>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+
+
+  <!-- =============================================
+       FOOTER
+       ============================================= -->
+  <footer class="lea-footer py-3 px-4 mt-2">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div class="d-flex align-items-center gap-2">
+        <img src="assets/img/logo.png" alt="LEA" height="24">
+        <small style="font-size:11px;color:rgba(255,255,255,0.35);">© 2017–2026</small>
+      </div>
+      <div class="d-flex gap-3 flex-wrap">
+        <a class="footer-link" href="#">Sobre nós</a>
+        <a class="footer-link" href="#">Contactos</a>
+        <a class="footer-link" href="#">Privacidade</a>
+        <a class="footer-link" href="#">Termos</a>
+        <a class="footer-link" href="#">Publicitar</a>
+      </div>
+      <div class="d-flex gap-3">
+        <a class="footer-social" href="#"><i class="ti ti-brand-instagram"></i></a>
+        <a class="footer-social" href="#"><i class="ti ti-brand-facebook"></i></a>
+        <a class="footer-social" href="#"><i class="ti ti-brand-youtube"></i></a>
+        <a class="footer-social" href="#"><i class="ti ti-brand-whatsapp"></i></a>
+        <a class="footer-social" href="#"><i class="ti ti-brand-telegram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- BOTTOM NAV MOBILE -->
+  <nav class="bottom-nav">
+    <a class="bnav-item" href="index.html"><i class="ti ti-home"></i><span class="bnav-lbl">Início</span></a>
+    <a class="bnav-item" href="artistas.html"><i class="ti ti-users"></i><span class="bnav-lbl">Artistas</span></a>
+    <a class="bnav-item active" href="literatura.html"><i class="ti ti-book"></i><span class="bnav-lbl">Literatura</span></a>
+    <a class="bnav-item" href="noticias.html"><i class="ti ti-news"></i><span class="bnav-lbl">Notícias</span></a>
+    <a class="bnav-item" href="#"><i class="ti ti-menu-2"></i><span class="bnav-lbl">Menu</span></a>
+  </nav>
+
+
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+    // Filter tabs
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Partilhar frase do dia
+    document.querySelector('.btn-share-frase')?.addEventListener('click', () => {
+      const text = 'O objetivo é mexer com a mente das pessoas, para que possam pensar e agir diferente. — Francisco Destino | via LEA';
+      if (navigator.share) {
+        navigator.share({ text, url: 'https://lea.co.ao/literatura/dizere.php?art=ODEz&dzr=48' });
+      } else {
+        navigator.clipboard.writeText(text);
+        const btn = document.querySelector('.btn-share-frase');
+        btn.innerHTML = '<i class="ti ti-check"></i> Copiado!';
+        setTimeout(() => btn.innerHTML = '<i class="ti ti-share"></i> Partilhar esta frase', 2500);
+      }
+    });
+
+  </script>
+
+</body>
+</html>
