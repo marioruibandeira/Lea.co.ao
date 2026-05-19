@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerilson Israel — Perfil · LEA</title>
+
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/menu.footer.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       RESET & BASE
+       ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f5f7fb;
+      color: #111827;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Sora', sans-serif; margin: 0; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { font-family: 'DM Sans', sans-serif; cursor: pointer; }
+
+    /* =============================================
+       TOKENS
+       ============================================= */
+    :root {
+      --blue-dark:   #1A4A8A;
+      --blue-light:  #E8F0FB;
+      --blue-mid:    #3B7DD8;
+      --teal:        #1D9E75;
+      --purple:      #534AB7;
+      --amber:       #C07A1A;
+      --red:         #DC2626;
+      --surface:     #f5f7fb;
+      --border:      rgba(37,99,176,0.12);
+      --text:        #111827;
+      --muted:       #6B7280;
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --radius-lg:   16px;
+    }
+
+    /* =============================================
+       NAVBAR DESKTOP
+       ============================================= */
+    .lea-navbar {
+      background: var(--lea-white);
+      border-bottom: 1px solid var(--border);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: 24px;
+    }
+    .lea-navbar-brand {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+    .lea-navbar-brand img { height: 32px; }
+    .lea-navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex: 1;
+    }
+    .lea-navbar-links a {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      transition: color .15s, background .15s;
+      white-space: nowrap;
+    }
+    .lea-navbar-links a:hover,
+    .lea-navbar-links a.active { color: var(--lea-blue); background: var(--blue-light); }
+    .lea-navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .lea-search-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid rgba(37,99,176,0.2);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 150px;
+    }
+
+    /* =============================================
+       BUTTONS
+       ============================================= */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--lea-blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 18px;
+      transition: background .15s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--blue-dark); color: #fff; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 16px;
+      transition: background .15s;
+      white-space: nowrap;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.22); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--lea-blue);
+      border: 1px solid var(--lea-blue);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 14px;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .btn-outline:hover { background: var(--lea-blue); color: #fff; }
+
+    .btn-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--lea-blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      transition: background .15s;
+      white-space: nowrap;
+    }
+    .btn-sm:hover { background: var(--blue-dark); color: #fff; }
+
+    .btn-icon-round {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all .15s;
+      flex-shrink: 0;
+    }
+    .btn-icon-round:hover { background: var(--blue-light); color: var(--lea-blue); border-color: var(--lea-blue); }
+
+    /* =============================================
+       TOPBAR MOBILE
+       ============================================= */
+    .mobile-topbar {
+      display: none;
+      background: var(--lea-white);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .mobile-topbar img { height: 28px; }
+    .mobile-topbar-icons { display: flex; gap: 16px; font-size: 20px; color: var(--muted); }
+
+    /* =============================================
+       ARTIST COVER
+       ============================================= */
+    .artist-cover {
+      position: relative;
+      height: 300px;
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--lea-blue) 60%, var(--blue-mid) 100%);
+      overflow: hidden;
+    }
+    .artist-cover-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: brightness(0.55);
+    }
+    .artist-cover-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
+    }
+    .artist-cover-body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 28px;
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+    }
+    .artist-avatar-cover {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.45);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--lea-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .artist-avatar-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .artist-cover-info { flex: 1; min-width: 0; }
+    .artist-cover-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .badge-cat {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 99px;
+      backdrop-filter: blur(4px);
+    }
+    .badge-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      background: var(--lea-blue);
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+    .artist-name-cover {
+      font-family: 'Sora', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .artist-meta-cover {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .artist-meta-cover span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+    }
+    .artist-meta-cover i { font-size: 14px; color: rgba(255,255,255,0.5); }
+    .artist-cover-actions {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+      align-self: flex-end;
+      padding-bottom: 6px;
+    }
+
+    /* =============================================
+       STATS BAR
+       ============================================= */
+    .stats-bar {
+      background: var(--lea-white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: stretch;
+    }
+    .stat-bar-item {
+      flex: 1;
+      padding: 14px 12px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-bar-item:last-child { border-right: none; }
+    .stat-bar-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-bar-num span { color: var(--lea-blue); }
+    .stat-bar-lbl {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 3px;
+      white-space: nowrap;
+    }
+
+    /* Mobile follow bar */
+    .mobile-follow-bar {
+      display: none;
+      background: var(--lea-white);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      gap: 10px;
+      align-items: center;
+    }
+    .mobile-follow-bar .btn-primary { flex: 1; justify-content: center; }
+
+    /* =============================================
+       PROFILE TABS
+       ============================================= */
+    .profile-tabs {
+      background: var(--lea-white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      overflow-x: auto;
+      position: sticky;
+      top: 56px;
+      z-index: 80;
+      gap: 0;
+    }
+    .profile-tabs::-webkit-scrollbar { height: 0; }
+    .profile-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 14px 16px;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all .15s;
+      flex-shrink: 0;
+    }
+    .profile-tab:hover { color: var(--text); }
+    .profile-tab.active { color: var(--lea-blue); border-bottom-color: var(--lea-blue); }
+    .profile-tab i { font-size: 15px; }
+
+    /* =============================================
+       LAYOUT
+       ============================================= */
+    .profile-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+    .profile-main { min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+    .profile-sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+    /* =============================================
+       SECTION HEADER
+       ============================================= */
+    .sec-hdr {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .sec-hdr h2 { font-size: 15px; font-weight: 700; color: var(--text); }
+    .sec-more { font-size: 12px; color: var(--lea-blue); }
+    .sec-more:hover { text-decoration: underline; }
+
+    /* =============================================
+       CARD BASE
+       ============================================= */
+    .card {
+      background: var(--lea-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .card-pad { padding: 20px; margin-bottom: 20px;}
+
+    /* =============================================
+       BIO
+       ============================================= */
+    .bio-text {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .bio-text + .bio-text { margin-top: 12px; }
+    .bio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 16px;
+    }
+    .bio-tag {
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--blue-light);
+      color: var(--lea-blue);
+      padding: 4px 12px;
+      border-radius: 99px;
+    }
+
+    /* =============================================
+       TRACK LIST
+       ============================================= */
+    .track-list { background: var(--lea-white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .track-list-header {
+      display: grid;
+      grid-template-columns: 36px 1fr 90px 64px 76px;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .track-row {
+      display: grid;
+      grid-template-columns: 36px 1fr 90px 64px 76px;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 16px;
+      border-bottom: 1px solid var(--border);
+      transition: background .12s;
+      position: relative;
+    }
+    .track-row:last-child { border-bottom: none; }
+    .track-row:hover { background: var(--surface); }
+    .track-row:hover .tr-num { opacity: 0; }
+    .track-row:hover .tr-play { opacity: 1; }
+
+    .tr-num {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      transition: opacity .12s;
+    }
+    .tr-play {
+      position: absolute;
+      left: 12px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--lea-blue);
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity .12s;
+    }
+
+    .tr-info { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .tr-thumb {
+      width: 38px;
+      height: 38px;
+      border-radius: 7px;
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .tr-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .tr-name { font-size: 13px; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tr-sub  { font-size: 11px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .tr-genre {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      background: var(--blue-light);
+      color: var(--lea-blue);
+      padding: 3px 9px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+    .tr-dur { font-size: 12px; color: var(--muted); }
+    .tr-actions { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+    .tr-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .12s;
+    }
+    .tr-btn:hover { background: var(--blue-light); color: var(--lea-blue); border-color: var(--lea-blue); }
+
+    /* =============================================
+       ALBUMS GRID
+       ============================================= */
+    .albums-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+      gap: 16px;
+    }
+    .album-card {
+      background: var(--lea-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .album-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(37,99,176,0.10); }
+    .album-cover {
+      width: 100%;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .album-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .album-play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .album-card:hover .album-play-overlay { opacity: 1; }
+    .album-play-overlay i { font-size: 28px; color: #fff; }
+    .album-body { padding: 12px; }
+    .album-title { font-size: 13px; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 2px; }
+    .album-meta  { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+    .album-buy-btn {
+      display: block;
+      width: 100%;
+      background: var(--blue-light);
+      color: var(--lea-blue);
+      border: none;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px;
+      text-align: center;
+      transition: all .12s;
+    }
+    .album-buy-btn:hover { background: var(--lea-blue); color: #fff; }
+
+    /* =============================================
+       VIDEOS GRID
+       ============================================= */
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .video-card {
+      background: var(--lea-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform .2s;
+    }
+    .video-card:hover { transform: translateY(-3px); }
+    .vc-thumb {
+      height: 120px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vc-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+    .video-card:hover .vc-thumb img { transform: scale(1.05); }
+    .vc-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 30px; color: rgba(255,255,255,0.3); }
+    .vc-play-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .2s; }
+    .vc-play-overlay i { font-size: 30px; color: #fff; }
+    .video-card:hover .vc-play-overlay { opacity: 1; }
+    .vc-duration { position: absolute; bottom: 7px; right: 7px; font-size: 10px; font-weight: 600; background: rgba(0,0,0,0.7); color: #fff; padding: 2px 6px; border-radius: 4px; }
+    .vc-cat-badge { position: absolute; top: 7px; left: 7px; font-size: 9px; font-weight: 700; text-transform: uppercase; background: var(--lea-blue); color: #fff; padding: 2px 7px; border-radius: 99px; }
+    .vc-body { padding: 10px 12px; }
+    .vc-title { font-size: 12px; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 2px; }
+    .vc-date  { font-size: 10px; color: var(--muted); }
+
+    /* =============================================
+       GALLERY
+       ============================================= */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 8px;
+    }
+    .gallery-item {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; display: block; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gi-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 28px; color: rgba(255,255,255,0.3); }
+    .gi-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); opacity: 0; transition: opacity .2s; display: flex; align-items: center; justify-content: center; }
+    .gi-overlay i { font-size: 22px; color: #fff; }
+    .gallery-item:hover .gi-overlay { opacity: 1; }
+    .gallery-more .gi-overlay { opacity: 1 !important; background: rgba(0,0,0,0.55); }
+    .gallery-more .gi-overlay span { font-size: 16px; font-weight: 700; color: #fff; }
+
+    /* =============================================
+       EVENTS
+       ============================================= */
+    .events-list { display: flex; flex-direction: column; gap: 12px; }
+    .event-item {
+      background: var(--lea-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      transition: border-color .15s;
+    }
+    .event-item:hover { border-color: var(--lea-blue); }
+    .event-date-col {
+      width: 68px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 8px;
+      gap: 2px;
+    }
+    .event-day   { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 700; color: #fff; line-height: 1; }
+    .event-month { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: rgba(255,255,255,0.75); }
+    .event-body  { flex: 1; padding: 14px 16px; border-left: 1px solid var(--border); }
+    .event-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    .event-meta  { display: flex; flex-wrap: wrap; gap: 10px; font-size: 11px; color: var(--muted); }
+    .event-meta i { font-size: 12px; color: var(--lea-blue); }
+    .event-action { padding: 14px 16px; border-left: 1px solid var(--border); display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 8px; min-width: 110px; }
+    .event-price { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); }
+    .event-price small { font-size: 10px; font-weight: 400; color: var(--muted); }
+
+    /* =============================================
+       AD ELEMENTS
+       ============================================= */
+    .ad-pill { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: #bbb; border: 1px solid #ddd; border-radius: 4px; padding: 2px 6px; }
+    .ann { font-size: 10px; color: var(--lea-blue); display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
+    .ad-placeholder {
+      background: var(--surface);
+      border: 1px dashed #ccd9ef;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      gap: 4px;
+    }
+    .ad-placeholder .ad-size { font-size: 13px; font-weight: 600; color: #c0cfe8; }
+    .ad-placeholder .ad-type { font-size: 10px; color: #c0cfe8; }
+
+    .ad-strip {
+      background: var(--lea-white);
+      border: 1px dashed #ccd9ef;
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+	  margin-bottom: 20px;
+    }
+    .ad-strip-thumb { width: 52px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .ad-strip-copy { flex: 1; }
+    .ad-strip-copy strong { font-size: 13px; font-weight: 500; color: var(--text); display: block; }
+    .ad-strip-copy small { font-size: 11px; color: var(--muted); }
+
+    /* =============================================
+       SIDEBAR CARDS
+       ============================================= */
+    .sidebar-card {
+      background: var(--lea-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .sidebar-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-card-header h3 { font-size: 13px; font-weight: 700; color: var(--text); }
+    .sidebar-card-header i { font-size: 16px; color: var(--lea-blue); }
+
+    .related-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      transition: background .12s;
+    }
+    .related-item:last-child { border-bottom: none; }
+    .related-item:hover { background: var(--surface); }
+    .rel-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .rel-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .rel-info { flex: 1; min-width: 0; }
+    .rel-name { font-size: 12px; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .rel-type { font-size: 10px; color: var(--muted); }
+    .rel-follow-btn {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--lea-blue);
+      background: var(--blue-light);
+      border: none;
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+      transition: all .12s;
+      flex-shrink: 0;
+    }
+    .rel-follow-btn:hover { background: var(--lea-blue); color: #fff; }
+
+    /* Próximo evento sidebar */
+    .sidebar-event { padding: 14px; }
+    .sidebar-event-label { font-size: 10px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--lea-blue); margin-bottom: 5px; }
+    .sidebar-event-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .sidebar-event-loc { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+    .sidebar-buy-btn {
+      display: block;
+      width: 100%;
+      background: var(--lea-blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px;
+      text-align: center;
+      transition: background .15s;
+    }
+    .sidebar-buy-btn:hover { background: var(--blue-dark); color: #fff; }
+
+    /* Ad nativo sidebar */
+    .sidebar-ad { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; background: var(--surface); }
+    .sidebar-ad-img { height: 68px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #fff; }
+    .sidebar-ad-body { padding: 10px 12px; }
+    .sidebar-ad-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .sidebar-ad-link { font-size: 11px; color: var(--lea-blue); }
+    .sidebar-ad-link:hover { text-decoration: underline; }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    .lea-footer {
+      background: var(--lea-white);
+      border-top: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .footer-brand span { color: var(--lea-blue); }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { font-size: 12px; color: var(--muted); transition: color .12s; }
+    .footer-links a:hover { color: var(--lea-blue); }
+    .footer-socials { display: flex; gap: 14px; }
+    .footer-socials a { font-size: 20px; color: var(--lea-blue); transition: opacity .15s; }
+    .footer-socials a:hover { opacity: .7; }
+
+    /* =============================================
+       BOTTOM NAV MOBILE
+       ============================================= */
+    .bottom-nav {
+      display: none;
+      background: var(--lea-white);
+      border-top: 1px solid var(--border);
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 62px;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 200;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+    .bnav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 22px;
+      color: var(--muted);
+      flex: 1;
+      justify-content: center;
+      background: none;
+      border: none;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0;
+    }
+    .bnav-btn.active, .bnav-btn:hover { color: var(--lea-blue); }
+    .bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+
+    /* =============================================
+       MENU DRAWER
+       ============================================= */
+    .menu-drawer { position: fixed; inset: 0; z-index: 500; visibility: hidden; }
+    .menu-drawer.open { visibility: visible; }
+    .menu-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: opacity .25s; }
+    .menu-drawer.open .menu-overlay { opacity: 1; }
+    
+    /* =============================================
+       BREAKPOINTS
+       ============================================= */
+    @media (min-width: 992px) {
+      .mobile-topbar   { display: none !important; }
+      .mobile-follow-bar { display: none !important; }
+      .bottom-nav      { display: none !important; }
+      body             { padding-bottom: 0; }
+    }
+
+    @media (max-width: 991px) {
+      .lea-navbar      { display: none !important; }
+      .mobile-topbar   { display: flex; }
+      .mobile-follow-bar { display: flex; }
+      .bottom-nav      { display: flex; }
+      body             { padding-bottom: 62px; }
+      .lea-footer      { padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px) + 12px); }
+      .artist-cover    { height: 220px; }
+      .artist-cover-actions { display: none; }
+      .artist-name-cover { font-size: 20px; }
+      .profile-wrap    { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+      .profile-sidebar { display: none; }
+      .profile-tabs    { top: 49px; }
+      .track-list-header,
+      .track-row { grid-template-columns: 36px 1fr 76px; }
+      .th-genre, .th-dur,
+      .tr-genre, .tr-dur { display: none; }
+      .albums-grid     { grid-template-columns: repeat(3,1fr); }
+      .videos-grid     { grid-template-columns: repeat(2,1fr); }
+      .event-action    { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .albums-grid { grid-template-columns: repeat(2,1fr); }
+      .stats-bar   { flex-wrap: wrap; }
+      .stat-bar-item { flex: 1 1 33%; border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+	<div class="read-progress-bar" id="readProgress"></div>
+  <!-- =============================================
+       NAVBAR DESKTOP
+       ============================================= -->
+  <nav class="lea-navbar">
+  <div class="lea-navbar-links">
+	<div class="logo-link">
+		<a href="../index.html" class="lea-navbar-brand">
+		  <img src="../assets/img/logo.png" alt="LEA" class="logo-shodow">		  
+		</a>
+		<a href="../index.html" class="txt-logo-link">
+		<span class="logo-lea">LEA</span>
+		</a>
+	</div>
+    <div class="lea-navbar-links">
+      <a href="../index.html">Início</a>
+      <a href="../artistas.html" class="active">Artistas</a>
+      <a href="../musica.html">Músicas</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../literatura.html">Literatura</a>
+      <a href="../noticias.html">Notícias</a>
+      <a href="../eventos.html">Eventos</a>
+      <a href="../loja.html">Loja</a>
+    </div>
+    <div class="lea-navbar-right">
+      <div class="lea-search-box">
+        <i class="ti ti-search" style="font-size:13px;color:var(--muted);"></i>
+        <span style="font-size:12px;color:var(--muted);">Pesquisar…</span>
+      </div>
+      <button class="btn-sm">Entrar</button>
+    </div>
+  </nav>
+
+  <!-- =============================================
+       TOPBAR MOBILE
+       ============================================= -->
+  <header class="mobile-topbar">
+	<div class="logo-link-mbl">
+		<a href="../index.html">
+			<img src="../assets/img/logo.png" alt="LEA" class="logo-shodow">			
+		</a>
+		<a href="../index.html" class="txt-logo-link">
+			<span class="logo-lea txt-logo-link-mbl">LEA</span>
+		</a>
+	</div>
+	
+    <div class="mobile-topbar-icons">
+      <i class="ti ti-search"></i>
+      <i class="ti ti-bell"></i>
+      <i class="ti ti-user-circle"></i>
+    </div>
+  </header>
+
+
+  <!-- =============================================
+       CAPA DO ARTISTA
+       ============================================= -->
+  <div class="artist-cover">
+    <img class="artist-cover-bg"
+         src="https://lea.co.ao/artistas/imgs/Gerilson_ISRAEL_na_Lea.jpg"
+         alt="Gerilson Israel"
+         onerror="this.style.display='none'">
+    <div class="artist-cover-gradient"></div>
+    <div class="artist-cover-body">
+
+      <div class="artist-avatar-cover">
+        <img src="https://lea.co.ao/artistas/imgs/Gerilson_ISRAEL_na_Lea.jpg"
+             alt="GI" onerror="this.style.display='none'">
+        GI
+      </div>
+
+      <div class="artist-cover-info">
+        <div class="artist-cover-badges">
+          <span class="badge-cat"><i class="ti ti-music" style="font-size:10px;"></i> Cantor</span>
+          <span class="badge-verified"><i class="ti ti-rosette-discount-check" style="font-size:10px;"></i> Verificado</span>
+        </div>
+        <div class="artist-name-cover">Gerilson Israel</div>
+        <div class="artist-meta-cover">
+          <span><i class="ti ti-map-pin"></i> Luanda, Angola</span>
+          <span><i class="ti ti-music"></i> Kizomba · Afrohouse · Semba</span>
+          <span><i class="ti ti-calendar"></i> Desde 2018</span>
+        </div>
+      </div>
+
+      <div class="artist-cover-actions">
+        <button class="btn-primary" id="btnFollowDesktop">
+          <i class="ti ti-user-plus"></i> Seguir
+        </button>
+        <button class="btn-secondary" id="btnShareDesktop">
+          <i class="ti ti-share"></i> Partilhar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- =============================================
+       STATS BAR
+       ============================================= -->
+  <div class="stats-bar">
+    <div class="stat-bar-item">
+      <div class="stat-bar-num">27<span>.8k</span></div>
+      <div class="stat-bar-lbl">Visitas</div>
+    </div>
+    <div class="stat-bar-item">
+      <div class="stat-bar-num">10</div>
+      <div class="stat-bar-lbl">Seguidores</div>
+    </div>
+    <div class="stat-bar-item">
+      <div class="stat-bar-num">5<span>.4k</span></div>
+      <div class="stat-bar-lbl">Pesquisas</div>
+    </div>
+    <div class="stat-bar-item">
+      <div class="stat-bar-num">12</div>
+      <div class="stat-bar-lbl">Músicas</div>
+    </div>
+    <div class="stat-bar-item">
+      <div class="stat-bar-num">4</div>
+      <div class="stat-bar-lbl">Vídeos</div>
+    </div>
+    <div class="stat-bar-item">
+      <div class="stat-bar-num">#<span>1</span></div>
+      <div class="stat-bar-lbl">Ranking</div>
+    </div>
+  </div>
+
+
+  <!-- =============================================
+       BOTÕES MOBILE (abaixo da capa)
+       ============================================= -->
+  <div class="mobile-follow-bar">
+    <button class="btn-primary" id="btnFollowMobile" style="flex:1;justify-content:center;">
+      <i class="ti ti-user-plus"></i> Seguir
+    </button>
+    <button class="btn-icon-round" style="background:var(--surface);border:1px solid var(--border);">
+      <i class="ti ti-share" style="font-size:16px;color:var(--muted);"></i>
+    </button>
+    <button class="btn-icon-round" style="background:var(--surface);border:1px solid var(--border);">
+      <i class="ti ti-dots" style="font-size:16px;color:var(--muted);"></i>
+    </button>
+  </div>
+
+
+  <!-- =============================================
+       ABAS
+       ============================================= -->
+  <div class="profile-tabs" id="profileTabs">
+    <a class="profile-tab active" data-tab="bio">
+      <i class="ti ti-info-circle"></i> Biografia
+    </a>
+    <a class="profile-tab" data-tab="musicas">
+      <i class="ti ti-music"></i> Músicas
+    </a>
+    <a class="profile-tab" data-tab="albums">
+      <i class="ti ti-disc"></i> Álbuns
+    </a>
+    <a class="profile-tab" data-tab="videos">
+      <i class="ti ti-video"></i> Vídeos
+    </a>
+    <a class="profile-tab" data-tab="galeria">
+      <i class="ti ti-photo"></i> Galeria
+    </a>
+    <a class="profile-tab" data-tab="eventos">
+      <i class="ti ti-calendar-event"></i> Eventos
+    </a>
+  </div>
+
+
+  <!-- =============================================
+       CONTEÚDO PRINCIPAL
+       ============================================= -->
+  <div class="profile-wrap">
+
+    <!-- MAIN -->
+    <main class="profile-main">
+	
+	<!-- CORPO DO ARTIGO -->
+    <div class="article-body" id="articleBody">
+
+      <!-- ── TAB: BIOGRAFIA ── -->
+      <div id="tab-bio">
+
+        <div class="card card-pad">
+          <div class="sec-hdr">
+            <h2>Sobre Gerilson Israel</h2>
+          </div>
+          <p class="bio-text">
+            Gerilson Israel é um cantor angolano natural de Luanda, reconhecido como um dos artistas mais populares e visitados da plataforma LEA. A sua música mistura kizomba, afrohouse e semba, criando um som inconfundível que conquistou Angola e a diáspora africana.
+          </p>
+          <p class="bio-text">
+            Com uma carreira iniciada na segunda metade dos anos 2010, Gerilson Israel rapidamente se destacou pela sua voz única e pela profundidade das suas letras. As suas músicas falam de amor, identidade angolana e vivência urbana em Luanda.
+          </p>
+          <p class="bio-text">
+            É um dos artistas mais pesquisados no LEA, com mais de 27 mil visitas ao perfil e presença constante nos rankings da plataforma.
+          </p>
+          <div class="bio-tags">
+            <span class="bio-tag">Kizomba</span>
+            <span class="bio-tag">Afrohouse</span>
+            <span class="bio-tag">Semba</span>
+            <span class="bio-tag">Luanda</span>
+            <span class="bio-tag">Angola</span>
+          </div>
+        </div>
+
+        <!-- AD -->
+        <div>
+          <div class="ann"><i class="ti ti-ad"></i> In-content</div>
+          <div class="ad-strip">
+            <span class="ad-pill">Pub</span>
+            <div class="ad-strip-thumb" style="background:var(--lea-blue);">UN</div>
+            <div class="ad-strip-copy">
+              <strong>Unitel — Plano Ilimitado por Kz 3.500/mês</strong>
+              <small>Ligação rápida em todo o país · unitel.ao</small>
+            </div>
+            <button class="btn-sm">Ver oferta</button>
+          </div>
+        </div>
+
+        <!-- Músicas populares preview -->
+        <div>
+          <div class="sec-hdr">
+            <h2>Músicas populares</h2>
+            <a class="sec-more" href="#" onclick="switchTab('musicas');return false;">Ver todas →</a>
+          </div>
+          <div class="track-list">
+            <div class="track-row">
+              <div style="position:relative;display:flex;align-items:center;justify-content:center;"><span class="tr-num">1</span><button class="tr-play"><i class="ti ti-player-play-filled"></i></button></div>
+              <div class="tr-info">
+                <div class="tr-thumb" style="background:linear-gradient(135deg,#2563B0,#1D9E75);">
+                  <img src="https://lea.co.ao/images/videos/Eu sou assim.jpg" alt="" onerror="this.style.display='none'">
+                </div>
+                <div><div class="tr-name">Eu Sou Assim</div><div class="tr-sub">Single · 2024</div></div>
+              </div>
+              <span class="tr-genre th-genre">Kizomba</span>
+              <span class="tr-dur th-dur">4:32</span>
+              <div class="tr-actions">
+                <button class="tr-btn"><i class="ti ti-heart"></i></button>
+                <button class="tr-btn"><i class="ti ti-download"></i></button>
+              </div>
+            </div>
+            <div class="track-row">
+              <div style="position:relative;display:flex;align-items:center;justify-content:center;"><span class="tr-num">2</span><button class="tr-play"><i class="ti ti-player-play-filled"></i></button></div>
+              <div class="tr-info">
+                <div class="tr-thumb" style="background:linear-gradient(135deg,#534AB7,#2563B0);">
+                  <img src="https://lea.co.ao/images/videos/Vou Chorar.jpg" alt="" onerror="this.style.display='none'">
+                </div>
+                <div><div class="tr-name">Vou Chorar</div><div class="tr-sub">Single · 2022</div></div>
+              </div>
+              <span class="tr-genre th-genre">Afrohouse</span>
+              <span class="tr-dur th-dur">3:58</span>
+              <div class="tr-actions">
+                <button class="tr-btn"><i class="ti ti-heart"></i></button>
+                <button class="tr-btn"><i class="ti ti-download"></i></button>
+              </div>
+            </div>
+            <div class="track-row">
+              <div style="position:relative;display:flex;align-items:center;justify-content:center;"><span class="tr-num">3</span><button class="tr-play"><i class="ti ti-player-play-filled"></i></button></div>
+              <div class="tr-info">
+                <div class="tr-thumb" style="background:linear-gradient(135deg,#1D9E75,#2563B0);">GI</div>
+                <div><div class="tr-name">Saudade de Angola</div><div class="tr-sub">Álbum Raízes · 2023</div></div>
+              </div>
+              <span class="tr-genre th-genre">Semba</span>
+              <span class="tr-dur th-dur">4:15</span>
+              <div class="tr-actions">
+                <button class="tr-btn"><i class="ti ti-heart"></i></button>
+                <button class="tr-btn"><i class="ti ti-download"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tab-bio -->
+
+
+      <!-- ── TAB: MÚSICAS ── -->
+      <div id="tab-musicas" style="display:none;">
+        <div class="sec-hdr">
+          <h2>Todas as músicas</h2>
+          <a class="sec-more" href="musica.html">Ver em Músicas →</a>
+        </div>
+        <div class="track-list">
+          <div class="track-list-header">
+            <div style="text-align:center;">#</div>
+            <div>Título</div>
+            <div class="th-genre">Género</div>
+            <div class="th-dur">Dur.</div>
+            <div style="text-align:right;">Ações</div>
+          </div>
+          <div class="track-row">
+            <div style="position:relative;display:flex;align-items:center;justify-content:center;"><span class="tr-num">1</span><button class="tr-play"><i class="ti ti-player-play-filled"></i></button></div>
+            <div class="tr-info"><div class="tr-thumb" style="background:linear-gradient(135deg,#2563B0,#1D9E75);"><img src="https://lea.co.ao/images/videos/Eu sou assim.jpg" alt="" onerror="this.style.display='none'"></div><div><div class="tr-name">Eu Sou Assim</div><div class="tr-sub">Single · 2024</div></div></div>
+            <span class="tr-genre th-genre">Kizomba</span><span class="tr-dur th-dur">4:32</span>
+            <div class="tr-actions"><button class="tr-btn"><i class="ti ti-heart"></i></button><button class="tr-btn"><i class="ti ti-download"></i></button></div>
+          </div>
+          <div class="track-row">
+            <div style="position:relative;display:flex;align-items:center;justify-content:center;"><span class="tr-num">2</span><button class="tr-play"><i class="ti ti-player-play-filled"></i></button></div>
+            <div class="tr-info"><div class="tr-thumb" style="background:linear-gradient(135deg,#534AB7,#2563B0);"><img src="https://lea.co.ao/images/videos/Vou Chorar.jpg" alt="" onerror="this.style.display='none'"></div><div><div class="tr-name">Vou Chorar</div><div class="tr-sub">Single · 2022</div></div></div>
+            <span class="tr-genre th-genre">Afrohouse</span><span class="tr-dur th-dur">3:58</span>
+            <div class="tr-actions"><button class="tr-btn"><i class="ti ti-heart"></i></button><button class="tr-btn"><i class="ti ti-download"></i></button></div>
+          </div>
+          <div class="track-row">
+            <div style="position:relative;display:flex;align-items:center;justify-content:center;"><span class="tr-num">3</span><button class="tr-play"><i class="ti ti-player-play-filled"></i></button></div>
+            <div class="tr-info"><div class="tr-thumb" style="background:linear-gradient(135deg,#1D9E75,#2563B0);">GI</div><div><div class="tr-name">Saudade de Angola</div><div class="tr-sub">Álbum Raízes · 2023</div></div></div>
+            <span class="tr-genre th-genre">Semba</span><span class="tr-dur th-dur">4:15</span>
+            <div class="tr-actions"><button class="tr-btn"><i class="ti ti-heart"></i></button><button class="tr-btn"><i class="ti ti-download"></i></button></div>
+          </div>
+          <div class="track-row">
+            <div style="position:relative;display:flex;align-items:center;justify-content:center;"><span class="tr-num">4</span><button class="tr-play"><i class="ti ti-player-play-filled"></i></button></div>
+            <div class="tr-info"><div class="tr-thumb" style="background:linear-gradient(135deg,#C07A1A,#2563B0);">GI</div><div><div class="tr-name">Angola Minha Terra</div><div class="tr-sub">Single · 2021</div></div></div>
+            <span class="tr-genre th-genre">Semba</span><span class="tr-dur th-dur">5:02</span>
+            <div class="tr-actions"><button class="tr-btn"><i class="ti ti-heart"></i></button><button class="tr-btn"><i class="ti ti-download"></i></button></div>
+          </div>
+          <div class="track-row">
+            <div style="position:relative;display:flex;align-items:center;justify-content:center;"><span class="tr-num">5</span><button class="tr-play"><i class="ti ti-player-play-filled"></i></button></div>
+            <div class="tr-info"><div class="tr-thumb" style="background:linear-gradient(135deg,#9D174D,#534AB7);">GI</div><div><div class="tr-name">Preciso de Ti</div><div class="tr-sub">Álbum Raízes · 2023</div></div></div>
+            <span class="tr-genre th-genre">Kizomba</span><span class="tr-dur th-dur">3:44</span>
+            <div class="tr-actions"><button class="tr-btn"><i class="ti ti-heart"></i></button><button class="tr-btn"><i class="ti ti-download"></i></button></div>
+          </div>
+          <div class="track-row">
+            <div style="position:relative;display:flex;align-items:center;justify-content:center;"><span class="tr-num">6</span><button class="tr-play"><i class="ti ti-player-play-filled"></i></button></div>
+            <div class="tr-info"><div class="tr-thumb" style="background:linear-gradient(135deg,#3B7DD8,#1D9E75);">GI</div><div><div class="tr-name">Luanda à Noite</div><div class="tr-sub">Álbum Raízes · 2023</div></div></div>
+            <span class="tr-genre th-genre">Afrohouse</span><span class="tr-dur th-dur">4:08</span>
+            <div class="tr-actions"><button class="tr-btn"><i class="ti ti-heart"></i></button><button class="tr-btn"><i class="ti ti-download"></i></button></div>
+          </div>
+        </div>
+      </div><!-- /tab-musicas -->
+
+
+      <!-- ── TAB: ÁLBUNS ── -->
+      <div id="tab-albums" style="display:none;">
+        <div class="sec-hdr">
+          <h2>Álbuns & EPs</h2>
+        </div>
+        <div class="albums-grid">
+
+          <div class="album-card">
+            <div class="album-cover" style="background:linear-gradient(135deg,#2563B0,#1D9E75);">
+              <div class="album-play-overlay"><i class="ti ti-player-play-filled"></i></div>
+              GI
+            </div>
+            <div class="album-body">
+              <div class="album-title">Raízes</div>
+              <div class="album-meta">Álbum · 2023 · 10 faixas</div>
+              <button class="album-buy-btn">Comprar · Kz 1.200</button>
+            </div>
+          </div>
+
+          <div class="album-card">
+            <div class="album-cover" style="background:linear-gradient(135deg,#534AB7,#2563B0);">
+              <div class="album-play-overlay"><i class="ti ti-player-play-filled"></i></div>
+              GI
+            </div>
+            <div class="album-body">
+              <div class="album-title">Luanda Noturna EP</div>
+              <div class="album-meta">EP · 2022 · 5 faixas</div>
+              <button class="album-buy-btn">Comprar · Kz 700</button>
+            </div>
+          </div>
+
+          <div class="album-card">
+            <div class="album-cover" style="background:linear-gradient(135deg,#1D9E75,#C07A1A);">
+              <div class="album-play-overlay"><i class="ti ti-player-play-filled"></i></div>
+              GI
+            </div>
+            <div class="album-body">
+              <div class="album-title">Primeiro Amor</div>
+              <div class="album-meta">Álbum · 2020 · 8 faixas</div>
+              <button class="album-buy-btn">Comprar · Kz 900</button>
+            </div>
+          </div>
+
+          <div class="album-card">
+            <div class="album-cover" style="background:linear-gradient(135deg,#C07A1A,#9D174D);">
+              <div class="album-play-overlay"><i class="ti ti-player-play-filled"></i></div>
+              GI
+            </div>
+            <div class="album-body">
+              <div class="album-title">Gerilson Israel Vol.1</div>
+              <div class="album-meta">Álbum · 2018 · 12 faixas</div>
+              <button class="album-buy-btn">Comprar · Kz 800</button>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /tab-albums -->
+
+
+      <!-- ── TAB: VÍDEOS ── -->
+      <div id="tab-videos" style="display:none;">
+        <div class="sec-hdr">
+          <h2>Videoclipes</h2>
+          <a class="sec-more" href="videos.html">Ver em Vídeos →</a>
+        </div>
+        <div class="videos-grid">
+
+          <a class="video-card" href="https://lea.co.ao/videos/video.php?v=485" target="_blank">
+            <div class="vc-thumb">
+              <img src="https://lea.co.ao/images/videos/Eu sou assim.jpg" alt="" onerror="this.style.display='none'">
+              <div class="vc-placeholder" style="background:linear-gradient(135deg,#2563B0,#1D9E75);"><i class="ti ti-music"></i></div>
+              <div class="vc-play-overlay"><i class="ti ti-player-play-filled"></i></div>
+              <span class="vc-cat-badge">Clipe</span>
+              <span class="vc-duration">4:32</span>
+            </div>
+            <div class="vc-body"><div class="vc-title">Eu Sou Assim</div><div class="vc-date">Out 2024</div></div>
+          </a>
+
+          <a class="video-card" href="https://lea.co.ao/videos/video.php?v=190" target="_blank">
+            <div class="vc-thumb">
+              <img src="https://lea.co.ao/images/videos/Vou Chorar.jpg" alt="" onerror="this.style.display='none'">
+              <div class="vc-placeholder" style="background:linear-gradient(135deg,#534AB7,#2563B0);"><i class="ti ti-music"></i></div>
+              <div class="vc-play-overlay"><i class="ti ti-player-play-filled"></i></div>
+              <span class="vc-cat-badge">Clipe</span>
+              <span class="vc-duration">3:58</span>
+            </div>
+            <div class="vc-body"><div class="vc-title">Vou Chorar</div><div class="vc-date">2022</div></div>
+          </a>
+
+          <a class="video-card" href="videos.html">
+            <div class="vc-thumb">
+              <div class="vc-placeholder" style="background:linear-gradient(135deg,#1D9E75,#2563B0);"><i class="ti ti-music"></i></div>
+              <div class="vc-play-overlay"><i class="ti ti-player-play-filled"></i></div>
+              <span class="vc-cat-badge">Clipe</span>
+              <span class="vc-duration">4:15</span>
+            </div>
+            <div class="vc-body"><div class="vc-title">Saudade de Angola</div><div class="vc-date">2023</div></div>
+          </a>
+
+          <a class="video-card" href="videos.html">
+            <div class="vc-thumb">
+              <div class="vc-placeholder" style="background:linear-gradient(135deg,#9D174D,#534AB7);"><i class="ti ti-video"></i></div>
+              <div class="vc-play-overlay"><i class="ti ti-player-play-filled"></i></div>
+              <span class="vc-cat-badge">Ao vivo</span>
+              <span class="vc-duration">45:22</span>
+            </div>
+            <div class="vc-body"><div class="vc-title">Live Session — Luanda 2023</div><div class="vc-date">2023</div></div>
+          </a>
+
+        </div>
+      </div><!-- /tab-videos -->
+
+
+      <!-- ── TAB: GALERIA ── -->
+      <div id="tab-galeria" style="display:none;">
+        <div class="sec-hdr">
+          <h2>Galeria de fotos</h2>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="https://lea.co.ao/artistas/imgs/Gerilson_ISRAEL_na_Lea.jpg" alt="" onerror="this.style.display='none'">
+            <div class="gi-placeholder" style="background:linear-gradient(135deg,#2563B0,#1D9E75);"><i class="ti ti-photo"></i></div>
+            <div class="gi-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gi-placeholder" style="background:linear-gradient(135deg,#534AB7,#9D174D);"><i class="ti ti-microphone-2"></i></div>
+            <div class="gi-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gi-placeholder" style="background:linear-gradient(135deg,#1D9E75,#2563B0);"><i class="ti ti-users"></i></div>
+            <div class="gi-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gi-placeholder" style="background:linear-gradient(135deg,#C07A1A,#2563B0);"><i class="ti ti-photo"></i></div>
+            <div class="gi-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gi-placeholder" style="background:linear-gradient(135deg,#374151,#2563B0);"><i class="ti ti-photo"></i></div>
+            <div class="gi-overlay"><i class="ti ti-zoom-in"></i></div>
+          </div>
+          <div class="gallery-item gallery-more">
+            <div class="gi-placeholder" style="background:linear-gradient(135deg,#1A4A8A,#534AB7);"><i class="ti ti-photo"></i></div>
+            <div class="gi-overlay"><span>+12 fotos</span></div>
+          </div>
+        </div>
+      </div><!-- /tab-galeria -->
+
+
+      <!-- ── TAB: EVENTOS ── -->
+      <div id="tab-eventos" style="display:none;">
+        <div class="sec-hdr">
+          <h2>Próximos eventos</h2>
+          <a class="sec-more" href="eventos.html">Ver agenda →</a>
+        </div>
+        <div class="events-list">
+
+          <div class="event-item">
+            <div class="event-date-col" style="background:linear-gradient(135deg,#1F2937,#374151);">
+              <div class="event-day">19</div>
+              <div class="event-month">Jul</div>
+            </div>
+            <div class="event-body">
+              <div class="event-title">Noite de Kizomba — Gerilson Israel</div>
+              <div class="event-meta">
+                <span><i class="ti ti-clock"></i> 21:00</span>
+                <span><i class="ti ti-map-pin"></i> Hotel Presidente · Luanda</span>
+                <span style="color:var(--amber);font-weight:600;">Lugares limitados</span>
+              </div>
+            </div>
+            <div class="event-action">
+              <div class="event-price"><small>Kz </small>7.500</div>
+              <a href="loja.html#ingressos" class="btn-sm">Comprar</a>
+            </div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-date-col" style="background:linear-gradient(135deg,#2563B0,#1D9E75);">
+              <div class="event-day">21</div>
+              <div class="event-month">Jun</div>
+            </div>
+            <div class="event-body">
+              <div class="event-title">Festival de Semba 2026 — Participação especial</div>
+              <div class="event-meta">
+                <span><i class="ti ti-clock"></i> 15:00 — 00:00</span>
+                <span><i class="ti ti-map-pin"></i> Ilha de Luanda</span>
+              </div>
+            </div>
+            <div class="event-action">
+              <div class="event-price"><small>Kz </small>3.500</div>
+              <a href="loja.html#ingressos" class="btn-sm">Comprar</a>
+            </div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-date-col" style="background:linear-gradient(135deg,#9D174D,#534AB7);">
+              <div class="event-day">02</div>
+              <div class="event-month">Ago</div>
+            </div>
+            <div class="event-body">
+              <div class="event-title">Concerto Acústico — Luanda Sessions</div>
+              <div class="event-meta">
+                <span><i class="ti ti-clock"></i> 20:00</span>
+                <span><i class="ti ti-map-pin"></i> Centro Cultural · Luanda</span>
+              </div>
+            </div>
+            <div class="event-action">
+              <div class="event-price"><small>Kz </small>4.000</div>
+              <a href="loja.html#ingressos" class="btn-sm">Comprar</a>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /tab-eventos -->
+
+    </main>
+
+
+    <!-- SIDEBAR -->
+    <aside class="profile-sidebar">
+
+      <!-- AD 300×250 -->
+      <div>
+        <div class="ann"><i class="ti ti-ad"></i> 300 × 250 · AdSense</div>
+        <div class="ad-placeholder" style="min-height:140px;">
+          <i class="ti ti-ad" style="font-size:26px;color:#c0cfe8;"></i>
+          <div class="ad-size">300 × 250</div>
+          <div class="ad-type">Medium Rectangle</div>
+        </div>
+      </div>
+
+      <!-- Próximo evento -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <i class="ti ti-calendar-event"></i>
+          <h3>Próximo evento</h3>
+        </div>
+        <div class="sidebar-event">
+          <div class="sidebar-event-label">19 Jul 2026 · 21:00</div>
+          <div class="sidebar-event-title">Noite de Kizomba</div>
+          <div class="sidebar-event-loc"><i class="ti ti-map-pin" style="font-size:12px;color:var(--lea-blue);"></i> Hotel Presidente · Luanda</div>
+          <a href="loja.html#ingressos" class="sidebar-buy-btn">Comprar ingresso · Kz 7.500</a>
+        </div>
+      </div>
+
+      <!-- Artistas relacionados -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <i class="ti ti-users"></i>
+          <h3>Artistas relacionados</h3>
+        </div>
+        <div class="related-item">
+          <div class="rel-avatar" style="background:#534AB7;">
+            <img src="https://lea.co.ao/artistas/imgs/Nair Nany.jpg" alt="" onerror="this.style.display='none'">NN
+          </div>
+          <div class="rel-info"><div class="rel-name">Nair Nany</div><div class="rel-type">Cantora · Semba</div></div>
+          <button class="rel-follow-btn">Seguir</button>
+        </div>
+        <div class="related-item">
+          <div class="rel-avatar" style="background:#1D9E75;">
+            <img src="https://lea.co.ao/artistas/imgs/Anderson-Mario.jpg" alt="" onerror="this.style.display='none'">AM
+          </div>
+          <div class="rel-info"><div class="rel-name">Anderson Mário</div><div class="rel-type">Cantor · Afrohouse</div></div>
+          <button class="rel-follow-btn">Seguir</button>
+        </div>
+        <div class="related-item">
+          <div class="rel-avatar" style="background:#C07A1A;">
+            <img src="https://lea.co.ao/artistas/imgs/Prodigio_na_lea.jpg" alt="" onerror="this.style.display='none'">PR
+          </div>
+          <div class="rel-info"><div class="rel-name">Prodígio</div><div class="rel-type">Cantor · Rap</div></div>
+          <button class="rel-follow-btn">Seguir</button>
+        </div>
+        <div class="related-item">
+          <div class="rel-avatar" style="background:#9D174D;">
+            <img src="https://lea.co.ao/artistas/imgs/Titica_na_lea.jpg" alt="" onerror="this.style.display='none'">TT
+          </div>
+          <div class="rel-info"><div class="rel-name">Titica</div><div class="rel-type">Cantora · Kuduro</div></div>
+          <button class="rel-follow-btn">Seguir</button>
+        </div>
+        <div class="related-item">
+          <div class="rel-avatar" style="background:#3B7DD8;">
+            <img src="https://lea.co.ao/artistas/imgs/Deezy-na-lea.jpg" alt="" onerror="this.style.display='none'">DZ
+          </div>
+          <div class="rel-info"><div class="rel-name">Deezy</div><div class="rel-type">Cantor · Rap</div></div>
+          <button class="rel-follow-btn">Seguir</button>
+        </div>
+      </div>
+
+      <!-- AD nativo sidebar -->
+      <div>
+        <div class="ann"><i class="ti ti-ad"></i> Nativo sidebar</div>
+        <div class="sidebar-ad">
+          <div class="sidebar-ad-img" style="background:#1D9E75;">BAI — Conta jovem</div>
+          <div class="sidebar-ad-body">
+            <span class="ad-pill" style="display:inline-block;margin-bottom:6px;">Pub</span>
+            <div class="sidebar-ad-title">Abre a tua conta sem comissões · bai.ao</div>
+            <a href="#" class="sidebar-ad-link">Saber mais →</a>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div><!-- /profile-wrap -->
+
+
+  <!-- =============================================
+       FOOTER
+       ============================================= -->
+  <footer class="lea-footer">
+    <div class="footer-brand">
+      <img src="../assets/img/logo.png" alt="LEA" style="height:24px;">
+      <small style="font-size:11px;font-weight:400;color:var(--muted);">© 2017–2026</small>
+    </div>
+    <div class="footer-links">
+      <a href="#">Sobre nós</a>
+      <a href="#">Contactos</a>
+      <a href="#">Privacidade</a>
+      <a href="#">Termos</a>
+      <a href="#">Publicitar</a>
+    </div>
+    <div class="footer-socials">
+      <a href="#"><i class="ti ti-brand-instagram"></i></a>
+      <a href="#"><i class="ti ti-brand-facebook"></i></a>
+      <a href="#"><i class="ti ti-brand-youtube"></i></a>
+      <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+      <a href="#"><i class="ti ti-brand-telegram"></i></a>
+    </div>
+  </footer>
+
+
+  <!-- =============================================
+       BOTTOM NAV MOBILE
+       ============================================= -->
+  <nav class="bottom-nav">
+    <a class="bnav-btn" href="index.html"><i class="ti ti-home"></i><span class="bnav-lbl">Início</span></a>
+    <a class="bnav-btn active" href="artistas.html"><i class="ti ti-users"></i><span class="bnav-lbl">Artistas</span></a>
+    <a class="bnav-btn" href="musica.html"><i class="ti ti-music"></i><span class="bnav-lbl">Músicas</span></a>
+    <a class="bnav-btn" href="loja.html"><i class="ti ti-shopping-bag"></i><span class="bnav-lbl">Loja</span></a>
+    <button class="bnav-btn" id="btnOpenMenu"><i class="ti ti-menu-2"></i><span class="bnav-lbl">Menu</span></button>
+  </nav>
+
+
+
+  <!-- =============================================
+       MENU DRAWER MOBILE
+       ============================================= -->
+  <!--
+  <div class="menu-drawer" id="menuDrawer">
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-panel">
+      <div class="menu-handle"></div>
+      <div class="menu-header">
+        <span class="menu-header-title">Menu</span>
+        <button class="btn-close-menu" id="btnCloseMenu"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="menu-section-title">Navegar</div>
+      <a class="menu-item" href="index.html"><i class="ti ti-home"></i><div><div class="menu-item-label">Início</div><div class="menu-item-sub">Página principal do LEA</div></div></a>
+      <a class="menu-item" href="artistas.html"><i class="ti ti-users"></i><div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.200+ artistas angolanos</div></div></a>
+      <a class="menu-item" href="musica.html"><i class="ti ti-music"></i><div><div class="menu-item-label">Músicas</div><div class="menu-item-sub">Ouve e descarrega</div></div></a>
+      <a class="menu-item" href="videos.html"><i class="ti ti-video"></i><div><div class="menu-item-label">Vídeos</div><div class="menu-item-sub">Clipes, filmes e séries</div></div></a>
+      <a class="menu-item" href="literatura.html"><i class="ti ti-book"></i><div><div class="menu-item-label">Literatura</div><div class="menu-item-sub">Livros, poesias e frases</div></div></a>
+      <a class="menu-item" href="noticias.html"><i class="ti ti-news"></i><div><div class="menu-item-label">Notícias</div><div class="menu-item-sub">Angola em dia</div></div></a>
+      <a class="menu-item" href="eventos.html"><i class="ti ti-calendar-event"></i><div><div class="menu-item-label">Eventos</div><div class="menu-item-sub">Agenda cultural angolana</div></div></a>
+      <a class="menu-item" href="loja.html"><i class="ti ti-shopping-bag"></i><div><div class="menu-item-label">Loja</div><div class="menu-item-sub">Livros, CDs, ingressos e mais</div></div></a>
+      <div class="menu-section-title">Conta</div>
+      <a class="menu-item" href="#"><i class="ti ti-user-circle"></i><div><div class="menu-item-label">Entrar</div><div class="menu-item-sub">Aceder à minha conta</div></div></a>
+      <a class="menu-item" href="#"><i class="ti ti-rosette-discount-check"></i><div><div class="menu-item-label">Certificar artista</div><div class="menu-item-sub">Destaca-te na plataforma</div></div></a>
+      <div class="menu-section-title">Redes sociais</div>
+      <div class="menu-socials">
+        <a href="#"><i class="ti ti-brand-instagram"></i></a>
+        <a href="#"><i class="ti ti-brand-facebook"></i></a>
+        <a href="#"><i class="ti ti-brand-youtube"></i></a>
+        <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+        <a href="#"><i class="ti ti-brand-telegram"></i></a>
+      </div>
+      <button class="btn-menu-signin">Entrar na minha conta</button>
+    </div>
+  </div>-->
+  
+  
+  <!-- =============================================
+       MENU DRAWER MOBILE
+       Abre ao clicar "Menu" na bottom nav
+       ============================================= -->
+  <div class="menu-drawer" id="menuDrawer">
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-panel">
+
+      <div class="menu-handle"></div>
+
+      <div class="menu-header">
+        <span class="menu-header-title">Menu</span>
+        <button class="btn-close-menu" id="btnCloseMenu">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+
+      <!-- Páginas principais -->
+      <div class="menu-section-title">Navegar</div>
+      <a class="menu-item" href="index.html">
+        <i class="ti ti-home"></i>
+        <div><div class="menu-item-label">Início</div><div class="menu-item-sub">Página principal do LEA</div></div>
+      </a>
+      <a class="menu-item" href="artistas.html">
+        <i class="ti ti-users"></i>
+        <div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.200+ artistas angolanos</div></div>
+      </a>
+      <a class="menu-item" href="musica.html">
+        <i class="ti ti-music"></i>
+        <div><div class="menu-item-label">Músicas</div><div class="menu-item-sub">Ouve e descarrega</div></div>
+      </a>
+      <a class="menu-item" href="videos.html">
+        <i class="ti ti-video"></i>
+        <div><div class="menu-item-label">Vídeos</div><div class="menu-item-sub">Clipes, filmes e séries</div></div>
+      </a>
+      <a class="menu-item" href="literatura.html">
+        <i class="ti ti-book"></i>
+        <div><div class="menu-item-label">Literatura</div><div class="menu-item-sub">Livros, poesias e frases</div></div>
+      </a>
+      <a class="menu-item" href="noticias.html">
+        <i class="ti ti-news"></i>
+        <div><div class="menu-item-label">Notícias</div><div class="menu-item-sub">Angola em dia</div></div>
+      </a>
+      <a class="menu-item" href="eventos.html">
+        <i class="ti ti-calendar-event"></i>
+        <div><div class="menu-item-label">Eventos</div><div class="menu-item-sub">Agenda cultural angolana</div></div>
+      </a>
+      <a class="menu-item" href="loja.html">
+        <i class="ti ti-shopping-bag"></i>
+        <div><div class="menu-item-label">Loja</div><div class="menu-item-sub">Livros, CDs, ingressos e mais</div></div>
+      </a>
+
+      <!-- Conta -->
+      <div class="menu-section-title">Conta</div>
+      <a class="menu-item" href="#">
+        <i class="ti ti-user-circle"></i>
+        <div><div class="menu-item-label">Entrar</div><div class="menu-item-sub">Aceder à minha conta</div></div>
+      </a>
+      <a class="menu-item" href="#">
+        <i class="ti ti-rosette-discount-check"></i>
+        <div><div class="menu-item-label">Certificar artista</div><div class="menu-item-sub">Destaca-te na plataforma</div></div>
+      </a>
+
+      <!-- Redes sociais -->
+      <div class="menu-section-title">Redes sociais</div>
+      <div class="menu-social">
+        <a href="#"><i class="ti ti-brand-instagram"></i></a>
+        <a href="#"><i class="ti ti-brand-facebook"></i></a>
+        <a href="#"><i class="ti ti-brand-youtube"></i></a>
+        <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+        <a href="#"><i class="ti ti-brand-telegram"></i></a>
+      </div>
+
+      <button class="btn-menu-entrar">Entrar na minha conta</button>
+
+    </div>
+  </div>
+
+
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/menu.footer.js"></script>
+  
+  <script>
+    // ── Tabs ──
+    const TABS = ['bio','musicas','albums','videos','galeria','eventos'];
+    function switchTab(name) {
+      TABS.forEach(id => {
+        document.getElementById('tab-' + id).style.display = id === name ? 'block' : 'none';
+      });
+      document.querySelectorAll('.profile-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === name);
+      });
+      const tabsTop = document.getElementById('profileTabs').getBoundingClientRect().top + window.scrollY - 60;
+      window.scrollTo({ top: tabsTop, behavior: 'smooth' });
+    }
+    document.querySelectorAll('.profile-tab').forEach(tab => {
+      tab.addEventListener('click', e => { e.preventDefault(); switchTab(tab.dataset.tab); });
+    });
+
+    // ── Seguir ──
+    function setupFollow(id) {
+      const btn = document.getElementById(id);
+      if (!btn) return;
+      let on = false;
+      btn.addEventListener('click', () => {
+        on = !on;
+        btn.innerHTML = on
+          ? '<i class="ti ti-check"></i> A seguir'
+          : '<i class="ti ti-user-plus"></i> Seguir';
+        if (id === 'btnFollowDesktop') {
+          btn.style.background = on ? 'rgba(255,255,255,0.15)' : '';
+          btn.style.border     = on ? '1px solid rgba(255,255,255,0.3)' : '';
+        }
+      });
+    }
+    setupFollow('btnFollowDesktop');
+    setupFollow('btnFollowMobile');
+	
+	//barra em cima que cresce com o scroll
+	// Barra de progresso de leitura
+    window.addEventListener('scroll', () => {
+      const article = document.getElementById('articleBody');
+      if (!article) return;
+      const articleTop = article.offsetTop;
+      const articleHeight = article.offsetHeight;
+      const scrolled = window.scrollY - articleTop + window.innerHeight;
+      const pct = Math.min(100, Math.max(0, (scrolled / articleHeight) * 100));
+      document.getElementById('readProgress').style.width = pct + '%';
+    });
+
+  </script>
+
+</body>
+</html>

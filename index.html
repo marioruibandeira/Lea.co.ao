@@ -425,7 +425,7 @@
               <h1>A casa da <em>cultura</em><br>angolana</h1>
               <p class="mt-2 mb-3">Descobre artistas, músicas, literatura, cinema e muito mais. Tudo num só lugar, feito para valorizar a criatividade angolana.</p>
               <div class="d-flex gap-2">
-                <button class="btn-lea">Explorar artistas</button>
+                <button class="btn-lea" onlClick="linkArtista()">Explorar artistas</button>
                 <button class="btn-lea-outline">Ver loja</button>
               </div>
             </div>
@@ -565,7 +565,7 @@
       <h1>A casa da <em>cultura</em> angolana</h1>
       <p class="mt-2 mb-3">Descobre artistas, músicas, literatura, cinema e muito mais.</p>
       <div class="d-flex gap-2 mb-3">
-        <button class="btn-lea">Explorar</button>
+        <button class="btn-lea" onclick="linkArtista()">Explorar</button>
         <button class="btn-lea-outline">Ver loja</button>
       </div>
       <div class="row g-2">
@@ -885,6 +885,8 @@
 
 
   <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.links.js"></script>
+  
   <script>
     const drawer  = document.getElementById('menuDrawer');
     const overlay = document.getElementById('menuOverlay');

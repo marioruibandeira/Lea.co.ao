@@ -1,0 +1,86 @@
+@font-face {
+    font-family: 'NeoGeo';
+    src: url('../fonts/neo-geo-regular.TTF') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.logo-shodow{ text-shadow: 2px 2px 5px rgba(0,0,0,0.6); }
+
+.logo-lea {
+    font-family: 'NeoGeo', sans-serif;
+    font-weight: 500; /* Medium */
+    font-size: 33px;
+    color: #2563b0;
+    line-height: 0;
+    letter-spacing: -1px;
+}
+
+.logo-link {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	width: 170px;
+    flex: 0 0 auto;
+}
+
+.txt-logo-link {padding:0px !important; display: flex; text-decoration:none;}
+.txt-logo-link-mbl{margin-left:10px}
+
+.logo-link-mbl {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	width: 150px;
+    flex: 0 0 auto;
+}
+
+/*
+.logo-link
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.logo-lea-preto
+{
+    font-family: 'NeoGeo';
+    font-weight: normal;
+    font-size: 24px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    letter-spacing: 2px;
+    color:#292524 !important;
+}
+
+.logo-lea-branco
+{
+    font-family: 'NeoGeo';
+    font-weight: normal;
+    font-size: 24px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    letter-spacing: 2px;
+    color:#A6A09B !important;
+}
+
+.logo-lea-branco-tp
+{
+    font-family: 'NeoGeo';
+    font-weight: normal;
+    font-size: 33px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    letter-spacing: 2px;
+    color:#fff !important;
+}*/
+
+/* =============================================
+       TOKENS
+       ============================================= */
+	:root {
+		--lea-white:   #ffffff;
+		--lea-blue:    #2563B0;
+	}
+	
+/* ── Progress bar ── */
+.read-progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--lea-blue); z-index: 9999; transition: width .1s linear; width: 0%; }
