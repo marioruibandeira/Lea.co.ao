@@ -6,6 +6,7 @@
   <title>LEA Vídeos — Videoclipes, Filmes, Séries e muito mais</title>
 
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -25,7 +26,6 @@
       --lea-text:        #111827;
       --lea-muted:       #6B7280;
 
-      /* Vídeos — tema escuro mas menos pesado que a música */
       --vid-bg:          #0F172A;
       --vid-card:        #1E293B;
       --vid-card2:       #263548;
@@ -41,12 +41,8 @@
     ::-webkit-scrollbar-track { background: var(--vid-bg); }
     ::-webkit-scrollbar-thumb { background: var(--vid-card2); border-radius: 99px; }
 
-    /* ── Navbar ── */
-    .navbar {
-      background: rgba(15,23,42,0.95) !important;
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--vid-border);
-    }
+    /* ── NAVBAR DESKTOP ── */
+    .navbar { background: rgba(15,23,42,0.95) !important; backdrop-filter: blur(12px); border-bottom: 1px solid var(--vid-border); }
     .navbar-brand { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: var(--vid-text) !important; }
     .navbar-brand span { color: var(--lea-blue); }
     .nav-link { font-size: 13px; color: var(--vid-muted) !important; padding: 4px 10px !important; border-radius: 6px; }
@@ -55,71 +51,70 @@
     .navbar-toggler-icon { filter: invert(1); }
     .navbar-toggler { border-color: var(--vid-border) !important; }
     .navbar-collapse { background: rgba(15,23,42,0.98); padding: 8px 0; border-top: 1px solid var(--vid-border); }
-
-    .nav-search {
-      display: flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,0.07); border: 1px solid var(--vid-border);
-      border-radius: 8px; padding: 6px 12px; font-size: 12px; color: var(--vid-muted);
-      min-width: 150px; cursor: pointer; transition: border .15s;
-    }
+    .nav-search { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.07); border: 1px solid var(--vid-border); border-radius: 8px; padding: 6px 12px; font-size: 12px; color: var(--vid-muted); min-width: 150px; cursor: pointer; transition: border .15s; }
     .nav-search:hover { border-color: rgba(255,255,255,0.2); }
-    .btn-entrar { background: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; padding: 7px 16px; cursor: pointer; transition: background .15s; }
+    .btn-entrar { background: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; padding: 7px 16px; cursor: pointer; transition: background .15s; font-family: inherit; }
     .btn-entrar:hover { background: var(--lea-blue-dark); }
-    .btn-lea-sm { background: var(--lea-blue); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; padding: 6px 14px; cursor: pointer; white-space: nowrap; }
+    .btn-lea-sm { background: var(--lea-blue); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; padding: 6px 14px; cursor: pointer; white-space: nowrap; font-family: inherit; }
     .btn-lea-sm:hover { background: var(--lea-blue-dark); }
+
+    /* ── MOBILE TOPBAR ── */
+    .mobile-topbar { display: none; background: rgba(15,23,42,0.97); border-bottom: 1px solid var(--vid-border); padding: 10px 16px; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200; }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav { background: rgba(15,23,42,0.97); border-top: 1px solid var(--vid-border); position: fixed; bottom: 0; left: 0; right: 0; height: 62px; display: none; align-items: center; justify-content: space-around; z-index: 400; padding-bottom: env(safe-area-inset-bottom, 0); }
+    .bnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 22px; color: var(--vid-muted); cursor: pointer; text-decoration: none; flex: 1; justify-content: center; transition: color .12s; background: none; border: none; font-family: inherit; }
+    .bnav-item.active, .bnav-item:hover { color: var(--lea-blue); }
+    .bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+
+    /* ── MENU DRAWER ── */
+    .menu-drawer { position: fixed; inset: 0; z-index: 500; pointer-events: none; }
+    .menu-drawer.open { pointer-events: all; }
+    .menu-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background .3s; }
+    .menu-drawer.open .menu-overlay { background: rgba(0,0,0,0.6); }
+    .menu-panel { position: absolute; bottom: 0; left: 0; right: 0; background: #0F172A; border-top: 1px solid var(--vid-border); border-radius: 20px 20px 0 0; padding: 0 0 env(safe-area-inset-bottom, 16px); max-height: 88vh; overflow-y: auto; transform: translateY(100%); transition: transform .35s cubic-bezier(.32,0,.25,1); }
+    .menu-drawer.open .menu-panel { transform: translateY(0); }
+    .menu-handle { width: 36px; height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; margin: 12px auto 4px; }
+    .menu-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px 8px; border-bottom: 1px solid var(--vid-border); }
+    .menu-header-title { font-size: 15px; font-weight: 700; color: var(--vid-text); }
+    .btn-close-menu { background: none; border: none; font-size: 20px; color: var(--vid-muted); cursor: pointer; padding: 4px; }
+    .menu-section-title { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--vid-muted); padding: 14px 20px 6px; }
+    .menu-item { display: flex; align-items: center; gap: 14px; padding: 11px 20px; text-decoration: none; transition: background .12s; }
+    .menu-item:hover { background: rgba(255,255,255,0.04); }
+    .menu-item > i { font-size: 20px; color: var(--lea-blue); width: 24px; flex-shrink: 0; }
+    .menu-item-label { font-size: 14px; font-weight: 500; color: var(--vid-text); }
+    .menu-item-sub { font-size: 11px; color: var(--vid-muted); margin-top: 1px; }
+    .menu-social { display: flex; gap: 16px; padding: 12px 20px; }
+    .menu-social a { font-size: 22px; color: var(--vid-muted); text-decoration: none; transition: color .12s; }
+    .menu-social a:hover { color: var(--lea-blue); }
+    .btn-menu-entrar { display: block; width: calc(100% - 40px); margin: 14px 20px; background: var(--lea-blue); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; padding: 13px; cursor: pointer; font-family: inherit; transition: background .15s; }
+    .btn-menu-entrar:hover { background: var(--lea-blue-dark); }
 
     /* ── Ad pill ── */
     .ad-pill { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 2px 6px; flex-shrink: 0; }
     .ann { font-size: 10px; color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 4px; margin-bottom: 5px; }
 
-    /* =============================================
-       HERO
-       ============================================= */
-    .videos-hero {
-      background: linear-gradient(180deg, #0A0F1E 0%, var(--vid-bg) 100%);
-      padding: 48px 0 32px;
-      position: relative; overflow: hidden;
-    }
-    .videos-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 70% 60% at 75% 30%, rgba(37,99,176,0.18) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 50% at 10% 80%, rgba(83,75,183,0.12) 0%, transparent 60%);
-      pointer-events: none;
-    }
+    /* ── HERO ── */
+    .videos-hero { background: linear-gradient(180deg, #0A0F1E 0%, var(--vid-bg) 100%); padding: 48px 0 32px; position: relative; overflow: hidden; }
+    .videos-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 75% 30%, rgba(37,99,176,0.18) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 10% 80%, rgba(83,75,183,0.12) 0%, transparent 60%); pointer-events: none; }
     .videos-hero .container { position: relative; z-index: 2; }
-
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
     .hero-eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--lea-blue); border-radius: 1px; }
     .videos-hero h1 { font-size: clamp(24px, 4vw, 40px); font-weight: 700; color: var(--vid-text); line-height: 1.15; margin-bottom: 8px; }
     .videos-hero h1 em { font-style: normal; color: var(--lea-blue); }
     .videos-hero p { font-size: 14px; color: var(--vid-muted); line-height: 1.65; max-width: 460px; margin-bottom: 22px; }
-
-    /* Hero search */
     .hero-search { display: flex; align-items: center; background: rgba(255,255,255,0.08); border: 1px solid var(--vid-border); border-radius: 10px; padding: 10px 16px; gap: 10px; max-width: 440px; }
     .hero-search:focus-within { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); }
     .hero-search input { background: none; border: none; outline: none; font-size: 14px; color: var(--vid-text); flex: 1; font-family: 'DM Sans', sans-serif; }
     .hero-search input::placeholder { color: var(--vid-muted); }
     .hero-search i { font-size: 18px; color: var(--vid-muted); }
-
-    /* Stats */
     .hero-stats { display: flex; gap: 28px; margin-top: 24px; flex-wrap: wrap; }
     .hstat-num { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; color: var(--vid-text); }
     .hstat-num span { color: var(--lea-blue); }
     .hstat-lbl { font-size: 11px; color: var(--vid-muted); }
 
-    /* =============================================
-       FILTER BAR — categorias
-       ============================================= */
-    .filter-bar {
-      background: var(--vid-card);
-      border-bottom: 1px solid var(--vid-border);
-      padding: 0 20px;
-      display: flex; align-items: center;
-      overflow-x: auto;
-      position: sticky; top: 56px; z-index: 90;
-    }
+    /* ── FILTER BAR ── */
+    .filter-bar { background: var(--vid-card); border-bottom: 1px solid var(--vid-border); padding: 0 20px; display: flex; align-items: center; overflow-x: auto; position: sticky; top: 66px; z-index: 90; }
     .filter-bar::-webkit-scrollbar { height: 0; }
     .filter-tab { font-size: 13px; font-weight: 500; color: var(--vid-muted); padding: 13px 16px; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: all .15s; text-decoration: none; display: block; }
     .filter-tab:hover { color: var(--vid-text); }
@@ -128,19 +123,15 @@
     .filter-select { background: var(--vid-card2); border: 1px solid var(--vid-border); border-radius: 8px; color: var(--vid-muted); font-size: 12px; padding: 6px 10px; cursor: pointer; outline: none; font-family: 'DM Sans', sans-serif; }
     .filter-select option { background: var(--vid-card); }
 
-    /* =============================================
-       LAYOUT
-       ============================================= */
-    .page-layout { display: grid; grid-template-columns: 200px 1fr; gap: 0; }
+    /* ── LAYOUT ── */
+    .page-layout { display: grid; grid-template-columns: 200px 1fr; gap: 0; background: linear-gradient(to right, var(--vid-card) 200px, var(--vid-bg) 200px); }
 
-    /* Sidebar */
-    .page-sidebar { background: var(--vid-card); border-right: 1px solid var(--vid-border); padding: 20px 14px; position: sticky; top: 105px; height: calc(100vh - 105px); overflow-y: auto; }
+    /* ── SIDEBAR ── */
+    .page-sidebar { background: transparent; border-right: 1px solid var(--vid-border); padding: 20px 14px;}
     .page-sidebar::-webkit-scrollbar { width: 3px; }
     .page-sidebar::-webkit-scrollbar-thumb { background: var(--vid-border); border-radius: 2px; }
-
     .sidebar-section { margin-bottom: 22px; }
     .sidebar-title { font-size: 10px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 10px; }
-
     .sidebar-item { display: flex; align-items: center; justify-content: space-between; padding: 7px 8px; border-radius: 8px; cursor: pointer; transition: background .12s; text-decoration: none; }
     .sidebar-item:hover { background: rgba(255,255,255,0.05); }
     .sidebar-item.active { background: rgba(37,99,176,0.2); }
@@ -149,53 +140,26 @@
     .sidebar-item.active .sidebar-item-label { color: var(--lea-blue); font-weight: 500; }
     .sidebar-item-count { font-size: 10px; color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.05); padding: 1px 6px; border-radius: 99px; }
     .sidebar-item.active .sidebar-item-count { background: rgba(37,99,176,0.25); color: var(--lea-blue); }
-
     .ad-block-sidebar { background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); border-radius: 10px; min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; gap: 4px; }
     .ad-size { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.15); }
     .ad-type { font-size: 10px; color: rgba(255,255,255,0.1); }
 
-    /* =============================================
-       MAIN CONTENT
-       ============================================= */
+    /* ── MAIN CONTENT ── */
     .page-main { padding: 24px; background: var(--vid-bg); min-width: 0; }
-
     .sec-hdr { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
     .sec-hdr h2 { font-size: 15px; font-weight: 700; margin: 0; color: var(--vid-text); }
     .sec-link { font-size: 12px; color: var(--lea-blue); text-decoration: none; }
     .sec-link:hover { text-decoration: underline; }
 
-    /* =============================================
-       VIDEO EM DESTAQUE — player style
-       ============================================= */
-    .featured-video {
-      background: var(--vid-card);
-      border: 1px solid var(--vid-border);
-      border-radius: 16px; overflow: hidden;
-      display: grid; grid-template-columns: 1fr 300px;
-      margin-bottom: 28px;
-    }
-
-    .fv-player {
-      position: relative; background: #000;
-      display: flex; align-items: center; justify-content: center;
-      min-height: 260px; cursor: pointer;
-      overflow: hidden;
-    }
+    /* ── FEATURED VIDEO ── */
+    .featured-video { background: var(--vid-card); border: 1px solid var(--vid-border); border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 1fr 300px; margin-bottom: 28px; }
+    .fv-player { position: relative; background: #000; display: flex; align-items: center; justify-content: center; min-height: 260px; cursor: pointer; overflow: hidden; }
     .fv-player-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: brightness(0.55); transition: filter .2s; }
     .fv-player:hover .fv-player-bg { filter: brightness(0.45); }
-    .fv-play-btn {
-      position: relative; z-index: 2;
-      width: 64px; height: 64px; border-radius: 50%;
-      background: rgba(255,255,255,0.9); border: none;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 26px; color: var(--vid-bg); cursor: pointer;
-      transition: transform .15s, box-shadow .15s;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-    }
+    .fv-play-btn { position: relative; z-index: 2; width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--vid-bg); cursor: pointer; transition: transform .15s, box-shadow .15s; box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
     .fv-player:hover .fv-play-btn { transform: scale(1.08); box-shadow: 0 6px 32px rgba(0,0,0,0.5); }
     .fv-cat-badge { position: absolute; top: 14px; left: 14px; z-index: 3; font-size: 10px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; background: var(--lea-blue); color: #fff; padding: 4px 10px; border-radius: 99px; }
     .fv-duration { position: absolute; bottom: 14px; right: 14px; z-index: 3; font-size: 11px; font-weight: 600; background: rgba(0,0,0,0.65); color: #fff; padding: 3px 8px; border-radius: 6px; }
-
     .fv-info { padding: 22px; display: flex; flex-direction: column; justify-content: space-between; border-left: 1px solid var(--vid-border); }
     .fv-label { font-size: 10px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--lea-blue); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
     .fv-title { font-size: 18px; font-weight: 700; color: var(--vid-text); margin-bottom: 4px; line-height: 1.3; }
@@ -205,47 +169,25 @@
     .fv-meta-item i { font-size: 14px; color: var(--lea-blue); }
     .fv-desc { font-size: 12px; color: var(--vid-muted); line-height: 1.65; margin-bottom: 16px; }
     .fv-actions { display: flex; gap: 8px; }
-    .btn-watch { background: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; padding: 10px 18px; cursor: pointer; transition: background .15s; display: flex; align-items: center; gap: 6px; }
-    .btn-watch:hover { background: var(--lea-blue-dark); }
-    .btn-share { background: rgba(255,255,255,0.07); color: var(--vid-muted); border: 1px solid var(--vid-border); border-radius: 8px; font-size: 13px; font-weight: 500; padding: 10px 14px; cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 6px; }
+    .btn-watch { background: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; padding: 10px 18px; cursor: pointer; transition: background .15s; display: flex; align-items: center; gap: 6px; text-decoration: none; }
+    .btn-watch:hover { background: var(--lea-blue-dark); color: #fff; }
+    .btn-share { background: rgba(255,255,255,0.07); color: var(--vid-muted); border: 1px solid var(--vid-border); border-radius: 8px; font-size: 13px; font-weight: 500; padding: 10px 14px; cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 6px; font-family: inherit; }
     .btn-share:hover { background: rgba(255,255,255,0.12); color: var(--vid-text); }
 
-    /* =============================================
-       VIDEO CARDS GRID
-       ============================================= */
+    /* ── VIDEO CARDS ── */
     .videos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; margin-bottom: 28px; }
-
-    .video-card {
-      background: var(--vid-card); border: 1px solid var(--vid-border);
-      border-radius: 12px; overflow: hidden;
-      transition: transform .2s, border-color .2s;
-      cursor: pointer; text-decoration: none; display: flex; flex-direction: column;
-    }
+    .video-card { background: var(--vid-card); border: 1px solid var(--vid-border); border-radius: 12px; overflow: hidden; transition: transform .2s, border-color .2s; cursor: pointer; text-decoration: none; display: flex; flex-direction: column; }
     .video-card:hover { transform: translateY(-3px); border-color: rgba(37,99,176,0.4); }
-
-    .vc-thumb {
-      position: relative; height: 140px;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden; background: #000;
-    }
+    .vc-thumb { position: relative; height: 140px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
     .vc-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .3s; filter: brightness(0.85); }
     .video-card:hover .vc-thumb img { transform: scale(1.05); filter: brightness(0.7); }
     .vc-thumb-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 28px; color: rgba(255,255,255,0.3); }
-
-    /* Play overlay */
-    .vc-play-overlay {
-      position: absolute; inset: 0; z-index: 2;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity .2s;
-    }
+    .vc-play-overlay { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .2s; }
     .video-card:hover .vc-play-overlay { opacity: 1; }
     .vc-play-btn { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--vid-bg); }
-
-    /* Badges */
     .vc-cat { position: absolute; top: 8px; left: 8px; z-index: 3; font-size: 9px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; color: #fff; }
     .vc-duration { position: absolute; bottom: 8px; right: 8px; z-index: 3; font-size: 10px; font-weight: 600; background: rgba(0,0,0,0.7); color: #fff; padding: 2px 6px; border-radius: 4px; }
     .vc-new { position: absolute; top: 8px; right: 8px; z-index: 3; font-size: 9px; font-weight: 700; background: var(--lea-teal); color: #fff; padding: 2px 7px; border-radius: 99px; }
-
     .vc-body { padding: 10px 12px; flex: 1; display: flex; flex-direction: column; }
     .vc-title { font-size: 13px; font-weight: 600; color: var(--vid-text); line-height: 1.35; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .vc-artist { font-size: 11px; color: var(--vid-muted); margin-bottom: 6px; }
@@ -253,8 +195,6 @@
     .vc-date { font-size: 10px; color: var(--vid-muted); }
     .vc-views { font-size: 10px; color: var(--vid-muted); display: flex; align-items: center; gap: 3px; }
     .vc-views i { font-size: 11px; }
-
-    /* Cat colors */
     .cat-clipe  { background: var(--lea-blue); }
     .cat-filme  { background: #7C3AED; }
     .cat-serie  { background: #DB2777; }
@@ -262,16 +202,9 @@
     .cat-doc    { background: var(--lea-teal); }
     .cat-pub    { background: var(--lea-amber); }
 
-    /* =============================================
-       MAIS VISUALIZADOS — lista lateral compacta
-       ============================================= */
+    /* ── TRENDING LIST ── */
     .trending-list { display: flex; flex-direction: column; gap: 8px; }
-    .trending-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 10px; background: var(--vid-card);
-      border: 1px solid var(--vid-border); border-radius: 10px;
-      cursor: pointer; transition: border-color .15s; text-decoration: none;
-    }
+    .trending-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--vid-card); border: 1px solid var(--vid-border); border-radius: 10px; cursor: pointer; transition: border-color .15s; text-decoration: none; }
     .trending-item:hover { border-color: rgba(37,99,176,0.4); }
     .trending-num { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; width: 22px; text-align: center; flex-shrink: 0; }
     .trending-num.t1 { color: #F59E0B; }
@@ -285,52 +218,80 @@
     .trending-title { font-size: 12px; font-weight: 500; color: var(--vid-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .trending-artist { font-size: 10px; color: var(--vid-muted); }
 
-    /* =============================================
-       AD STRIP
-       ============================================= */
+    /* ── AD STRIP ── */
     .ad-strip { background: var(--vid-card2); border: 1px solid var(--vid-border); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
     .ad-strip-thumb { width: 52px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
     .ad-strip-copy { flex: 1; }
     .ad-strip-copy strong { font-size: 13px; font-weight: 500; color: var(--vid-text); }
     .ad-strip-copy span { font-size: 11px; color: var(--vid-muted); }
 
-    /* =============================================
-       PAGINATION
-       ============================================= */
-    .lea-pagination { display: flex; align-items: center; gap: 4px; }
-    .page-btn { width: 36px; height: 36px; border-radius: 8px; background: var(--vid-card); border: 1px solid var(--vid-border); color: var(--vid-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .12s; text-decoration: none; }
+    /* ── PAGINATION ── */
+    .lea-pagination { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    .page-btn { width: 36px; height: 36px; border-radius: 8px; background: var(--vid-card); border: 1px solid var(--vid-border); color: var(--vid-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .12s; text-decoration: none; flex-shrink: 0; }
     .page-btn:hover { background: rgba(37,99,176,0.2); color: var(--lea-blue); border-color: rgba(37,99,176,0.4); }
     .page-btn.active { background: var(--lea-blue); color: #fff; border-color: var(--lea-blue); font-weight: 700; }
 
-    /* =============================================
-       FOOTER — igual ao resto do site
-       ============================================= */
+    /* ── FOOTER ── */
     .lea-footer { background: var(--vid-card); border-top: 1px solid var(--vid-border); }
     .footer-link { font-size: 12px; color: var(--vid-muted); text-decoration: none; }
     .footer-link:hover { color: var(--vid-text); }
     .footer-social { color: var(--lea-blue); font-size: 20px; text-decoration: none; transition: opacity .15s; }
     .footer-social:hover { opacity: .7; }
 
-    /* =============================================
-       MOBILE
-       ============================================= */
+    /* ── RESPONSIVE ── */
     .desktop-only { display: block; }
     .mobile-only  { display: none; }
-    .bottom-nav { background: var(--vid-card); border-top: 1px solid var(--vid-border); position: fixed; bottom: 0; left: 0; right: 0; height: 62px; display: none; align-items: center; justify-content: space-around; z-index: 200; padding-bottom: env(safe-area-inset-bottom, 0); }
-    .bnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 22px; color: var(--vid-muted); cursor: pointer; text-decoration: none; flex: 1; justify-content: center; transition: color .12s; }
-    .bnav-item.active, .bnav-item:hover { color: var(--lea-blue); }
-    .bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
 
     @media (max-width: 991px) {
-      .desktop-only { display: none !important; }
-      .mobile-only  { display: block; }
-      .bottom-nav   { display: flex; }
-      body          { padding-bottom: 62px; }
-      .page-layout  { grid-template-columns: 1fr; }
-      .page-sidebar { display: none; }
+      .desktop-only   { display: none !important; }
+      .mobile-only    { display: block; }
+      .bottom-nav     { display: flex; }
+      .mobile-topbar  { display: flex; }
+      body            { padding-bottom: 62px; }
+
+      /* Layout */
+      .page-layout    { grid-template-columns: 1fr; }
+      .page-sidebar   { display: none; }
+
+      /* FIX: conteúdo sobe, sem padding excessivo */
+      .page-main      { padding: 14px 16px; }
+
+      /* Featured video empilha */
       .featured-video { grid-template-columns: 1fr; }
-      .fv-info { border-left: none; border-top: 1px solid var(--vid-border); }
-      .videos-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
+      .fv-info        { border-left: none; border-top: 1px solid var(--vid-border); }
+
+      /* Videos grid — 2 colunas */
+      .videos-grid    { grid-template-columns: repeat(2,1fr); gap: 10px; }
+
+      /* FIX: filter bar sem scroll horizontal — wrap nas tabs */
+      .filter-bar {
+		  overflow-x: auto;
+		  overflow-y: visible;
+		  flex-wrap: nowrap;
+		  padding: 0 12px;
+		  /* impede que o scroll da filter-bar vaze para a página */
+		  max-width: 100vw;
+		  top:49px;
+		}
+		.filter-tab {
+		  font-size: 12px;
+		  padding: 8px 12px;
+		  white-space: nowrap;
+		  flex-shrink: 0;
+		}
+		.filter-right {
+		  flex-shrink: 0;
+		  padding: 8px 0;
+		}
+
+      /* FIX: paginação sem overflow — wrap e conteiner full width */
+      .pagination-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .lea-pagination { flex-wrap: wrap; }
+      .page-btn { width: 32px; height: 32px; font-size: 12px; }
     }
 
     @media (max-width: 480px) {
@@ -340,16 +301,13 @@
 </head>
 <body>
 
-  <!-- =============================================
-       NAVBAR
-       ============================================= -->
-  <nav class="navbar navbar-expand-lg sticky-top">
+  <!-- NAVBAR DESKTOP -->
+  <nav class="navbar navbar-expand-lg sticky-top desktop-only">
     <div class="container-fluid px-4">
       <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
         <img src="assets/img/logo.png" alt="LEA" height="32">
       </a>
-      <button class="navbar-toggler" type="button"
-              data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
@@ -373,10 +331,25 @@
     </div>
   </nav>
 
+  <!-- TOPBAR MOBILE -->
+  <header class="mobile-topbar">
+    <div class="logo-link-mbl">
+		<a href="index.html">
+			<img src="assets/img/logo.png" alt="LEA" class="logo-shodow">			
+		</a>
+		<a href="index.html" class="txt-logo-link">
+			<span class="logo-lea-b txt-logo-link-mbl">LEA</span>
+		</a>
+	</div>
+    <div class="d-flex gap-3" style="font-size:20px;color:rgba(241,245,249,0.6);">
+      <i class="ti ti-search"></i>
+      <i class="ti ti-bell"></i>
+      <i class="ti ti-user-circle"></i>
+    </div>
+  </header>
 
-  <!-- =============================================
-       HERO
-       ============================================= -->
+
+  <!-- HERO -->
   <div class="videos-hero">
     <div class="container">
       <div class="row align-items-center g-4">
@@ -401,33 +374,24 @@
             <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
               <i class="ti ti-flame" style="color:#F59E0B;"></i> Mais visualizados
             </div>
-            <!-- item -->
             <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--vid-border);">
               <span style="font-size:15px;font-weight:700;color:#F59E0B;width:18px;">1</span>
-              <div style="width:52px;height:34px;border-radius:6px;overflow:hidden;flex-shrink:0;background:#111;">
-                <img src="https://lea.co.ao/images/videos/comarca de viana.jpg" style="width:100%;height:100%;object-fit:cover;" alt="" onerror="this.style.display='none'">
-              </div>
+              <div style="width:52px;height:34px;border-radius:6px;overflow:hidden;flex-shrink:0;background:#111;"><img src="https://lea.co.ao/images/videos/comarca de viana.jpg" style="width:100%;height:100%;object-fit:cover;" alt="" onerror="this.style.display='none'"></div>
               <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:500;color:var(--vid-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Comarca de Viana</div><div style="font-size:10px;color:var(--vid-muted);">Daló Py</div></div>
             </div>
             <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--vid-border);">
               <span style="font-size:15px;font-weight:700;color:rgba(255,255,255,0.25);width:18px;">2</span>
-              <div style="width:52px;height:34px;border-radius:6px;overflow:hidden;flex-shrink:0;background:#111;">
-                <img src="https://lea.co.ao/images/videos/Xucalho.jpg" style="width:100%;height:100%;object-fit:cover;" alt="" onerror="this.style.display='none'">
-              </div>
+              <div style="width:52px;height:34px;border-radius:6px;overflow:hidden;flex-shrink:0;background:#111;"><img src="https://lea.co.ao/images/videos/Xucalho.jpg" style="width:100%;height:100%;object-fit:cover;" alt="" onerror="this.style.display='none'"></div>
               <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:500;color:var(--vid-text);">Xucalho ft. Preto Show</div><div style="font-size:10px;color:var(--vid-muted);">Titica</div></div>
             </div>
             <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--vid-border);">
               <span style="font-size:15px;font-weight:700;color:#C07A1A;width:18px;">3</span>
-              <div style="width:52px;height:34px;border-radius:6px;overflow:hidden;flex-shrink:0;background:#111;">
-                <img src="https://lea.co.ao/images/videos/Vou Chorar.jpg" style="width:100%;height:100%;object-fit:cover;" alt="" onerror="this.style.display='none'">
-              </div>
+              <div style="width:52px;height:34px;border-radius:6px;overflow:hidden;flex-shrink:0;background:#111;"><img src="https://lea.co.ao/images/videos/Vou Chorar.jpg" style="width:100%;height:100%;object-fit:cover;" alt="" onerror="this.style.display='none'"></div>
               <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:500;color:var(--vid-text);">Vou Chorar</div><div style="font-size:10px;color:var(--vid-muted);">Gerilson Israel</div></div>
             </div>
             <div style="display:flex;align-items:center;gap:10px;padding:7px 0;">
               <span style="font-size:15px;font-weight:700;color:rgba(255,255,255,0.15);width:18px;">4</span>
-              <div style="width:52px;height:34px;border-radius:6px;overflow:hidden;flex-shrink:0;background:#111;">
-                <img src="https://lea.co.ao/images/videos/Nu XTRAGo NADA.jpg" style="width:100%;height:100%;object-fit:cover;" alt="" onerror="this.style.display='none'">
-              </div>
+              <div style="width:52px;height:34px;border-radius:6px;overflow:hidden;flex-shrink:0;background:#111;"><img src="https://lea.co.ao/images/videos/Nu XTRAGo NADA.jpg" style="width:100%;height:100%;object-fit:cover;" alt="" onerror="this.style.display='none'"></div>
               <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:500;color:var(--vid-text);">Nú xtragó nada</div><div style="font-size:10px;color:var(--vid-muted);">Seketxe</div></div>
             </div>
           </div>
@@ -461,6 +425,16 @@
 
     <!-- SIDEBAR -->
     <aside class="page-sidebar desktop-only">
+
+      <!-- FIX 1: Publicidade ACIMA da categoria -->
+      <div class="sidebar-section">
+        <div class="ann"><i class="ti ti-ad"></i> Publicidade</div>
+        <div class="ad-block-sidebar" style="min-height:160px;">
+          <i class="ti ti-ad" style="font-size:26px;color:rgba(255,255,255,0.1);"></i>
+          <div class="ad-size">160 × 600</div>
+          <div class="ad-type">Skyscraper Sidebar</div>
+        </div>
+      </div>
 
       <div class="sidebar-section">
         <div class="sidebar-title">Categoria</div>
@@ -504,15 +478,6 @@
         </div>
       </div>
 
-      <div class="sidebar-section">
-        <div class="ann"><i class="ti ti-ad"></i> 160 × 600</div>
-        <div class="ad-block-sidebar" style="min-height:160px;">
-          <i class="ti ti-ad" style="font-size:26px;color:rgba(255,255,255,0.1);"></i>
-          <div class="ad-size">160 × 600</div>
-          <div class="ad-type">Skyscraper Sidebar</div>
-        </div>
-      </div>
-
     </aside>
 
 
@@ -520,10 +485,7 @@
     <main class="page-main">
 
       <!-- VÍDEO EM DESTAQUE -->
-      <div class="sec-hdr">
-        <h2>▶ Em destaque</h2>
-      </div>
-
+      <div class="sec-hdr"><h2>▶ Em destaque</h2></div>
       <div class="featured-video">
         <div class="fv-player">
           <div class="fv-player-bg" style="background-image:url('https://lea.co.ao/images/videos/Klaudio Hoshai-Candinha.jpg');"></div>
@@ -544,16 +506,13 @@
             <div class="fv-desc">O mais recente videoclipe de Klaudio Hoshai, um dos talentos em ascensão da cena musical angolana. Uma produção visual que combina a riqueza cultural angolana com estética moderna.</div>
           </div>
           <div class="fv-actions">
-            <a href="https://lea.co.ao/videos/video.php?v=509&v2=Mzcx" target="_blank" class="btn-watch">
-              <i class="ti ti-player-play-filled"></i> Assistir
-            </a>
+            <a href="https://lea.co.ao/videos/video.php?v=509&v2=Mzcx" target="_blank" class="btn-watch"><i class="ti ti-player-play-filled"></i> Assistir</a>
             <button class="btn-share"><i class="ti ti-share"></i> Partilhar</button>
           </div>
         </div>
       </div>
 
-
-      <!-- AD 1 — LEADERBOARD -->
+      <!-- AD 1 -->
       <div class="mb-4">
         <div class="ann"><i class="ti ti-ad"></i> Leaderboard 728×90</div>
         <div class="ad-strip">
@@ -567,165 +526,47 @@
         </div>
       </div>
 
-
       <!-- VIDEOCLIPES RECENTES -->
       <div class="sec-hdr">
         <h2>🎵 Videoclipes recentes</h2>
         <a class="sec-link" href="https://lea.co.ao/videos.php?clipes=true" target="_blank">Ver todos →</a>
       </div>
-
       <div class="videos-grid">
-
         <a class="video-card" href="https://lea.co.ao/videos/video.php?v=508&v2=MTE3MQ==" target="_blank">
-          <div class="vc-thumb">
-            <img src="https://lea.co.ao/images/videos/CMC-Lagrimas-feat-Mashmira.jpg" alt="Lagrimas" onerror="this.style.display='none'">
-            <div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-clipe">Clipe</span>
-            <span class="vc-new">Novo</span>
-            <span class="vc-duration">4:12</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Lagrimas ft. Mashmira</div>
-            <div class="vc-artist">CMC</div>
-            <div class="vc-footer">
-              <span class="vc-date">10 Mar 2026</span>
-              <span class="vc-views"><i class="ti ti-eye"></i> —</span>
-            </div>
-          </div>
+          <div class="vc-thumb"><img src="https://lea.co.ao/images/videos/CMC-Lagrimas-feat-Mashmira.jpg" alt="" onerror="this.style.display='none'"><div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-clipe">Clipe</span><span class="vc-new">Novo</span><span class="vc-duration">4:12</span></div>
+          <div class="vc-body"><div class="vc-title">Lagrimas ft. Mashmira</div><div class="vc-artist">CMC</div><div class="vc-footer"><span class="vc-date">10 Mar 2026</span><span class="vc-views"><i class="ti ti-eye"></i> —</span></div></div>
         </a>
-
         <a class="video-card" href="https://lea.co.ao/videos/video.php?v=507&v2=Mzc=" target="_blank">
-          <div class="vc-thumb">
-            <img src="https://lea.co.ao/images/videos/Desejo-Malandro.jpg" alt="Desejo Malandro" onerror="this.style.display='none'">
-            <div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-clipe">Clipe</span>
-            <span class="vc-new">Novo</span>
-            <span class="vc-duration">3:58</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Desejo Malandro</div>
-            <div class="vc-artist">Euclides da Lomba</div>
-            <div class="vc-footer">
-              <span class="vc-date">10 Mar 2026</span>
-              <span class="vc-views"><i class="ti ti-eye"></i> —</span>
-            </div>
-          </div>
+          <div class="vc-thumb"><img src="https://lea.co.ao/images/videos/Desejo-Malandro.jpg" alt="" onerror="this.style.display='none'"><div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-clipe">Clipe</span><span class="vc-new">Novo</span><span class="vc-duration">3:58</span></div>
+          <div class="vc-body"><div class="vc-title">Desejo Malandro</div><div class="vc-artist">Euclides da Lomba</div><div class="vc-footer"><span class="vc-date">10 Mar 2026</span><span class="vc-views"><i class="ti ti-eye"></i> —</span></div></div>
         </a>
-
         <a class="video-card" href="https://lea.co.ao/videos/video.php?v=506&v2=NjU5" target="_blank">
-          <div class="vc-thumb">
-            <img src="https://lea.co.ao/images/videos/Cleyton M money.jpg" alt="Money" onerror="this.style.display='none'">
-            <div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-clipe">Clipe</span>
-            <span class="vc-duration">3:24</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Money</div>
-            <div class="vc-artist">Cleyton M</div>
-            <div class="vc-footer">
-              <span class="vc-date">09 Mar 2026</span>
-              <span class="vc-views"><i class="ti ti-eye"></i> —</span>
-            </div>
-          </div>
+          <div class="vc-thumb"><img src="https://lea.co.ao/images/videos/Cleyton M money.jpg" alt="" onerror="this.style.display='none'"><div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-clipe">Clipe</span><span class="vc-duration">3:24</span></div>
+          <div class="vc-body"><div class="vc-title">Money</div><div class="vc-artist">Cleyton M</div><div class="vc-footer"><span class="vc-date">09 Mar 2026</span><span class="vc-views"><i class="ti ti-eye"></i> —</span></div></div>
         </a>
-
         <a class="video-card" href="https://lea.co.ao/videos/video.php?v=505&v2=MzA5" target="_blank">
-          <div class="vc-thumb">
-            <img src="https://lea.co.ao/images/videos/Deolinda Kinzimba-Primeira Vez.jpg" alt="Primeira Vez" onerror="this.style.display='none'">
-            <div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-clipe">Clipe</span>
-            <span class="vc-duration">4:05</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Primeira Vez</div>
-            <div class="vc-artist">Deolinda Kinzimba</div>
-            <div class="vc-footer">
-              <span class="vc-date">24 Jan 2026</span>
-              <span class="vc-views"><i class="ti ti-eye"></i> —</span>
-            </div>
-          </div>
+          <div class="vc-thumb"><img src="https://lea.co.ao/images/videos/Deolinda Kinzimba-Primeira Vez.jpg" alt="" onerror="this.style.display='none'"><div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-clipe">Clipe</span><span class="vc-duration">4:05</span></div>
+          <div class="vc-body"><div class="vc-title">Primeira Vez</div><div class="vc-artist">Deolinda Kinzimba</div><div class="vc-footer"><span class="vc-date">24 Jan 2026</span><span class="vc-views"><i class="ti ti-eye"></i> —</span></div></div>
         </a>
-
         <a class="video-card" href="https://lea.co.ao/videos/video.php?v=497&v2=MjIy" target="_blank">
-          <div class="vc-thumb">
-            <img src="https://lea.co.ao/images/videos/Emotions ft. Deezy.jpg" alt="Emotions" onerror="this.style.display='none'">
-            <div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-clipe">Clipe</span>
-            <span class="vc-duration">3:50</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Emotions ft. Deezy</div>
-            <div class="vc-artist">Maianggaz</div>
-            <div class="vc-footer">
-              <span class="vc-date">16 Ago 2025</span>
-              <span class="vc-views"><i class="ti ti-eye"></i> —</span>
-            </div>
-          </div>
+          <div class="vc-thumb"><img src="https://lea.co.ao/images/videos/Emotions ft. Deezy.jpg" alt="" onerror="this.style.display='none'"><div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-clipe">Clipe</span><span class="vc-duration">3:50</span></div>
+          <div class="vc-body"><div class="vc-title">Emotions ft. Deezy</div><div class="vc-artist">Maianggaz</div><div class="vc-footer"><span class="vc-date">16 Ago 2025</span><span class="vc-views"><i class="ti ti-eye"></i> —</span></div></div>
         </a>
-
         <a class="video-card" href="https://lea.co.ao/videos/video.php?v=494&v2=NDc=" target="_blank">
-          <div class="vc-thumb">
-            <img src="https://lea.co.ao/images/videos/Sem Querer.jpg" alt="Sem Querer" onerror="this.style.display='none'">
-            <div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-clipe">Clipe</span>
-            <span class="vc-duration">4:18</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Sem Querer</div>
-            <div class="vc-artist">C4 Pedro</div>
-            <div class="vc-footer">
-              <span class="vc-date">02 Abr 2025</span>
-              <span class="vc-views"><i class="ti ti-eye"></i> —</span>
-            </div>
-          </div>
+          <div class="vc-thumb"><img src="https://lea.co.ao/images/videos/Sem Querer.jpg" alt="" onerror="this.style.display='none'"><div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-clipe">Clipe</span><span class="vc-duration">4:18</span></div>
+          <div class="vc-body"><div class="vc-title">Sem Querer</div><div class="vc-artist">C4 Pedro</div><div class="vc-footer"><span class="vc-date">02 Abr 2025</span><span class="vc-views"><i class="ti ti-eye"></i> —</span></div></div>
         </a>
-
         <a class="video-card" href="https://lea.co.ao/videos/video.php?v=492&v2=MTg0Ng==" target="_blank">
-          <div class="vc-thumb">
-            <img src="https://lea.co.ao/images/videos/Filhos da Ala Este - Um Pais Pra Todos.jpg" alt="Um País P'ra Todos" onerror="this.style.display='none'">
-            <div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-clipe">Clipe</span>
-            <span class="vc-duration">5:02</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Um País P'ra Todos</div>
-            <div class="vc-artist">Filhos da Ala Este</div>
-            <div class="vc-footer">
-              <span class="vc-date">11 Mar 2025</span>
-              <span class="vc-views"><i class="ti ti-eye"></i> —</span>
-            </div>
-          </div>
+          <div class="vc-thumb"><img src="https://lea.co.ao/images/videos/Filhos da Ala Este - Um Pais Pra Todos.jpg" alt="" onerror="this.style.display='none'"><div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-clipe">Clipe</span><span class="vc-duration">5:02</span></div>
+          <div class="vc-body"><div class="vc-title">Um País P'ra Todos</div><div class="vc-artist">Filhos da Ala Este</div><div class="vc-footer"><span class="vc-date">11 Mar 2025</span><span class="vc-views"><i class="ti ti-eye"></i> —</span></div></div>
         </a>
-
         <a class="video-card" href="https://lea.co.ao/videos/video.php?v=485&v2=MjE2" target="_blank">
-          <div class="vc-thumb">
-            <img src="https://lea.co.ao/images/videos/Eu sou assim.jpg" alt="Eu sou assim" onerror="this.style.display='none'">
-            <div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-clipe">Clipe</span>
-            <span class="vc-duration">4:32</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Eu sou assim</div>
-            <div class="vc-artist">Gerilson Israel</div>
-            <div class="vc-footer">
-              <span class="vc-date">05 Out 2024</span>
-              <span class="vc-views"><i class="ti ti-eye"></i> —</span>
-            </div>
-          </div>
+          <div class="vc-thumb"><img src="https://lea.co.ao/images/videos/Eu sou assim.jpg" alt="" onerror="this.style.display='none'"><div class="vc-thumb-placeholder"><i class="ti ti-music"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-clipe">Clipe</span><span class="vc-duration">4:32</span></div>
+          <div class="vc-body"><div class="vc-title">Eu sou assim</div><div class="vc-artist">Gerilson Israel</div><div class="vc-footer"><span class="vc-date">05 Out 2024</span><span class="vc-views"><i class="ti ti-eye"></i> —</span></div></div>
         </a>
-
       </div>
 
-
-      <!-- AD 2 — IN-CONTENT -->
+      <!-- AD 2 -->
       <div class="mb-4">
         <div class="ann"><i class="ti ti-ad"></i> In-content nativo</div>
         <div class="ad-strip">
@@ -739,160 +580,60 @@
         </div>
       </div>
 
-
       <!-- FILMES -->
       <div class="sec-hdr">
         <h2>🎬 Filmes</h2>
         <a class="sec-link" href="https://lea.co.ao/videos.php?filmes=true" target="_blank">Ver todos →</a>
       </div>
-
       <div class="videos-grid">
-
         <a class="video-card" href="https://lea.co.ao/videos.php?filmes=true" target="_blank">
-          <div class="vc-thumb" style="background:linear-gradient(135deg,#7C3AED,#2563B0);">
-            <div class="vc-thumb-placeholder"><i class="ti ti-movie"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-filme">Filme</span>
-            <span class="vc-duration">1h 42min</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">O Grande Kilapy</div>
-            <div class="vc-artist">Zézé Gamboa · 2012</div>
-            <div class="vc-footer">
-              <span class="vc-date">Drama</span>
-              <span class="vc-views"><i class="ti ti-star-filled" style="color:#F59E0B;"></i> 8.2</span>
-            </div>
-          </div>
+          <div class="vc-thumb" style="background:linear-gradient(135deg,#7C3AED,#2563B0);"><div class="vc-thumb-placeholder"><i class="ti ti-movie"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-filme">Filme</span><span class="vc-duration">1h 42min</span></div>
+          <div class="vc-body"><div class="vc-title">O Grande Kilapy</div><div class="vc-artist">Zézé Gamboa · 2012</div><div class="vc-footer"><span class="vc-date">Drama</span><span class="vc-views"><i class="ti ti-star-filled" style="color:#F59E0B;"></i> 8.2</span></div></div>
         </a>
-
         <a class="video-card" href="https://lea.co.ao/videos.php?filmes=true" target="_blank">
-          <div class="vc-thumb" style="background:linear-gradient(135deg,#534AB7,#9D174D);">
-            <div class="vc-thumb-placeholder"><i class="ti ti-movie"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-filme">Filme</span>
-            <span class="vc-duration">1h 28min</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Comboio da Canhoca</div>
-            <div class="vc-artist">Jorge António · 2019</div>
-            <div class="vc-footer">
-              <span class="vc-date">Documentário ficção</span>
-              <span class="vc-views"><i class="ti ti-star-filled" style="color:#F59E0B;"></i> 7.8</span>
-            </div>
-          </div>
+          <div class="vc-thumb" style="background:linear-gradient(135deg,#534AB7,#9D174D);"><div class="vc-thumb-placeholder"><i class="ti ti-movie"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-filme">Filme</span><span class="vc-duration">1h 28min</span></div>
+          <div class="vc-body"><div class="vc-title">Comboio da Canhoca</div><div class="vc-artist">Jorge António · 2019</div><div class="vc-footer"><span class="vc-date">Doc. ficção</span><span class="vc-views"><i class="ti ti-star-filled" style="color:#F59E0B;"></i> 7.8</span></div></div>
         </a>
-
         <a class="video-card" href="https://lea.co.ao/videos.php?filmes=true" target="_blank">
-          <div class="vc-thumb" style="background:linear-gradient(135deg,#1D9E75,#2563B0);">
-            <div class="vc-thumb-placeholder"><i class="ti ti-movie"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-filme">Filme</span>
-            <span class="vc-duration">1h 55min</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Hollow City</div>
-            <div class="vc-artist">Maria João Ganga · 2004</div>
-            <div class="vc-footer">
-              <span class="vc-date">Drama</span>
-              <span class="vc-views"><i class="ti ti-star-filled" style="color:#F59E0B;"></i> 7.5</span>
-            </div>
-          </div>
+          <div class="vc-thumb" style="background:linear-gradient(135deg,#1D9E75,#2563B0);"><div class="vc-thumb-placeholder"><i class="ti ti-movie"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-filme">Filme</span><span class="vc-duration">1h 55min</span></div>
+          <div class="vc-body"><div class="vc-title">Hollow City</div><div class="vc-artist">Maria João Ganga · 2004</div><div class="vc-footer"><span class="vc-date">Drama</span><span class="vc-views"><i class="ti ti-star-filled" style="color:#F59E0B;"></i> 7.5</span></div></div>
         </a>
-
         <a class="video-card" href="https://lea.co.ao/videos.php?filmes=true" target="_blank">
-          <div class="vc-thumb" style="background:linear-gradient(135deg,#374151,#534AB7);">
-            <div class="vc-thumb-placeholder"><i class="ti ti-movie"></i></div>
-            <div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div>
-            <span class="vc-cat cat-filme">Filme</span>
-            <span class="vc-duration">1h 38min</span>
-          </div>
-          <div class="vc-body">
-            <div class="vc-title">Ar Condicionado</div>
-            <div class="vc-artist">Fradique · 2020</div>
-            <div class="vc-footer">
-              <span class="vc-date">Ficção científica</span>
-              <span class="vc-views"><i class="ti ti-star-filled" style="color:#F59E0B;"></i> 7.9</span>
-            </div>
-          </div>
+          <div class="vc-thumb" style="background:linear-gradient(135deg,#374151,#534AB7);"><div class="vc-thumb-placeholder"><i class="ti ti-movie"></i></div><div class="vc-play-overlay"><div class="vc-play-btn"><i class="ti ti-player-play-filled"></i></div></div><span class="vc-cat cat-filme">Filme</span><span class="vc-duration">1h 38min</span></div>
+          <div class="vc-body"><div class="vc-title">Ar Condicionado</div><div class="vc-artist">Fradique · 2020</div><div class="vc-footer"><span class="vc-date">Ficção científica</span><span class="vc-views"><i class="ti ti-star-filled" style="color:#F59E0B;"></i> 7.9</span></div></div>
         </a>
-
       </div>
 
-
-      <!-- SÉRIES / NOVELAS / DOCUMENTÁRIOS — 3 colunas -->
+      <!-- SÉRIES / NOVELAS / DOCUMENTÁRIOS -->
       <div class="row g-4 mb-4">
-
-        <!-- Séries -->
         <div class="col-lg-4">
-          <div class="sec-hdr">
-            <h2>📺 Séries</h2>
-            <a class="sec-link" href="https://lea.co.ao/videos.php?series=true" target="_blank">Ver →</a>
-          </div>
+          <div class="sec-hdr"><h2>📺 Séries</h2><a class="sec-link" href="https://lea.co.ao/videos.php?series=true" target="_blank">Ver →</a></div>
           <div class="d-flex flex-column gap-2">
-            <a class="trending-item" href="https://lea.co.ao/videos.php?series=true" target="_blank">
-              <div class="trending-thumb" style="background:linear-gradient(135deg,#DB2777,#534AB7);"><div class="tp"><i class="ti ti-device-tv"></i></div></div>
-              <div class="trending-info"><div class="trending-title">Kuluna City</div><div class="trending-artist">Série · 3 Temporadas</div></div>
-            </a>
-            <a class="trending-item" href="https://lea.co.ao/videos.php?series=true" target="_blank">
-              <div class="trending-thumb" style="background:linear-gradient(135deg,#2563B0,#1D9E75);"><div class="tp"><i class="ti ti-device-tv"></i></div></div>
-              <div class="trending-info"><div class="trending-title">Vizinhos</div><div class="trending-artist">Série · Comédia</div></div>
-            </a>
-            <a class="trending-item" href="https://lea.co.ao/videos.php?series=true" target="_blank">
-              <div class="trending-thumb" style="background:linear-gradient(135deg,#374151,#9D174D);"><div class="tp"><i class="ti ti-device-tv"></i></div></div>
-              <div class="trending-info"><div class="trending-title">Terra de Ninguém</div><div class="trending-artist">Série · Drama</div></div>
-            </a>
+            <a class="trending-item" href="https://lea.co.ao/videos.php?series=true" target="_blank"><div class="trending-thumb" style="background:linear-gradient(135deg,#DB2777,#534AB7);"><div class="tp"><i class="ti ti-device-tv"></i></div></div><div class="trending-info"><div class="trending-title">Kuluna City</div><div class="trending-artist">Série · 3 Temporadas</div></div></a>
+            <a class="trending-item" href="https://lea.co.ao/videos.php?series=true" target="_blank"><div class="trending-thumb" style="background:linear-gradient(135deg,#2563B0,#1D9E75);"><div class="tp"><i class="ti ti-device-tv"></i></div></div><div class="trending-info"><div class="trending-title">Vizinhos</div><div class="trending-artist">Série · Comédia</div></div></a>
+            <a class="trending-item" href="https://lea.co.ao/videos.php?series=true" target="_blank"><div class="trending-thumb" style="background:linear-gradient(135deg,#374151,#9D174D);"><div class="tp"><i class="ti ti-device-tv"></i></div></div><div class="trending-info"><div class="trending-title">Terra de Ninguém</div><div class="trending-artist">Série · Drama</div></div></a>
           </div>
         </div>
-
-        <!-- Novelas -->
         <div class="col-lg-4">
-          <div class="sec-hdr">
-            <h2>❤️ Novelas</h2>
-            <a class="sec-link" href="https://lea.co.ao/videos.php?novelas=true" target="_blank">Ver →</a>
-          </div>
+          <div class="sec-hdr"><h2>❤️ Novelas</h2><a class="sec-link" href="https://lea.co.ao/videos.php?novelas=true" target="_blank">Ver →</a></div>
           <div class="d-flex flex-column gap-2">
-            <a class="trending-item" href="https://lea.co.ao/videos.php?novelas=true" target="_blank">
-              <div class="trending-thumb" style="background:linear-gradient(135deg,#9D174D,#C07A1A);"><div class="tp"><i class="ti ti-heart"></i></div></div>
-              <div class="trending-info"><div class="trending-title">Amor em Luanda</div><div class="trending-artist">Novela · 120 Ep.</div></div>
-            </a>
-            <a class="trending-item" href="https://lea.co.ao/videos.php?novelas=true" target="_blank">
-              <div class="trending-thumb" style="background:linear-gradient(135deg,#DB2777,#534AB7);"><div class="tp"><i class="ti ti-heart"></i></div></div>
-              <div class="trending-info"><div class="trending-title">Destinos Cruzados</div><div class="trending-artist">Novela · 80 Ep.</div></div>
-            </a>
-            <a class="trending-item" href="https://lea.co.ao/videos.php?novelas=true" target="_blank">
-              <div class="trending-thumb" style="background:linear-gradient(135deg,#534AB7,#1D9E75);"><div class="tp"><i class="ti ti-heart"></i></div></div>
-              <div class="trending-info"><div class="trending-title">Mulemba</div><div class="trending-artist">Novela · 60 Ep.</div></div>
-            </a>
+            <a class="trending-item" href="https://lea.co.ao/videos.php?novelas=true" target="_blank"><div class="trending-thumb" style="background:linear-gradient(135deg,#9D174D,#C07A1A);"><div class="tp"><i class="ti ti-heart"></i></div></div><div class="trending-info"><div class="trending-title">Amor em Luanda</div><div class="trending-artist">Novela · 120 Ep.</div></div></a>
+            <a class="trending-item" href="https://lea.co.ao/videos.php?novelas=true" target="_blank"><div class="trending-thumb" style="background:linear-gradient(135deg,#DB2777,#534AB7);"><div class="tp"><i class="ti ti-heart"></i></div></div><div class="trending-info"><div class="trending-title">Destinos Cruzados</div><div class="trending-artist">Novela · 80 Ep.</div></div></a>
+            <a class="trending-item" href="https://lea.co.ao/videos.php?novelas=true" target="_blank"><div class="trending-thumb" style="background:linear-gradient(135deg,#534AB7,#1D9E75);"><div class="tp"><i class="ti ti-heart"></i></div></div><div class="trending-info"><div class="trending-title">Mulemba</div><div class="trending-artist">Novela · 60 Ep.</div></div></a>
           </div>
         </div>
-
-        <!-- Documentários -->
         <div class="col-lg-4">
-          <div class="sec-hdr">
-            <h2>🎥 Documentários</h2>
-            <a class="sec-link" href="https://lea.co.ao/videos.php?documentarios=true" target="_blank">Ver →</a>
-          </div>
+          <div class="sec-hdr"><h2>🎥 Documentários</h2><a class="sec-link" href="https://lea.co.ao/videos.php?documentarios=true" target="_blank">Ver →</a></div>
           <div class="d-flex flex-column gap-2">
-            <a class="trending-item" href="https://lea.co.ao/videos.php?documentarios=true" target="_blank">
-              <div class="trending-thumb" style="background:linear-gradient(135deg,#1D9E75,#2563B0);"><div class="tp"><i class="ti ti-camera"></i></div></div>
-              <div class="trending-info"><div class="trending-title">Angola — Terra e Gente</div><div class="trending-artist">Documentário · 52min</div></div>
-            </a>
-            <a class="trending-item" href="https://lea.co.ao/videos.php?documentarios=true" target="_blank">
-              <div class="trending-thumb" style="background:linear-gradient(135deg,#C07A1A,#2563B0);"><div class="tp"><i class="ti ti-camera"></i></div></div>
-              <div class="trending-info"><div class="trending-title">Músicas de Angola</div><div class="trending-artist">Documentário · 45min</div></div>
-            </a>
-            <a class="trending-item" href="https://lea.co.ao/videos.php?documentarios=true" target="_blank">
-              <div class="trending-thumb" style="background:linear-gradient(135deg,#374151,#1D9E75);"><div class="tp"><i class="ti ti-camera"></i></div></div>
-              <div class="trending-info"><div class="trending-title">Kwanza — O Rio da Vida</div><div class="trending-artist">Documentário · 38min</div></div>
-            </a>
+            <a class="trending-item" href="https://lea.co.ao/videos.php?documentarios=true" target="_blank"><div class="trending-thumb" style="background:linear-gradient(135deg,#1D9E75,#2563B0);"><div class="tp"><i class="ti ti-camera"></i></div></div><div class="trending-info"><div class="trending-title">Angola — Terra e Gente</div><div class="trending-artist">Documentário · 52min</div></div></a>
+            <a class="trending-item" href="https://lea.co.ao/videos.php?documentarios=true" target="_blank"><div class="trending-thumb" style="background:linear-gradient(135deg,#C07A1A,#2563B0);"><div class="tp"><i class="ti ti-camera"></i></div></div><div class="trending-info"><div class="trending-title">Músicas de Angola</div><div class="trending-artist">Documentário · 45min</div></div></a>
+            <a class="trending-item" href="https://lea.co.ao/videos.php?documentarios=true" target="_blank"><div class="trending-thumb" style="background:linear-gradient(135deg,#374151,#1D9E75);"><div class="tp"><i class="ti ti-camera"></i></div></div><div class="trending-info"><div class="trending-title">Kwanza — O Rio da Vida</div><div class="trending-artist">Documentário · 38min</div></div></a>
           </div>
         </div>
-
       </div>
 
-
-      <!-- PAGINAÇÃO -->
-      <div class="d-flex align-items-center justify-content-between">
+      <!-- FIX: PAGINAÇÃO — container com flex-wrap para não criar scroll horizontal -->
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 pb-4 pagination-row">
         <div style="font-size:13px;color:var(--vid-muted);">A mostrar 16 de 500+ vídeos</div>
         <div class="lea-pagination">
           <a class="page-btn" href="#"><i class="ti ti-chevron-left"></i></a>
@@ -909,10 +650,8 @@
   </div>
 
 
-  <!-- =============================================
-       FOOTER — igual ao resto do site
-       ============================================= -->
-  <footer class="lea-footer py-3 px-4 mt-4">
+  <!-- FOOTER -->
+  <footer class="lea-footer py-3 px-4 mt-0">
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
       <div class="d-flex align-items-center gap-2">
         <img src="assets/img/logo.png" alt="LEA" height="24">
@@ -940,15 +679,48 @@
   <nav class="bottom-nav">
     <a class="bnav-item" href="index.html"><i class="ti ti-home"></i><span class="bnav-lbl">Início</span></a>
     <a class="bnav-item" href="artistas.html"><i class="ti ti-users"></i><span class="bnav-lbl">Artistas</span></a>
-    <a class="bnav-item" href="musica.html"><i class="ti ti-music"></i><span class="bnav-lbl">Músicas</span></a>
     <a class="bnav-item active" href="videos.html"><i class="ti ti-video"></i><span class="bnav-lbl">Vídeos</span></a>
-    <a class="bnav-item" href="#"><i class="ti ti-menu-2"></i><span class="bnav-lbl">Menu</span></a>
+    <a class="bnav-item" href="loja.html"><i class="ti ti-shopping-bag"></i><span class="bnav-lbl">Loja</span></a>
+    <button class="bnav-item" id="btnOpenMenu"><i class="ti ti-menu-2"></i><span class="bnav-lbl">Menu</span></button>
   </nav>
+
+
+  <!-- MENU DRAWER MOBILE -->
+  <div class="menu-drawer" id="menuDrawer">
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-panel">
+      <div class="menu-handle"></div>
+      <div class="menu-header">
+        <span class="menu-header-title">Menu</span>
+        <button class="btn-close-menu" id="btnCloseMenu"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="menu-section-title">Navegar</div>
+      <a class="menu-item" href="index.html"><i class="ti ti-home"></i><div><div class="menu-item-label">Início</div><div class="menu-item-sub">Página principal do LEA</div></div></a>
+      <a class="menu-item" href="artistas.html"><i class="ti ti-users"></i><div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.200+ artistas angolanos</div></div></a>
+      <a class="menu-item" href="musica.html"><i class="ti ti-music"></i><div><div class="menu-item-label">Músicas</div><div class="menu-item-sub">Ouve e descarrega</div></div></a>
+      <a class="menu-item" href="videos.html"><i class="ti ti-video"></i><div><div class="menu-item-label">Vídeos</div><div class="menu-item-sub">Clipes, filmes e séries</div></div></a>
+      <a class="menu-item" href="literatura.html"><i class="ti ti-book"></i><div><div class="menu-item-label">Literatura</div><div class="menu-item-sub">Livros, poesias e frases</div></div></a>
+      <a class="menu-item" href="noticias.html"><i class="ti ti-news"></i><div><div class="menu-item-label">Notícias</div><div class="menu-item-sub">Angola em dia</div></div></a>
+      <a class="menu-item" href="eventos.html"><i class="ti ti-calendar-event"></i><div><div class="menu-item-label">Eventos</div><div class="menu-item-sub">Agenda cultural angolana</div></div></a>
+      <a class="menu-item" href="loja.html"><i class="ti ti-shopping-bag"></i><div><div class="menu-item-label">Loja</div><div class="menu-item-sub">Livros, CDs, ingressos e mais</div></div></a>
+      <div class="menu-section-title">Conta</div>
+      <a class="menu-item" href="#"><i class="ti ti-user-circle"></i><div><div class="menu-item-label">Entrar</div><div class="menu-item-sub">Aceder à minha conta</div></div></a>
+      <a class="menu-item" href="#"><i class="ti ti-rosette-discount-check"></i><div><div class="menu-item-label">Certificar artista</div><div class="menu-item-sub">Destaca-te na plataforma</div></div></a>
+      <div class="menu-section-title">Redes sociais</div>
+      <div class="menu-social">
+        <a href="#"><i class="ti ti-brand-instagram"></i></a>
+        <a href="#"><i class="ti ti-brand-facebook"></i></a>
+        <a href="#"><i class="ti ti-brand-youtube"></i></a>
+        <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+        <a href="#"><i class="ti ti-brand-telegram"></i></a>
+      </div>
+      <button class="btn-menu-entrar">Entrar na minha conta</button>
+    </div>
+  </div>
 
 
   <script src="assets/js/bootstrap.bundle.min.js"></script>
   <script>
-
     // Filter tabs
     document.querySelectorAll('.filter-tab').forEach(tab => {
       tab.addEventListener('click', () => {
@@ -978,6 +750,12 @@
       }
     });
 
+    // Menu drawer
+    const drawer  = document.getElementById('menuDrawer');
+    const overlay = document.getElementById('menuOverlay');
+    document.getElementById('btnOpenMenu').addEventListener('click', () => drawer.classList.add('open'));
+    document.getElementById('btnCloseMenu').addEventListener('click', () => drawer.classList.remove('open'));
+    overlay.addEventListener('click', () => drawer.classList.remove('open'));
   </script>
 
 </body>

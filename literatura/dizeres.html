@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEA Frases & Dizeres — Sabedoria Angolana</title>
+
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #FAF7F2; color: #1C1410; font-size: 14px; line-height: 1.5; }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Sora', sans-serif; margin: 0; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { font-family: 'DM Sans', sans-serif; cursor: pointer; }
+
+    :root {
+      --blue:       #2563B0;
+      --blue-dark:  #1A4A8A;
+      --blue-light: #E8F0FB;
+      --teal:       #1D9E75;
+      --purple:     #534AB7;
+      --amber:      #C07A1A;
+      --ink:        #1C1410;
+      --paper:      #FAF7F2;
+      --paper2:     #F3EFE8;
+      --gold:       #8B6914;
+      --gold-light: #FDF6E3;
+      --border:     rgba(139,105,20,0.15);
+      --muted:      #8B7355;
+      --white:      #ffffff;
+      --r-sm:       8px;
+      --r-md:       12px;
+      --r-lg:       16px;
+
+      /* cores por categoria */
+      --cat-reflexao:      #7C3AED;
+      --cat-encorajamento: #059669;
+      --cat-motivacao:     #D97706;
+      --cat-lamentos:      #DC2626;
+      --cat-vida:          #2563B0;
+      --cat-atitude:       #DB2777;
+      --cat-inspiracao:    #8B6914;
+      --cat-positividade:  #0D9488;
+      --cat-lideranca:     #374151;
+      --cat-amizade:       #3B7DD8;
+      --cat-relacionamentos: #9D174D;
+    }
+
+    /* =============================================
+       NAVBAR DESKTOP
+       ============================================= */
+    .lea-navbar {
+      background: var(--ink);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      height: 56px; display: flex; align-items: center;
+      padding: 0 24px; position: sticky; top: 0; z-index: 100; gap: 24px;
+    }
+    .lea-navbar img { height: 32px; }
+    .lea-navbar-links { display: flex; align-items: center; gap: 2px; flex: 1; }
+    .lea-navbar-links a {
+      font-size: 13px; color: rgba(255,255,255,0.55);
+      padding: 5px 10px; border-radius: var(--r-sm);
+      transition: color .15s, background .15s; white-space: nowrap;
+    }
+    .lea-navbar-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .lea-navbar-links a.active { color: var(--gold) !important; background: rgba(139,105,20,0.15) !important; }
+    .lea-navbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-search { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--r-sm); padding: 6px 12px; font-size: 12px; color: rgba(255,255,255,0.5); min-width: 150px; }
+    .btn-entrar { background: var(--blue); color: #fff; border: none; border-radius: var(--r-sm); font-size: 13px; font-weight: 500; padding: 7px 16px; }
+    .btn-entrar:hover { background: var(--blue-dark); }
+
+    /* =============================================
+       TOPBAR MOBILE
+       ============================================= */
+    .mobile-topbar {
+      display: none; background: var(--ink); border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 10px 16px; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .mobile-topbar img { height: 28px; }
+    .mobile-topbar-icons { display: flex; gap: 16px; font-size: 20px; color: rgba(255,255,255,0.6); }
+
+    /* =============================================
+       HERO
+       ============================================= */
+    .dizeres-hero {
+      background: var(--ink);
+      padding: 52px 0 0;
+      position: relative; overflow: hidden;
+    }
+    .dizeres-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 75% 25%, rgba(139,105,20,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 5% 85%, rgba(83,75,183,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .dizeres-hero::after {
+      content: '"Só quem já errou entende o peso do recomeço"';
+      position: absolute; bottom: 45px; right: -30px;
+      font-family: 'Playfair Display', serif; font-size: 64px; font-style: italic;
+      color: rgba(255,255,255,0.022); white-space: nowrap; pointer-events: none;
+      transform: rotate(-3deg);
+    }
+    .dizeres-hero .container { position: relative; z-index: 2; }
+
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 12px; }
+    .hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+    .dizeres-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 4vw, 48px); font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 12px; }
+    .dizeres-hero h1 em { font-style: italic; color: var(--gold); }
+    .dizeres-hero p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 460px; margin-bottom: 24px; }
+
+    .hero-search { display: flex; align-items: center; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 16px; gap: 10px; max-width: 440px; }
+    .hero-search:focus-within { background: rgba(255,255,255,0.11); border-color: rgba(139,105,20,0.4); }
+    .hero-search input { background: none; border: none; outline: none; font-size: 14px; color: #fff; flex: 1; font-family: 'DM Sans', sans-serif; }
+    .hero-search input::placeholder { color: rgba(255,255,255,0.3); }
+    .hero-search i { font-size: 18px; color: rgba(255,255,255,0.35); }
+
+    .hero-stats { display: flex; gap: 28px; margin-top: 24px; flex-wrap: wrap; }
+    .hstat-num { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; color: #fff; }
+    .hstat-num span { color: var(--gold); }
+    .hstat-lbl { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+    /* Frase destaque no hero */
+    .hero-quote-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r-lg); padding: 22px;
+      position: relative;
+    }
+    .hero-quote-card::before { content: '\201C'; position: absolute; top: -14px; left: 12px; font-family: 'Playfair Display', serif; font-size: 84px; color: rgba(139,105,20,0.18); line-height: 1; }
+    .hqc-cat { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .hqc-text { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.8; margin-bottom: 16px; position: relative; z-index: 1; }
+    .hqc-author { display: flex; align-items: center; gap: 10px; }
+    .hqc-avatar { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .hqc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .hqc-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); }
+    .hqc-reads { font-size: 10px; color: rgba(255,255,255,0.4); }
+    .btn-share-hero { display: inline-flex; align-items: center; gap: 6px; background: rgba(139,105,20,0.2); color: var(--gold); border: 1px solid rgba(139,105,20,0.3); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; padding: 7px 14px; margin-top: 14px; transition: all .15s; }
+    .btn-share-hero:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+    .hero-gold-bar { height: 3px; background: linear-gradient(90deg, var(--gold) 0%, transparent 100%); margin-top: 32px; }
+
+    /* =============================================
+       CATEGORIES PILLS BAR
+       ============================================= */
+    .cats-bar { background: var(--paper2); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; gap: 8px; overflow-x: auto; position: sticky; top: 56px; z-index: 90; }
+    .cats-bar::-webkit-scrollbar { height: 0; }
+    .cat-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 600; padding: 5px 14px;
+      border-radius: 99px; white-space: nowrap; transition: all .15s;
+      border: 1.5px solid transparent; flex-shrink: 0;
+    }
+    .cat-pill:hover { opacity: .85; }
+    .cat-pill.active { border-color: currentColor !important; }
+    .cat-pill-all { background: var(--ink); color: #fff; }
+    .cat-pill-all.active { border-color: rgba(255,255,255,0.4) !important; }
+    .cat-pill-reflexao     { background: #EDE9FE; color: var(--cat-reflexao); }
+    .cat-pill-encorajamento{ background: #D1FAE5; color: var(--cat-encorajamento); }
+    .cat-pill-motivacao    { background: #FEF3C7; color: var(--cat-motivacao); }
+    .cat-pill-lamentos     { background: #FEE2E2; color: var(--cat-lamentos); }
+    .cat-pill-vida         { background: #DBEAFE; color: var(--cat-vida); }
+    .cat-pill-atitude      { background: #FCE7F3; color: var(--cat-atitude); }
+    .cat-pill-inspiracao   { background: var(--gold-light); color: var(--cat-inspiracao); }
+    .cat-pill-positividade { background: #CCFBF1; color: var(--cat-positividade); }
+    .cat-pill-lideranca    { background: #F3F4F6; color: var(--cat-lideranca); }
+    .cat-pill-amizade      { background: #DBEAFE; color: var(--cat-amizade); }
+    .cat-pill-relacionamentos { background: #FCE7F3; color: var(--cat-relacionamentos); }
+
+    /* Sort -->*/
+    .cats-bar-sort { margin-left: auto; flex-shrink: 0; }
+    .filter-select { background: var(--paper); border: 1px solid var(--border); border-radius: var(--r-sm); color: var(--muted); font-size: 12px; padding: 6px 10px; outline: none; font-family: 'DM Sans', sans-serif; }
+
+    /* =============================================
+       LAYOUT
+       ============================================= */
+    .page-wrap { max-width: 1180px; margin: 0 auto; padding: 28px 24px 60px; display: grid; grid-template-columns: 1fr 280px; gap: 28px; align-items: start; }
+
+    /* =============================================
+       SEC HEADER
+       ============================================= */
+    .sec-hdr { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .sec-hdr h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink); }
+    .sec-hdr h2 span { color: var(--gold); }
+    .sec-more { font-size: 12px; color: var(--gold); font-style: italic; }
+    .sec-more:hover { text-decoration: underline; }
+
+    /* =============================================
+       QUOTE CARDS
+       ============================================= */
+
+    /* Grande — frase destaque */
+    .quote-featured {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px;
+      position: relative; overflow: hidden;
+      margin-bottom: 20px;
+      transition: box-shadow .2s;
+    }
+    .quote-featured:hover { box-shadow: 0 6px 24px rgba(139,105,20,0.10); }
+    .quote-featured::before { content: '\201C'; position: absolute; top: -10px; left: 14px; font-family: 'Playfair Display', serif; font-size: 100px; color: rgba(139,105,20,0.06); line-height: 1; pointer-events: none; }
+    .qf-cat { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; padding: 3px 10px; border-radius: 99px; margin-bottom: 14px; }
+    .qf-text { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; color: var(--ink); line-height: 1.8; margin-bottom: 20px; position: relative; z-index: 1; }
+    .qf-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .qf-author { display: flex; align-items: center; gap: 12px; }
+    .qf-avatar { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700; color: #fff; }
+    .qf-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .qf-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .qf-date { font-size: 11px; color: var(--muted); }
+    .qf-actions { display: flex; align-items: center; gap: 8px; }
+    .btn-qaction { width: 34px; height: 34px; border-radius: var(--r-sm); background: transparent; border: 1px solid var(--border); color: var(--muted); font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all .12s; }
+    .btn-qaction:hover { background: var(--gold-light); color: var(--gold); border-color: rgba(139,105,20,0.3); }
+    .btn-qaction.liked { color: #DC2626; border-color: #DC2626; background: #FEE2E2; }
+    .qf-reads { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+    .qf-reads i { font-size: 12px; color: var(--gold); }
+
+    /* Masonry grid de cards compactos */
+    .quotes-masonry { columns: 2; gap: 14px; margin-bottom: 24px; }
+    @media (max-width: 600px) { .quotes-masonry { columns: 1; } }
+
+    .quote-card {
+      break-inside: avoid;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 18px;
+      margin-bottom: 14px;
+      position: relative; overflow: hidden;
+      transition: box-shadow .2s, transform .2s;
+      display: block;
+    }
+    .quote-card:hover { box-shadow: 0 4px 18px rgba(139,105,20,0.10); transform: translateY(-2px); }
+    .quote-card::before { content: '\201C'; position: absolute; top: -8px; left: 10px; font-family: 'Playfair Display', serif; font-size: 70px; color: rgba(139,105,20,0.06); line-height: 1; pointer-events: none; }
+
+    .qc-cat { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; margin-bottom: 10px; }
+    .qc-text { font-family: 'Playfair Display', serif; font-size: 14px; font-style: italic; color: var(--ink); line-height: 1.75; margin-bottom: 14px; position: relative; z-index: 1; }
+    .qc-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .qc-author { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .qc-avatar { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #fff; }
+    .qc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .qc-name { font-size: 11px; font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .qc-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .qc-reads { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 3px; white-space: nowrap; }
+    .qc-reads i { font-size: 11px; }
+    .btn-like-sm { width: 26px; height: 26px; border-radius: 6px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-size: 13px; display: flex; align-items: center; justify-content: center; transition: all .12s; flex-shrink: 0; }
+    .btn-like-sm:hover { background: #FEE2E2; color: #DC2626; border-color: #DC2626; }
+    .btn-like-sm.liked { background: #FEE2E2; color: #DC2626; border-color: #DC2626; }
+
+    /* helpers para cores de categoria */
+    .bg-reflexao     { background: #EDE9FE; color: var(--cat-reflexao); }
+    .bg-encorajamento{ background: #D1FAE5; color: var(--cat-encorajamento); }
+    .bg-motivacao    { background: #FEF3C7; color: var(--cat-motivacao); }
+    .bg-lamentos     { background: #FEE2E2; color: var(--cat-lamentos); }
+    .bg-vida         { background: #DBEAFE; color: var(--cat-vida); }
+    .bg-atitude      { background: #FCE7F3; color: var(--cat-atitude); }
+    .bg-inspiracao   { background: var(--gold-light); color: var(--cat-inspiracao); }
+    .bg-positividade { background: #CCFBF1; color: var(--cat-positividade); }
+    .bg-lideranca    { background: #F3F4F6; color: var(--cat-lideranca); }
+    .bg-amizade      { background: #DBEAFE; color: var(--cat-amizade); }
+    .bg-relacionamentos { background: #FCE7F3; color: var(--cat-relacionamentos); }
+
+    /* =============================================
+       AD ELEMENTS
+       ============================================= */
+    .ad-pill { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: #bbb; border: 1px solid #ddd; border-radius: 4px; padding: 2px 6px; flex-shrink: 0; }
+    .ann { font-size: 10px; color: var(--blue); display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
+    .ad-strip { background: var(--white); border: 1px dashed rgba(139,105,20,0.2); border-radius: var(--r-md); padding: 12px 16px; display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .ad-strip-thumb { width: 52px; height: 38px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .ad-strip-copy { flex: 1; }
+    .ad-strip-copy strong { font-size: 13px; font-weight: 500; color: var(--ink); display: block; }
+    .ad-strip-copy small { font-size: 11px; color: var(--muted); }
+    .btn-ad { background: var(--blue); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; padding: 6px 14px; white-space: nowrap; }
+
+    /* =============================================
+       PAGINATION
+       ============================================= */
+    .pagination-wrap { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+    .pagination-info { font-size: 13px; color: var(--muted); }
+    .lea-pagination { display: flex; align-items: center; gap: 4px; }
+    .page-btn { width: 36px; height: 36px; border-radius: var(--r-sm); background: var(--white); border: 1px solid var(--border); color: var(--muted); font-size: 13px; display: flex; align-items: center; justify-content: center; transition: all .12s; }
+    .page-btn:hover { background: var(--gold-light); color: var(--gold); border-color: rgba(139,105,20,0.3); }
+    .page-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); font-weight: 700; }
+
+    /* =============================================
+       SIDEBAR
+       ============================================= */
+    .sidebar { display: flex; flex-direction: column; gap: 18px; }
+    .sidebar-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
+    .sidebar-card-header { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--border); background: var(--paper2); }
+    .sidebar-card-header h3 { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--ink); }
+    .sidebar-card-header i { font-size: 16px; color: var(--gold); }
+
+    .popular-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--border); transition: background .12s; }
+    .popular-item:last-child { border-bottom: none; }
+    .popular-item:hover { background: var(--paper2); }
+    .pop-num { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; line-height: 1; flex-shrink: 0; width: 24px; }
+    .pop-num.p1 { color: var(--gold); }
+    .pop-num.p2 { color: rgba(139,105,20,0.5); }
+    .pop-num.p3 { color: rgba(139,105,20,0.35); }
+    .pop-num.rest { color: rgba(139,105,20,0.2); }
+    .pop-avatar { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .pop-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .pop-avatar .av-fall { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #fff; }
+    .pop-text { font-size: 12px; font-weight: 500; color: var(--ink); line-height: 1.4; margin-bottom: 2px; }
+    .popular-item:hover .pop-text { color: var(--gold); }
+    .pop-meta { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+
+    /* Frase do dia */
+    .frase-dia { background: linear-gradient(135deg, var(--ink) 0%, #2C1F0E 100%); border-radius: var(--r-md); padding: 18px; position: relative; overflow: hidden; }
+    .frase-dia::before { content: '\201C'; position: absolute; top: -10px; left: 8px; font-family: 'Playfair Display', serif; font-size: 72px; color: rgba(139,105,20,0.12); line-height: 1; pointer-events: none; }
+    .fd-label { font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .fd-text { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.75; margin-bottom: 12px; position: relative; z-index: 1; }
+    .fd-author { display: flex; align-items: center; gap: 8px; }
+    .fd-avatar { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; }
+    .fd-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .fd-name { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.7); }
+    .btn-share-fd { display: block; width: 100%; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--r-sm); font-size: 12px; padding: 8px; margin-top: 12px; text-align: center; transition: all .15s; }
+    .btn-share-fd:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+    /* Artistas recentes */
+    .artist-sidebar-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--border); transition: background .12s; }
+    .artist-sidebar-item:last-child { border-bottom: none; }
+    .artist-sidebar-item:hover { background: var(--paper2); }
+    .as-avatar { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .as-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .as-avatar .av-fall { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; }
+    .as-name { font-size: 12px; font-weight: 500; color: var(--ink); }
+    .as-date { font-size: 10px; color: var(--muted); }
+
+    .ad-block-sidebar { background: var(--paper2); border: 1px dashed rgba(139,105,20,0.2); border-radius: var(--r-md); min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; gap: 4px; }
+    .ad-size { font-size: 13px; font-weight: 600; color: rgba(139,105,20,0.25); }
+    .ad-type { font-size: 10px; color: rgba(139,105,20,0.2); }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    .lea-footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-brand { display: flex; align-items: center; gap: 8px; }
+    .footer-brand img { height: 24px; }
+    .footer-brand small { font-size: 11px; color: rgba(255,255,255,0.35); }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.45); transition: color .12s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+    .footer-socials { display: flex; gap: 14px; }
+    .footer-socials a { font-size: 20px; color: var(--blue); transition: opacity .15s; }
+    .footer-socials a:hover { opacity: .7; }
+
+    /* =============================================
+       BOTTOM NAV & DRAWER
+       ============================================= */
+    .bottom-nav { display: none; background: var(--ink); border-top: 1px solid rgba(255,255,255,0.08); position: fixed; bottom: 0; left: 0; right: 0; height: 62px; align-items: center; justify-content: space-around; z-index: 200; padding-bottom: env(safe-area-inset-bottom, 0); }
+    .bnav-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 22px; color: rgba(255,255,255,0.4); flex: 1; justify-content: center; background: none; border: none; text-decoration: none; transition: color .12s; padding: 0; }
+    .bnav-btn.active, .bnav-btn:hover { color: var(--gold); }
+    .bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+
+    .menu-drawer { position: fixed; inset: 0; z-index: 500; visibility: hidden; }
+    .menu-drawer.open { visibility: visible; }
+    .menu-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.55); opacity: 0; transition: opacity .25s; }
+    .menu-drawer.open .menu-overlay { opacity: 1; }
+    .menu-panel { position: absolute; bottom: 0; left: 0; right: 0; background: var(--white); border-radius: 20px 20px 0 0; padding-bottom: env(safe-area-inset-bottom, 16px); transform: translateY(100%); transition: transform .3s cubic-bezier(.32,.72,0,1); max-height: 90vh; overflow-y: auto; }
+    .menu-drawer.open .menu-panel { transform: translateY(0); }
+    .menu-handle { width: 36px; height: 4px; background: #E5E7EB; border-radius: 2px; margin: 12px auto 0; }
+    .menu-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .menu-header-title { font-size: 15px; font-weight: 700; color: var(--ink); font-family: 'Sora', sans-serif; }
+    .btn-close-menu { background: #f5f7fb; border: none; border-radius: var(--r-sm); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--muted); }
+    .menu-section-title { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: #bbb; padding: 14px 20px 6px; }
+    .menu-item { display: flex; align-items: center; gap: 14px; padding: 13px 20px; border-bottom: 1px solid var(--border); transition: background .12s; }
+    .menu-item:hover { background: #f5f7fb; }
+    .menu-item i { font-size: 20px; color: var(--blue); width: 24px; text-align: center; flex-shrink: 0; }
+    .menu-item-label { font-size: 14px; font-weight: 500; color: var(--ink); }
+    .menu-item-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .menu-socials { padding: 16px 20px; display: flex; gap: 16px; }
+    .menu-socials a { font-size: 22px; color: var(--blue); }
+    .btn-menu-signin { display: block; width: calc(100% - 40px); margin: 4px 20px 16px; background: var(--blue); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; padding: 12px; text-align: center; }
+
+    /* =============================================
+       BREAKPOINTS
+       ============================================= */
+    @media (min-width: 992px) {
+      .mobile-topbar { display: none !important; }
+      .bottom-nav    { display: none !important; }
+      body           { padding-bottom: 0; }
+    }
+    @media (max-width: 991px) {
+      .lea-navbar    { display: none !important; }
+      .mobile-topbar { display: flex; }
+      .bottom-nav    { display: flex; }
+      body           { padding-bottom: 62px; }
+      .lea-footer    { padding-bottom: calc(62px + env(safe-area-inset-bottom,0px) + 12px); }
+      .page-wrap     { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+      .sidebar       { display: none; }
+      .cats-bar      { top: 56px; }
+      .dizeres-hero  { padding: 32px 0 0; }
+      .dizeres-hero h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR DESKTOP -->
+  <nav class="lea-navbar">
+    <a href="index.html"><img src="assets/img/logo.png" alt="LEA"></a>
+    <div class="lea-navbar-links">
+      <a href="index.html">Início</a>
+      <a href="artistas.html">Artistas</a>
+      <a href="musica.html">Músicas</a>
+      <a href="videos.html">Vídeos</a>
+      <a href="literatura.html" class="active">Literatura</a>
+      <a href="noticias.html">Notícias</a>
+      <a href="eventos.html">Eventos</a>
+      <a href="loja.html">Loja</a>
+    </div>
+    <div class="lea-navbar-right">
+      <div class="nav-search">
+        <i class="ti ti-search" style="font-size:13px;"></i>
+        <span>Pesquisar…</span>
+      </div>
+      <button class="btn-entrar">Entrar</button>
+    </div>
+  </nav>
+
+  <!-- TOPBAR MOBILE -->
+  <header class="mobile-topbar">
+    <a href="index.html"><img src="assets/img/logo.png" alt="LEA"></a>
+    <div class="mobile-topbar-icons">
+      <i class="ti ti-search"></i>
+      <i class="ti ti-bell"></i>
+      <i class="ti ti-user-circle"></i>
+    </div>
+  </header>
+
+
+  <!-- =============================================
+       HERO
+       ============================================= -->
+  <div class="dizeres-hero">
+    <div class="container pb-4">
+      <div class="row g-4 align-items-end">
+
+        <div class="col-lg-6">
+          <div class="hero-eyebrow">Frases & Dizeres Angolanos</div>
+          <h1>Palavras que <em>ficam</em><br>para sempre</h1>
+          <p>Reflexões, motivação, sabedoria e atitude — as melhores frases dos artistas e pensadores angolanos registados no LEA.</p>
+          <div class="hero-search">
+            <i class="ti ti-search"></i>
+            <input type="text" placeholder="Pesquisar frase, autor ou categoria…">
+          </div>
+          <div class="hero-stats">
+            <div><div class="hstat-num">58<span>+</span></div><div class="hstat-lbl">Frases</div></div>
+            <div><div class="hstat-num">30</div><div class="hstat-lbl">Autores</div></div>
+            <div><div class="hstat-num">11</div><div class="hstat-lbl">Categorias</div></div>
+          </div>
+        </div>
+
+        <!-- Frase destaque no hero -->
+        <div class="col-lg-5 offset-lg-1">
+          <div class="hero-quote-card">
+            <div class="hqc-cat"><i class="ti ti-star-filled"></i> Frase mais lida</div>
+            <div class="hqc-text">De onde eu vim nem nos era permitido sonhar. E eu sonhei. E cheguei até aqui.</div>
+            <div class="hqc-author">
+              <div class="hqc-avatar">
+                <img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'">
+              </div>
+              <div>
+                <div class="hqc-name">Francisco Destino</div>
+                <div class="hqc-reads">532 leituras · Inspiração</div>
+              </div>
+            </div>
+            <a href="https://lea.co.ao/literatura/dizere.php?art=ODEz&dzr=47" target="_blank" class="btn-share-hero">
+              <i class="ti ti-book-open"></i> Ver frase completa
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="hero-gold-bar"></div>
+  </div>
+
+
+  <!-- =============================================
+       BARRA DE CATEGORIAS
+       ============================================= -->
+  <div class="cats-bar">
+    <button class="cat-pill cat-pill-all active" data-cat="todos">Todas</button>
+    <button class="cat-pill cat-pill-reflexao"      data-cat="Reflexão">Reflexão</button>
+    <button class="cat-pill cat-pill-encorajamento" data-cat="Encorajamento">Encorajamento</button>
+    <button class="cat-pill cat-pill-motivacao"     data-cat="Motivação">Motivação</button>
+    <button class="cat-pill cat-pill-lamentos"      data-cat="Lamentos">Lamentos</button>
+    <button class="cat-pill cat-pill-vida"          data-cat="Vida">Vida</button>
+    <button class="cat-pill cat-pill-atitude"       data-cat="Atitude">Atitude</button>
+    <button class="cat-pill cat-pill-inspiracao"    data-cat="Inspiração">Inspiração</button>
+    <button class="cat-pill cat-pill-positividade"  data-cat="Positividade">Positividade</button>
+    <button class="cat-pill cat-pill-lideranca"     data-cat="Liderança">Liderança</button>
+    <button class="cat-pill cat-pill-amizade"       data-cat="Amizade">Amizade</button>
+    <button class="cat-pill cat-pill-relacionamentos" data-cat="Relacionamentos">Relacionamentos</button>
+    <div class="cats-bar-sort">
+      <select class="filter-select">
+        <option>Mais lidas</option>
+        <option>Mais recentes</option>
+        <option>A-Z autor</option>
+      </select>
+    </div>
+  </div>
+
+
+  <!-- =============================================
+       CONTEÚDO
+       ============================================= -->
+  <div class="page-wrap">
+
+    <main>
+
+      <!-- FRASE DESTAQUE GRANDE -->
+      <div class="sec-hdr">
+        <h2>⭐ Frase em <span>destaque</span></h2>
+      </div>
+
+      <div class="quote-featured">
+        <span class="qf-cat bg-inspiracao"><i class="ti ti-flame" style="font-size:11px;"></i> Inspiração</span>
+        <div class="qf-text">De onde eu vim nem nos era permitido sonhar. E eu sonhei. E cheguei até aqui.</div>
+        <div class="qf-footer">
+          <div class="qf-author">
+            <div class="qf-avatar" style="background:linear-gradient(135deg,#2563B0,#534AB7);">
+              <img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'">
+              FD
+            </div>
+            <div>
+              <div class="qf-name">Francisco Destino</div>
+              <div class="qf-date">17 Ago 2023</div>
+            </div>
+          </div>
+          <div class="qf-actions">
+            <span class="qf-reads"><i class="ti ti-eye"></i> 532</span>
+            <button class="btn-qaction" title="Gostar"><i class="ti ti-heart"></i></button>
+            <button class="btn-qaction" title="Partilhar" id="btnShareFeatured"><i class="ti ti-share"></i></button>
+            <button class="btn-qaction" title="Guardar"><i class="ti ti-bookmark"></i></button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- AD 1 -->
+      <div class="ann"><i class="ti ti-ad"></i> Leaderboard in-content</div>
+      <div class="ad-strip">
+        <span class="ad-pill">Pub</span>
+        <div class="ad-strip-thumb" style="background:var(--blue);">UN</div>
+        <div class="ad-strip-copy">
+          <strong>Unitel — Plano Ilimitado por Kz 3.500/mês</strong>
+          <small>Ligação rápida em todo o país · unitel.ao</small>
+        </div>
+        <button class="btn-ad">Ver oferta</button>
+      </div>
+
+
+      <!-- TODAS AS FRASES — masonry -->
+      <div class="sec-hdr">
+        <h2>💬 Todas as <span>frases</span></h2>
+        <a class="sec-more" href="https://lea.co.ao/literatura/dizeres.php?strt=0" target="_blank">Ver no LEA →</a>
+      </div>
+
+      <div class="quotes-masonry" id="quotesMasonry">
+
+        <!-- 1 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MjIyMw==&dzr=58" target="_blank">
+          <span class="qc-cat bg-reflexao">Reflexão</span>
+          <div class="qc-text">Só quem já errou entende o peso e o valor do recomeço.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#2563B0,#534AB7);">
+                <img src="https://lea.co.ao/artistas/imgs/Poeta-Falso.jpg" alt="" onerror="this.style.display='none'">PF
+              </div>
+              <span class="qc-name">Poeta Falso</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 2 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MjIyMw==&dzr=57" target="_blank">
+          <span class="qc-cat bg-encorajamento">Encorajamento</span>
+          <div class="qc-text">Perdoar-se é curar-se e encontrar a paz mental.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#2563B0,#534AB7);">
+                <img src="https://lea.co.ao/artistas/imgs/Poeta-Falso.jpg" alt="" onerror="this.style.display='none'">PF
+              </div>
+              <span class="qc-name">Poeta Falso</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 3 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=ODQ1&dzr=56" target="_blank">
+          <span class="qc-cat bg-lamentos">Lamentos</span>
+          <div class="qc-text">Nos deixem crescer também, nos deixem sonhar e ser o que somos.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#374151,#1F2937);">
+                <img src="https://lea.co.ao/artistas/imgs/Gato Preto.jpg" alt="" onerror="this.style.display='none'">GP
+              </div>
+              <span class="qc-name">Gato Preto</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> 507</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 4 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=NDk0&dzr=55" target="_blank">
+          <span class="qc-cat bg-lamentos">Lamentos</span>
+          <div class="qc-text">África parece um corpo inerte onde circula sangue mas cuja alma não se manifesta.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#2563B0,#1A4A8A);">
+                <img src="https://lea.co.ao/artistas/imgs/Agostinho Neto.jpg" alt="" onerror="this.style.display='none'">AN
+              </div>
+              <span class="qc-name">Agostinho Neto</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 5 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MTc4MQ==&dzr=54" target="_blank">
+          <span class="qc-cat bg-motivacao">Motivação</span>
+          <div class="qc-text">O que canto é o que escrevo e o que escrevo é o que vivo — não há separação entre arte e vida.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#1D9E75,#2563B0);">
+                <img src="https://lea.co.ao/artistas/imgs/Hebo Imoxi Muadiakimi.jpg" alt="" onerror="this.style.display='none'">HI
+              </div>
+              <span class="qc-name">Hebo Imoxi Muadiakimi</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> 508</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 6 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=ODQ1&dzr=53" target="_blank">
+          <span class="qc-cat bg-vida">Vida</span>
+          <div class="qc-text">Não sou o que sonhei, mas amo o que eu sou.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#374151,#1F2937);">
+                <img src="https://lea.co.ao/artistas/imgs/Gato Preto.jpg" alt="" onerror="this.style.display='none'">GP
+              </div>
+              <span class="qc-name">Gato Preto</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> 515</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 7 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=NTA=&dzr=52" target="_blank">
+          <span class="qc-cat bg-relacionamentos">Relacionamentos</span>
+          <div class="qc-text">Quando os ratos se vêm encurralados, mordem até o gato.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#9D174D,#534AB7);">
+                <img src="https://lea.co.ao/artistas/imgs/Yola Araujo.jpg" alt="" onerror="this.style.display='none'">YA
+              </div>
+              <span class="qc-name">Yola Araújo</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 8 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MTQ=&dzr=51" target="_blank">
+          <span class="qc-cat bg-atitude">Atitude</span>
+          <div class="qc-text">Há gente que teve de mudar o discurso, porque a realidade não lhes deu razão.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#DB2777,#9D174D);">
+                <img src="https://lea.co.ao/artistas/imgs/Mc K.jpg" alt="" onerror="this.style.display='none'">MK
+              </div>
+              <span class="qc-name">Mc K</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> 507</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 9 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=OTg2&dzr=50" target="_blank">
+          <span class="qc-cat bg-reflexao">Reflexão</span>
+          <div class="qc-text">Os dentes do cabrito podem ser grandes, mas nunca chegam para morder o leão.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#C07A1A,#8B6914);">
+                <img src="https://lea.co.ao/artistas/imgs/Tomas Gaspar.jpg" alt="" onerror="this.style.display='none'">TG
+              </div>
+              <span class="qc-name">Tomás Gaspar</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 10 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=ODEz&dzr=48" target="_blank">
+          <span class="qc-cat bg-inspiracao">Inspiração</span>
+          <div class="qc-text">O objetivo é mexer com a mente das pessoas, para que possam pensar e agir diferente.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#2563B0,#534AB7);">
+                <img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'">FD
+              </div>
+              <span class="qc-name">Francisco Destino</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> 524</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 11 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=OTg2&dzr=46" target="_blank">
+          <span class="qc-cat bg-lideranca">Liderança</span>
+          <div class="qc-text">Acredito que o que falta em nós, angolanos, é a capacidade de nos assumirmos como líderes das nossas próprias vidas.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#C07A1A,#8B6914);">
+                <img src="https://lea.co.ao/artistas/imgs/Tomas Gaspar.jpg" alt="" onerror="this.style.display='none'">TG
+              </div>
+              <span class="qc-name">Tomás Gaspar</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> 509</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 12 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MjE3&dzr=45" target="_blank">
+          <span class="qc-cat bg-positividade">Positividade</span>
+          <div class="qc-text">Para viver o propósito é preciso correr riscos. A zona de conforto é o maior inimigo do crescimento.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#0D9488,#1D9E75);">
+                <img src="https://lea.co.ao/artistas/imgs/Ricardo_Dionis_Pedro_na_Lea.jpg" alt="" onerror="this.style.display='none'">RD
+              </div>
+              <span class="qc-name">Rickdionis</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 13 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MTI4Mg==&dzr=44" target="_blank">
+          <span class="qc-cat bg-amizade">Amizade</span>
+          <div class="qc-text">O valor de um Homem é definido pelas pessoas que ficam ao seu lado quando não tem nada.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#3B7DD8,#2563B0);">
+                <img src="https://lea.co.ao/artistas/imgs/Coronel Bernardo.jpg" alt="" onerror="this.style.display='none'">LB
+              </div>
+              <span class="qc-name">Lil Soldier</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 14 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MTMyNA==&dzr=43" target="_blank">
+          <span class="qc-cat bg-reflexao">Reflexão</span>
+          <div class="qc-text">Quem me dá sangue, eu lhe dou pulmão.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#534AB7,#9D174D);">
+                <img src="https://lea.co.ao/artistas/imgs/Eudys L.jpg" alt="" onerror="this.style.display='none'">EL
+              </div>
+              <span class="qc-name">Eudys L</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 15 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=OTg2&dzr=42" target="_blank">
+          <span class="qc-cat bg-motivacao">Motivação</span>
+          <div class="qc-text">Se viveres bem o presente, com certeza o futuro vai ser ainda melhor.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#C07A1A,#8B6914);">
+                <img src="https://lea.co.ao/artistas/imgs/Tomas Gaspar.jpg" alt="" onerror="this.style.display='none'">TG
+              </div>
+              <span class="qc-name">Tomás Gaspar</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 16 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MjMw&dzr=40" target="_blank">
+          <span class="qc-cat bg-reflexao">Reflexão</span>
+          <div class="qc-text">A morte e o sono são filhos do mesmo pai.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#374151,#1F2937);">
+                <img src="https://lea.co.ao/artistas/imgs/Nagrelha.jpg" alt="" onerror="this.style.display='none'">NA
+              </div>
+              <span class="qc-name">Nagrelha</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 17 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=OTg2&dzr=39" target="_blank">
+          <span class="qc-cat bg-motivacao">Motivação</span>
+          <div class="qc-text">Não vão levar a sério, até que levem. A persistência é a chave que abre todas as portas.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#C07A1A,#8B6914);">
+                <img src="https://lea.co.ao/artistas/imgs/Tomas Gaspar.jpg" alt="" onerror="this.style.display='none'">TG
+              </div>
+              <span class="qc-name">Tomás Gaspar</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+        <!-- 18 -->
+        <a class="quote-card" href="https://lea.co.ao/literatura/dizere.php?art=MTEyNg==&dzr=41" target="_blank">
+          <span class="qc-cat bg-motivacao">Motivação</span>
+          <div class="qc-text">Imagina a vida de um surdo. Vejo e não ouço. Mas sinto tudo o que os outros apenas ouvem.</div>
+          <div class="qc-footer">
+            <div class="qc-author">
+              <div class="qc-avatar" style="background:linear-gradient(135deg,#534AB7,#2563B0);">
+                <img src="https://lea.co.ao/artistas/imgs/Dino Weed.jpg" alt="" onerror="this.style.display='none'">DW
+              </div>
+              <span class="qc-name">Dino Weed</span>
+            </div>
+            <div class="qc-right">
+              <span class="qc-reads"><i class="ti ti-eye"></i> —</span>
+              <button class="btn-like-sm"><i class="ti ti-heart"></i></button>
+            </div>
+          </div>
+        </a>
+
+      </div><!-- /masonry -->
+
+
+      <!-- AD 2 -->
+      <div class="ann"><i class="ti ti-ad"></i> In-content nativo</div>
+      <div class="ad-strip">
+        <span class="ad-pill">Pub</span>
+        <div class="ad-strip-thumb" style="background:#1D9E75;">BAI</div>
+        <div class="ad-strip-copy">
+          <strong>BAI — Conta jovem sem comissões</strong>
+          <small>Abre já online · bai.ao</small>
+        </div>
+        <button class="btn-ad" style="background:#1D9E75;">Saber mais</button>
+      </div>
+
+
+      <!-- PAGINAÇÃO -->
+      <div class="pagination-wrap">
+        <div class="pagination-info">Mostrando 18 de 58 frases</div>
+        <div class="lea-pagination">
+          <button class="page-btn"><i class="ti ti-chevron-left"></i></button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <span style="color:var(--muted);font-size:13px;padding:0 4px;">…</span>
+          <button class="page-btn">4</button>
+          <button class="page-btn"><i class="ti ti-chevron-right"></i></button>
+        </div>
+      </div>
+
+    </main>
+
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- Frase do dia -->
+      <div class="frase-dia">
+        <div class="fd-label">✨ Frase do dia</div>
+        <div class="fd-text">O objetivo é mexer com a mente das pessoas, para que possam pensar e agir diferente.</div>
+        <div class="fd-author">
+          <div class="fd-avatar"><img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'"></div>
+          <div>
+            <div class="fd-name">Francisco Destino</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);">Inspiração · 524 leituras</div>
+          </div>
+        </div>
+        <button class="btn-share-fd" id="btnShareFD"><i class="ti ti-share"></i> Partilhar esta frase</button>
+      </div>
+
+      <!-- Frases mais lidas -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <i class="ti ti-flame"></i>
+          <h3>Frases mais lidas</h3>
+        </div>
+        <a class="popular-item" href="https://lea.co.ao/literatura/dizere.php?art=ODEz&dzr=47" target="_blank">
+          <span class="pop-num p1">1</span>
+          <div class="pop-avatar"><img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#2563B0;">FD</div></div>
+          <div><div class="pop-text">De onde eu vim nem nos era permitido…</div><div class="pop-meta"><i class="ti ti-eye"></i> 532 · Francisco Destino</div></div>
+        </a>
+        <a class="popular-item" href="https://lea.co.ao/literatura/dizere.php?art=ODEz&dzr=48" target="_blank">
+          <span class="pop-num p2">2</span>
+          <div class="pop-avatar"><img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#2563B0;">FD</div></div>
+          <div><div class="pop-text">O objetivo é mexer com a mente das…</div><div class="pop-meta"><i class="ti ti-eye"></i> 524 · Francisco Destino</div></div>
+        </a>
+        <a class="popular-item" href="https://lea.co.ao/literatura/dizere.php?art=ODQ1&dzr=53" target="_blank">
+          <span class="pop-num p3">3</span>
+          <div class="pop-avatar"><img src="https://lea.co.ao/artistas/imgs/Gato Preto.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#374151;">GP</div></div>
+          <div><div class="pop-text">Não sou o que sonhei, mas amo o que…</div><div class="pop-meta"><i class="ti ti-eye"></i> 515 · Gato Preto</div></div>
+        </a>
+        <a class="popular-item" href="https://lea.co.ao/literatura/dizere.php?art=OTg2&dzr=46" target="_blank">
+          <span class="pop-num rest">4</span>
+          <div class="pop-avatar"><img src="https://lea.co.ao/artistas/imgs/Tomas Gaspar.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#C07A1A;">TG</div></div>
+          <div><div class="pop-text">Acredito que o que falta em nós…</div><div class="pop-meta"><i class="ti ti-eye"></i> 509 · Tomás Gaspar</div></div>
+        </a>
+        <a class="popular-item" href="https://lea.co.ao/literatura/dizere.php?art=MTc4MQ==&dzr=54" target="_blank">
+          <span class="pop-num rest">5</span>
+          <div class="pop-avatar"><img src="https://lea.co.ao/artistas/imgs/Hebo Imoxi Muadiakimi.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#1D9E75;">HI</div></div>
+          <div><div class="pop-text">O que canto é o que escrevo e o que…</div><div class="pop-meta"><i class="ti ti-eye"></i> 508 · Hebo Imoxi</div></div>
+        </a>
+        <a class="popular-item" href="https://lea.co.ao/literatura/dizere.php?art=MTQ=&dzr=51" target="_blank">
+          <span class="pop-num rest">6</span>
+          <div class="pop-avatar"><img src="https://lea.co.ao/artistas/imgs/Mc K.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#DB2777;">MK</div></div>
+          <div><div class="pop-text">Há gente que teve de mudar o discurso…</div><div class="pop-meta"><i class="ti ti-eye"></i> 507 · Mc K</div></div>
+        </a>
+      </div>
+
+      <!-- AD 300×250 -->
+      <div>
+        <div class="ann"><i class="ti ti-ad"></i> 300 × 250 · AdSense</div>
+        <div class="ad-block-sidebar" style="min-height:140px;">
+          <i class="ti ti-ad" style="font-size:26px;color:rgba(139,105,20,0.25);"></i>
+          <div class="ad-size">300 × 250</div>
+          <div class="ad-type">Medium Rectangle</div>
+        </div>
+      </div>
+
+      <!-- Artistas recém adicionados -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <i class="ti ti-user-plus"></i>
+          <h3>Novos artistas</h3>
+        </div>
+        <a class="artist-sidebar-item" href="https://lea.co.ao/artista.php?a=MjI3MQ==" target="_blank">
+          <div class="as-avatar"><img src="https://lea.co.ao/artistas/imgs/Agatha Inata.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#9D174D;">AI</div></div>
+          <div><div class="as-name">Agatha Inata</div><div class="as-date">23 Mai 2026</div></div>
+        </a>
+        <a class="artist-sidebar-item" href="https://lea.co.ao/artista.php?a=MjI3MA==" target="_blank">
+          <div class="as-avatar"><img src="https://lea.co.ao/artistas/imgs/Adilson-Alves.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#2563B0;">AA</div></div>
+          <div><div class="as-name">Adilson Alves</div><div class="as-date">22 Mai 2026</div></div>
+        </a>
+        <a class="artist-sidebar-item" href="https://lea.co.ao/artista.php?a=MjI2OA==" target="_blank">
+          <div class="as-avatar"><img src="https://lea.co.ao/artistas/imgs/AC Lukamba.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#1D9E75;">AL</div></div>
+          <div><div class="as-name">AC Lukamba</div><div class="as-date">22 Mai 2026</div></div>
+        </a>
+        <a class="artist-sidebar-item" href="https://lea.co.ao/artista.php?a=MjI2Nw==" target="_blank" style="border-bottom:none;">
+          <div class="as-avatar"><img src="https://lea.co.ao/artistas/imgs/Narshyth.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#534AB7;">NA</div></div>
+          <div><div class="as-name">Narshyth</div><div class="as-date">21 Mai 2026</div></div>
+        </a>
+      </div>
+
+      <!-- Navegação Literatura -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <i class="ti ti-book"></i>
+          <h3>Mais em Literatura</h3>
+        </div>
+        <a class="artist-sidebar-item" href="literatura.html">
+          <div class="as-avatar" style="font-size:18px;background:linear-gradient(135deg,#2563B0,#1A4A8A);">📚</div>
+          <div><div class="as-name">Livros</div><div class="as-date">112 títulos à venda</div></div>
+          <i class="ti ti-chevron-right" style="color:var(--muted);margin-left:auto;font-size:14px;"></i>
+        </a>
+        <a class="artist-sidebar-item" href="poemas.html" style="border-bottom:none;">
+          <div class="as-avatar" style="font-size:18px;background:linear-gradient(135deg,#8B6914,#C07A1A);">✍️</div>
+          <div><div class="as-name">Poesias</div><div class="as-date">37 poemas publicados</div></div>
+          <i class="ti ti-chevron-right" style="color:var(--muted);margin-left:auto;font-size:14px;"></i>
+        </a>
+      </div>
+
+    </aside>
+
+  </div><!-- /page-wrap -->
+
+
+  <!-- FOOTER -->
+  <footer class="lea-footer">
+    <div class="footer-brand">
+      <img src="assets/img/logo.png" alt="LEA">
+      <small>© 2017–2026</small>
+    </div>
+    <div class="footer-links">
+      <a href="#">Sobre nós</a>
+      <a href="#">Contactos</a>
+      <a href="#">Privacidade</a>
+      <a href="#">Termos</a>
+      <a href="#">Publicitar</a>
+    </div>
+    <div class="footer-socials">
+      <a href="#"><i class="ti ti-brand-instagram"></i></a>
+      <a href="#"><i class="ti ti-brand-facebook"></i></a>
+      <a href="#"><i class="ti ti-brand-youtube"></i></a>
+      <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+      <a href="#"><i class="ti ti-brand-telegram"></i></a>
+    </div>
+  </footer>
+
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a class="bnav-btn" href="index.html"><i class="ti ti-home"></i><span class="bnav-lbl">Início</span></a>
+    <a class="bnav-btn" href="artistas.html"><i class="ti ti-users"></i><span class="bnav-lbl">Artistas</span></a>
+    <a class="bnav-btn active" href="literatura.html"><i class="ti ti-book"></i><span class="bnav-lbl">Literatura</span></a>
+    <a class="bnav-btn" href="loja.html"><i class="ti ti-shopping-bag"></i><span class="bnav-lbl">Loja</span></a>
+    <button class="bnav-btn" id="btnOpenMenu"><i class="ti ti-menu-2"></i><span class="bnav-lbl">Menu</span></button>
+  </nav>
+
+
+  <!-- MENU DRAWER -->
+  <div class="menu-drawer" id="menuDrawer">
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-panel">
+      <div class="menu-handle"></div>
+      <div class="menu-header">
+        <span class="menu-header-title">Menu</span>
+        <button class="btn-close-menu" id="btnCloseMenu"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="menu-section-title">Navegar</div>
+      <a class="menu-item" href="index.html"><i class="ti ti-home"></i><div><div class="menu-item-label">Início</div><div class="menu-item-sub">Página principal do LEA</div></div></a>
+      <a class="menu-item" href="artistas.html"><i class="ti ti-users"></i><div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.200+ artistas angolanos</div></div></a>
+      <a class="menu-item" href="musica.html"><i class="ti ti-music"></i><div><div class="menu-item-label">Músicas</div><div class="menu-item-sub">Ouve e descarrega</div></div></a>
+      <a class="menu-item" href="videos.html"><i class="ti ti-video"></i><div><div class="menu-item-label">Vídeos</div><div class="menu-item-sub">Clipes, filmes e séries</div></div></a>
+      <a class="menu-item" href="literatura.html"><i class="ti ti-book"></i><div><div class="menu-item-label">Literatura</div><div class="menu-item-sub">Livros, poesias e frases</div></div></a>
+      <a class="menu-item" href="noticias.html"><i class="ti ti-news"></i><div><div class="menu-item-label">Notícias</div><div class="menu-item-sub">Angola em dia</div></div></a>
+      <a class="menu-item" href="eventos.html"><i class="ti ti-calendar-event"></i><div><div class="menu-item-label">Eventos</div><div class="menu-item-sub">Agenda cultural angolana</div></div></a>
+      <a class="menu-item" href="loja.html"><i class="ti ti-shopping-bag"></i><div><div class="menu-item-label">Loja</div><div class="menu-item-sub">Livros, CDs, ingressos e mais</div></div></a>
+      <div class="menu-section-title">Conta</div>
+      <a class="menu-item" href="#"><i class="ti ti-user-circle"></i><div><div class="menu-item-label">Entrar</div><div class="menu-item-sub">Aceder à minha conta</div></div></a>
+      <a class="menu-item" href="#"><i class="ti ti-rosette-discount-check"></i><div><div class="menu-item-label">Certificar artista</div><div class="menu-item-sub">Destaca-te na plataforma</div></div></a>
+      <div class="menu-section-title">Redes sociais</div>
+      <div class="menu-socials">
+        <a href="#"><i class="ti ti-brand-instagram"></i></a>
+        <a href="#"><i class="ti ti-brand-facebook"></i></a>
+        <a href="#"><i class="ti ti-brand-youtube"></i></a>
+        <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+        <a href="#"><i class="ti ti-brand-telegram"></i></a>
+      </div>
+      <button class="btn-menu-signin">Entrar na minha conta</button>
+    </div>
+  </div>
+
+
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+    // Menu drawer
+    const drawer   = document.getElementById('menuDrawer');
+    const overlay  = document.getElementById('menuOverlay');
+    const btnOpen  = document.getElementById('btnOpenMenu');
+    const btnClose = document.getElementById('btnCloseMenu');
+    const openMenu  = () => { drawer.classList.add('open');    document.body.style.overflow = 'hidden'; };
+    const closeMenu = () => { drawer.classList.remove('open'); document.body.style.overflow = ''; };
+    btnOpen.addEventListener('click', openMenu);
+    btnClose.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+    drawer.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
+
+    // Filtro por categoria
+    document.querySelectorAll('.cat-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const cat = pill.dataset.cat;
+        document.querySelectorAll('.quote-card').forEach(card => {
+          if (cat === 'todos') {
+            card.style.display = 'block';
+          } else {
+            const cardCat = card.querySelector('.qc-cat')?.textContent?.trim();
+            card.style.display = cardCat === cat ? 'block' : 'none';
+          }
+        });
+      });
+    });
+
+    // Like buttons em cards
+    document.querySelectorAll('.btn-like-sm').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        btn.classList.toggle('liked');
+        const icon = btn.querySelector('i');
+        icon.className = btn.classList.contains('liked') ? 'ti ti-heart-filled' : 'ti ti-heart';
+      });
+    });
+
+    // Like no destaque
+    document.querySelectorAll('.btn-qaction').forEach(btn => {
+      if (btn.title === 'Gostar') {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('liked');
+          const icon = btn.querySelector('i');
+          icon.className = btn.classList.contains('liked') ? 'ti ti-heart-filled' : 'ti ti-heart';
+        });
+      }
+    });
+
+    // Partilhar frase do dia
+    function shareText(text, url) {
+      if (navigator.share) {
+        navigator.share({ text, url });
+      } else {
+        navigator.clipboard.writeText(text + ' ' + url);
+        return true; // copiado
+      }
+    }
+
+    document.getElementById('btnShareFD')?.addEventListener('click', () => {
+      const copied = shareText(
+        'O objetivo é mexer com a mente das pessoas, para que possam pensar e agir diferente. — Francisco Destino | LEA',
+        'https://lea.co.ao/literatura/dizere.php?art=ODEz&dzr=48'
+      );
+      if (copied) {
+        const btn = document.getElementById('btnShareFD');
+        btn.innerHTML = '<i class="ti ti-check"></i> Copiado!';
+        setTimeout(() => btn.innerHTML = '<i class="ti ti-share"></i> Partilhar esta frase', 2500);
+      }
+    });
+
+    document.getElementById('btnShareFeatured')?.addEventListener('click', () => {
+      shareText(
+        'De onde eu vim nem nos era permitido sonhar. E eu sonhei. E cheguei até aqui. — Francisco Destino | LEA',
+        'https://lea.co.ao/literatura/dizere.php?art=ODEz&dzr=47'
+      );
+    });
+
+  </script>
+
+</body>
+</html>

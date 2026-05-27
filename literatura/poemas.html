@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEA Poesias — A voz dos poetas angolanos</title>
+
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       RESET & BASE
+       ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #FAF7F2; color: #1C1410; font-size: 14px; line-height: 1.5; }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Sora', sans-serif; margin: 0; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { font-family: 'DM Sans', sans-serif; cursor: pointer; }
+
+    :root {
+      --blue:       #2563B0;
+      --blue-dark:  #1A4A8A;
+      --blue-light: #E8F0FB;
+      --teal:       #1D9E75;
+      --amber:      #C07A1A;
+      --amber-light:#FEF3C7;
+      --purple:     #534AB7;
+      --ink:        #1C1410;
+      --paper:      #FAF7F2;
+      --paper2:     #F3EFE8;
+      --gold:       #8B6914;
+      --gold-light: #FDF6E3;
+      --border:     rgba(139,105,20,0.15);
+      --muted:      #8B7355;
+      --white:      #ffffff;
+      --radius-sm:  8px;
+      --radius-md:  12px;
+      --radius-lg:  16px;
+    }
+
+    /* =============================================
+       NAVBAR DESKTOP
+       ============================================= */
+    .lea-navbar {
+      background: var(--ink);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: 24px;
+    }
+    .lea-navbar img { height: 32px; }
+    .lea-navbar-links { display: flex; align-items: center; gap: 2px; flex: 1; }
+    .lea-navbar-links a {
+      font-size: 13px; color: rgba(255,255,255,0.55);
+      padding: 5px 10px; border-radius: var(--radius-sm);
+      transition: color .15s, background .15s; white-space: nowrap;
+    }
+    .lea-navbar-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .lea-navbar-links a.active { color: var(--gold) !important; background: rgba(139,105,20,0.15) !important; }
+    .lea-navbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-search {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-sm); padding: 6px 12px;
+      font-size: 12px; color: rgba(255,255,255,0.5); min-width: 150px;
+    }
+    .btn-entrar {
+      background: var(--blue); color: #fff; border: none;
+      border-radius: var(--radius-sm); font-size: 13px; font-weight: 500;
+      padding: 7px 16px; transition: background .15s;
+    }
+    .btn-entrar:hover { background: var(--blue-dark); }
+
+    /* =============================================
+       TOPBAR MOBILE
+       ============================================= */
+    .mobile-topbar {
+      display: none;
+      background: var(--ink);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 10px 16px;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .mobile-topbar img { height: 28px; }
+    .mobile-topbar-icons { display: flex; gap: 16px; font-size: 20px; color: rgba(255,255,255,0.6); }
+
+    /* =============================================
+       HERO
+       ============================================= */
+    .poems-hero {
+      background: var(--ink);
+      padding: 52px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .poems-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 80% 20%, rgba(139,105,20,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 5% 90%, rgba(37,99,176,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* Texto decorativo de fundo */
+    .poems-hero::after {
+      content: '"Havemos de voltar"';
+      position: absolute; bottom: 50px; right: -20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 72px; font-style: italic;
+      color: rgba(255,255,255,0.025);
+      white-space: nowrap; pointer-events: none;
+      transform: rotate(-4deg);
+    }
+    .poems-hero .container { position: relative; z-index: 2; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 12px;
+    }
+    .hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+
+    .poems-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4.5vw, 52px);
+      font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 12px;
+    }
+    .poems-hero h1 em { font-style: italic; color: var(--gold); }
+    .poems-hero p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 460px; margin-bottom: 24px; }
+
+    /* Search */
+    .hero-search {
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 10px 16px; gap: 10px; max-width: 440px;
+    }
+    .hero-search:focus-within { background: rgba(255,255,255,0.11); border-color: rgba(139,105,20,0.4); }
+    .hero-search input { background: none; border: none; outline: none; font-size: 14px; color: #fff; flex: 1; font-family: 'DM Sans', sans-serif; }
+    .hero-search input::placeholder { color: rgba(255,255,255,0.3); }
+    .hero-search i { font-size: 18px; color: rgba(255,255,255,0.35); }
+
+    /* Stats */
+    .hero-stats { display: flex; gap: 28px; margin-top: 24px; flex-wrap: wrap; }
+    .hstat-num { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; color: #fff; }
+    .hstat-num span { color: var(--gold); }
+    .hstat-lbl { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+    /* Poema destaque no hero */
+    .hero-featured-poem {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      position: relative;
+    }
+    .hero-featured-poem::before {
+      content: '\201C';
+      position: absolute; top: -12px; left: 14px;
+      font-family: 'Playfair Display', serif;
+      font-size: 80px; color: rgba(139,105,20,0.2);
+      line-height: 1;
+    }
+    .hfp-label { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .hfp-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .hfp-excerpt {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px; font-style: italic;
+      color: rgba(255,255,255,0.75); line-height: 1.9;
+      margin-bottom: 14px; position: relative; z-index: 1;
+    }
+    .hfp-author { display: flex; align-items: center; gap: 8px; }
+    .hfp-avatar { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .hfp-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .hfp-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.8); }
+    .hfp-reads { font-size: 10px; color: rgba(255,255,255,0.4); }
+    .btn-read-poem {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(139,105,20,0.2); color: var(--gold);
+      border: 1px solid rgba(139,105,20,0.3); border-radius: var(--radius-sm);
+      font-size: 12px; font-weight: 600; padding: 7px 14px; margin-top: 12px;
+      transition: all .15s;
+    }
+    .btn-read-poem:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+    /* Gold separator */
+    .hero-gold-bar { height: 3px; background: linear-gradient(90deg, var(--gold) 0%, transparent 100%); margin-top: 32px; }
+
+    /* =============================================
+       FILTER BAR
+       ============================================= */
+    .filter-bar {
+      background: var(--paper2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      display: flex; align-items: center;
+      overflow-x: auto;
+      position: sticky; top: 56px; z-index: 90;
+    }
+    .filter-bar::-webkit-scrollbar { height: 0; }
+    .filter-tab {
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      padding: 13px 16px; border-bottom: 2px solid transparent;
+      white-space: nowrap; transition: all .15s; flex-shrink: 0;
+    }
+    .filter-tab:hover { color: var(--ink); }
+    .filter-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .filter-right { margin-left: auto; display: flex; align-items: center; gap: 8px; padding: 8px 0; flex-shrink: 0; }
+    .filter-select {
+      background: var(--paper); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--muted);
+      font-size: 12px; padding: 6px 10px; outline: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* =============================================
+       LAYOUT
+       ============================================= */
+    .page-wrap { max-width: 1180px; margin: 0 auto; padding: 28px 24px 60px; display: grid; grid-template-columns: 1fr 280px; gap: 28px; align-items: start; }
+
+    /* =============================================
+       SEC HEADER
+       ============================================= */
+    .sec-hdr { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .sec-hdr h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink); }
+    .sec-hdr h2 span { color: var(--gold); }
+    .sec-more { font-size: 12px; color: var(--gold); font-style: italic; }
+    .sec-more:hover { text-decoration: underline; }
+
+    /* =============================================
+       POEM CARDS — estilos principais
+       ============================================= */
+
+    /* Card completo — mostra o poema inteiro */
+    .poem-full {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: box-shadow .2s;
+      margin-bottom: 20px;
+    }
+    .poem-full:hover { box-shadow: 0 6px 24px rgba(139,105,20,0.10); }
+
+    .poem-full-header {
+      padding: 20px 24px 0;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    }
+    .poem-category {
+      display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .6px;
+      text-transform: uppercase; color: var(--gold); background: var(--gold-light);
+      padding: 3px 10px; border-radius: 99px; margin-bottom: 8px;
+    }
+    .poem-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 4px;
+    }
+    .poem-author-line { font-size: 12px; color: var(--muted); font-style: italic; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+    .poem-author-line i { font-size: 13px; color: var(--gold); }
+
+    .poem-body { padding: 0 24px 20px; }
+    .poem-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; font-style: italic;
+      color: var(--ink); line-height: 2;
+      white-space: pre-line;
+      border-left: 3px solid var(--gold);
+      padding-left: 18px;
+      margin-bottom: 18px;
+    }
+
+    .poem-full-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      background: var(--paper);
+    }
+    .poem-author-info { display: flex; align-items: center; gap: 10px; }
+    .poem-avatar { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; color: #fff; }
+    .poem-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .poem-author-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .poem-author-type { font-size: 10px; color: var(--muted); }
+    .poem-stats { display: flex; align-items: center; gap: 14px; }
+    .poem-stat { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
+    .poem-stat i { font-size: 13px; color: var(--gold); }
+    .poem-actions { display: flex; align-items: center; gap: 6px; }
+    .btn-poem-action {
+      width: 32px; height: 32px; border-radius: var(--radius-sm);
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .12s;
+    }
+    .btn-poem-action:hover { background: var(--gold-light); color: var(--gold); border-color: rgba(139,105,20,0.3); }
+    .btn-poem-action.liked { color: #DC2626; border-color: #DC2626; background: #FEE2E2; }
+
+    /* Card compact — só excerto */
+    .poem-compact {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      transition: box-shadow .15s, border-left-color .15s;
+      display: block;
+    }
+    .poem-compact:hover { box-shadow: 0 4px 16px rgba(139,105,20,0.10); border-left-color: var(--blue); }
+    .poem-compact-category { font-size: 9px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .poem-compact-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+    .poem-compact-excerpt {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px; font-style: italic; color: var(--muted);
+      line-height: 1.85; margin-bottom: 12px;
+    }
+    .poem-compact-excerpt::before { content: '\201C'; color: var(--gold); }
+    .poem-compact-excerpt::after  { content: '\201D'; color: var(--gold); }
+    .poem-compact-footer { display: flex; align-items: center; justify-content: space-between; }
+    .poem-compact-author { display: flex; align-items: center; gap: 8px; }
+    .pc-avatar { width: 26px; height: 26px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .pc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .pc-avatar .av-fall { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #fff; }
+    .pc-name { font-size: 11px; font-weight: 600; color: var(--ink); }
+    .pc-reads { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 3px; }
+    .pc-reads i { font-size: 11px; }
+
+    /* Grid de compactos */
+    .poems-compact-grid { display: flex; flex-direction: column; gap: 12px; }
+
+    /* =============================================
+       AD ELEMENTS
+       ============================================= */
+    .ad-pill { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: #bbb; border: 1px solid #ddd; border-radius: 4px; padding: 2px 6px; flex-shrink: 0; }
+    .ann { font-size: 10px; color: var(--blue); display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
+    .ad-strip { background: var(--white); border: 1px dashed rgba(139,105,20,0.2); border-radius: var(--radius-md); padding: 12px 16px; display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .ad-strip-thumb { width: 52px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .ad-strip-copy { flex: 1; }
+    .ad-strip-copy strong { font-size: 13px; font-weight: 500; color: var(--ink); display: block; }
+    .ad-strip-copy small { font-size: 11px; color: var(--muted); }
+    .btn-ad { background: var(--blue); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; padding: 6px 14px; white-space: nowrap; }
+
+    /* =============================================
+       PAGINATION
+       ============================================= */
+    .pagination-wrap { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+    .pagination-info { font-size: 13px; color: var(--muted); }
+    .lea-pagination { display: flex; align-items: center; gap: 4px; }
+    .page-btn { width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--white); border: 1px solid var(--border); color: var(--muted); font-size: 13px; display: flex; align-items: center; justify-content: center; transition: all .12s; }
+    .page-btn:hover { background: var(--gold-light); color: var(--gold); border-color: rgba(139,105,20,0.3); }
+    .page-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); font-weight: 700; }
+
+    /* =============================================
+       SIDEBAR
+       ============================================= */
+    .sidebar { display: flex; flex-direction: column; gap: 18px; }
+
+    .sidebar-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+    .sidebar-card-header { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--border); background: var(--paper2); }
+    .sidebar-card-header h3 { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--ink); }
+    .sidebar-card-header i { font-size: 16px; color: var(--gold); }
+
+    /* Mais lidos */
+    .popular-poem { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--border); transition: background .12s; }
+    .popular-poem:last-child { border-bottom: none; }
+    .popular-poem:hover { background: var(--paper2); }
+    .pop-num { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; line-height: 1; flex-shrink: 0; width: 24px; }
+    .pop-num.p1 { color: var(--gold); }
+    .pop-num.p2 { color: rgba(139,105,20,0.5); }
+    .pop-num.p3 { color: rgba(139,105,20,0.35); }
+    .pop-num.rest { color: rgba(139,105,20,0.2); }
+    .pop-avatar { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .pop-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .pop-avatar .av-fall { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #fff; }
+    .pop-title { font-size: 12px; font-weight: 500; color: var(--ink); line-height: 1.4; margin-bottom: 2px; }
+    .popular-poem:hover .pop-title { color: var(--gold); }
+    .pop-meta { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+
+    /* Autores */
+    .author-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--border); transition: background .12s; }
+    .author-item:last-child { border-bottom: none; }
+    .author-item:hover { background: var(--paper2); }
+    .author-avatar { width: 38px; height: 38px; border-radius: 50%; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 700; color: #fff; }
+    .author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .author-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+    .author-poems { font-size: 10px; color: var(--muted); }
+    .author-reads { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--gold); white-space: nowrap; }
+
+    /* Frase do dia */
+    .frase-dia {
+      background: linear-gradient(135deg, var(--ink) 0%, #2C1F0E 100%);
+      border-radius: var(--radius-md); padding: 18px;
+      position: relative; overflow: hidden;
+    }
+    .frase-dia::before { content: '\201C'; position: absolute; top: -10px; left: 8px; font-family: 'Playfair Display', serif; font-size: 72px; color: rgba(139,105,20,0.12); line-height: 1; pointer-events: none; }
+    .fd-label { font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .fd-text { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.75; margin-bottom: 12px; position: relative; z-index: 1; }
+    .fd-author { display: flex; align-items: center; gap: 8px; }
+    .fd-avatar { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; }
+    .fd-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .fd-name { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.7); }
+    .btn-share-fd { display: block; width: 100%; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); font-size: 12px; padding: 8px; margin-top: 12px; text-align: center; transition: all .15s; }
+    .btn-share-fd:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+    /* AD sidebar */
+    .ad-block-sidebar { background: var(--paper2); border: 1px dashed rgba(139,105,20,0.2); border-radius: var(--radius-md); min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; gap: 4px; }
+    .ad-size { font-size: 13px; font-weight: 600; color: rgba(139,105,20,0.25); }
+    .ad-type { font-size: 10px; color: rgba(139,105,20,0.2); }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    .lea-footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-brand { display: flex; align-items: center; gap: 8px; }
+    .footer-brand img { height: 24px; }
+    .footer-brand small { font-size: 11px; color: rgba(255,255,255,0.35); }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.45); transition: color .12s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+    .footer-socials { display: flex; gap: 14px; }
+    .footer-socials a { font-size: 20px; color: var(--blue); transition: opacity .15s; }
+    .footer-socials a:hover { opacity: .7; }
+
+    /* =============================================
+       BOTTOM NAV MOBILE
+       ============================================= */
+    .bottom-nav { display: none; background: var(--ink); border-top: 1px solid rgba(255,255,255,0.08); position: fixed; bottom: 0; left: 0; right: 0; height: 62px; align-items: center; justify-content: space-around; z-index: 200; padding-bottom: env(safe-area-inset-bottom, 0); }
+    .bnav-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 22px; color: rgba(255,255,255,0.4); flex: 1; justify-content: center; background: none; border: none; text-decoration: none; transition: color .12s; padding: 0; }
+    .bnav-btn.active, .bnav-btn:hover { color: var(--gold); }
+    .bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+
+    /* =============================================
+       MENU DRAWER
+       ============================================= */
+    .menu-drawer { position: fixed; inset: 0; z-index: 500; visibility: hidden; }
+    .menu-drawer.open { visibility: visible; }
+    .menu-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.55); opacity: 0; transition: opacity .25s; }
+    .menu-drawer.open .menu-overlay { opacity: 1; }
+    .menu-panel { position: absolute; bottom: 0; left: 0; right: 0; background: var(--white); border-radius: 20px 20px 0 0; padding-bottom: env(safe-area-inset-bottom, 16px); transform: translateY(100%); transition: transform .3s cubic-bezier(.32,.72,0,1); max-height: 90vh; overflow-y: auto; }
+    .menu-drawer.open .menu-panel { transform: translateY(0); }
+    .menu-handle { width: 36px; height: 4px; background: #E5E7EB; border-radius: 2px; margin: 12px auto 0; }
+    .menu-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .menu-header-title { font-size: 15px; font-weight: 700; color: var(--ink); font-family: 'Sora', sans-serif; }
+    .btn-close-menu { background: #f5f7fb; border: none; border-radius: var(--radius-sm); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--muted); }
+    .menu-section-title { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: #bbb; padding: 14px 20px 6px; }
+    .menu-item { display: flex; align-items: center; gap: 14px; padding: 13px 20px; border-bottom: 1px solid var(--border); transition: background .12s; }
+    .menu-item:hover { background: #f5f7fb; }
+    .menu-item i { font-size: 20px; color: var(--blue); width: 24px; text-align: center; flex-shrink: 0; }
+    .menu-item-label { font-size: 14px; font-weight: 500; color: var(--ink); }
+    .menu-item-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .menu-socials { padding: 16px 20px; display: flex; gap: 16px; }
+    .menu-socials a { font-size: 22px; color: var(--blue); }
+    .btn-menu-signin { display: block; width: calc(100% - 40px); margin: 4px 20px 16px; background: var(--blue); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; padding: 12px; text-align: center; }
+
+    /* =============================================
+       BREAKPOINTS
+       ============================================= */
+    @media (min-width: 992px) {
+      .mobile-topbar { display: none !important; }
+      .bottom-nav    { display: none !important; }
+      body           { padding-bottom: 0; }
+    }
+    @media (max-width: 991px) {
+      .lea-navbar    { display: none !important; }
+      .mobile-topbar { display: flex; }
+      .bottom-nav    { display: flex; }
+      body           { padding-bottom: 62px; }
+      .lea-footer    { padding-bottom: calc(62px + env(safe-area-inset-bottom,0px) + 12px); }
+      .page-wrap     { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+      .sidebar       { display: none; }
+      .filter-bar    { top: 56px; }
+      .poems-hero    { padding: 32px 0 0; }
+      .poems-hero h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR DESKTOP -->
+  <nav class="lea-navbar">
+    <a href="index.html"><img src="assets/img/logo.png" alt="LEA"></a>
+    <div class="lea-navbar-links">
+      <a href="index.html">Início</a>
+      <a href="artistas.html">Artistas</a>
+      <a href="musica.html">Músicas</a>
+      <a href="videos.html">Vídeos</a>
+      <a href="literatura.html" class="active">Literatura</a>
+      <a href="noticias.html">Notícias</a>
+      <a href="eventos.html">Eventos</a>
+      <a href="loja.html">Loja</a>
+    </div>
+    <div class="lea-navbar-right">
+      <div class="nav-search">
+        <i class="ti ti-search" style="font-size:13px;"></i>
+        <span>Pesquisar…</span>
+      </div>
+      <button class="btn-entrar">Entrar</button>
+    </div>
+  </nav>
+
+  <!-- TOPBAR MOBILE -->
+  <header class="mobile-topbar">
+    <a href="index.html"><img src="assets/img/logo.png" alt="LEA"></a>
+    <div class="mobile-topbar-icons">
+      <i class="ti ti-search"></i>
+      <i class="ti ti-bell"></i>
+      <i class="ti ti-user-circle"></i>
+    </div>
+  </header>
+
+
+  <!-- =============================================
+       HERO
+       ============================================= -->
+  <div class="poems-hero">
+    <div class="container pb-4">
+      <div class="row g-4 align-items-end">
+
+        <div class="col-lg-6">
+          <div class="hero-eyebrow">Poesias Angolanas</div>
+          <h1>A voz dos <em>poetas</em><br>de Angola</h1>
+          <p>De Agostinho Neto a Alda Lara, de Viriato da Cruz aos novos talentos — a poesia angolana em toda a sua riqueza.</p>
+          <div class="hero-search">
+            <i class="ti ti-search"></i>
+            <input type="text" placeholder="Pesquisar poema ou poeta…">
+          </div>
+          <div class="hero-stats">
+            <div><div class="hstat-num">37<span>+</span></div><div class="hstat-lbl">Poemas</div></div>
+            <div><div class="hstat-num">24</div><div class="hstat-lbl">Poetas</div></div>
+            <div><div class="hstat-num">8</div><div class="hstat-lbl">Categorias</div></div>
+          </div>
+        </div>
+
+        <!-- Poema destaque no hero -->
+        <div class="col-lg-5 offset-lg-1" style="display:block;" id="heroFeatured">
+          <div class="hero-featured-poem">
+            <div class="hfp-label"><i class="ti ti-star-filled"></i> Poema mais lido</div>
+            <div class="hfp-title">As belas meninas pardas</div>
+            <div class="hfp-excerpt">As belas meninas pardas<br>que passam na rua,<br>de vestidos coloridos<br>e sandálias de lacetes,<br>com sorrisos de marfim<br>e olhos de azeviche…</div>
+            <div class="hfp-author">
+              <div class="hfp-avatar">
+                <img src="https://lea.co.ao/artistas/imgs/Alda Lara.jpg" alt="Alda Lara" onerror="this.style.display='none'">
+              </div>
+              <div>
+                <div class="hfp-name">Alda Lara</div>
+                <div class="hfp-reads">1.359 leituras</div>
+              </div>
+            </div>
+            <a href="https://lea.co.ao/literatura/poema.php?poe=1" target="_blank" class="btn-read-poem">
+              <i class="ti ti-book-open"></i> Ler poema completo
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="hero-gold-bar"></div>
+  </div>
+
+
+  <!-- FILTER TABS -->
+  <div class="filter-bar">
+    <a class="filter-tab active" href="#">Todos</a>
+    <a class="filter-tab" href="#">Reflexão</a>
+    <a class="filter-tab" href="#">Romance</a>
+    <a class="filter-tab" href="#">Pátria</a>
+    <a class="filter-tab" href="#">Natureza</a>
+    <a class="filter-tab" href="#">Resistência</a>
+    <a class="filter-tab" href="#">Saudade</a>
+    <a class="filter-tab" href="#">Infância</a>
+    <a class="filter-tab" href="#">Espiritualidade</a>
+    <div class="filter-right">
+      <select class="filter-select">
+        <option>Mais lidos</option>
+        <option>Mais recentes</option>
+        <option>A-Z</option>
+      </select>
+    </div>
+  </div>
+
+
+  <!-- =============================================
+       CONTEÚDO
+       ============================================= -->
+  <div class="page-wrap">
+
+    <!-- MAIN -->
+    <main>
+
+      <!-- POEMA DESTAQUE — completo -->
+      <div class="sec-hdr">
+        <h2>📖 Poema em <span>destaque</span></h2>
+      </div>
+
+      <div class="poem-full">
+        <div class="poem-full-header">
+          <div>
+            <span class="poem-category">Pátria · Resistência</span>
+            <div class="poem-title">Havemos de Voltar</div>
+            <div class="poem-author-line"><i class="ti ti-feather"></i> Agostinho Neto · 1974</div>
+          </div>
+          <div class="poem-actions">
+            <button class="btn-poem-action" title="Gostar"><i class="ti ti-heart"></i></button>
+            <button class="btn-poem-action" title="Partilhar"><i class="ti ti-share"></i></button>
+            <button class="btn-poem-action" title="Guardar"><i class="ti ti-bookmark"></i></button>
+          </div>
+        </div>
+        <div class="poem-body">
+          <div class="poem-text">Havemos de voltar
+À ilha do Cabo Verde
+à Guiné
+a São Tomé
+a Angola
+a Moçambique
+
+Havemos de voltar
+
+À ilha do Cabo Verde
+onde as ondas morrem
+e o vento chora
+e os homens esperam
+com o olho perdido
+no azul do mar
+
+Havemos de voltar
+
+À Guiné
+onde os baobás
+guardam silenciosamente
+os segredos da terra
+
+Havemos de voltar
+
+A São Tomé
+onde a cacauada verde
+sonha com o futuro
+
+Havemos de voltar
+
+A Angola, a Moçambique
+na força da luz
+e do amor da vida.</div>
+          <div class="poem-stats">
+            <span class="poem-stat"><i class="ti ti-eye"></i> 1.172 leituras</span>
+            <span class="poem-stat"><i class="ti ti-heart"></i> 84 gostos</span>
+            <span class="poem-stat"><i class="ti ti-share"></i> 32 partilhas</span>
+          </div>
+        </div>
+        <div class="poem-full-footer">
+          <div class="poem-author-info">
+            <div class="poem-avatar" style="background:linear-gradient(135deg,#2563B0,#534AB7);">
+              <img src="https://lea.co.ao/artistas/imgs/Agostinho Neto.jpg" alt="" onerror="this.style.display='none'">
+              AN
+            </div>
+            <div>
+              <div class="poem-author-name">Agostinho Neto</div>
+              <div class="poem-author-type">Poeta · Luanda · Fundador da República de Angola</div>
+            </div>
+          </div>
+          <a href="https://lea.co.ao/literatura/poema.php?poe=3" target="_blank" style="font-size:12px;color:var(--gold);font-style:italic;">Ver no LEA →</a>
+        </div>
+      </div>
+
+
+      <!-- AD -->
+      <div class="ann"><i class="ti ti-ad"></i> Leaderboard in-content</div>
+      <div class="ad-strip">
+        <span class="ad-pill">Pub</span>
+        <div class="ad-strip-thumb" style="background:var(--blue);">UN</div>
+        <div class="ad-strip-copy">
+          <strong>Unitel — Plano Ilimitado por Kz 3.500/mês</strong>
+          <small>Ligação rápida em todo o país · unitel.ao</small>
+        </div>
+        <button class="btn-ad">Ver oferta</button>
+      </div>
+
+
+      <!-- POEMAS — grelha compacta -->
+      <div class="sec-hdr">
+        <h2>✍️ Todos os <span>poemas</span></h2>
+        <a class="sec-more" href="https://lea.co.ao/literatura/poemas.php" target="_blank">Ver no LEA →</a>
+      </div>
+
+      <div class="poems-compact-grid">
+
+        <a class="poem-compact" href="https://lea.co.ao/literatura/poema.php?poe=1" target="_blank">
+          <div class="poem-compact-category">Reflexão · Romance</div>
+          <div class="poem-compact-title">As belas meninas pardas</div>
+          <div class="poem-compact-excerpt">As belas meninas pardas que passam na rua, de vestidos coloridos e sandálias de lacetes, com sorrisos de marfim e olhos de azeviche…</div>
+          <div class="poem-compact-footer">
+            <div class="poem-compact-author">
+              <div class="pc-avatar"><img src="https://lea.co.ao/artistas/imgs/Alda Lara.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#9D174D;">AL</div></div>
+              <span class="pc-name">Alda Lara</span>
+            </div>
+            <span class="pc-reads"><i class="ti ti-eye"></i> 1.359</span>
+          </div>
+        </a>
+
+        <a class="poem-compact" href="https://lea.co.ao/literatura/poema.php?poe=16" target="_blank">
+          <div class="poem-compact-category">Romance · Saudade</div>
+          <div class="poem-compact-title">Namoro</div>
+          <div class="poem-compact-excerpt">Eu quero namorar contigo nesta noite de lua cheia em que o teu sorriso me pertence e eu me perco nos teus olhos…</div>
+          <div class="poem-compact-footer">
+            <div class="poem-compact-author">
+              <div class="pc-avatar"><img src="https://lea.co.ao/artistas/imgs/Viriato da Cruz.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#2563B0;">VC</div></div>
+              <span class="pc-name">Viriato da Cruz</span>
+            </div>
+            <span class="pc-reads"><i class="ti ti-eye"></i> 1.045</span>
+          </div>
+        </a>
+
+        <a class="poem-compact" href="https://lea.co.ao/literatura/poema.php?poe=6" target="_blank">
+          <div class="poem-compact-category">Resistência · Pátria</div>
+          <div class="poem-compact-title">De mãos Vazias</div>
+          <div class="poem-compact-excerpt">De mãos vazias chegámos ao mundo, de mãos vazias aqui ficamos, lavrámos a terra com as mãos nuas e com elas construímos cidades…</div>
+          <div class="poem-compact-footer">
+            <div class="poem-compact-author">
+              <div class="pc-avatar"><img src="https://lea.co.ao/artistas/imgs/Jofre Rocha.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#1D9E75;">JR</div></div>
+              <span class="pc-name">Jofre Rocha</span>
+            </div>
+            <span class="pc-reads"><i class="ti ti-eye"></i> 1.040</span>
+          </div>
+        </a>
+
+        <a class="poem-compact" href="https://lea.co.ao/literatura/poema.php?poe=8" target="_blank">
+          <div class="poem-compact-category">Reflexão</div>
+          <div class="poem-compact-title">A Fê</div>
+          <div class="poem-compact-excerpt">A fé que move montanhas não é a que espera sentada — é a que levanta cedo, calça os sapatos e vai trabalhar…</div>
+          <div class="poem-compact-footer">
+            <div class="poem-compact-author">
+              <div class="pc-avatar"><div class="av-fall" style="background:#C07A1A;">SM</div></div>
+              <span class="pc-name">Satira Mc Furia</span>
+            </div>
+            <span class="pc-reads"><i class="ti ti-eye"></i> 1.034</span>
+          </div>
+        </a>
+
+        <a class="poem-compact" href="https://lea.co.ao/literatura/poema.php?poe=34" target="_blank">
+          <div class="poem-compact-category">Romance · Natureza</div>
+          <div class="poem-compact-title">As Minhas Águas</div>
+          <div class="poem-compact-excerpt">São diferentes hoje os olhos com que te abraço a cintura azul. Ó mar diferentes também as nossas posturas ontológicas. Hoje sou eu que te tenho…</div>
+          <div class="poem-compact-footer">
+            <div class="poem-compact-author">
+              <div class="pc-avatar"><img src="https://lea.co.ao/artistas/imgs/Rui-Augusto.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#534AB7;">RA</div></div>
+              <span class="pc-name">Rui Augusto</span>
+            </div>
+            <span class="pc-reads"><i class="ti ti-eye"></i> 982</span>
+          </div>
+        </a>
+
+        <a class="poem-compact" href="https://lea.co.ao/literatura/poema.php?poe=35" target="_blank">
+          <div class="poem-compact-category">Reflexão · Espiritualidade</div>
+          <div class="poem-compact-title">Talismã</div>
+          <div class="poem-compact-excerpt">Pesada é a bagagem do viajante que vai do não existir ao existir e do existir ao não existir. Enquanto me dura essa viagem que outros me doaram como herança…</div>
+          <div class="poem-compact-footer">
+            <div class="poem-compact-author">
+              <div class="pc-avatar"><img src="https://lea.co.ao/artistas/imgs/Rui-Augusto.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#534AB7;">RA</div></div>
+              <span class="pc-name">Rui Augusto</span>
+            </div>
+            <span class="pc-reads"><i class="ti ti-eye"></i> 956</span>
+          </div>
+        </a>
+
+        <a class="poem-compact" href="https://lea.co.ao/literatura/poema.php?poe=36" target="_blank">
+          <div class="poem-compact-category">Pátria · Natureza</div>
+          <div class="poem-compact-title">Mar</div>
+          <div class="poem-compact-excerpt">Andei descalço sobre o mal, caminhei longas distâncias para alcançar as montanhas e para poder ver os icebergs, neles fiz marcantes pinturas com água salgada indelével…</div>
+          <div class="poem-compact-footer">
+            <div class="poem-compact-author">
+              <div class="pc-avatar"><img src="https://lea.co.ao/artistas/imgs/Jose-Carlos-De-Almeida.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#2563B0;">JC</div></div>
+              <span class="pc-name">José Carlos De Almeida</span>
+            </div>
+            <span class="pc-reads"><i class="ti ti-eye"></i> 921</span>
+          </div>
+        </a>
+
+        <a class="poem-compact" href="https://lea.co.ao/literatura/poema.php?poe=37" target="_blank">
+          <div class="poem-compact-category">Pátria · Resistência</div>
+          <div class="poem-compact-title">Congo — Filha Antiga de África</div>
+          <div class="poem-compact-excerpt">Congo… Ho, Congo… Congo, tu, filha antiga de África. Quem te disse que não podes ser linda? Que não podes vestir-te de luz, pintar o rosto de esperança…</div>
+          <div class="poem-compact-footer">
+            <div class="poem-compact-author">
+              <div class="pc-avatar"><img src="https://lea.co.ao/artistas/imgs/Ci.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#1D9E75;">CI</div></div>
+              <span class="pc-name">Ci</span>
+            </div>
+            <span class="pc-reads"><i class="ti ti-eye"></i> 897</span>
+          </div>
+        </a>
+
+      </div>
+
+
+      <!-- AD 2 -->
+      <div class="ann mt-4"><i class="ti ti-ad"></i> In-content nativo</div>
+      <div class="ad-strip">
+        <span class="ad-pill">Pub</span>
+        <div class="ad-strip-thumb" style="background:#1D9E75;">BAI</div>
+        <div class="ad-strip-copy">
+          <strong>BAI — Conta jovem sem comissões</strong>
+          <small>Abre já online · bai.ao</small>
+        </div>
+        <button class="btn-ad" style="background:#1D9E75;">Saber mais</button>
+      </div>
+
+
+      <!-- PAGINAÇÃO -->
+      <div class="pagination-wrap mt-4">
+        <div class="pagination-info">Mostrando 9 de 37 poemas</div>
+        <div class="lea-pagination">
+          <button class="page-btn"><i class="ti ti-chevron-left"></i></button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <span style="color:var(--muted);font-size:13px;padding:0 4px;">…</span>
+          <button class="page-btn">5</button>
+          <button class="page-btn"><i class="ti ti-chevron-right"></i></button>
+        </div>
+      </div>
+
+    </main>
+
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- Frase do dia -->
+      <div class="frase-dia">
+        <div class="fd-label">✨ Frase do dia</div>
+        <div class="fd-text">O objetivo é mexer com a mente das pessoas, para que possam pensar e agir diferente.</div>
+        <div class="fd-author">
+          <div class="fd-avatar"><img src="https://lea.co.ao/artistas/imgs/Francisco Destino.jpg" alt="" onerror="this.style.display='none'"></div>
+          <div>
+            <div class="fd-name">Francisco Destino</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);">Inspiração</div>
+          </div>
+        </div>
+        <button class="btn-share-fd" id="btnShareFrase"><i class="ti ti-share"></i> Partilhar esta frase</button>
+      </div>
+
+      <!-- Poemas mais lidos -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <i class="ti ti-flame"></i>
+          <h3>Poemas mais lidos</h3>
+        </div>
+        <a class="popular-poem" href="https://lea.co.ao/literatura/poema.php?poe=1" target="_blank">
+          <span class="pop-num p1">1</span>
+          <div class="pop-avatar"><img src="https://lea.co.ao/artistas/imgs/Alda Lara.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#9D174D;">AL</div></div>
+          <div><div class="pop-title">As belas meninas pardas</div><div class="pop-meta"><i class="ti ti-eye"></i> 1.359 · Alda Lara</div></div>
+        </a>
+        <a class="popular-poem" href="https://lea.co.ao/literatura/poema.php?poe=3" target="_blank">
+          <span class="pop-num p2">2</span>
+          <div class="pop-avatar"><img src="https://lea.co.ao/artistas/imgs/Agostinho Neto.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#2563B0;">AN</div></div>
+          <div><div class="pop-title">Havemos de voltar</div><div class="pop-meta"><i class="ti ti-eye"></i> 1.172 · Agostinho Neto</div></div>
+        </a>
+        <a class="popular-poem" href="https://lea.co.ao/literatura/poema.php?poe=16" target="_blank">
+          <span class="pop-num p3">3</span>
+          <div class="pop-avatar"><img src="https://lea.co.ao/artistas/imgs/Viriato da Cruz.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#534AB7;">VC</div></div>
+          <div><div class="pop-title">Namoro</div><div class="pop-meta"><i class="ti ti-eye"></i> 1.045 · Viriato da Cruz</div></div>
+        </a>
+        <a class="popular-poem" href="https://lea.co.ao/literatura/poema.php?poe=6" target="_blank">
+          <span class="pop-num rest">4</span>
+          <div class="pop-avatar"><img src="https://lea.co.ao/artistas/imgs/Jofre Rocha.jpg" alt="" onerror="this.style.display='none'"><div class="av-fall" style="background:#1D9E75;">JR</div></div>
+          <div><div class="pop-title">De mãos Vazias</div><div class="pop-meta"><i class="ti ti-eye"></i> 1.040 · Jofre Rocha</div></div>
+        </a>
+        <a class="popular-poem" href="https://lea.co.ao/literatura/poema.php?poe=8" target="_blank">
+          <span class="pop-num rest">5</span>
+          <div class="pop-avatar"><div class="av-fall" style="background:#C07A1A;">SM</div></div>
+          <div><div class="pop-title">A Fê</div><div class="pop-meta"><i class="ti ti-eye"></i> 1.034 · Satira Mc Furia</div></div>
+        </a>
+      </div>
+
+      <!-- Poetas -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <i class="ti ti-feather"></i>
+          <h3>Poetas em destaque</h3>
+        </div>
+        <div class="author-item">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#2563B0,#534AB7);">
+            <img src="https://lea.co.ao/artistas/imgs/Agostinho Neto.jpg" alt="" onerror="this.style.display='none'">AN
+          </div>
+          <div><div class="author-name">Agostinho Neto</div><div class="author-poems">3 poemas</div></div>
+          <div class="author-reads">1.2k</div>
+        </div>
+        <div class="author-item">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#9D174D,#534AB7);">
+            <img src="https://lea.co.ao/artistas/imgs/Alda Lara.jpg" alt="" onerror="this.style.display='none'">AL
+          </div>
+          <div><div class="author-name">Alda Lara</div><div class="author-poems">2 poemas</div></div>
+          <div class="author-reads">1.4k</div>
+        </div>
+        <div class="author-item">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#534AB7,#2563B0);">
+            <img src="https://lea.co.ao/artistas/imgs/Viriato da Cruz.jpg" alt="" onerror="this.style.display='none'">VC
+          </div>
+          <div><div class="author-name">Viriato da Cruz</div><div class="author-poems">2 poemas</div></div>
+          <div class="author-reads">1.0k</div>
+        </div>
+        <div class="author-item">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#1D9E75,#2563B0);">
+            <img src="https://lea.co.ao/artistas/imgs/Jofre Rocha.jpg" alt="" onerror="this.style.display='none'">JR
+          </div>
+          <div><div class="author-name">Jofre Rocha</div><div class="author-poems">3 poemas</div></div>
+          <div class="author-reads">986</div>
+        </div>
+        <div class="author-item">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#534AB7,#C07A1A);">
+            <img src="https://lea.co.ao/artistas/imgs/Rui-Augusto.jpg" alt="" onerror="this.style.display='none'">RA
+          </div>
+          <div><div class="author-name">Rui Augusto</div><div class="author-poems">4 poemas</div></div>
+          <div class="author-reads">938</div>
+        </div>
+      </div>
+
+      <!-- AD sidebar -->
+      <div>
+        <div class="ann"><i class="ti ti-ad"></i> 300 × 250 · AdSense</div>
+        <div class="ad-block-sidebar" style="min-height:140px;">
+          <i class="ti ti-ad" style="font-size:26px;color:rgba(139,105,20,0.25);"></i>
+          <div class="ad-size">300 × 250</div>
+          <div class="ad-type">Medium Rectangle</div>
+        </div>
+      </div>
+
+      <!-- Navegar em literatura -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <i class="ti ti-book"></i>
+          <h3>Mais em Literatura</h3>
+        </div>
+        <a class="author-item" href="literatura.html">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#2563B0,#1A4A8A);font-size:18px;">📚</div>
+          <div><div class="author-name">Livros</div><div class="author-poems">112 títulos à venda</div></div>
+          <i class="ti ti-chevron-right" style="color:var(--muted);margin-left:auto;"></i>
+        </a>
+        <a class="author-item" href="literatura.html#frases" style="border-bottom:none;">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#C07A1A,#8B6914);font-size:18px;">💬</div>
+          <div><div class="author-name">Frases & Dizeres</div><div class="author-poems">58 frases publicadas</div></div>
+          <i class="ti ti-chevron-right" style="color:var(--muted);margin-left:auto;"></i>
+        </a>
+      </div>
+
+    </aside>
+
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="lea-footer">
+    <div class="footer-brand">
+      <img src="assets/img/logo.png" alt="LEA">
+      <small>© 2017–2026</small>
+    </div>
+    <div class="footer-links">
+      <a href="#">Sobre nós</a>
+      <a href="#">Contactos</a>
+      <a href="#">Privacidade</a>
+      <a href="#">Termos</a>
+      <a href="#">Publicitar</a>
+    </div>
+    <div class="footer-socials">
+      <a href="#"><i class="ti ti-brand-instagram"></i></a>
+      <a href="#"><i class="ti ti-brand-facebook"></i></a>
+      <a href="#"><i class="ti ti-brand-youtube"></i></a>
+      <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+      <a href="#"><i class="ti ti-brand-telegram"></i></a>
+    </div>
+  </footer>
+
+
+  <!-- BOTTOM NAV MOBILE -->
+  <nav class="bottom-nav">
+    <a class="bnav-btn" href="index.html"><i class="ti ti-home"></i><span class="bnav-lbl">Início</span></a>
+    <a class="bnav-btn" href="artistas.html"><i class="ti ti-users"></i><span class="bnav-lbl">Artistas</span></a>
+    <a class="bnav-btn active" href="literatura.html"><i class="ti ti-book"></i><span class="bnav-lbl">Literatura</span></a>
+    <a class="bnav-btn" href="loja.html"><i class="ti ti-shopping-bag"></i><span class="bnav-lbl">Loja</span></a>
+    <button class="bnav-btn" id="btnOpenMenu"><i class="ti ti-menu-2"></i><span class="bnav-lbl">Menu</span></button>
+  </nav>
+
+
+  <!-- MENU DRAWER -->
+  <div class="menu-drawer" id="menuDrawer">
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-panel">
+      <div class="menu-handle"></div>
+      <div class="menu-header">
+        <span class="menu-header-title">Menu</span>
+        <button class="btn-close-menu" id="btnCloseMenu"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="menu-section-title">Navegar</div>
+      <a class="menu-item" href="index.html"><i class="ti ti-home"></i><div><div class="menu-item-label">Início</div><div class="menu-item-sub">Página principal do LEA</div></div></a>
+      <a class="menu-item" href="artistas.html"><i class="ti ti-users"></i><div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.200+ artistas angolanos</div></div></a>
+      <a class="menu-item" href="musica.html"><i class="ti ti-music"></i><div><div class="menu-item-label">Músicas</div><div class="menu-item-sub">Ouve e descarrega</div></div></a>
+      <a class="menu-item" href="videos.html"><i class="ti ti-video"></i><div><div class="menu-item-label">Vídeos</div><div class="menu-item-sub">Clipes, filmes e séries</div></div></a>
+      <a class="menu-item" href="literatura.html"><i class="ti ti-book"></i><div><div class="menu-item-label">Literatura</div><div class="menu-item-sub">Livros, poesias e frases</div></div></a>
+      <a class="menu-item" href="noticias.html"><i class="ti ti-news"></i><div><div class="menu-item-label">Notícias</div><div class="menu-item-sub">Angola em dia</div></div></a>
+      <a class="menu-item" href="eventos.html"><i class="ti ti-calendar-event"></i><div><div class="menu-item-label">Eventos</div><div class="menu-item-sub">Agenda cultural angolana</div></div></a>
+      <a class="menu-item" href="loja.html"><i class="ti ti-shopping-bag"></i><div><div class="menu-item-label">Loja</div><div class="menu-item-sub">Livros, CDs, ingressos e mais</div></div></a>
+      <div class="menu-section-title">Conta</div>
+      <a class="menu-item" href="#"><i class="ti ti-user-circle"></i><div><div class="menu-item-label">Entrar</div><div class="menu-item-sub">Aceder à minha conta</div></div></a>
+      <a class="menu-item" href="#"><i class="ti ti-rosette-discount-check"></i><div><div class="menu-item-label">Certificar artista</div><div class="menu-item-sub">Destaca-te na plataforma</div></div></a>
+      <div class="menu-section-title">Redes sociais</div>
+      <div class="menu-socials">
+        <a href="#"><i class="ti ti-brand-instagram"></i></a>
+        <a href="#"><i class="ti ti-brand-facebook"></i></a>
+        <a href="#"><i class="ti ti-brand-youtube"></6></a>
+        <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+        <a href="#"><i class="ti ti-brand-telegram"></i></a>
+      </div>
+      <button class="btn-menu-signin">Entrar na minha conta</button>
+    </div>
+  </div>
+
+
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+    // Menu drawer
+    const drawer   = document.getElementById('menuDrawer');
+    const overlay  = document.getElementById('menuOverlay');
+    const btnOpen  = document.getElementById('btnOpenMenu');
+    const btnClose = document.getElementById('btnCloseMenu');
+    const openMenu  = () => { drawer.classList.add('open');    document.body.style.overflow = 'hidden'; };
+    const closeMenu = () => { drawer.classList.remove('open'); document.body.style.overflow = ''; };
+    btnOpen.addEventListener('click', openMenu);
+    btnClose.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+    drawer.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
+
+    // Filter tabs
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Like buttons
+    document.querySelectorAll('.btn-poem-action').forEach(btn => {
+      if (btn.title === 'Gostar') {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('liked');
+          const icon = btn.querySelector('i');
+          icon.className = btn.classList.contains('liked') ? 'ti ti-heart-filled' : 'ti ti-heart';
+        });
+      }
+    });
+
+    // Partilhar frase do dia
+    document.getElementById('btnShareFrase')?.addEventListener('click', () => {
+      const text = 'O objetivo é mexer com a mente das pessoas, para que possam pensar e agir diferente. — Francisco Destino | LEA';
+      if (navigator.share) {
+        navigator.share({ text, url: 'https://lea.co.ao' });
+      } else {
+        navigator.clipboard.writeText(text);
+        const btn = document.getElementById('btnShareFrase');
+        btn.innerHTML = '<i class="ti ti-check"></i> Copiado!';
+        setTimeout(() => btn.innerHTML = '<i class="ti ti-share"></i> Partilhar esta frase', 2500);
+      }
+    });
+
+  </script>
+
+</body>
+</html>

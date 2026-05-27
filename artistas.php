@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEA — Artistas Angolanos</title>
+
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/menu.footer.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --lea-blue-dark:   #1A4A8A;
+      --lea-blue-light:  #E8F0FB;
+      --lea-blue-mid:    #3B7DD8;
+      --lea-teal:        #1D9E75;
+      --lea-purple:      #534AB7;
+      --lea-amber:       #C07A1A;
+      --lea-surface:     #f5f7fb;
+      --lea-border:      rgba(37,99,176,0.12);
+      --lea-text:        #111827;
+      --lea-muted:       #6B7280;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--lea-surface); color: var(--lea-text); margin: 0; }
+    h1,h2,h3,h4,h5 { font-family: 'Sora', sans-serif; }
+
+    /* ── Navbar ── */
+    .navbar { border-bottom: 1px solid var(--lea-border); }
+    .navbar-brand { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; color: var(--lea-text) !important; }
+    .nav-link { font-size: 13px; color: var(--lea-muted) !important; padding: 4px 10px !important; border-radius: 6px; }
+    .nav-link:hover, .nav-link.active { color: var(--lea-blue) !important; background-color: var(--lea-blue-light); }
+    .lea-search { font-size: 12px; color: var(--lea-muted); background: var(--lea-surface); border: 1px solid rgba(37,99,176,0.2); border-radius: 8px; padding: 6px 12px; min-width: 160px; cursor: pointer; }
+    .btn-lea { background-color: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; padding: 8px 18px; transition: background .15s; cursor: pointer; }
+    .btn-lea:hover { background-color: var(--lea-blue-dark); color: #fff; }
+    .btn-lea-sm { background-color: var(--lea-blue); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; padding: 6px 14px; transition: background .15s; white-space: nowrap; cursor: pointer; }
+    .btn-lea-sm:hover { background-color: var(--lea-blue-dark); color: #fff; }
+    .btn-lea-outline { background: transparent; color: var(--lea-blue); border: 1px solid var(--lea-blue); border-radius: 8px; font-size: 13px; font-weight: 500; padding: 7px 16px; transition: all .15s; cursor: pointer; text-decoration: none; display: inline-block; }
+    .btn-lea-outline:hover { background: var(--lea-blue); color: #fff; }
+
+    /* ── Ad pill ── */
+    .ad-pill { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: #bbb; border: 1px solid #ddd; border-radius: 4px; padding: 2px 6px; }
+
+    /* ── Hero banner da página ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--lea-blue-dark) 0%, var(--lea-blue) 60%, var(--lea-blue-mid) 100%);
+      padding: 48px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 90% 50%, rgba(255,255,255,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(0,0,0,0.15) 0%, transparent 60%);
+    }
+    .page-hero .container { position: relative; z-index: 2; }
+    .page-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
+    .page-hero-eyebrow::before { content: ''; width: 20px; height: 2px; background: rgba(255,255,255,0.5); border-radius: 1px; }
+    .page-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 10px; }
+    .page-hero h1 em { font-style: normal; color: rgba(255,255,255,0.65); }
+    .page-hero p { font-size: 14px; color: rgba(255,255,255,0.70); line-height: 1.65; max-width: 480px; margin-bottom: 24px; }
+
+    /* Stats no hero */
+    .hero-stats-bar {
+      background: rgba(0,0,0,0.2);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 14px 0;
+      margin-top: 32px;
+    }
+    .hstat { text-align: center; }
+    .hstat-num { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; color: #fff; }
+    .hstat-lbl { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 1px; }
+
+    /* Search bar no hero */
+    .hero-search {
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px; padding: 10px 16px;
+      gap: 10px; max-width: 440px;
+      transition: background .15s, border-color .15s;
+    }
+    .hero-search:focus-within { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.4); }
+    .hero-search input { background: none; border: none; outline: none; font-size: 14px; color: #fff; flex: 1; font-family: 'DM Sans', sans-serif; }
+    .hero-search input::placeholder { color: rgba(255,255,255,0.5); }
+    .hero-search i { font-size: 18px; color: rgba(255,255,255,0.5); }
+
+    /* ── Filter / tabs ── */
+    .filter-bar { background: var(--lea-white); border-bottom: 1px solid var(--lea-border); padding: 0 24px; display: flex; align-items: center; overflow-x: auto; position: sticky; top: 56px; z-index: 90; }
+    .filter-bar::-webkit-scrollbar { height: 0; }
+    .filter-tab { font-size: 13px; font-weight: 500; color: var(--lea-muted); padding: 14px 16px; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: all .15s; text-decoration: none; display: block; }
+    .filter-tab:hover { color: var(--lea-text); }
+    .filter-tab.active { color: var(--lea-blue); border-bottom-color: var(--lea-blue); }
+    .filter-right { margin-left: auto; display: flex; align-items: center; gap: 8px; padding: 8px 0; flex-shrink: 0; }
+    .filter-select { background: var(--lea-surface); border: 1px solid var(--lea-border); border-radius: 8px; color: var(--lea-muted); font-size: 12px; padding: 6px 10px; cursor: pointer; outline: none; font-family: 'DM Sans', sans-serif; }
+
+    /* ── Layout principal ── */
+    .page-layout { display: grid; grid-template-columns: 220px 1fr; gap: 0; }
+
+    /* ── Sidebar ── */
+    .page-sidebar { background: var(--lea-white); border-right: 1px solid var(--lea-border); padding: 20px 16px; position: sticky; top: 113px; height: calc(100vh - 113px); overflow-y: auto; }
+    .page-sidebar::-webkit-scrollbar { width: 4px; }
+    .page-sidebar::-webkit-scrollbar-thumb { background: var(--lea-border); border-radius: 2px; }
+
+    .sidebar-section { margin-bottom: 24px; }
+    .sidebar-section-title { font-size: 10px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: #bbb; margin-bottom: 10px; }
+
+    .sidebar-filter-item { display: flex; align-items: center; justify-content: space-between; padding: 7px 8px; border-radius: 8px; cursor: pointer; transition: background .12s; text-decoration: none; }
+    .sidebar-filter-item:hover { background: var(--lea-surface); }
+    .sidebar-filter-item.active { background: var(--lea-blue-light); }
+    .sidebar-filter-label { font-size: 13px; color: var(--lea-muted); display: flex; align-items: center; gap: 8px; }
+    .sidebar-filter-label i { font-size: 15px; color: var(--lea-blue); }
+    .sidebar-filter-item.active .sidebar-filter-label { color: var(--lea-blue); font-weight: 500; }
+    .sidebar-filter-count { font-size: 10px; color: #bbb; background: var(--lea-surface); padding: 1px 6px; border-radius: 99px; }
+    .sidebar-filter-item.active .sidebar-filter-count { background: var(--lea-blue-light); color: var(--lea-blue); }
+
+    /* Province list */
+    .province-item { font-size: 12px; color: var(--lea-muted); padding: 5px 8px; border-radius: 6px; cursor: pointer; transition: background .12s; display: flex; align-items: center; justify-content: space-between; }
+    .province-item:hover { background: var(--lea-surface); color: var(--lea-blue); }
+
+    /* Ad sidebar */
+    .ad-block-sidebar { background: var(--lea-surface); border: 1px dashed #ccd9ef; border-radius: 10px; min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; gap: 4px; }
+    .ad-size { font-size: 13px; font-weight: 600; color: #c0cfe8; }
+    .ad-type { font-size: 10px; color: #c0cfe8; }
+    .ann { font-size: 10px; color: var(--lea-blue); display: flex; align-items: center; gap: 4px; margin-bottom: 5px; }
+    .ann i { font-size: 12px; }
+
+    /* ── Conteúdo principal ── */
+    .page-main { padding: 24px; background: var(--lea-surface); }
+
+    /* ── Section header ── */
+    .sec-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .sec-hdr h2 { font-size: 15px; font-weight: 700; margin: 0; color: var(--lea-text); }
+    .sec-link { font-size: 12px; color: var(--lea-blue); text-decoration: none; }
+    .sec-link:hover { text-decoration: underline; }
+
+    /* ── Toque extra: Artista do mês ── */
+    .artist-of-month {
+      background: linear-gradient(135deg, var(--lea-blue) 0%, var(--lea-purple) 100%);
+      border-radius: 16px; padding: 24px;
+      display: grid; grid-template-columns: auto 1fr auto;
+      gap: 20px; align-items: center;
+      margin-bottom: 28px;
+      position: relative; overflow: hidden;
+    }
+    .artist-of-month::before {
+      content: '';
+      position: absolute; top: -30px; right: -30px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+    }
+    .artist-of-month::after {
+      content: '';
+      position: absolute; bottom: -50px; right: 80px;
+      width: 120px; height: 120px; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .aom-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.12); padding: 3px 10px; border-radius: 99px; margin-bottom: 8px; }
+    .aom-avatar { width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 700; color: #fff; flex-shrink: 0; position: relative; z-index: 1; }
+    .aom-name { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .aom-type { font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 12px; }
+    .aom-stats { display: flex; gap: 20px; }
+    .aom-stat-num { font-size: 16px; font-weight: 700; color: #fff; }
+    .aom-stat-lbl { font-size: 10px; color: rgba(255,255,255,0.55); }
+    .aom-actions { display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 1; }
+    .btn-aom-primary { background: #fff; color: var(--lea-blue); border: none; border-radius: 8px; font-size: 12px; font-weight: 600; padding: 8px 16px; cursor: pointer; transition: opacity .15s; white-space: nowrap; }
+    .btn-aom-primary:hover { opacity: .88; }
+    .btn-aom-outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 8px; font-size: 12px; font-weight: 500; padding: 8px 16px; cursor: pointer; transition: background .15s; white-space: nowrap; }
+    .btn-aom-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── Artist cards — grelha principal ── */
+    .artists-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+
+    .artist-card {
+      background: var(--lea-white); border: 1px solid var(--lea-border);
+      border-radius: 14px; overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+      cursor: pointer; text-decoration: none; display: block;
+    }
+    .artist-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(37,99,176,0.12); }
+
+    .artist-cover {
+      height: 130px; display: flex; align-items: center; justify-content: center;
+      font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 700; color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .artist-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .artist-cover .cover-initials { position: relative; z-index: 1; }
+    .artist-cover .cover-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5) 100%); z-index: 2; }
+
+    /* Badge de novo */
+    .badge-new { position: absolute; top: 8px; right: 8px; z-index: 3; font-size: 9px; font-weight: 700; background: var(--lea-teal); color: #fff; padding: 2px 7px; border-radius: 99px; letter-spacing: .3px; }
+    /* Badge verificado */
+    .badge-verified { position: absolute; top: 8px; left: 8px; z-index: 3; font-size: 15px; color: #fff; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
+
+    .artist-body { padding: 10px 12px; }
+    .artist-name { font-size: 13px; font-weight: 600; color: var(--lea-text); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .artist-type { font-size: 11px; color: var(--lea-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .artist-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+    .artist-province { font-size: 10px; color: var(--lea-muted); display: flex; align-items: center; gap: 3px; }
+    .artist-province i { font-size: 11px; color: var(--lea-blue); }
+    .artist-views { font-size: 10px; color: var(--lea-muted); display: flex; align-items: center; gap: 3px; }
+    .artist-views i { font-size: 11px; }
+
+    /* ── Ranking cards — mais visitados ── */
+    .ranking-list { display: flex; flex-direction: column; gap: 8px; }
+    .ranking-item {
+      background: var(--lea-white); border: 1px solid var(--lea-border);
+      border-radius: 12px; padding: 10px 14px;
+      display: flex; align-items: center; gap: 12px;
+      transition: border-color .15s; cursor: pointer; text-decoration: none;
+    }
+    .ranking-item:hover { border-color: var(--lea-blue); }
+    .ranking-num { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; width: 28px; flex-shrink: 0; text-align: center; }
+    .ranking-num.top1 { color: #F59E0B; }
+    .ranking-num.top2 { color: var(--lea-muted); }
+    .ranking-num.top3 { color: #C07A1A; }
+    .ranking-num.rest { color: #ddd; }
+    .ranking-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700; color: #fff; overflow: hidden; position: relative; }
+    .ranking-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .ranking-avatar .av-initials { position: relative; z-index: 1; }
+    .ranking-name { font-size: 13px; font-weight: 500; color: var(--lea-text); }
+    .ranking-type { font-size: 11px; color: var(--lea-muted); }
+    .ranking-stat { margin-left: auto; text-align: right; flex-shrink: 0; }
+    .ranking-stat-num { font-size: 12px; font-weight: 600; color: var(--lea-blue); }
+    .ranking-stat-lbl { font-size: 10px; color: var(--lea-muted); }
+
+    /* ── Ad in-content ── */
+    .ad-strip { background: var(--lea-white); border: 1px dashed #ccd9ef; border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; }
+    .ad-strip-thumb { width: 52px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .ad-strip-copy { flex: 1; }
+    .ad-strip-copy strong { font-size: 13px; font-weight: 500; color: var(--lea-text); }
+    .ad-strip-copy span { font-size: 11px; color: var(--lea-muted); }
+
+    /* ── Alphabet nav — toque extra ── */
+    .alphabet-nav {
+      background: var(--lea-white); border: 1px solid var(--lea-border);
+      border-radius: 12px; padding: 12px 16px;
+      display: flex; flex-wrap: wrap; gap: 4px;
+      margin-bottom: 20px;
+    }
+	.alpha-btn-tds{
+	  width: 60px; height: 30px; border-radius: 6px;
+      background: var(--lea-surface); border: 1px solid var(--lea-border);
+      font-size: 12px; font-weight: 600; color: var(--lea-muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all .12s; text-decoration: none;
+	}
+    .alpha-btn {
+      width: 30px; height: 30px; border-radius: 6px;
+      background: var(--lea-surface); border: 1px solid var(--lea-border);
+      font-size: 12px; font-weight: 600; color: var(--lea-muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all .12s; text-decoration: none;
+    }
+    .alpha-btn:hover { background: var(--lea-blue-light); color: var(--lea-blue); border-color: var(--lea-blue); }
+    .alpha-btn-tds.active { background: var(--lea-blue); color: #fff; border-color: var(--lea-blue); }
+	.alpha-btn.active { background: var(--lea-blue); color: #fff; border-color: var(--lea-blue); }
+    .alpha-btn.disabled { opacity: .3; pointer-events: none; }
+
+    /* ── Pagination ── */
+    .lea-pagination { display: flex; align-items: center; gap: 4px; }
+    .page-btn { width: 36px; height: 36px; border-radius: 8px; background: var(--lea-white); border: 1px solid var(--lea-border); color: var(--lea-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .12s; text-decoration: none; }
+    .page-btn:hover { background: var(--lea-blue-light); color: var(--lea-blue); border-color: var(--lea-blue); }
+    .page-btn.active { background: var(--lea-blue); color: #fff; border-color: var(--lea-blue); font-weight: 700; }
+
+    /* ── Footer ── */
+    .lea-footer { background: var(--lea-white); border-top: 1px solid var(--lea-border); }
+    .footer-brand { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; }
+    .footer-brand span { color: var(--lea-blue); }
+    .footer-link { font-size: 12px; color: var(--lea-muted); text-decoration: none; }
+    .footer-link:hover { color: var(--lea-blue); }
+    .footer-social { color: var(--lea-blue); font-size: 20px; text-decoration: none; transition: opacity .15s; }
+    .footer-social:hover { opacity: .7; }
+	
+	.bottom-nav {
+		background: var(--lea-white); border-top: 1px solid var(--lea-border);
+		position: fixed; bottom: 0; left: 0; right: 0; height: 62px;
+		display: none; align-items: center; justify-content: space-around; z-index: 200;
+		padding-bottom: env(safe-area-inset-bottom, 0);
+	}
+
+    .bnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 22px; color: var(--lea-muted); cursor: pointer; text-decoration: none; flex: 1; justify-content: center; transition: color .12s; }
+.bnav-item.active, .bnav-item:hover { color: var(--lea-blue); }
+.bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+	
+@media (max-width: 991px) 
+{
+	.desktop-only { display: none !important; }
+	.mobile-only  { display: block; }
+	.bottom-nav   { display: flex; }
+	body          { padding-bottom: 62px; }
+	.page-layout  { grid-template-columns: 1fr; }
+    .page-sidebar { display: none; }
+    .page-hero    { padding: 32px 0 0; }
+    .page-hero h1 { font-size: 24px; }
+    .artist-of-month { grid-template-columns: auto 1fr; }
+    .aom-actions { display: none; }
+    .artists-grid { grid-template-columns: repeat(2, 1fr); }
+    .filter-bar   { top: 50px; }
+}
+
+    
+	
+  </style>
+</head>
+<body>
+
+	<?php include("main.header.php"); ?>
+  
+  
+  <!-- =============================================
+       TOPBAR MOBILE — só aparece em mobile
+       ============================================= -->
+  <header class="mobile-topbar">
+    <a href="#"><img src="assets/img/logo.png" alt="LEA" height="30"></a>
+    <div class="d-flex gap-3" style="font-size:20px;color:var(--lea-muted);">
+      <i class="ti ti-search"></i>
+      <i class="ti ti-bell"></i>
+      <i class="ti ti-user-circle"></i>
+    </div>
+  </header>
+
+
+  <!-- =============================================
+       HERO DA PÁGINA
+       ============================================= -->
+  <div class="page-hero">
+    <div class="container pb-4">
+      <div class="row align-items-center g-4">
+
+        <div class="col-lg-7">
+          <div class="page-hero-eyebrow">Plataforma Angolana de Artes</div>
+          <h1>Descobre os <em>talentos</em><br>de Angola</h1>
+          <p>Mais de 2.200 artistas registados de todas as províncias — músicos, realizadores, escritores, fotógrafos e muito mais.</p>
+
+          <div class="hero-search">
+            <i class="ti ti-search"></i>
+            <input type="text" placeholder="Pesquisar artista por nome, género ou província…">
+          </div>
+        </div>
+
+        <div class="col-lg-5 desktop-only">
+          <!-- Mini ranking no hero -->
+          <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:16px;">
+            <div style="font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;">
+              <i class="ti ti-trending-up" style="color:rgba(255,255,255,0.8);"></i> Mais visitados esta semana
+            </div>
+            <!-- item -->
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+              <div style="font-size:16px;font-weight:700;color:#F59E0B;width:20px;">1</div>
+              <div style="width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#1D9E75;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">GI</div>
+              <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Gerilson Israel</div><div style="font-size:10px;color:rgba(255,255,255,0.5);">Cantor · Luanda</div></div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);">27.8k 👁️</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+              <div style="font-size:16px;font-weight:700;color:rgba(255,255,255,0.4);width:20px;">2</div>
+              <div style="width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#534AB7;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">NN</div>
+              <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:500;color:#fff;">Nair Nany</div><div style="font-size:10px;color:rgba(255,255,255,0.5);">Cantora · Luanda</div></div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);">17.8k 👁️</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+              <div style="font-size:16px;font-weight:700;color:#C07A1A;width:20px;">3</div>
+              <div style="width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#3B7DD8;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">PR</div>
+              <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:500;color:#fff;">Prodígio</div><div style="font-size:10px;color:rgba(255,255,255,0.5);">Cantor · Luanda</div></div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);">14.2k 👁️</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0;">
+              <div style="font-size:16px;font-weight:700;color:rgba(255,255,255,0.4);width:20px;">4</div>
+              <div style="width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#C07A1A;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">AM</div>
+              <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:500;color:#fff;">Anderson Mário</div><div style="font-size:10px;color:rgba(255,255,255,0.5);">Cantor · Luanda</div></div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);">14.1k 👁️</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="hero-stats-bar">
+      <div class="container">
+        <div class="row g-0">
+          <div class="col-3 col-md-3">
+            <div class="hstat">
+              <div class="hstat-num">2.2k+</div>
+              <div class="hstat-lbl">Artistas</div>
+            </div>
+          </div>
+          <div class="col-3 col-md-3">
+            <div class="hstat">
+              <div class="hstat-num">18</div>
+              <div class="hstat-lbl">Províncias</div>
+            </div>
+          </div>
+          <div class="col-3 col-md-3">
+            <div class="hstat">
+              <div class="hstat-num">11</div>
+              <div class="hstat-lbl">Categorias</div>
+            </div>
+          </div>
+          <div class="col-3 col-md-3">
+            <div class="hstat">
+              <div class="hstat-num">2017</div>
+              <div class="hstat-lbl">Desde</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =============================================
+       FILTER TABS
+       ============================================= -->
+  <div class="filter-bar">
+    <a class="filter-tab active" href="#">Todos</a>
+    <a class="filter-tab" href="#">Músicos</a>
+    <a class="filter-tab" href="#">Realizadores</a>
+    <a class="filter-tab" href="#">Escritores</a>
+    <a class="filter-tab" href="#">Fotógrafos</a>
+    <a class="filter-tab" href="#">Pintores</a>
+    <a class="filter-tab" href="#">Actores</a>
+    <a class="filter-tab" href="#">Dançarinos</a>
+    <a class="filter-tab" href="#">Aniversários</a>
+    <a class="filter-tab" href="#">Obituário</a>
+    <div class="filter-right">
+      <select class="filter-select">
+        <option>Mais visitados</option>
+        <option>Mais recentes</option>
+        <option>A-Z</option>
+        <option>Por província</option>
+      </select>
+    </div>
+  </div>
+
+
+  <!-- =============================================
+       LAYOUT PRINCIPAL
+       ============================================= -->
+  <div class="page-layout">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="page-sidebar desktop-only">
+
+      <!-- Categorias -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Categoria</div>
+        <a class="sidebar-filter-item active" href="#"><span class="sidebar-filter-label"><i class="ti ti-users"></i>Todos</span><span class="sidebar-filter-count">2.2k</span></a>
+        <a class="sidebar-filter-item" href="#"><span class="sidebar-filter-label"><i class="ti ti-music"></i>Música</span><span class="sidebar-filter-count">980</span></a>
+        <a class="sidebar-filter-item" href="#"><span class="sidebar-filter-label"><i class="ti ti-wave-sine"></i>Dança</span><span class="sidebar-filter-count">180</span></a>
+        <a class="sidebar-filter-item" href="#"><span class="sidebar-filter-label"><i class="ti ti-palette"></i>Pintura</span><span class="sidebar-filter-count">340</span></a>
+        <a class="sidebar-filter-item" href="#"><span class="sidebar-filter-label"><i class="ti ti-camera"></i>Escultura </span><span class="sidebar-filter-count">210</span></a>
+        <a class="sidebar-filter-item" href="#"><span class="sidebar-filter-label"><i class="ti ti-masks-theater"></i>Teatro</span><span class="sidebar-filter-count">160</span></a>
+        <a class="sidebar-filter-item" href="#"><span class="sidebar-filter-label"><i class="ti ti-book"></i>Literatura</span><span class="sidebar-filter-count">130</span></a>
+        <a class="sidebar-filter-item" href="#"><span class="sidebar-filter-label"><i class="ti ti-movie"></i>Cinema</span><span class="sidebar-filter-count">95</span></a>
+		<a class="sidebar-filter-item" href="#"><span class="sidebar-filter-label"><i class="ti ti-camera"></i>Fotografia</span><span class="sidebar-filter-count">95</span></a>
+		<a class="sidebar-filter-item" href="#"><span class="sidebar-filter-label"><i class="ti ti-book-2"></i>Banda Desenhada</span><span class="sidebar-filter-count">95</span></a>
+		<a class="sidebar-filter-item" href="#"><span class="sidebar-filter-label"><i class="ti ti-device-gamepad-2"></i>Vídeo Jogos</span><span class="sidebar-filter-count">95</span></a>
+      </div>
+
+      <!-- Províncias -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Província</div>
+        <div class="province-item"><span>📍 Luanda</span><span style="font-size:10px;color:#bbb;">820</span></div>
+        <div class="province-item"><span>📍 Huambo</span><span style="font-size:10px;color:#bbb;">180</span></div>
+        <div class="province-item"><span>📍 Benguela</span><span style="font-size:10px;color:#bbb;">160</span></div>
+        <div class="province-item"><span>📍 Huíla</span><span style="font-size:10px;color:#bbb;">140</span></div>
+        <div class="province-item"><span>📍 Malanje</span><span style="font-size:10px;color:#bbb;">90</span></div>
+        <div class="province-item"><span>📍 Kwanza-Sul</span><span style="font-size:10px;color:#bbb;">85</span></div>
+        <div class="province-item"><span>📍 Uíge</span><span style="font-size:10px;color:#bbb;">70</span></div>
+        <div class="province-item"><span>📍 Cabinda</span><span style="font-size:10px;color:#bbb;">65</span></div>
+        <a href="#" style="font-size:12px;color:var(--lea-blue);text-decoration:none;display:block;padding:6px 8px;">Ver todas as províncias →</a>
+      </div>
+
+      <!-- AD sidebar -->
+      <div class="sidebar-section">
+        <div class="ann"><i class="ti ti-ad"></i> 160 × 600</div>
+        <div class="ad-block-sidebar" style="min-height:160px;">
+          <i class="ti ti-ad" style="font-size:26px;color:#c0cfe8;"></i>
+          <div class="ad-size">160 × 600</div>
+          <div class="ad-type">Skyscraper Sidebar</div>
+        </div>
+      </div>
+
+    </aside>
+
+
+    <!-- ── CONTEÚDO PRINCIPAL ── -->
+    <main class="page-main">
+
+      <!-- ARTISTA DO MÊS — toque extra -->
+      <div class="artist-of-month mb-4">
+        <div class="aom-avatar" style="background:linear-gradient(135deg,#1D9E75,#2563B0);">GI</div>
+        <div style="position:relative;z-index:1;">
+          <div class="aom-badge"><i class="ti ti-star-filled"></i> Artista do mês · Maio 2026</div>
+          <div class="aom-name">Gerilson Israel</div>
+          <div class="aom-type">Cantor · Kizomba & Afrohouse · Luanda</div>
+          <div class="aom-stats">
+            <div><div class="aom-stat-num">27.8k</div><div class="aom-stat-lbl">Visitas</div></div>
+            <div><div class="aom-stat-num">10</div><div class="aom-stat-lbl">Seguidores</div></div>
+            <div><div class="aom-stat-num">12</div><div class="aom-stat-lbl">Músicas</div></div>
+          </div>
+        </div>
+        <div class="aom-actions">
+          <button class="btn-aom-primary"><i class="ti ti-user-plus"></i> Seguir</button>
+          <button class="btn-aom-outline"><i class="ti ti-music"></i> Ver músicas</button>
+        </div>
+      </div>
+
+      <!-- AD leaderboard in-content -->
+      <div class="mb-4">
+        <div class="ann"><i class="ti ti-ad"></i> Leaderboard 728×60</div>
+        <div class="ad-strip">
+          <span class="ad-pill">Pub</span>
+          <div class="ad-strip-thumb" style="background:var(--lea-blue);">UN</div>
+          <div class="ad-strip-copy">
+            <strong>Unitel — Plano Ilimitado por Kz 3.500/mês</strong><br>
+            <span>Ligação rápida em todo o país · unitel.ao</span>
+          </div>
+          <button class="btn-lea-sm">Ver oferta</button>
+        </div>
+      </div>
+
+      <!-- ARTISTAS RECÉM ADICIONADOS -->
+      <div class="mb-4">
+        <div class="sec-hdr">
+          <h2>Recém adicionados</h2>
+          <a class="sec-link" href="#">Ver todos →</a>
+        </div>
+        <div class="artists-grid">
+
+          <a class="artist-card" href="#">
+            <div class="artist-cover" style="background:linear-gradient(135deg,#2563B0,#1D9E75);">
+              <img src="https://lea.co.ao/artistas/imgs/Bad-Banzelo.jpg" alt="Bad Banzelo" onerror="this.style.display='none'">
+              <div class="cover-overlay"></div>
+              <span class="badge-new">Novo</span>
+              <span class="cover-initials">BB</span>
+            </div>
+            <div class="artist-body">
+              <div class="artist-name">Bad Banzelo</div>
+              <div class="artist-type">Cantor</div>
+              <div class="artist-meta">
+                <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+                <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> —</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="artist-card" href="#">
+            <div class="artist-cover" style="background:linear-gradient(135deg,#534AB7,#2563B0);">
+              <img src="https://lea.co.ao/artistas/imgs/Lwinizia-Fernandes.jpg" alt="Lwinizia Fernandes" onerror="this.style.display='none'">
+              <div class="cover-overlay"></div>
+              <span class="badge-new">Novo</span>
+              <span class="cover-initials">LF</span>
+            </div>
+            <div class="artist-body">
+              <div class="artist-name">Lwinizia Fernandes</div>
+              <div class="artist-type">Escritora</div>
+              <div class="artist-meta">
+                <span class="artist-province"><i class="ti ti-map-pin"></i> Benguela</span>
+                <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> —</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="artist-card" href="#">
+            <div class="artist-cover" style="background:linear-gradient(135deg,#C07A1A,#2563B0);">
+              <img src="https://lea.co.ao/artistas/imgs/Al-Kapone.jpg" alt="Al Kapone" onerror="this.style.display='none'">
+              <div class="cover-overlay"></div>
+              <span class="badge-new">Novo</span>
+              <span class="cover-initials">AK</span>
+            </div>
+            <div class="artist-body">
+              <div class="artist-name">Al Kapone</div>
+              <div class="artist-type">Cantor & Poeta</div>
+              <div class="artist-meta">
+                <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+                <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> —</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="artist-card" href="#">
+            <div class="artist-cover" style="background:linear-gradient(135deg,#1D9E75,#534AB7);">
+              <img src="https://lea.co.ao/artistas/imgs/Adao-Zina.jpg" alt="Adão Zina" onerror="this.style.display='none'">
+              <div class="cover-overlay"></div>
+              <span class="badge-new">Novo</span>
+              <span class="cover-initials">AZ</span>
+            </div>
+            <div class="artist-body">
+              <div class="artist-name">Adão Zina</div>
+              <div class="artist-type">Escritor & Poeta</div>
+              <div class="artist-meta">
+                <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+                <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> —</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="artist-card" href="#">
+            <div class="artist-cover" style="background:linear-gradient(135deg,#3B7DD8,#1D9E75);">
+              <img src="https://lea.co.ao/artistas/imgs/Faculdade-de-Rimas.jpg" alt="Faculdade de Rimas" onerror="this.style.display='none'">
+              <div class="cover-overlay"></div>
+              <span class="badge-new">Novo</span>
+              <span class="cover-initials">FR</span>
+            </div>
+            <div class="artist-body">
+              <div class="artist-name">Faculdade de Rimas</div>
+              <div class="artist-type">Cantor</div>
+              <div class="artist-meta">
+                <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+                <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> —</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="artist-card" href="#">
+            <div class="artist-cover" style="background:linear-gradient(135deg,#2563B0,#C07A1A);">
+              <img src="https://lea.co.ao/artistas/imgs/Jose-Carlos-De-Almeida.jpg" alt="José Carlos De Almeida" onerror="this.style.display='none'">
+              <div class="cover-overlay"></div>
+              <span class="badge-new">Novo</span>
+              <span class="cover-initials">JC</span>
+            </div>
+            <div class="artist-body">
+              <div class="artist-name">José Carlos De Almeida</div>
+              <div class="artist-type">Escritor e Poeta</div>
+              <div class="artist-meta">
+                <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+                <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> —</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- RANKING — MAIS VISITADOS -->
+      <div class="row g-4 mb-4">
+
+        <div class="col-lg-6">
+          <div class="sec-hdr">
+            <h2>👁️ Mais visitados</h2>
+            <a class="sec-link" href="#">Ver todos →</a>
+          </div>
+          <div class="ranking-list">
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top1">1</div>
+              <div class="ranking-avatar" style="background:#1D9E75;"><img src="https://lea.co.ao/artistas/imgs/Gerilson_ISRAEL_na_Lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">GI</span></div>
+              <div><div class="ranking-name">Gerilson Israel</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">27.8k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top2">2</div>
+              <div class="ranking-avatar" style="background:#534AB7;"><img src="https://lea.co.ao/artistas/imgs/Nair Nany.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">NN</span></div>
+              <div><div class="ranking-name">Nair Nany</div><div class="ranking-type">Cantora</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">17.8k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top3">3</div>
+              <div class="ranking-avatar" style="background:#C07A1A;"><img src="https://lea.co.ao/artistas/imgs/3 Finer.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">3F</span></div>
+              <div><div class="ranking-name">3 Finer</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">14.6k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">4</div>
+              <div class="ranking-avatar" style="background:#3B7DD8;"><img src="https://lea.co.ao/artistas/imgs/Prodigio_na_lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">PR</span></div>
+              <div><div class="ranking-name">Prodígio</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">14.2k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">5</div>
+              <div class="ranking-avatar" style="background:#2563B0;"><img src="https://lea.co.ao/artistas/imgs/Anderson-Mario.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">AM</span></div>
+              <div><div class="ranking-name">Anderson Mário</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">14.1k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">6</div>
+              <div class="ranking-avatar" style="background:#1A4A8A;"><img src="https://lea.co.ao/artistas/imgs/Elizabeth_ventura_na_lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">EV</span></div>
+              <div><div class="ranking-name">Elisabeth Ventura</div><div class="ranking-type">Cantora</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">12k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="sec-hdr">
+            <h2>🔎 Mais pesquisados</h2>
+            <a class="sec-link" href="#">Ver todos →</a>
+          </div>
+          <div class="ranking-list">
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top1">1</div>
+              <div class="ranking-avatar" style="background:#2563B0;"><img src="https://lea.co.ao/artistas/imgs/Anderson-Mario.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">AM</span></div>
+              <div><div class="ranking-name">Anderson Mário</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">11k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top2">2</div>
+              <div class="ranking-avatar" style="background:#1D9E75;"><img src="https://lea.co.ao/artistas/imgs/Gerilson_ISRAEL_na_Lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">GI</span></div>
+              <div><div class="ranking-name">Gerilson Israel</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">5.4k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top3">3</div>
+              <div class="ranking-avatar" style="background:#534AB7;"><img src="https://lea.co.ao/artistas/imgs/Mano Chaba.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">MC</span></div>
+              <div><div class="ranking-name">Mano Chaba</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">1.8k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">4</div>
+              <div class="ranking-avatar" style="background:#C07A1A;"><img src="https://lea.co.ao/artistas/imgs/forca-suprema-na-lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">FS</span></div>
+              <div><div class="ranking-name">Força Suprema</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">1.7k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">5</div>
+              <div class="ranking-avatar" style="background:#3B7DD8;"><img src="https://lea.co.ao/artistas/imgs/Titica_na_lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">TT</span></div>
+              <div><div class="ranking-name">Titica</div><div class="ranking-type">Cantora</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">1.6k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">6</div>
+              <div class="ranking-avatar" style="background:#1A4A8A;"><img src="https://lea.co.ao/artistas/imgs/Preto_Show_na_Lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">PS</span></div>
+              <div><div class="ranking-name">Preto Show</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">1.4k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- AD in-content -->
+      <div class="mb-4">
+        <div class="ann"><i class="ti ti-ad"></i> In-content · Rectangle 468×60</div>
+        <div class="ad-strip">
+          <span class="ad-pill">Pub</span>
+          <div class="ad-strip-thumb" style="background:#1D9E75;">BAI</div>
+          <div class="ad-strip-copy">
+            <strong>BAI — Conta jovem sem comissões</strong><br>
+            <span>Abre a tua conta online em minutos · bai.ao</span>
+          </div>
+          <button class="btn-lea-sm" style="background:#1D9E75;">Saber mais</button>
+        </div>
+      </div>
+	  
+	  
+	  <div class="row g-4 mb-4">
+
+        <div class="col-lg-6">
+          <div class="sec-hdr">
+            <h2>👥 Os Mais Seguidos</h2>
+            <a class="sec-link" href="#">Ver todos →</a>
+          </div>
+          <div class="ranking-list">
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top1">1</div>
+              <div class="ranking-avatar" style="background:#1D9E75;"><img src="https://lea.co.ao/artistas/imgs/Gerilson_ISRAEL_na_Lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">GI</span></div>
+              <div><div class="ranking-name">Gerilson Israel</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">27.8k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top2">2</div>
+              <div class="ranking-avatar" style="background:#534AB7;"><img src="https://lea.co.ao/artistas/imgs/Nair Nany.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">NN</span></div>
+              <div><div class="ranking-name">Nair Nany</div><div class="ranking-type">Cantora</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">17.8k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top3">3</div>
+              <div class="ranking-avatar" style="background:#C07A1A;"><img src="https://lea.co.ao/artistas/imgs/3 Finer.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">3F</span></div>
+              <div><div class="ranking-name">3 Finer</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">14.6k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">4</div>
+              <div class="ranking-avatar" style="background:#3B7DD8;"><img src="https://lea.co.ao/artistas/imgs/Prodigio_na_lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">PR</span></div>
+              <div><div class="ranking-name">Prodígio</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">14.2k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">5</div>
+              <div class="ranking-avatar" style="background:#2563B0;"><img src="https://lea.co.ao/artistas/imgs/Anderson-Mario.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">AM</span></div>
+              <div><div class="ranking-name">Anderson Mário</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">14.1k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">6</div>
+              <div class="ranking-avatar" style="background:#1A4A8A;"><img src="https://lea.co.ao/artistas/imgs/Elizabeth_ventura_na_lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">EV</span></div>
+              <div><div class="ranking-name">Elisabeth Ventura</div><div class="ranking-type">Cantora</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">12k</div><div class="ranking-stat-lbl">visitas</div></div>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="sec-hdr">
+            <h2>🏆 Os Mais Recomendados</h2>
+            <a class="sec-link" href="#">Ver todos →</a>
+          </div>
+          <div class="ranking-list">
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top1">1</div>
+              <div class="ranking-avatar" style="background:#2563B0;"><img src="https://lea.co.ao/artistas/imgs/Anderson-Mario.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">AM</span></div>
+              <div><div class="ranking-name">Anderson Mário</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">11k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top2">2</div>
+              <div class="ranking-avatar" style="background:#1D9E75;"><img src="https://lea.co.ao/artistas/imgs/Gerilson_ISRAEL_na_Lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">GI</span></div>
+              <div><div class="ranking-name">Gerilson Israel</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">5.4k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num top3">3</div>
+              <div class="ranking-avatar" style="background:#534AB7;"><img src="https://lea.co.ao/artistas/imgs/Mano Chaba.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">MC</span></div>
+              <div><div class="ranking-name">Mano Chaba</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">1.8k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">4</div>
+              <div class="ranking-avatar" style="background:#C07A1A;"><img src="https://lea.co.ao/artistas/imgs/forca-suprema-na-lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">FS</span></div>
+              <div><div class="ranking-name">Força Suprema</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">1.7k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">5</div>
+              <div class="ranking-avatar" style="background:#3B7DD8;"><img src="https://lea.co.ao/artistas/imgs/Titica_na_lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">TT</span></div>
+              <div><div class="ranking-name">Titica</div><div class="ranking-type">Cantora</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">1.6k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+            <a class="ranking-item" href="#">
+              <div class="ranking-num rest">6</div>
+              <div class="ranking-avatar" style="background:#1A4A8A;"><img src="https://lea.co.ao/artistas/imgs/Preto_Show_na_Lea.jpg" alt="" onerror="this.style.display='none'"><span class="av-initials">PS</span></div>
+              <div><div class="ranking-name">Preto Show</div><div class="ranking-type">Cantor</div></div>
+              <div class="ranking-stat"><div class="ranking-stat-num">1.4k</div><div class="ranking-stat-lbl">pesquisas</div></div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- TODOS OS ARTISTAS — navegação alfabética -->
+      <div class="sec-hdr">
+        <h2>Todos os artistas</h2>
+        <a class="sec-link" href="https://lea.co.ao/artistas/todos_artistas.php?strt=0" target="_blank">Ver no site →</a>
+      </div>
+
+      <!-- Alphabet nav -->
+      <div class="alphabet-nav">
+        <span style="font-size:11px;font-weight:600;color:var(--lea-muted);margin-right:4px;white-space:nowrap;">Por letra:</span>
+        <a class="alpha-btn-tds active" href="#">Todos</a>
+        <a class="alpha-btn" href="#">A</a>
+        <a class="alpha-btn" href="#">B</a>
+        <a class="alpha-btn" href="#">C</a>
+        <a class="alpha-btn" href="#">D</a>
+        <a class="alpha-btn" href="#">E</a>
+        <a class="alpha-btn" href="#">F</a>
+        <a class="alpha-btn" href="#">G</a>
+        <a class="alpha-btn" href="#">H</a>
+        <a class="alpha-btn" href="#">I</a>
+        <a class="alpha-btn" href="#">J</a>
+        <a class="alpha-btn" href="#">K</a>
+        <a class="alpha-btn" href="#">L</a>
+        <a class="alpha-btn" href="#">M</a>
+        <a class="alpha-btn" href="#">N</a>
+        <a class="alpha-btn" href="#">O</a>
+        <a class="alpha-btn" href="#">P</a>
+        <a class="alpha-btn" href="#">Q</a>
+        <a class="alpha-btn" href="#">R</a>
+        <a class="alpha-btn" href="#">S</a>
+        <a class="alpha-btn" href="#">T</a>
+        <a class="alpha-btn" href="#">U</a>
+        <a class="alpha-btn" href="#">V</a>
+        <a class="alpha-btn" href="#">W</a>
+        <a class="alpha-btn" href="#">X</a>
+        <a class="alpha-btn" href="#">Y</a>
+        <a class="alpha-btn" href="#">Z</a>
+      </div>
+
+      <!-- Grelha geral -->
+      <div class="artists-grid mb-4">
+
+        <a class="artist-card" href="#">
+          <div class="artist-cover" style="background:linear-gradient(135deg,#1D9E75,#2563B0);">
+            <img src="https://lea.co.ao/artistas/imgs/Gerilson_ISRAEL_na_Lea.jpg" alt="Gerilson Israel" onerror="this.style.display='none'">
+            <div class="cover-overlay"></div>
+            <i class="ti ti-rosette-discount-check badge-verified"></i>
+            <span class="cover-initials">GI</span>
+          </div>
+          <div class="artist-body">
+            <div class="artist-name">Gerilson Israel</div>
+            <div class="artist-type">Cantor · Kizomba</div>
+            <div class="artist-meta">
+              <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+              <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> 27.8k</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="artist-card" href="#">
+          <div class="artist-cover" style="background:linear-gradient(135deg,#534AB7,#9D174D);">
+            <img src="https://lea.co.ao/artistas/imgs/Nair Nany.jpg" alt="Nair Nany" onerror="this.style.display='none'">
+            <div class="cover-overlay"></div>
+            <span class="cover-initials">NN</span>
+          </div>
+          <div class="artist-body">
+            <div class="artist-name">Nair Nany</div>
+            <div class="artist-type">Cantora · Semba</div>
+            <div class="artist-meta">
+              <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+              <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> 17.8k</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="artist-card" href="#">
+          <div class="artist-cover" style="background:linear-gradient(135deg,#3B7DD8,#1D9E75);">
+            <img src="https://lea.co.ao/artistas/imgs/Prodigio_na_lea.jpg" alt="Prodígio" onerror="this.style.display='none'">
+            <div class="cover-overlay"></div>
+            <i class="ti ti-rosette-discount-check badge-verified"></i>
+            <span class="cover-initials">PR</span>
+          </div>
+          <div class="artist-body">
+            <div class="artist-name">Prodígio</div>
+            <div class="artist-type">Cantor · Rap</div>
+            <div class="artist-meta">
+              <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+              <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> 14.2k</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="artist-card" href="#">
+          <div class="artist-cover" style="background:linear-gradient(135deg,#C07A1A,#3B7DD8);">
+            <img src="https://lea.co.ao/artistas/imgs/Anderson-Mario.jpg" alt="Anderson Mário" onerror="this.style.display='none'">
+            <div class="cover-overlay"></div>
+            <span class="cover-initials">AM</span>
+          </div>
+          <div class="artist-body">
+            <div class="artist-name">Anderson Mário</div>
+            <div class="artist-type">Cantor · Afrohouse</div>
+            <div class="artist-meta">
+              <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+              <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> 14.1k</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="artist-card" href="#">
+          <div class="artist-cover" style="background:linear-gradient(135deg,#1A4A8A,#534AB7);">
+            <img src="https://lea.co.ao/artistas/imgs/Elizabeth_ventura_na_lea.jpg" alt="Elisabeth Ventura" onerror="this.style.display='none'">
+            <div class="cover-overlay"></div>
+            <span class="cover-initials">EV</span>
+          </div>
+          <div class="artist-body">
+            <div class="artist-name">Elisabeth Ventura</div>
+            <div class="artist-type">Cantora · Semba</div>
+            <div class="artist-meta">
+              <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+              <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> 12k</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="artist-card" href="#">
+          <div class="artist-cover" style="background:linear-gradient(135deg,#2563B0,#1D9E75);">
+            <img src="https://lea.co.ao/artistas/imgs/Deezy-na-lea.jpg" alt="Deezy" onerror="this.style.display='none'">
+            <div class="cover-overlay"></div>
+            <i class="ti ti-rosette-discount-check badge-verified"></i>
+            <span class="cover-initials">DZ</span>
+          </div>
+          <div class="artist-body">
+            <div class="artist-name">Deezy</div>
+            <div class="artist-type">Cantor · Rap</div>
+            <div class="artist-meta">
+              <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+              <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> 9.9k</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="artist-card" href="#">
+          <div class="artist-cover" style="background:linear-gradient(135deg,#374151,#2563B0);">
+            <img src="https://lea.co.ao/artistas/imgs/Djeipo.jpg" alt="Djeipó" onerror="this.style.display='none'">
+            <div class="cover-overlay"></div>
+            <span class="cover-initials">DJ</span>
+          </div>
+          <div class="artist-body">
+            <div class="artist-name">Djeipó</div>
+            <div class="artist-type">Cantor</div>
+            <div class="artist-meta">
+              <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+              <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> —</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="artist-card" href="#">
+          <div class="artist-cover" style="background:linear-gradient(135deg,#9D174D,#2563B0);">
+            <img src="https://lea.co.ao/artistas/imgs/Titica_na_lea.jpg" alt="Titica" onerror="this.style.display='none'">
+            <div class="cover-overlay"></div>
+            <i class="ti ti-rosette-discount-check badge-verified"></i>
+            <span class="cover-initials">TT</span>
+          </div>
+          <div class="artist-body">
+            <div class="artist-name">Titica</div>
+            <div class="artist-type">Cantora · Kuduro</div>
+            <div class="artist-meta">
+              <span class="artist-province"><i class="ti ti-map-pin"></i> Luanda</span>
+              <span class="artist-views"><i class="ti ti-eye" style="color:var(--lea-muted);"></i> —</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Paginação -->
+      <div class="d-flex align-items-center justify-content-between">
+        <div style="font-size:13px;color:var(--lea-muted);">Mostrando 14 de 2.236 artistas</div>
+        <div class="lea-pagination">
+          <a class="page-btn" href="#"><i class="ti ti-chevron-left"></i></a>
+          <a class="page-btn active" href="#">1</a>
+          <a class="page-btn" href="#">2</a>
+          <a class="page-btn" href="#">3</a>
+          <span style="color:var(--lea-muted);font-size:13px;padding:0 4px;">…</span>
+          <a class="page-btn" href="#">160</a>
+          <a class="page-btn" href="#"><i class="ti ti-chevron-right"></i></a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+
+  <!-- =============================================
+       FOOTER
+       ============================================= -->
+  <footer class="lea-footer py-3 px-4">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div class="footer-brand d-flex align-items-center gap-2">
+        <img src="assets/img/logo.png" alt="LEA" height="24">
+        <small class="text-muted fw-normal" style="font-size:11px;">© 2017–2026</small>
+      </div>
+      <div class="d-flex gap-3 flex-wrap">
+        <a class="footer-link" href="#">Sobre nós</a>
+        <a class="footer-link" href="#">Contactos</a>
+        <a class="footer-link" href="#">Privacidade</a>
+        <a class="footer-link" href="#">Termos</a>
+        <a class="footer-link" href="#">Publicitar</a>
+      </div>
+      <div class="d-flex gap-3">
+        <a class="footer-social" href="#"><i class="ti ti-brand-instagram"></i></a>
+        <a class="footer-social" href="#"><i class="ti ti-brand-facebook"></i></a>
+        <a class="footer-social" href="#"><i class="ti ti-brand-youtube"></i></a>
+        <a class="footer-social" href="#"><i class="ti ti-brand-whatsapp"></i></a>
+        <a class="footer-social" href="#"><i class="ti ti-brand-telegram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- =============================================
+       BOTTOM NAV MOBILE
+       ============================================= -->
+  <nav class="bottom-nav">
+    <a class="bnav-item" href="index.html"><i class="ti ti-home"></i><span class="bnav-lbl">Início</span></a>
+    <a class="bnav-item active" href="artistas.html"><i class="ti ti-users"></i><span class="bnav-lbl">Artistas</span></a>
+    <a class="bnav-item" href="musica.html"><i class="ti ti-music"></i><span class="bnav-lbl">Músicas</span></a>
+    <a class="bnav-item" href="#"><i class="ti ti-shopping-bag"></i><span class="bnav-lbl">Loja</span></a>
+    <button class="bnav-item" id="btnOpenMenu" style="background:none;border:none;">
+      <i class="ti ti-menu-2"></i>
+      <span class="bnav-lbl">Menu</span>
+    </button>
+  </nav>
+
+
+  <!-- =============================================
+       MENU DRAWER MOBILE
+       Abre ao clicar "Menu" na bottom nav
+       ============================================= -->
+  <div class="menu-drawer" id="menuDrawer">
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-panel">
+
+      <div class="menu-handle"></div>
+
+      <div class="menu-header">
+        <span class="menu-header-title">Menu</span>
+        <button class="btn-close-menu" id="btnCloseMenu">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+
+      <!-- Páginas principais -->
+      <div class="menu-section-title">Navegar</div>
+      <a class="menu-item" href="index.html">
+        <i class="ti ti-home"></i>
+        <div><div class="menu-item-label">Início</div><div class="menu-item-sub">Página principal do LEA</div></div>
+      </a>
+      <a class="menu-item" href="artistas.html">
+        <i class="ti ti-users"></i>
+        <div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.200+ artistas angolanos</div></div>
+      </a>
+      <a class="menu-item" href="musica.html">
+        <i class="ti ti-music"></i>
+        <div><div class="menu-item-label">Músicas</div><div class="menu-item-sub">Ouve e descarrega</div></div>
+      </a>
+      <a class="menu-item" href="videos.html">
+        <i class="ti ti-video"></i>
+        <div><div class="menu-item-label">Vídeos</div><div class="menu-item-sub">Clipes, filmes e séries</div></div>
+      </a>
+      <a class="menu-item" href="literatura.html">
+        <i class="ti ti-book"></i>
+        <div><div class="menu-item-label">Literatura</div><div class="menu-item-sub">Livros, poesias e frases</div></div>
+      </a>
+      <a class="menu-item" href="noticias.html">
+        <i class="ti ti-news"></i>
+        <div><div class="menu-item-label">Notícias</div><div class="menu-item-sub">Angola em dia</div></div>
+      </a>
+      <a class="menu-item" href="eventos.html">
+        <i class="ti ti-calendar-event"></i>
+        <div><div class="menu-item-label">Eventos</div><div class="menu-item-sub">Agenda cultural angolana</div></div>
+      </a>
+      <a class="menu-item" href="loja.html">
+        <i class="ti ti-shopping-bag"></i>
+        <div><div class="menu-item-label">Loja</div><div class="menu-item-sub">Livros, CDs, ingressos e mais</div></div>
+      </a>
+
+      <!-- Conta -->
+      <div class="menu-section-title">Conta</div>
+      <a class="menu-item" href="#">
+        <i class="ti ti-user-circle"></i>
+        <div><div class="menu-item-label">Entrar</div><div class="menu-item-sub">Aceder à minha conta</div></div>
+      </a>
+      <a class="menu-item" href="#">
+        <i class="ti ti-rosette-discount-check"></i>
+        <div><div class="menu-item-label">Certificar artista</div><div class="menu-item-sub">Destaca-te na plataforma</div></div>
+      </a>
+
+      <!-- Redes sociais -->
+      <div class="menu-section-title">Redes sociais</div>
+      <div class="menu-social">
+        <a href="#"><i class="ti ti-brand-instagram"></i></a>
+        <a href="#"><i class="ti ti-brand-facebook"></i></a>
+        <a href="#"><i class="ti ti-brand-youtube"></i></a>
+        <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+        <a href="#"><i class="ti ti-brand-telegram"></i></a>
+      </div>
+
+      <button class="btn-menu-entrar">Entrar na minha conta</button>
+
+    </div>
+  </div>
+
+
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/menu.footer.js"></script>
+  
+  <script>
+    // Filter tabs
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Alphabet nav
+    document.querySelectorAll('.alpha-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.alpha-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Sidebar filter
+    document.querySelectorAll('.sidebar-filter-item').forEach(item => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.sidebar-filter-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
