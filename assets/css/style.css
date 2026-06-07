@@ -40,7 +40,7 @@
 	display: flex;
 	align-items: center;
 	gap: 2px;
-	width: 150px;
+	width: 160px;
     flex: 0 0 auto;
 }
 
@@ -93,3 +93,5 @@
 	
 /* ── Progress bar ── */
 .read-progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--lea-blue); z-index: 9999; transition: width .1s linear; width: 0%; }
+.no-link-deco { text-decoration: none !important;}
+.no-link-deco-news { text-decoration: none !important; color: var(--lea-text);}

@@ -1,7 +1,10 @@
 <?php
 
 
-class ErrorController
+class ErrorController extends Controller
 {
-
+    public function notFound(): void {
+        http_response_code(404);
+        $this->render('errors/404', []);
+    }
 }

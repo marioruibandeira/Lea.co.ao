@@ -1,10 +1,676 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artes — LEA Plataforma Angolana de Artes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lea-blue:        #2563B0;
+            --lea-blue-dark:   #1A4A8A;
+            --lea-blue-light:  #E8F0FB;
+            --lea-blue-mid:    #3B7DD8;
+            --lea-teal:        #1D9E75;
+            --lea-purple:      #534AB7;
+            --lea-amber:       #C07A1A;
+            --lea-surface:     #f5f7fb;
+            --lea-white:       #ffffff;
+            --lea-border:      rgba(37,99,176,0.12);
+            --lea-text:        #111827;
+            --lea-muted:       #6B7280;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background-color: var(--lea-surface); color: var(--lea-text); margin: 0; }
+        h1, h2, h3, h4, h5 { font-family: 'Sora', sans-serif; }
+
+        /* NAVBAR DESKTOP */
+        .navbar { border-bottom: 1px solid var(--lea-border); background: var(--lea-white); }
+        .nav-link { font-size: 13px; color: var(--lea-muted) !important; padding: 4px 10px !important; border-radius: 6px; }
+        .nav-link:hover { color: var(--lea-blue) !important; background-color: var(--lea-blue-light); }
+        .btn-lea { background-color: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; padding: 8px 18px; }
+        .lea-search { font-size: 12px; color: var(--lea-muted); background: var(--lea-surface); border: 1px solid rgba(37,99,176,0.2); border-radius: 8px; padding: 6px 12px; min-width: 160px; cursor: pointer; }
+
+        /* MOBILE TOPBAR */
+        .mobile-topbar {
+            display: none;
+            background: var(--lea-white);
+            border-bottom: 1px solid var(--lea-border);
+            padding: 10px 16px;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky; top: 0; z-index: 100;
+        }
+        .logo-link { display: flex; align-items: center; gap: 2px; }
+
+        /* HERO DA PÁGINA */
+        .page-hero {
+            background: linear-gradient(135deg, var(--lea-blue-dark) 0%, var(--lea-purple) 100%);
+            padding: 48px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .page-hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+        .page-hero h1 { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+        .page-hero p { font-size: 14px; color: rgba(255,255,255,0.75); max-width: 560px; line-height: 1.7; }
+        .hero-stat { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 20px; text-align: center; }
+        .hero-stat-num { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 700; color: #fff; }
+        .hero-stat-lbl { font-size: 11px; color: rgba(255,255,255,0.6); }
+
+        /* FILTROS */
+        .filter-bar { background: var(--lea-white); border-bottom: 1px solid var(--lea-border); padding: 12px 0; position: sticky; top: 0; z-index: 50; }
+        .filter-btn { font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 99px; border: 1px solid var(--lea-border); background: var(--lea-surface); color: var(--lea-muted); cursor: pointer; transition: all .15s; white-space: nowrap; }
+        .filter-btn:hover, .filter-btn.active { background: var(--lea-blue); color: #fff; border-color: var(--lea-blue); }
+
+        /* CARDS DE CATEGORIA */
+        .cat-section { padding: 32px 0; }
+        .cat-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 16px; overflow: hidden; transition: box-shadow .2s, transform .2s; }
+        .cat-card:hover { box-shadow: 0 8px 32px rgba(37,99,176,0.12); transform: translateY(-2px); }
+        .cat-card-header { height: 140px; display: flex; align-items: flex-end; padding: 16px; position: relative; overflow: hidden; }
+        .cat-card-header-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%); }
+        .cat-card-number { position: absolute; top: 12px; right: 14px; font-family: 'Sora', sans-serif; font-size: 48px; font-weight: 700; color: rgba(255,255,255,0.15); line-height: 1; }
+        .cat-card-icon { position: relative; z-index: 1; width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; margin-right: 10px; flex-shrink: 0; }
+        .cat-card-title { position: relative; z-index: 1; }
+        .cat-card-title h3 { font-size: 16px; font-weight: 600; color: #fff; margin: 0; }
+        .cat-card-title span { font-size: 11px; color: rgba(255,255,255,0.7); }
+        .cat-card-body { padding: 16px; }
+        .cat-card-desc { font-size: 13px; color: var(--lea-muted); line-height: 1.65; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .cat-artists-preview { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; }
+        .cat-artist-thumb { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--lea-white); object-fit: cover; object-position: top; margin-left: -8px; }
+        .cat-artist-thumb:first-child { margin-left: 0; }
+        .cat-artist-count { font-size: 11px; color: var(--lea-muted); margin-left: 4px; }
+        .cat-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--lea-border); }
+        .cat-badge { display: inline-block; font-size: 9px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+        .btn-cat { font-size: 12px; font-weight: 500; color: var(--lea-blue); text-decoration: none; display: flex; align-items: center; gap: 4px; }
+        .btn-cat:hover { text-decoration: underline; }
+
+        /* SECÇÃO O QUE É A ARTE */
+        .arte-section { background: var(--lea-white); border-top: 1px solid var(--lea-border); border-bottom: 1px solid var(--lea-border); padding: 40px 0; }
+        .arte-section h2 { font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+        .arte-section p { font-size: 13px; color: var(--lea-muted); line-height: 1.8; }
+
+        /* CORES POR CATEGORIA */
+        .color-musica    { background: linear-gradient(135deg, #2563B0, #3B7DD8); }
+        .color-danca     { background: linear-gradient(135deg, #1D9E75, #2DC88F); }
+        .color-pintura   { background: linear-gradient(135deg, #C07A1A, #E89A3A); }
+        .color-escultura { background: linear-gradient(135deg, #534AB7, #7A6FD4); }
+        .color-teatro    { background: linear-gradient(135deg, #1A4A8A, #2563B0); }
+        .color-literatura{ background: linear-gradient(135deg, #0F766E, #1D9E75); }
+        .color-cinema    { background: linear-gradient(135deg, #7C3AED, #534AB7); }
+        .color-fotografia{ background: linear-gradient(135deg, #B45309, #C07A1A); }
+        .color-quadrinhos{ background: linear-gradient(135deg, #BE185D, #DB2777); }
+        .color-jogos     { background: linear-gradient(135deg, #0369A1, #2563B0); }
+        .color-digital   { background: linear-gradient(135deg, #065F46, #1D9E75); }
+
+        /* FOOTER */
+        .lea-footer { background: var(--lea-white); border-top: 1px solid var(--lea-border); padding: 16px 24px; }
+        .footer-link { font-size: 12px; color: var(--lea-muted); text-decoration: none; }
+        .footer-link:hover { color: var(--lea-blue); }
+        .footer-social { color: var(--lea-blue); font-size: 20px; text-decoration: none; }
+
+        /* BOTTOM NAV */
+        .bottom-nav {
+            display: none;
+            background: var(--lea-white);
+            border-top: 1px solid var(--lea-border);
+            position: fixed; bottom: 0; left: 0; right: 0;
+            height: 62px;
+            align-items: center; justify-content: space-around;
+            z-index: 200;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+        .bnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 22px; color: var(--lea-muted); cursor: pointer; text-decoration: none; flex: 1; justify-content: center; transition: color .12s; }
+        .bnav-item.active, .bnav-item:hover { color: var(--lea-blue); }
+        .bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+
+        /* MENU DRAWER */
+        .menu-drawer { position: fixed; inset: 0; z-index: 500; visibility: hidden; }
+        .menu-drawer.open { visibility: visible; }
+        .menu-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: opacity .25s; }
+        .menu-drawer.open .menu-overlay { opacity: 1; }
+        .menu-panel { position: absolute; bottom: 0; left: 0; right: 0; background: var(--lea-white); border-radius: 20px 20px 0 0; padding: 0 0 env(safe-area-inset-bottom, 16px); transform: translateY(100%); transition: transform .3s cubic-bezier(.32,.72,0,1); max-height: 90vh; overflow-y: auto; }
+        .menu-drawer.open .menu-panel { transform: translateY(0); }
+        .menu-handle { width: 36px; height: 4px; background: #E5E7EB; border-radius: 2px; margin: 12px auto 0; }
+        .menu-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--lea-border); display: flex; align-items: center; justify-content: space-between; }
+        .menu-header-title { font-size: 15px; font-weight: 700; color: var(--lea-text); font-family: 'Sora', sans-serif; }
+        .btn-close-menu { background: var(--lea-surface); border: none; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--lea-muted); cursor: pointer; }
+        .menu-section-title { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: #bbb; padding: 14px 20px 6px; }
+        .menu-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; text-decoration: none; border-bottom: 1px solid var(--lea-border); transition: background .12s; }
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item:hover { background: var(--lea-surface); }
+        .menu-item i { font-size: 20px; color: var(--lea-blue); width: 24px; text-align: center; flex-shrink: 0; }
+        .menu-item-label { font-size: 14px; font-weight: 500; color: var(--lea-text); }
+        .menu-item-sub { font-size: 11px; color: var(--lea-muted); }
+        .menu-social { padding: 16px 20px; display: flex; gap: 14px; }
+        .menu-social a { font-size: 22px; color: var(--lea-blue); text-decoration: none; }
+        .btn-menu-entrar { display: block; width: calc(100% - 40px); margin: 0 20px 16px; background: var(--lea-blue); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; padding: 12px; cursor: pointer; }
+
+        /* LOGO */
+        .logo-lea { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 600; color: var(--lea-blue); line-height: 1; }
+
+        /* BREAKPOINTS */
+        @media (min-width: 992px) {
+            .mobile-topbar { display: none !important; }
+            .mobile-only   { display: none !important; }
+            .bottom-nav    { display: none !important; }
+            .desktop-only  { display: block; }
+            body           { padding-bottom: 0; }
+            .filter-bar    { top: 57px; }
+        }
+        @media (max-width: 991px) {
+            .desktop-only  { display: none !important; }
+            .mobile-only   { display: block; }
+            .mobile-topbar { display: flex; }
+            .bottom-nav    { display: flex; }
+            body           { padding-bottom: 62px; }
+            .lea-footer    { padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px) + 12px) !important; }
+            .page-hero     { padding: 24px 0 20px; }
+            .page-hero h1  { font-size: 22px; }
+            .filter-bar    { top: 57px; }
+        }
+    </style>
 </head>
 <body>
-$END$
+
+<!-- NAVBAR DESKTOP -->
+<nav class="navbar navbar-expand-lg sticky-top desktop-only">
+    <div class="container-fluid px-4">
+        <div class="logo-link">
+            <img src="assets/img/logo.png" alt="LEA" height="30" class="logo-shodow">
+            <span class="logo-lea ms-2">LEA</span>
+        </div>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav me-auto mb-0 ms-3">
+                <li class="nav-item"><a class="nav-link active" href="#">Artes</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Artistas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Músicas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Literatura</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Notícias</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Eventos</a></li>
+            </ul>
+            <div class="d-flex align-items-center gap-2">
+                <div class="lea-search d-flex align-items-center gap-2">
+                    <i class="ti ti-search" style="font-size:13px;"></i> Pesquisar…
+                </div>
+                <button class="btn-lea">Entrar</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- TOPBAR MOBILE -->
+<header class="mobile-topbar">
+    <div class="logo-link">
+        <img src="assets/img/logo.png" alt="LEA" height="30">
+        <span class="logo-lea ms-1">LEA</span>
+    </div>
+    <div class="d-flex gap-3" style="font-size:20px;color:var(--lea-muted);">
+        <i class="ti ti-search"></i>
+        <i class="ti ti-bell"></i>
+        <i class="ti ti-user-circle"></i>
+    </div>
+</header>
+
+<!-- HERO -->
+<div class="page-hero">
+    <div class="container-fluid px-4" style="position:relative;z-index:1;">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+                <div class="page-hero-eyebrow">🇦🇴 Plataforma Angolana de Artes</div>
+                <h1>As Artes em Angola</h1>
+                <p>Explora as 11 categorias artísticas praticadas em Angola. Da Música ao Teatro, da Pintura à Arte Digital — um acervo completo da criatividade angolana.</p>
+            </div>
+            <div class="col-lg-5">
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="hero-stat">
+                            <div class="hero-stat-num">2.255</div>
+                            <div class="hero-stat-lbl">Artistas registados</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="hero-stat">
+                            <div class="hero-stat-num">11</div>
+                            <div class="hero-stat-lbl">Categorias artísticas</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="hero-stat">
+                            <div class="hero-stat-num">18</div>
+                            <div class="hero-stat-lbl">Províncias cobertas</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="hero-stat">
+                            <div class="hero-stat-num">2017</div>
+                            <div class="hero-stat-lbl">Ano de fundação</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FILTROS -->
+<div class="filter-bar">
+    <div class="container-fluid px-4">
+        <div class="d-flex gap-2 overflow-auto pb-1" style="-ms-overflow-style:none;scrollbar-width:none;">
+            <button class="filter-btn active">Todas</button>
+            <button class="filter-btn">Música</button>
+            <button class="filter-btn">Dança</button>
+            <button class="filter-btn">Pintura</button>
+            <button class="filter-btn">Escultura</button>
+            <button class="filter-btn">Teatro</button>
+            <button class="filter-btn">Literatura</button>
+            <button class="filter-btn">Cinema</button>
+            <button class="filter-btn">Fotografia</button>
+            <button class="filter-btn">Banda Desenhada</button>
+            <button class="filter-btn">Vídeo Games</button>
+            <button class="filter-btn">Arte Digital</button>
+        </div>
+    </div>
+</div>
+
+<!-- CARDS DE CATEGORIAS -->
+<div class="cat-section">
+    <div class="container-fluid px-4">
+        <div class="row g-3">
+
+            <!-- Música -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-musica">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">1</div>
+                        <div class="cat-card-icon"><i class="ti ti-music"></i></div>
+                        <div class="cat-card-title"><h3>Música</h3><span>1.607 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">A música angolana é rica e diversificada, com géneros que vão do Semba ao Kuduro, passando pelo Kizomba e o Afrohouse. É a categoria com mais artistas registados na LEA.</p>
+                        <div class="cat-artists-preview">
+                            <img src="https://lea.co.ao/artistas/imgs/Dino Weed.jpg" class="cat-artist-thumb" alt="">
+                            <img src="https://lea.co.ao/artistas/imgs/Lucky Mayanda.jpg" class="cat-artist-thumb" alt="">
+                            <img src="https://lea.co.ao/artistas/imgs/Ceicy Tchavala.jpg" class="cat-artist-thumb" alt="">
+                            <img src="https://lea.co.ao/artistas/imgs/Lunna.jpg" class="cat-artist-thumb" alt="">
+                            <span class="cat-artist-count">+1.603 artistas</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#E8F0FB;color:#2563B0;">1ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dança -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-danca">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">2</div>
+                        <div class="cat-card-icon"><i class="ti ti-jump-rope"></i></div>
+                        <div class="cat-card-title"><h3>Dança / Coreografia</h3><span>24 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">A dança em Angola distingue diversos géneros, desde as danças tradicionais das diferentes etnias até às danças modernas e contemporâneas que emergem nos centros urbanos.</p>
+                        <div class="cat-artists-preview">
+                            <div style="width:28px;height:28px;border-radius:50%;background:#1D9E75;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">D</div>
+                            <span class="cat-artist-count" style="margin-left:8px;">24 artistas registados</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#E1F5EE;color:#1D9E75;">2ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pintura -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-pintura">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">3</div>
+                        <div class="cat-card-icon"><i class="ti ti-palette"></i></div>
+                        <div class="cat-card-title"><h3>Pintura</h3><span>93 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">As artes plásticas angolanas têm uma tradição rica que mistura influências africanas, europeias e contemporâneas, resultando numa expressão visual única e marcante.</p>
+                        <div class="cat-artists-preview">
+                            <div style="width:28px;height:28px;border-radius:50%;background:#C07A1A;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">P</div>
+                            <span class="cat-artist-count" style="margin-left:8px;">93 artistas registados</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#FFF3E0;color:#C07A1A;">3ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Escultura -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-escultura">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">4</div>
+                        <div class="cat-card-icon"><i class="ti ti-building"></i></div>
+                        <div class="cat-card-title"><h3>Escultura / Arquitetura</h3><span>12 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">A escultura, grosso modo, é a arte de transformar matérias como pedra, madeira, metal ou barro em obras tridimensionais com valor estético e cultural.</p>
+                        <div class="cat-artists-preview">
+                            <div style="width:28px;height:28px;border-radius:50%;background:#534AB7;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">E</div>
+                            <span class="cat-artist-count" style="margin-left:8px;">12 artistas registados</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#EDE9FF;color:#534AB7;">4ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teatro -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-teatro">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">5</div>
+                        <div class="cat-card-icon"><i class="ti ti-masks-theater"></i></div>
+                        <div class="cat-card-title"><h3>Teatro</h3><span>50 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">O teatro angolano tem uma forte tradição que remonta à época colonial e pós-independência, com companhias e grupos que abordam temas sociais e culturais da realidade angolana.</p>
+                        <div class="cat-artists-preview">
+                            <div style="width:28px;height:28px;border-radius:50%;background:#1A4A8A;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">T</div>
+                            <span class="cat-artist-count" style="margin-left:8px;">50 artistas registados</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#E8F0FB;color:#1A4A8A;">5ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Literatura -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-literatura">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">6</div>
+                        <div class="cat-card-icon"><i class="ti ti-book"></i></div>
+                        <div class="cat-card-title"><h3>Literatura</h3><span>199 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">A literatura de Angola tem suas origens no século XIX com escritores que resistiram à colonização. Hoje floresce com poetas, romancistas e contistas de renome internacional.</p>
+                        <div class="cat-artists-preview">
+                            <div style="width:28px;height:28px;border-radius:50%;background:#0F766E;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">L</div>
+                            <span class="cat-artist-count" style="margin-left:8px;">199 artistas registados</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#E1F5EE;color:#0F766E;">6ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cinema -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-cinema">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">7</div>
+                        <div class="cat-card-icon"><i class="ti ti-movie"></i></div>
+                        <div class="cat-card-title"><h3>Cinema</h3><span>133 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">A produção cinematográfica em Angola começou a crescer significativamente após a independência, com realizadores que abordam a realidade angolana com olhar crítico e criativo.</p>
+                        <div class="cat-artists-preview">
+                            <div style="width:28px;height:28px;border-radius:50%;background:#534AB7;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">C</div>
+                            <span class="cat-artist-count" style="margin-left:8px;">133 artistas registados</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#EDE9FF;color:#534AB7;">7ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fotografia -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-fotografia">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">8</div>
+                        <div class="cat-card-icon"><i class="ti ti-camera"></i></div>
+                        <div class="cat-card-title"><h3>Fotografia</h3><span>27 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">A fotografia angolana tem captado a essência de um país em transformação, documentando desde a vida quotidiana de Luanda até às paisagens únicas do interior de Angola.</p>
+                        <div class="cat-artists-preview">
+                            <div style="width:28px;height:28px;border-radius:50%;background:#B45309;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">F</div>
+                            <span class="cat-artist-count" style="margin-left:8px;">27 artistas registados</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#FFF3E0;color:#B45309;">8ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banda Desenhada -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-quadrinhos">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">9</div>
+                        <div class="cat-card-icon"><i class="ti ti-pencil"></i></div>
+                        <div class="cat-card-title"><h3>Banda Desenhada</h3><span>13 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">A banda desenhada angolana é uma forma de expressão em crescimento, com autores que combinam narrativas locais com técnicas visuais contemporâneas e referências culturais angolanas.</p>
+                        <div class="cat-artists-preview">
+                            <div style="width:28px;height:28px;border-radius:50%;background:#BE185D;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">B</div>
+                            <span class="cat-artist-count" style="margin-left:8px;">13 artistas registados</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#FCE7F3;color:#BE185D;">9ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vídeo Games -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-jogos">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">10</div>
+                        <div class="cat-card-icon"><i class="ti ti-device-gamepad-2"></i></div>
+                        <div class="cat-card-title"><h3>Vídeo Games</h3><span>9 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">A história dos jogos de computador e vídeo em Angola é recente mas promissora, com desenvolvedores que estão a criar experiências digitais com temáticas e personagens angolanas.</p>
+                        <div class="cat-artists-preview">
+                            <div style="width:28px;height:28px;border-radius:50%;background:#0369A1;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">V</div>
+                            <span class="cat-artist-count" style="margin-left:8px;">9 artistas registados</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#E0F2FE;color:#0369A1;">10ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arte Digital -->
+            <div class="col-lg-4 col-md-6">
+                <div class="cat-card">
+                    <div class="cat-card-header color-digital">
+                        <div class="cat-card-header-overlay"></div>
+                        <div class="cat-card-number">11</div>
+                        <div class="cat-card-icon"><i class="ti ti-brush"></i></div>
+                        <div class="cat-card-title"><h3>Arte Digital</h3><span>10 artistas</span></div>
+                    </div>
+                    <div class="cat-card-body">
+                        <p class="cat-card-desc">A arte digital angolana está em plena expansão, com artistas que utilizam ferramentas digitais para criar ilustrações, animações e experiências visuais que reflectem a cultura angolana.</p>
+                        <div class="cat-artists-preview">
+                            <div style="width:28px;height:28px;border-radius:50%;background:#065F46;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;">A</div>
+                            <span class="cat-artist-count" style="margin-left:8px;">10 artistas registados</span>
+                        </div>
+                        <div class="cat-card-footer">
+                            <span class="cat-badge" style="background:#D1FAE5;color:#065F46;">11ª Arte</span>
+                            <a href="#" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- SECÇÃO O QUE É A ARTE -->
+<div class="arte-section">
+    <div class="container-fluid px-4">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <h2>O que é a Arte?</h2>
+                <p>Arte (do termo latino ars, significando técnica e/ou habilidade) pode ser entendida como a atividade humana ligada às manifestações de ordem estética ou comunicativa, realizada por meio de uma grande variedade de linguagens, tais como: arquitectura, desenho, escultura, pintura, escrita, música, dança, teatro e cinema.</p>
+                <p>Na história da filosofia tentou se definir a arte como intuição, expressão, projeção, sublimação, evasão, etc. Aristóteles definiu a arte como uma imitação da realidade. Kant considera que a arte é uma manifestação que produz uma "satisfação desinteressada".</p>
+                <p>Para os angolanos, a arte é também um acto de resistência e identidade. Da música tradicional dos Ovimbundu ao teatro político do pós-independência, a arte angolana tem sido um espelho da sociedade e um motor de mudança cultural.</p>
+            </div>
+            <div class="col-lg-4">
+                <div style="background:var(--lea-blue-light);border-radius:14px;padding:24px;">
+                    <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--lea-blue);margin-bottom:12px;">Total na LEA.co.ao</div>
+                    <div style="font-family:'Sora',sans-serif;font-size:48px;font-weight:700;color:var(--lea-blue);line-height:1;">2.255</div>
+                    <div style="font-size:13px;color:var(--lea-muted);margin-bottom:20px;">artistas registados</div>
+                    <a href="#" style="display:block;background:var(--lea-blue);color:#fff;text-align:center;padding:10px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;">Ver todos os artistas →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="lea-footer">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-2">
+            <img src="assets/img/logo.png" alt="LEA" height="24">
+            <small class="text-muted" style="font-size:11px;">© 2017–2026</small>
+        </div>
+        <div class="d-flex gap-3 flex-wrap">
+            <a class="footer-link" href="#">Sobre nós</a>
+            <a class="footer-link" href="#">Contactos</a>
+            <a class="footer-link" href="#">Privacidade</a>
+            <a class="footer-link" href="#">Termos</a>
+            <a class="footer-link" href="#">Publicitar</a>
+            <a class="footer-link" href="#">Ministério da Cultura</a>
+        </div>
+        <div class="d-flex gap-3">
+            <a class="footer-social" href="#"><i class="ti ti-brand-instagram"></i></a>
+            <a class="footer-social" href="#"><i class="ti ti-brand-facebook"></i></a>
+            <a class="footer-social" href="#"><i class="ti ti-brand-youtube"></i></a>
+            <a class="footer-social" href="#"><i class="ti ti-brand-whatsapp"></i></a>
+        </div>
+    </div>
+</footer>
+
+<!-- BOTTOM NAV MOBILE -->
+<nav class="bottom-nav" id="bottomNav">
+    <a class="bnav-item" href="#">
+        <i class="ti ti-home"></i>
+        <span class="bnav-lbl">Início</span>
+    </a>
+    <a class="bnav-item" href="#">
+        <i class="ti ti-users"></i>
+        <span class="bnav-lbl">Artistas</span>
+    </a>
+    <a class="bnav-item" href="#">
+        <i class="ti ti-music"></i>
+        <span class="bnav-lbl">Músicas</span>
+    </a>
+    <a class="bnav-item" href="#">
+        <i class="ti ti-shopping-bag"></i>
+        <span class="bnav-lbl">Loja</span>
+    </a>
+    <button class="bnav-item" id="btnOpenMenu" style="background:none;border:none;">
+        <i class="ti ti-menu-2"></i>
+        <span class="bnav-lbl">Menu</span>
+    </button>
+</nav>
+
+<!-- MENU DRAWER MOBILE -->
+<div class="menu-drawer" id="menuDrawer">
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-panel">
+        <div class="menu-handle"></div>
+        <div class="menu-header">
+            <span class="menu-header-title">Menu</span>
+            <button class="btn-close-menu" id="btnCloseMenu"><i class="ti ti-x"></i></button>
+        </div>
+        <div class="menu-section-title">Navegar</div>
+        <a class="menu-item" href="#"><i class="ti ti-home"></i><div><div class="menu-item-label">Início</div><div class="menu-item-sub">Página principal do LEA</div></div></a>
+        <a class="menu-item" href="#"><i class="ti ti-users"></i><div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.200+ artistas angolanos</div></div></a>
+        <a class="menu-item" href="#"><i class="ti ti-music"></i><div><div class="menu-item-label">Músicas</div><div class="menu-item-sub">Ouve e descarrega</div></div></a>
+        <a class="menu-item" href="#"><i class="ti ti-video"></i><div><div class="menu-item-label">Vídeos</div><div class="menu-item-sub">Clipes, filmes e séries</div></div></a>
+        <a class="menu-item" href="#"><i class="ti ti-book"></i><div><div class="menu-item-label">Literatura</div><div class="menu-item-sub">Livros, poesias e frases</div></div></a>
+        <a class="menu-item" href="#"><i class="ti ti-news"></i><div><div class="menu-item-label">Notícias</div><div class="menu-item-sub">Angola em dia</div></div></a>
+        <a class="menu-item" href="#"><i class="ti ti-calendar-event"></i><div><div class="menu-item-label">Eventos</div><div class="menu-item-sub">Agenda cultural angolana</div></div></a>
+        <a class="menu-item" href="#"><i class="ti ti-shopping-bag"></i><div><div class="menu-item-label">Loja</div><div class="menu-item-sub">Livros, CDs, ingressos e mais</div></div></a>
+        <div class="menu-section-title">Conta</div>
+        <a class="menu-item" href="#"><i class="ti ti-user-circle"></i><div><div class="menu-item-label">Entrar</div><div class="menu-item-sub">Aceder à minha conta</div></div></a>
+        <a class="menu-item" href="#"><i class="ti ti-rosette-discount-check"></i><div><div class="menu-item-label">Certificar artista</div><div class="menu-item-sub">Destaca-te na plataforma</div></div></a>
+        <div class="menu-section-title">Redes sociais</div>
+        <div class="menu-social">
+            <a href="#"><i class="ti ti-brand-instagram"></i></a>
+            <a href="#"><i class="ti ti-brand-facebook"></i></a>
+            <a href="#"><i class="ti ti-brand-youtube"></i></a>
+            <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+        </div>
+        <button class="btn-menu-entrar">Entrar na minha conta</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Filtros
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Menu Drawer
+    const drawer   = document.getElementById('menuDrawer');
+    const overlay  = document.getElementById('menuOverlay');
+    const btnOpen  = document.getElementById('btnOpenMenu');
+    const btnClose = document.getElementById('btnCloseMenu');
+
+    function openMenu()  { drawer.classList.add('open');    document.body.style.overflow = 'hidden'; }
+    function closeMenu() { drawer.classList.remove('open'); document.body.style.overflow = ''; }
+
+    btnOpen.addEventListener('click', openMenu);
+    btnClose.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+    drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+</script>
 </body>
 </html>
