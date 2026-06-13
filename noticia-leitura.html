@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notícia — LEA</title>
+
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+
+  <!-- ============================================================
+       CSS GLOBAL DO SITE (navbar, footer, mobile, etc.)
+       Já está no style.css — não repetir aqui
+       ============================================================ -->
+
+  <!-- ============================================================
+       CSS EXCLUSIVO DA PÁGINA DE LEITURA DE NOTÍCIA
+       Recortar este bloco para noticias-leitura.css
+       ============================================================ -->
+  <style id="css-leitura-noticia">
+
+    /* ── Navbar ── */
+    .navbar { border-bottom: 1px solid var(--lea-border); }
+    .nav-link { font-size: 13px; color: var(--lea-muted) !important; padding: 4px 10px !important; border-radius: 6px; }
+    .nav-link:hover { color: var(--lea-blue) !important; background-color: var(--lea-blue-light); }
+    .nav-link.active { color: var(--lea-blue) !important; background-color: var(--lea-blue-light) !important; }
+    .lea-search { font-size: 12px; color: var(--lea-muted); background: var(--lea-surface); border: 1px solid rgba(37,99,176,0.2); border-radius: 8px; padding: 6px 12px; min-width: 160px; cursor: pointer; }
+    .btn-lea { background-color: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; padding: 8px 18px; transition: background .15s; cursor: pointer; }
+    .btn-lea:hover { background-color: var(--lea-blue-dark); color: #fff; }
+
+    /* ── Categoria badge ── */
+    .cat-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; padding: 3px 9px; border-radius: 4px; color: #fff; }
+    .cat-politica    { background: #DC2626; }
+    .cat-tecnologia  { background: #7C3AED; }
+    .cat-desporto    { background: #059669; }
+    .cat-cronicas    { background: #C07A1A; }
+    .cat-arte        { background: #2563B0; }
+    .cat-economia    { background: #0D6B4E; }
+    .cat-entrevistas { background: #9D174D; }
+
+    /* ── Ad pill ── */
+    .ad-pill { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: #bbb; border: 1px solid #ddd; border-radius: 4px; padding: 2px 6px; flex-shrink: 0; }
+    .ann { font-size: 10px; color: var(--lea-blue); display: flex; align-items: center; gap: 4px; margin-bottom: 5px; }
+    .ad-block { background: var(--lea-surface); border: 1px dashed #ccd9ef; border-radius: 10px; min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; gap: 4px; }
+    .ad-size { font-size: 13px; font-weight: 600; color: #c0cfe8; }
+    .ad-type { font-size: 10px; color: #c0cfe8; }
+
+    /* ── Sidebar cards ── */
+    .sidebar-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 12px; overflow: hidden; }
+    .sidebar-card-header { padding: 12px 14px; border-bottom: 1px solid var(--lea-border); display: flex; align-items: center; gap: 8px; }
+    .sidebar-card-header h3 { font-size: 13px; font-weight: 700; margin: 0; color: var(--lea-text); }
+    .sidebar-card-header i { font-size: 16px; color: var(--lea-blue); }
+
+    /* ── Notícias relacionadas sidebar ── */
+    .related-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; border-bottom: 1px solid var(--lea-border); text-decoration: none; transition: background .12s; }
+    .related-item:last-child { border-bottom: none; }
+    .related-item:hover { background: var(--lea-surface); }
+    .related-thumb { width: 64px; height: 48px; border-radius: 6px; overflow: hidden; flex-shrink: 0; }
+    .related-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .related-title { font-size: 12px; font-weight: 500; color: var(--lea-text); line-height: 1.4; margin-bottom: 3px; }
+    .related-item:hover .related-title { color: var(--lea-blue); }
+    .related-meta { font-size: 10px; color: var(--lea-muted); }
+
+    /* ── Artistas sidebar ── */
+    .artist-sidebar-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--lea-border); text-decoration: none; transition: background .12s; }
+    .artist-sidebar-item:last-child { border-bottom: none; }
+    .artist-sidebar-item:hover { background: var(--lea-surface); }
+    .artist-sidebar-avatar { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .artist-sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .artist-sidebar-name { font-size: 12px; font-weight: 500; color: var(--lea-text); }
+    .artist-sidebar-prof { font-size: 10px; color: var(--lea-muted); }
+
+    /* ── Footer ── */
+    .lea-footer { background: var(--lea-white); border-top: 1px solid var(--lea-border); }
+    .footer-link { font-size: 12px; color: var(--lea-muted); text-decoration: none; }
+    .footer-link:hover { color: var(--lea-blue); }
+    .footer-social { color: var(--lea-blue); font-size: 20px; text-decoration: none; transition: opacity .15s; }
+    .footer-social:hover { opacity: .7; }
+
+    /* ── Mobile ── */
+    .desktop-only { display: block; }
+    .mobile-only  { display: none; }
+    .mobile-topbar { display: none; background: var(--lea-white); border-bottom: 1px solid var(--lea-border); padding: 10px 16px; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .bottom-nav { background: var(--lea-white); border-top: 1px solid var(--lea-border); position: fixed; bottom: 0; left: 0; right: 0; height: 62px; display: none; align-items: center; justify-content: space-around; z-index: 200; padding-bottom: env(safe-area-inset-bottom, 0); }
+    .bnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 22px; color: var(--lea-muted); cursor: pointer; text-decoration: none; flex: 1; justify-content: center; transition: color .12s; }
+    .bnav-item.active, .bnav-item:hover { color: var(--lea-blue); }
+    .bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+    .menu-drawer { position: fixed; inset: 0; z-index: 500; visibility: hidden; }
+    .menu-drawer.open { visibility: visible; }
+    .menu-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: opacity .25s; }
+    .menu-drawer.open .menu-overlay { opacity: 1; }
+    .menu-panel { position: absolute; bottom: 0; left: 0; right: 0; background: var(--lea-white); border-radius: 20px 20px 0 0; padding: 0 0 env(safe-area-inset-bottom, 16px); transform: translateY(100%); transition: transform .3s cubic-bezier(.32,.72,0,1); max-height: 90vh; overflow-y: auto; }
+    .menu-drawer.open .menu-panel { transform: translateY(0); }
+    .menu-handle { width: 36px; height: 4px; background: #E5E7EB; border-radius: 2px; margin: 12px auto 0; }
+    .menu-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--lea-border); display: flex; align-items: center; justify-content: space-between; }
+    .menu-header-title { font-size: 15px; font-weight: 700; color: var(--lea-text); font-family: 'Sora', sans-serif; }
+    .btn-close-menu { background: var(--lea-surface); border: none; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--lea-muted); cursor: pointer; }
+    .menu-section-title { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: #bbb; padding: 14px 20px 6px; }
+    .menu-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; text-decoration: none; border-bottom: 1px solid var(--lea-border); transition: background .12s; }
+    .menu-item:hover { background: var(--lea-surface); }
+    .menu-item i { font-size: 20px; color: var(--lea-blue); width: 24px; text-align: center; flex-shrink: 0; }
+    .menu-item-label { font-size: 14px; font-weight: 500; color: var(--lea-text); }
+    .menu-item-sub { font-size: 11px; color: var(--lea-muted); }
+    .menu-social { padding: 16px 20px; display: flex; gap: 14px; }
+    .menu-social a { font-size: 22px; color: var(--lea-blue); text-decoration: none; transition: opacity .15s; }
+    .btn-menu-entrar { display: block; width: calc(100% - 40px); margin: 0 20px 16px; background: var(--lea-blue); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; padding: 12px; cursor: pointer; transition: background .15s; }
+
+    @media (max-width: 991px) {
+      .desktop-only { display: none !important; }
+      .mobile-only  { display: block; }
+      .mobile-topbar { display: flex; }
+      .bottom-nav   { display: flex; }
+      body          { padding-bottom: 62px; }
+      .lea-footer   { padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px) + 12px) !important; }
+    }
+
+    /* ============================================================
+       CSS EXCLUSIVO DA PÁGINA DE LEITURA — INÍCIO
+       ============================================================ */
+
+    /* Breadcrumb */
+    .lea-breadcrumb { background: var(--lea-white); border-bottom: 1px solid var(--lea-border); padding: 10px 0; }
+    .lea-breadcrumb a { font-size: 12px; color: var(--lea-blue); text-decoration: none; }
+    .lea-breadcrumb a:hover { text-decoration: underline; }
+    .lea-breadcrumb span { font-size: 12px; color: var(--lea-muted); }
+    .lea-breadcrumb i { font-size: 10px; color: var(--lea-muted); margin: 0 4px; }
+
+    /* Layout */
+    .leitura-layout { display: grid; grid-template-columns: 1fr 300px; gap: 32px; padding: 32px 0 48px; }
+
+    /* Cabeçalho do artigo */
+    .artigo-header { margin-bottom: 24px; }
+    .artigo-categoria { margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .artigo-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--lea-text);
+      margin-bottom: 14px;
+    }
+    .artigo-subtitulo {
+      font-size: 16px;
+      color: var(--lea-muted);
+      line-height: 1.7;
+      margin-bottom: 18px;
+      border-left: 3px solid var(--lea-blue);
+      padding-left: 14px;
+    }
+    .artigo-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 14px 0; border-top: 1px solid var(--lea-border); border-bottom: 1px solid var(--lea-border); margin-bottom: 24px; }
+    .artigo-meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--lea-muted); }
+    .artigo-meta-item i { font-size: 14px; color: var(--lea-blue); }
+    .artigo-meta-item strong { color: var(--lea-text); font-weight: 500; }
+
+    /* Partilha social */
+    .share-bar { display: flex; align-items: center; gap: 8px; }
+    .share-lbl { font-size: 11px; font-weight: 600; color: var(--lea-muted); text-transform: uppercase; letter-spacing: .5px; }
+    .share-btn { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; text-decoration: none; transition: opacity .15s; }
+    .share-btn:hover { opacity: .8; }
+    .share-fb   { background: #1877F2; color: #fff; }
+    .share-wa   { background: #25D366; color: #fff; }
+    .share-tg   { background: #229ED9; color: #fff; }
+    .share-tw   { background: #000; color: #fff; }
+    .share-copy { background: var(--lea-surface); color: var(--lea-blue); border: 1px solid var(--lea-border); }
+
+    /* Imagem principal */
+    .artigo-img-wrap { border-radius: 14px; overflow: hidden; margin-bottom: 10px; position: relative; }
+    .artigo-img-wrap img { width: 100%; max-height: 480px; object-fit: cover; display: block; }
+    .artigo-img-caption { font-size: 11px; color: var(--lea-muted); text-align: center; margin-bottom: 28px; font-style: italic; }
+
+    /* Corpo do artigo */
+    .artigo-corpo { font-size: 16px; line-height: 1.85; color: var(--lea-text); }
+    .artigo-corpo p { margin-bottom: 20px; }
+    .artigo-corpo h2 { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin: 32px 0 12px; color: var(--lea-text); }
+    .artigo-corpo h3 { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 600; margin: 24px 0 10px; color: var(--lea-text); }
+    .artigo-corpo blockquote { border-left: 4px solid var(--lea-blue); padding: 12px 20px; margin: 24px 0; background: var(--lea-blue-light); border-radius: 0 8px 8px 0; }
+    .artigo-corpo blockquote p { font-family: 'Playfair Display', serif; font-size: 17px; font-style: italic; color: var(--lea-blue-dark); margin: 0; }
+    .artigo-corpo a { color: var(--lea-blue); }
+    .artigo-corpo a:hover { text-decoration: underline; }
+    .artigo-corpo img { max-width: 100%; border-radius: 10px; margin: 16px 0; }
+    .artigo-corpo ul, .artigo-corpo ol { padding-left: 20px; margin-bottom: 20px; }
+    .artigo-corpo li { margin-bottom: 8px; }
+
+    /* Ad in-content */
+    .ad-incontent { background: var(--lea-surface); border: 1px dashed #ccd9ef; border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; margin: 28px 0; }
+    .ad-incontent-thumb { width: 52px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .ad-incontent-copy strong { font-size: 13px; font-weight: 500; color: var(--lea-text); display: block; }
+    .ad-incontent-copy span { font-size: 11px; color: var(--lea-muted); }
+    .btn-lea-sm { background-color: var(--lea-blue); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; padding: 6px 14px; white-space: nowrap; cursor: pointer; }
+
+    /* Tags */
+    .artigo-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 28px 0; padding-top: 20px; border-top: 1px solid var(--lea-border); }
+    .artigo-tags-lbl { font-size: 12px; font-weight: 600; color: var(--lea-muted); }
+    .tag-item { font-size: 12px; color: var(--lea-blue); background: var(--lea-blue-light); padding: 4px 12px; border-radius: 99px; text-decoration: none; transition: background .12s; }
+    .tag-item:hover { background: #d0e3f7; }
+
+    /* Fonte */
+    .artigo-fonte { background: var(--lea-surface); border: 1px solid var(--lea-border); border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+    .artigo-fonte i { font-size: 20px; color: var(--lea-blue); }
+    .artigo-fonte-text { font-size: 12px; color: var(--lea-muted); }
+    .artigo-fonte-text strong { color: var(--lea-text); font-size: 13px; }
+
+    /* Partilha final */
+    .share-final { background: var(--lea-blue-light); border-radius: 14px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+    .share-final-text { font-size: 14px; font-weight: 600; color: var(--lea-blue-dark); }
+
+    /* Notícias relacionadas em baixo */
+    .relacionadas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .rel-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 12px; overflow: hidden; text-decoration: none; transition: transform .2s, box-shadow .2s; display: flex; flex-direction: column; }
+    .rel-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(37,99,176,0.10); }
+    .rel-card-img { height: 140px; overflow: hidden; position: relative; }
+    .rel-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+    .rel-card:hover .rel-card-img img { transform: scale(1.05); }
+    .rel-card-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 28px; color: rgba(255,255,255,0.3); }
+    .rel-card-body { padding: 12px; flex: 1; }
+    .rel-card-title { font-size: 13px; font-weight: 600; color: var(--lea-text); line-height: 1.4; margin-bottom: 6px; }
+    .rel-card:hover .rel-card-title { color: var(--lea-blue); }
+    .rel-card-date { font-size: 10px; color: var(--lea-muted); }
+
+    @media (max-width: 991px) {
+      .leitura-layout { grid-template-columns: 1fr; }
+      .artigo-titulo { font-size: 24px; }
+      .artigo-corpo { font-size: 15px; }
+      .relacionadas-grid { grid-template-columns: 1fr 1fr; }
+      .share-final { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 576px) {
+      .relacionadas-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       CSS EXCLUSIVO DA PÁGINA DE LEITURA — FIM
+       ============================================================ */
+
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER — recortar daqui para views/layouts/header.php
+     ============================================================ -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top desktop-only">
+  <div class="container-fluid px-4">
+    <div class="logo-link d-flex align-items-center gap-2">
+      <img src="assets/img/logo.png" alt="LEA" height="30">
+      <span style="font-family:'Sora',sans-serif;font-size:22px;font-weight:600;color:var(--lea-blue);">LEA</span>
+    </div>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav me-auto mb-0 ms-3">
+        <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="/artes">Artes</a></li>
+        <li class="nav-item"><a class="nav-link" href="/artistas">Artistas</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/noticias">Notícias</a></li>
+        <li class="nav-item"><a class="nav-link" href="/eventos">Eventos</a></li>
+        <li class="nav-item"><a class="nav-link" href="/loja">Loja</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-2">
+        <div class="lea-search d-flex align-items-center gap-2">
+          <i class="ti ti-search" style="font-size:13px;"></i> Pesquisar…
+        </div>
+        <button class="btn-lea">Entrar</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="mobile-topbar">
+  <div class="d-flex align-items-center gap-2">
+    <img src="assets/img/logo.png" alt="LEA" height="30">
+    <span style="font-family:'Sora',sans-serif;font-size:20px;font-weight:600;color:var(--lea-blue);">LEA</span>
+  </div>
+  <div class="d-flex gap-3" style="font-size:20px;color:var(--lea-muted);">
+    <i class="ti ti-search"></i>
+    <i class="ti ti-bell"></i>
+    <i class="ti ti-user-circle"></i>
+  </div>
+</header>
+<!-- ============================================================
+     FIM HEADER
+     ============================================================ -->
+
+
+<!-- ============================================================
+     INÍCIO PÁGINA DE LEITURA DE NOTÍCIA
+     ============================================================ -->
+
+<!-- Breadcrumb -->
+<div class="lea-breadcrumb">
+  <div class="container">
+    <a href="/">Início</a>
+    <i class="ti ti-chevron-right"></i>
+    <a href="/noticias">Notícias</a>
+    <i class="ti ti-chevron-right"></i>
+    <a href="/noticias?cat=5">Arte & Cultura</a>
+    <i class="ti ti-chevron-right"></i>
+    <span>Festival Infantil RNA–Chitotolo</span>
+  </div>
+</div>
+
+<!-- Conteúdo principal -->
+<div class="container">
+  <div class="leitura-layout">
+
+    <!-- ARTIGO PRINCIPAL -->
+    <article>
+
+      <!-- Cabeçalho -->
+      <div class="artigo-header">
+        <div class="artigo-categoria">
+          <span class="cat-badge cat-arte">Arte & Cultura</span>
+          <span style="font-size:11px;color:var(--lea-muted);">· Tempo de leitura: 4 min</span>
+        </div>
+        <h1 class="artigo-titulo">
+          Festival Infantil RNA–Chitotolo celebra 30 anos com edição especial dedicada às crianças
+        </h1>
+        <p class="artigo-subtitulo">
+          Evento acontece a 1 de Junho, com transmissão em directo, programação cultural e forte acção social. Uma das maiores celebrações da cultura infantil angolana completa três décadas de história.
+        </p>
+        <div class="artigo-meta">
+          <div class="artigo-meta-item">
+            <i class="ti ti-building-newspaper"></i>
+            <strong>Lea.co.ao</strong>
+          </div>
+          <div class="artigo-meta-item">
+            <i class="ti ti-calendar"></i>
+            15 de Maio de 2026
+          </div>
+          <div class="artigo-meta-item">
+            <i class="ti ti-eye"></i>
+            3.241 visualizações
+          </div>
+          <div class="artigo-meta-item ms-auto">
+            <div class="share-bar">
+              <span class="share-lbl">Partilhar:</span>
+              <a class="share-btn share-fb" href="#" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
+              <a class="share-btn share-wa" href="#" title="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+              <a class="share-btn share-tg" href="#" title="Telegram"><i class="ti ti-brand-telegram"></i></a>
+              <a class="share-btn share-tw" href="#" title="X/Twitter"><i class="ti ti-brand-x"></i></a>
+              <a class="share-btn share-copy" href="#" title="Copiar link" onclick="navigator.clipboard.writeText(location.href);return false;"><i class="ti ti-copy"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Imagem principal -->
+      <div class="artigo-img-wrap">
+        <img src="https://lea.co.ao/images/noticias/festival_infantil_rna_chitotolo.jpg"
+             alt="Festival Infantil RNA–Chitotolo"
+             onerror="this.style.display='none'">
+      </div>
+      <p class="artigo-img-caption">Festival Infantil RNA–Chitotolo — 30ª edição · Foto: RNA</p>
+
+      <!-- Corpo do artigo -->
+      <div class="artigo-corpo">
+
+        <p>O <strong>Festival Infantil RNA–Chitotolo</strong> celebra este ano a sua 30ª edição com uma programação especial dedicada às crianças angolanas. O evento, que acontece a 1 de Junho — Dia Internacional da Criança — terá transmissão em directo pela Rádio Nacional de Angola e contará com a participação de centenas de crianças de diferentes províncias do país.</p>
+
+        <p>Ao longo de três décadas, o festival tornou-se um dos pilares da cultura infantil angolana, promovendo talentos jovens nas áreas da música, dança, teatro e poesia. Esta edição especial pretende homenagear todos os que fizeram parte desta história desde a sua fundação em 1996.</p>
+
+        <h2>Uma história de três décadas</h2>
+
+        <p>O festival nasceu de uma iniciativa da Rádio Nacional de Angola com o objetivo de dar voz às crianças e promover os valores culturais angolanos junto das novas gerações. Ao longo dos anos, o evento cresceu e tornou-se uma referência no calendário cultural do país.</p>
+
+        <blockquote>
+          <p>"O Chitotolo é mais do que um festival. É uma escola de vida, de cultura e de orgulho angolano. Trinta anos de histórias que pertencem a todos nós."</p>
+        </blockquote>
+
+        <p>A edição deste ano contará com actividades em várias províncias, com destaque para Luanda, Huambo e Benguela, onde serão realizados eventos satélite que levarão a magia do festival a mais crianças.</p>
+
+        <!-- Ad in-content -->
+        <div class="ad-incontent">
+          <span class="ad-pill">Pub</span>
+          <div class="ad-incontent-thumb" style="background:var(--lea-blue);">UN</div>
+          <div class="ad-incontent-copy flex-grow-1">
+            <strong>Unitel — Plano Ilimitado por Kz 3.500/mês</strong>
+            <span>Ligação rápida em todo o país · unitel.ao</span>
+          </div>
+          <button class="btn-lea-sm">Ver oferta</button>
+        </div>
+
+        <h2>Programação da 30ª edição</h2>
+
+        <p>A programação inclui concursos de música, dança tradicional e contemporânea, teatro infantil e recitação de poesia. Haverá também uma exposição fotográfica que documenta os 30 anos do festival e uma sessão especial de homenagem a artistas que participaram nas primeiras edições.</p>
+
+        <ul>
+          <li>Concurso de música infantil — categorias solo e grupo</li>
+          <li>Dança tradicional angolana — representação das 18 províncias</li>
+          <li>Teatro infantil — peças originais escritas por crianças</li>
+          <li>Exposição fotográfica — 30 anos de história em imagens</li>
+          <li>Acção social — distribuição de kits escolares</li>
+        </ul>
+
+        <p>A transmissão em directo estará disponível nas plataformas digitais da RNA e também na LEA.co.ao, que transmitirá o evento em parceria com a rádio nacional.</p>
+
+        <h2>Impacto cultural e social</h2>
+
+        <p>Ao longo de 30 anos, o Festival Infantil RNA–Chitotolo descobriu e lançou talentos que hoje são referências na música e nas artes angolanas. O evento tem também uma forte componente social, com acções de apoio a crianças em situação de vulnerabilidade.</p>
+
+        <p>Esta edição especial reafirma o compromisso da RNA e dos seus parceiros com a promoção da cultura angolana e com o investimento nas novas gerações de artistas e criadores.</p>
+
+      </div>
+
+      <!-- Tags -->
+      <div class="artigo-tags">
+        <span class="artigo-tags-lbl">Tags:</span>
+        <a class="tag-item" href="#">Festival</a>
+        <a class="tag-item" href="#">RNA</a>
+        <a class="tag-item" href="#">Chitotolo</a>
+        <a class="tag-item" href="#">Cultura</a>
+        <a class="tag-item" href="#">Crianças</a>
+        <a class="tag-item" href="#">Angola</a>
+      </div>
+
+      <!-- Fonte -->
+      <div class="artigo-fonte">
+        <i class="ti ti-building-newspaper"></i>
+        <div class="artigo-fonte-text">
+          <strong>Fonte: Lea.co.ao</strong><br>
+          Conteúdo produzido pela equipa editorial da LEA com base em informações da RNA.
+        </div>
+      </div>
+
+      <!-- Partilha final -->
+      <div class="share-final">
+        <div class="share-final-text">Gostaste desta notícia? Partilha com os teus amigos!</div>
+        <div class="share-bar">
+          <a class="share-btn share-fb" href="#"><i class="ti ti-brand-facebook"></i></a>
+          <a class="share-btn share-wa" href="#"><i class="ti ti-brand-whatsapp"></i></a>
+          <a class="share-btn share-tg" href="#"><i class="ti ti-brand-telegram"></i></a>
+          <a class="share-btn share-tw" href="#"><i class="ti ti-brand-x"></i></a>
+          <a class="share-btn share-copy" href="#" onclick="navigator.clipboard.writeText(location.href);return false;"><i class="ti ti-copy"></i></a>
+        </div>
+      </div>
+
+      <!-- Notícias relacionadas -->
+      <div class="mb-4">
+        <h2 style="font-size:16px;font-weight:700;margin-bottom:16px;">Notícias relacionadas</h2>
+        <div class="relacionadas-grid">
+
+          <a class="rel-card" href="#">
+            <div class="rel-card-img">
+              <img src="https://lea.co.ao/images/noticias/poetisa-ginga-preta-enfrenta-recuperacao-dificil.jpg" alt=""
+                   onerror="this.style.display='none'">
+              <div class="rel-card-img-placeholder" style="background:linear-gradient(135deg,#9D174D,#534AB7);">
+                <i class="ti ti-news"></i>
+              </div>
+            </div>
+            <div class="rel-card-body">
+              <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+              <div class="rel-card-title">Poetisa Ginga Preta enfrenta recuperação difícil após acidente</div>
+              <div class="rel-card-date">25 Abr 2026</div>
+            </div>
+          </a>
+
+          <a class="rel-card" href="#">
+            <div class="rel-card-img">
+              <img src="https://lea.co.ao/images/noticias/Escritor-Poeta-Falso-disponibiliza-obra-literaria.jpg" alt=""
+                   onerror="this.style.display='none'">
+              <div class="rel-card-img-placeholder" style="background:linear-gradient(135deg,#534AB7,#2563B0);">
+                <i class="ti ti-news"></i>
+              </div>
+            </div>
+            <div class="rel-card-body">
+              <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+              <div class="rel-card-title">Escritor Poeta Falso disponibiliza obra literária no mercado brasileiro</div>
+              <div class="rel-card-date">13 Mai 2026</div>
+            </div>
+          </a>
+
+          <a class="rel-card" href="#">
+            <div class="rel-card-img">
+              <img src="https://lea.co.ao/images/noticias/o-regresso-dos-bts.jpg" alt=""
+                   onerror="this.style.display='none'">
+              <div class="rel-card-img-placeholder" style="background:linear-gradient(135deg,#9D174D,#2563B0);">
+                <i class="ti ti-news"></i>
+              </div>
+            </div>
+            <div class="rel-card-body">
+              <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+              <div class="rel-card-title">Clube S transmite BTS ao vivo e reúne centenas de fãs em Luanda</div>
+              <div class="rel-card-date">22 Mar 2026</div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="desktop-only">
+      <div style="display:flex;flex-direction:column;gap:20px;position:sticky;top:80px;">
+
+        <!-- Ad 300x250 -->
+        <div>
+          <div class="ann"><i class="ti ti-ad"></i> 300 × 250 · AdSense</div>
+          <div class="ad-block" style="min-height:140px;">
+            <i class="ti ti-ad" style="font-size:26px;color:#c0cfe8;"></i>
+            <div class="ad-size">300 × 250</div>
+            <div class="ad-type">Medium Rectangle</div>
+          </div>
+        </div>
+
+        <!-- Mais lidas -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-header">
+            <i class="ti ti-flame"></i>
+            <h3>Mais lidas</h3>
+          </div>
+          <a class="related-item" href="#">
+            <div class="related-thumb">
+              <img src="https://lea.co.ao/images/noticias/Quem-e-Gerilson-Insrael.jpg" alt=""
+                   onerror="this.parentElement.style.background='linear-gradient(135deg,#2563B0,#534AB7)'">
+            </div>
+            <div>
+              <div class="related-title">Quem é Gerilson Israel? A história do cantor angolano</div>
+              <div class="related-meta">Arte & Cultura · 21 Abr 2026</div>
+            </div>
+          </a>
+          <a class="related-item" href="#">
+            <div class="related-thumb">
+              <img src="https://lea.co.ao/images/noticias/fofando-verdadeira-rainha.jpg" alt=""
+                   onerror="this.parentElement.style.background='linear-gradient(135deg,#C07A1A,#534AB7)'">
+            </div>
+            <div>
+              <div class="related-title">Noite & Dia reconhece Fofandó como a primeira kudurista</div>
+              <div class="related-meta">Arte & Cultura · 02 Abr 2026</div>
+            </div>
+          </a>
+          <a class="related-item" href="#">
+            <div class="related-thumb">
+              <img src="https://lea.co.ao/images/noticias/Amad backs Carrick for Manchester.jpg" alt=""
+                   onerror="this.parentElement.style.background='linear-gradient(135deg,#059669,#2563B0)'">
+            </div>
+            <div>
+              <div class="related-title">Amad Diallo apoia Carrick no Manchester United</div>
+              <div class="related-meta">Desporto · 07 Abr 2026</div>
+            </div>
+          </a>
+          <a class="related-item" href="#">
+            <div class="related-thumb">
+              <img src="https://lea.co.ao/images/noticias/o-regresso-dos-bts.jpg" alt=""
+                   onerror="this.parentElement.style.background='linear-gradient(135deg,#9D174D,#2563B0)'">
+            </div>
+            <div>
+              <div class="related-title">BTS reúne centenas de fãs em Luanda</div>
+              <div class="related-meta">Arte & Cultura · 22 Mar 2026</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Ad nativo -->
+        <div>
+          <div class="ann"><i class="ti ti-ad"></i> Nativo sidebar</div>
+          <div style="background:var(--lea-surface);border:1px dashed #ccd9ef;border-radius:10px;overflow:hidden;">
+            <div style="height:68px;background:linear-gradient(135deg,#1D9E75,#2563B0);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;">BAI — Banco de poupança</div>
+            <div style="padding:10px 12px;">
+              <span class="ad-pill d-inline-block mb-1">Pub</span>
+              <div style="font-size:12px;font-weight:500;">Conta jovem sem comissões</div>
+              <a href="#" style="font-size:11px;font-weight:500;color:var(--lea-blue);text-decoration:none;">Saber mais →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artistas recém adicionados -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-header">
+            <i class="ti ti-user-plus"></i>
+            <h3>Novos artistas</h3>
+          </div>
+          <a class="artist-sidebar-item" href="#">
+            <div class="artist-sidebar-avatar">
+              <img src="https://lea.co.ao/artistas/imgs/cassilva.jpg" alt="Cassilva"
+                   onerror="this.style.display='none'">
+            </div>
+            <div>
+              <div class="artist-sidebar-name">Cassilva</div>
+              <div class="artist-sidebar-prof">Cantora</div>
+            </div>
+          </a>
+          <a class="artist-sidebar-item" href="#">
+            <div class="artist-sidebar-avatar" style="background:#534AB7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;">BB</div>
+            <div>
+              <div class="artist-sidebar-name">Bad Banzelo</div>
+              <div class="artist-sidebar-prof">Cantor</div>
+            </div>
+          </a>
+          <a class="artist-sidebar-item" href="#">
+            <div class="artist-sidebar-avatar">
+              <img src="https://lea.co.ao/artistas/imgs/Faculdade-de-Rimas.jpg" alt="Faculdade de Rimas"
+                   onerror="this.style.display='none'">
+            </div>
+            <div>
+              <div class="artist-sidebar-name">Faculdade de Rimas</div>
+              <div class="artist-sidebar-prof">Cantor</div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     FIM PÁGINA DE LEITURA DE NOTÍCIA
+     ============================================================ -->
+
+
+<!-- ============================================================
+     FOOTER — recortar daqui para views/layouts/footer.php
+     ============================================================ -->
+<footer class="lea-footer py-3 px-4">
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <img src="assets/img/logo.png" alt="LEA" height="24">
+      <small class="text-muted fw-normal" style="font-size:11px;">© 2017–2026</small>
+    </div>
+    <div class="d-flex gap-3 flex-wrap">
+      <a class="footer-link" href="#">Sobre nós</a>
+      <a class="footer-link" href="#">Contactos</a>
+      <a class="footer-link" href="#">Privacidade</a>
+      <a class="footer-link" href="#">Termos</a>
+      <a class="footer-link" href="#">Publicitar</a>
+    </div>
+    <div class="d-flex gap-3">
+      <a class="footer-social" href="#"><i class="ti ti-brand-instagram"></i></a>
+      <a class="footer-social" href="#"><i class="ti ti-brand-facebook"></i></a>
+      <a class="footer-social" href="#"><i class="ti ti-brand-youtube"></i></a>
+      <a class="footer-social" href="#"><i class="ti ti-brand-whatsapp"></i></a>
+      <a class="footer-social" href="#"><i class="ti ti-brand-telegram"></i></a>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" id="bottomNav">
+  <a class="bnav-item" href="/"><i class="ti ti-home"></i><span class="bnav-lbl">Início</span></a>
+  <a class="bnav-item active" href="/noticias"><i class="ti ti-news"></i><span class="bnav-lbl">Notícias</span></a>
+  <a class="bnav-item" href="/eventos"><i class="ti ti-calendar-event"></i><span class="bnav-lbl">Eventos</span></a>
+  <a class="bnav-item" href="/loja"><i class="ti ti-shopping-bag"></i><span class="bnav-lbl">Loja</span></a>
+  <button class="bnav-item" id="btnOpenMenu" style="background:none;border:none;">
+    <i class="ti ti-menu-2"></i><span class="bnav-lbl">Menu</span>
+  </button>
+</nav>
+
+<div class="menu-drawer" id="menuDrawer">
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <div class="menu-panel">
+    <div class="menu-handle"></div>
+    <div class="menu-header">
+      <span class="menu-header-title">Menu</span>
+      <button class="btn-close-menu" id="btnCloseMenu"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="menu-section-title">Navegar</div>
+    <a class="menu-item" href="/"><i class="ti ti-home"></i><div><div class="menu-item-label">Início</div><div class="menu-item-sub">Página principal do LEA</div></div></a>
+    <a class="menu-item" href="/artistas"><i class="ti ti-users"></i><div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.200+ artistas angolanos</div></div></a>
+    <a class="menu-item" href="/musica"><i class="ti ti-music"></i><div><div class="menu-item-label">Músicas</div><div class="menu-item-sub">Ouve e descarrega</div></div></a>
+    <a class="menu-item" href="/noticias"><i class="ti ti-news"></i><div><div class="menu-item-label">Notícias</div><div class="menu-item-sub">Angola em dia</div></div></a>
+    <a class="menu-item" href="/loja"><i class="ti ti-shopping-bag"></i><div><div class="menu-item-label">Loja</div><div class="menu-item-sub">Livros, CDs, ingressos e mais</div></div></a>
+    <div class="menu-section-title">Conta</div>
+    <a class="menu-item" href="#"><i class="ti ti-user-circle"></i><div><div class="menu-item-label">Entrar</div><div class="menu-item-sub">Aceder à minha conta</div></div></a>
+    <a class="menu-item" href="/loja/certificacao"><i class="ti ti-rosette-discount-check"></i><div><div class="menu-item-label">Certificar artista</div><div class="menu-item-sub">Destaca-te na plataforma</div></div></a>
+    <div class="menu-section-title">Redes sociais</div>
+    <div class="menu-social">
+      <a href="#"><i class="ti ti-brand-instagram"></i></a>
+      <a href="#"><i class="ti ti-brand-facebook"></i></a>
+      <a href="#"><i class="ti ti-brand-youtube"></i></a>
+      <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+      <a href="#"><i class="ti ti-brand-telegram"></i></a>
+    </div>
+    <button class="btn-menu-entrar">Entrar na minha conta</button>
+  </div>
+</div>
+<!-- ============================================================
+     FIM FOOTER
+     ============================================================ -->
+
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script>
+  const drawer   = document.getElementById('menuDrawer');
+  const overlay  = document.getElementById('menuOverlay');
+  const btnOpen  = document.getElementById('btnOpenMenu');
+  const btnClose = document.getElementById('btnCloseMenu');
+  function openMenu()  { drawer.classList.add('open');    document.body.style.overflow = 'hidden'; }
+  function closeMenu() { drawer.classList.remove('open'); document.body.style.overflow = ''; }
+  btnOpen.addEventListener('click', openMenu);
+  btnClose.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+  drawer.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
+</script>
+
+</body>
+</html>

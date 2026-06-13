@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 	<link rel="stylesheet" href="/assets/css/paginas/certificacao.css">
 	<link rel="stylesheet" href="/assets/css/paginas/noticias.css">
+	<link rel="stylesheet" href="/assets/css/paginas/noticia-leitura.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">

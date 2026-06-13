@@ -9,10 +9,6 @@ class NoticiasController extends Controller
         $this->noticiasDAO = new NoticiasDAO();
 		$this->homeDAO = new HomeDAO();
     }
-	
-	/*public function index(): void {
-        $this->render('noticias/index', []);
-    }*/
 
     public function noticias(): void 
 	{
@@ -64,6 +60,17 @@ class NoticiasController extends Controller
 			//'getEntrevistas'           => $getEntrevistas,
 			//'paginaEntrevistas'        => $paginaEntrevistas,
 			//'totalPaginasEntrevistas'  => $totalPaginasEntrevistas,
+		]);
+    }
+	
+	public function leitura(): void 
+	{
+		$getNoticiasMaisLidas = $this->noticiasDAO->getNoticiasMaisLidas();
+		$getArtistasRecemAdicionados = $this->homeDAO->getArtistasRecemAdicionados();
+		
+        $this->render('noticias/leitura', [
+			'noticiasMaisLidas' => $getNoticiasMaisLidas,
+			'artistasRecemAdicionados' => $getArtistasRecemAdicionados,
 		]);
     }
 	

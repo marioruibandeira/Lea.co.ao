@@ -20,6 +20,10 @@ class Router{
                 $this->load('NoticiasController', 'noticias');
                 break;
 				
+			case '/noticias/leitura':
+                $this->load('NoticiasController', 'leitura');
+                break;
+				
 
             /*case '/artes':
                 $this->load('ArteController', 'index');
