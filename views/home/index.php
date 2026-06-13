@@ -634,3 +634,38 @@
     </div>
 
 </div><!-- /mobile-only -->
+
+<!-- =============================================
+       TESTEMUNHOS — ambos os layouts
+       ============================================= -->
+<section class="testimonials-section">
+    <div class="container">
+        <div class="text-center mb-4">
+            <span class="section-eyebrow">O que dizem de nós</span>
+            <h2>Vozes da nossa comunidade</h2>
+            <p class="section-sub">Artistas, fãs e parceiros que fazem parte do LEA</p>
+        </div>
+        <div class="row g-3">
+            <?php foreach ($testemunhos as $index => $testemunho): ?>
+                <div class="col-md-4">
+                    <div class="testimonial-card d-flex flex-column gap-3 h-100">
+                        <div class="t-stars">★★★★★</div>
+                        <p class="t-quote mb-0"><?= $testemunho['texto'] ?></p>
+                        <div class="d-flex align-items-center gap-2 mt-auto">
+                            <div class="t-avatar" style="background:#1D9E75;">
+                                <img src="<?= htmlspecialchars($testemunho['img'] ?? 'assets/img/default-avatar.png') ?>"
+                                     alt="<?= htmlspecialchars($testemunho['nome']) ?>"
+                                     style="width:100%; height:100%; object-fit:cover; border-radius:50%; overflow:hidden; background:#2563B0;">
+                            </div>
+                            <div>
+                                <div class="t-name"><?= $testemunho['nome'] ?></div><div class="t-role"><?= $testemunho['prof'] ?> · <?= $testemunho['provincia'] ?></div></div></div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="text-center mt-5">
+            <p style="font-size:13px;color:var(--lea-muted);margin-bottom:12px;">Junta-te a mais de 2.000 artistas que já fazem parte da LEA</p>
+            <a href="https://wa.me/351926935606" class="testimonials-cta no-link-deco">Registar o meu perfil grátis</a>
+        </div>
+    </div>
+</section>

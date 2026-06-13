@@ -7,11 +7,21 @@ class Router{
 
         switch ($uri){
             case '':
+			
             case '/':
                 $this->load('HomeController', 'index');
                 break;
+				
+			case '/loja/certificacao':
+				$this->load('LojaController', 'certificacao');
+				break;
+				
+			case '/noticias/noticias':
+                $this->load('NoticiasController', 'noticias');
+                break;
+				
 
-            case '/artes':
+            /*case '/artes':
                 $this->load('ArteController', 'index');
                 break;
 
@@ -19,9 +29,7 @@ class Router{
                 $this->load('ArtistaController', 'index');
                 break;
 
-            case '/noticias':
-                $this->load('NoticiaController', 'index');
-                break;
+            */
 
             default:
                 $this->load('ErrorController', 'notFound');

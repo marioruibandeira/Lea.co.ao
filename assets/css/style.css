@@ -44,52 +44,25 @@
     flex: 0 0 auto;
 }
 
-/*
-.logo-link
-{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
+:root {
+	--lea-blue:        #2563B0;
+	--lea-blue-dark:   #1A4A8A;
+	--lea-blue-light:  #E8F0FB;
+	--lea-blue-mid:    #3B7DD8;
+	--lea-teal:        #1D9E75;
+	--lea-purple:      #534AB7;
+	--lea-amber:       #C07A1A;
+	--lea-surface:     #f5f7fb;
+	--lea-white:       #ffffff;
+	--lea-border:      rgba(37,99,176,0.12);
+	--lea-text:        #111827;
+	--lea-muted:       #6B7280;
 }
 
-.logo-lea-preto
-{
-    font-family: 'NeoGeo';
-    font-weight: normal;
-    font-size: 24px;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
-    letter-spacing: 2px;
-    color:#292524 !important;
-}
-
-.logo-lea-branco
-{
-    font-family: 'NeoGeo';
-    font-weight: normal;
-    font-size: 24px;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
-    letter-spacing: 2px;
-    color:#A6A09B !important;
-}
-
-.logo-lea-branco-tp
-{
-    font-family: 'NeoGeo';
-    font-weight: normal;
-    font-size: 33px;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
-    letter-spacing: 2px;
-    color:#fff !important;
-}*/
-
-/* =============================================
-       TOKENS
-       ============================================= */
-	:root {
-		--lea-white:   #ffffff;
-		--lea-blue:    #2563B0;
-	}
+*, *::before, *::after { box-sizing: border-box; }
+		
+body { font-family: 'DM Sans', sans-serif; background-color: var(--lea-surface); color: var(--lea-text); margin: 0; }
+h1, h2, h3, h4, h5, .navbar-brand { font-family: 'Sora', sans-serif; }
 	
 /* ── Progress bar ── */
 .read-progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--lea-blue); z-index: 9999; transition: width .1s linear; width: 0%; }

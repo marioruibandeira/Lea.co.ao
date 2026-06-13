@@ -124,7 +124,7 @@ class HomeDAO
 
     public function getArtistasRecemAdicionados(): array
     {
-        $sql = "SELECT a.nomeA, a.prof, a.art_img_url, a.artID FROM artistas a ORDER BY a.artID DESC LIMIT :limite";
+        $sql = "SELECT a.nomeA, a.prof, a.art_img_url, a.artID, a.anoreg FROM artistas a ORDER BY a.artID DESC LIMIT :limite";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(':limite', 5, PDO::PARAM_INT);

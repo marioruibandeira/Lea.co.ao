@@ -5,37 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LEA — Plataforma Angolana de Artes</title>
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/menu.footer.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/menu.footer.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="/assets/css/paginas/certificacao.css">
+	<link rel="stylesheet" href="/assets/css/paginas/noticias.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --lea-blue:        #2563B0;
-            --lea-blue-dark:   #1A4A8A;
-            --lea-blue-light:  #E8F0FB;
-            --lea-blue-mid:    #3B7DD8;
-            --lea-teal:        #1D9E75;
-            --lea-purple:      #534AB7;
-            --lea-amber:       #C07A1A;
-            --lea-surface:     #f5f7fb;
-            --lea-white:       #ffffff;
-            --lea-border:      rgba(37,99,176,0.12);
-            --lea-text:        #111827;
-            --lea-muted:       #6B7280;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: 'DM Sans', sans-serif; background-color: var(--lea-surface); color: var(--lea-text); margin: 0; }
-        h1, h2, h3, h4, h5, .navbar-brand { font-family: 'Sora', sans-serif; }
-
+        
+		
         /* =============================================
            NAVBAR DESKTOP
            ============================================= */
-        .navbar { border-bottom: 1px solid var(--lea-border); }
+        .navbar { border-bottom: 1px solid var(--lea-border); /*background: var(--lea-white); */}
         .navbar-brand { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; color: var(--lea-text) !important; }
         .nav-link { font-size: 13px; color: var(--lea-muted) !important; padding: 4px 10px !important; border-radius: 6px; }
         .nav-link:hover { color: var(--lea-blue) !important; background-color: var(--lea-blue-light); }
@@ -51,6 +36,7 @@
         .btn-lea-sm { background-color: var(--lea-blue); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; padding: 6px 14px; transition: background .15s; white-space: nowrap; cursor: pointer; }
         .btn-lea-sm:hover { background-color: var(--lea-blue-dark); color: #fff; }
 
+	
         /* =============================================
            AD ELEMENTS
            ============================================= */
@@ -317,7 +303,7 @@
     <div class="container-fluid px-4">
         <div class="logo-link">
             <a href="/" class="lea-navbar-brand">
-                <img src="../assets/img/logo.png" alt="LEA" class="logo-shodow">
+                <img src="/assets/img/logo.png" alt="LEA" class="logo-shodow">
             </a>
             <a href="/" class="txt-logo-link txt-logo-link-mbl">
                 <span class="logo-lea">LEA</span>
@@ -353,7 +339,7 @@
      TOPBAR MOBILE — só aparece em mobile
      ============================================= -->
 <header class="mobile-topbar">
-    <a href="/"><img src="assets/img/logo.png" alt="LEA" height="30"></a>
+    <a href="/"><img src="/assets/img/logo.png" alt="LEA" height="30"></a>
     <a href="/" class="txt-logo-link logo-link-mbl">
         <span class="logo-lea">LEA</span>
     </a>
