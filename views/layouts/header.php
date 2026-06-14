@@ -321,7 +321,7 @@
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/discografia.php?dsco=1">Músicas</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/videos.php?clipes=true">Vídeos</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/downloads/todos-livros.php?strt=0&acc=1">Literatura</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/noticia.php">Notícias</a></li>
+                <li class="nav-item"><a class="nav-link" href="/noticias/">Notícias</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/agenda/agenda.php?strt=0">Eventos</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/loja/">Loja</a></li>
             </ul>

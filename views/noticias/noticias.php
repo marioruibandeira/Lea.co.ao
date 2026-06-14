@@ -1,38 +1,48 @@
 <!-- =============================================
        HERO — manchete principal + ticker
        ============================================= -->
-  <div class="news-hero">
-    <div class="container">
-      <div class="headline-section">
-        <div class="row g-4 align-items-stretch">
+	<div class="news-hero">
+		<div class="container">
+			<div class="headline-section">
+				<div class="row g-4 align-items-stretch">
 
-          <!-- Manchete principal -->
-          <div class="col-lg-7">
-            <div class="breaking-tag"><i class="ti ti-radio"></i> Última hora </div>
-			
-            <a class="main-headline" href="https://lea.co.ao/noticias/noticia-detalhes.php?n=<?= $ultimaNoticia['id_noticias'] ?>">
-              <?= htmlspecialchars($ultimaNoticia['tema']) ?>
-            </a>
-            <div class="headline-img mb-3">
-              <img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $ultimaNoticia['foto'] ?? ''))) ?>"
-                   alt="Festival Infantil RNA–Chitotolo"
-                   onerror="this.parentElement.style.background='linear-gradient(135deg,#2563B0,#534AB7)'">
-              <div class="img-overlay"></div>
-            </div>
-            <p class="headline-excerpt"> <?= htmlspecialchars($ultimaNoticia['breadcramble']) ?> </p>
-            <div class="headline-meta">
-              <span class="cat-badge cat-arte"><?= htmlspecialchars($ultimaNoticia['categoria_noticias']) ?></span>
-              <div class="headline-meta-item"><i class="ti ti-calendar"></i> <?= date('d M Y', strtotime($ultimaNoticia['data_hora'])) ?> </div>
-              <div class="headline-meta-item"><i class="ti ti-news"></i> <?= htmlspecialchars($ultimaNoticia['fontes']) ?></div>
-              <div class="headline-meta-item"><i class="ti ti-clock"></i> <?= htmlspecialchars($ultimaNoticia['tempo_leitura']) ?> min leitura</div>
-            </div>			
-			
-          </div>
+				<!-- Manchete principal -->
+				<div class="col-lg-7">
+				<div class="breaking-tag"><i class="ti ti-radio"></i> Última hora </div>
+					<a class="main-headline" href="<?= Helper::noticiaUrl($ultimaNoticia) ?>">
+						<?= htmlspecialchars($ultimaNoticia['tema']) ?>
+					</a>
+					<div class="headline-img mb-3">
+						<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $ultimaNoticia['foto'] ?? ''))) ?>"
+							alt="<?= htmlspecialchars($ultimaNoticia['tema']) ?>"
+							onerror="this.parentElement.style.background='linear-gradient(135deg,#2563B0,#534AB7)'">
+						<div class="img-overlay"></div>
+					</div>
+					<p class="headline-excerpt"> <?= htmlspecialchars($ultimaNoticia['breadcramble']) ?> </p>
+					<div class="headline-meta">
+						<?php
+							$coresCat = [
+								'Política'       => 'cat-politica',
+								'Tecnologia'     => 'cat-tecnologia',
+								'Desporto'       => 'cat-desporto',
+								'Crónicas'       => 'cat-cronicas',
+								'Arte & Cultura' => 'cat-arte',
+								'Economia'       => 'cat-economia',
+								'Entrevistas'    => 'cat-entrevistas',
+							];
+							$classCat = $coresCat[$ultimaNoticia['categoria_noticias']] ?? 'cat-arte';
+						?>
+						<span class="cat-badge <?= $classCat ?>"><?= htmlspecialchars($ultimaNoticia['categoria_noticias']) ?></span>
+						<div class="headline-meta-item"><i class="ti ti-calendar"></i> <?= date('d M Y', strtotime($ultimaNoticia['data_hora'])) ?> </div>
+						<div class="headline-meta-item"><i class="ti ti-news"></i> <?= htmlspecialchars($ultimaNoticia['fontes']) ?></div>
+					<div class="headline-meta-item"><i class="ti ti-clock"></i> <?= htmlspecialchars($ultimaNoticia['tempo_leitura']) ?> min leitura</div>
+				</div>	
+			</div>
 
-          <!-- Manchetes secundárias -->
-          <div class="col-lg-5">
-            <div class="secondary-news">
-				<?php 
+			<!-- Manchetes secundárias -->
+			<div class="col-lg-5">
+				<div class="secondary-news">
+					<?php 
 					$coresCat = [
 						'Politica'       => 'cat-politica',
 						'Tecnologia'     => 'cat-tecnologia',
@@ -46,7 +56,7 @@
 						$foto = trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $uNoticias['foto'] ?? ''));
 						$classCat = $coresCat[$uNoticias['categoria_noticias']] ?? 'cat-arte';
 					?>
-						<a class="sec-news-item" href="/noticias/<?= $uNoticias['id_noticias'] ?>" >
+						<a class="sec-news-item" href="<?= Helper::noticiaUrl($uNoticias) ?>" >
 							<div class="sec-news-thumb">
 								<img src="<?= htmlspecialchars($foto) ?>" alt="<?= htmlspecialchars($uNoticias['tema']) ?>" onerror="this.parentElement.style.background='linear-gradient(135deg,#534AB7,#2563B0)'">
 							</div>
