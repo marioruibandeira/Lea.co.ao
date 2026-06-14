@@ -4,15 +4,17 @@
 
 <!-- Breadcrumb -->
 <div class="lea-breadcrumb">
-  <div class="container">
-    <a href="/">Início</a>
-    <i class="ti ti-chevron-right"></i>
-    <a href="/noticias">Notícias</a>
-    <i class="ti ti-chevron-right"></i>
-    <a href="/noticias?cat=5">Arte & Cultura</a>
-    <i class="ti ti-chevron-right"></i>
-    <span>Festival Infantil RNA–Chitotolo</span>
-  </div>
+	<div class="container">
+		<a href="/">Início</a>
+		<i class="ti ti-chevron-right"></i>
+		<a href="/noticias">Notícias</a>
+		<i class="ti ti-chevron-right"></i>
+		<a href="/noticias?cat=<?= $noticia['ce_categoria_noticia'] ?>">
+		  <?= htmlspecialchars($noticia['categoria_noticias']) ?>
+		</a>
+		<i class="ti ti-chevron-right"></i>
+		<span><?= htmlspecialchars(substr($noticia['tema'], 0, 60)) ?>...</span>
+	</div>
 </div>
 
 <!-- Conteúdo principal -->
@@ -24,184 +26,144 @@
 
       <!-- Cabeçalho -->
       <div class="artigo-header">
-        <div class="artigo-categoria">
-          <span class="cat-badge cat-arte">Arte & Cultura</span>
-          <span style="font-size:11px;color:var(--lea-muted);">· Tempo de leitura: 4 min</span>
-        </div>
-        <h1 class="artigo-titulo">
-          Festival Infantil RNA–Chitotolo celebra 30 anos com edição especial dedicada às crianças
-        </h1>
-        <p class="artigo-subtitulo">
-          Evento acontece a 1 de Junho, com transmissão em directo, programação cultural e forte acção social. Uma das maiores celebrações da cultura infantil angolana completa três décadas de história.
-        </p>
-        <div class="artigo-meta">
-          <div class="artigo-meta-item">
-            <i class="ti ti-building-newspaper"></i>
-            <strong>Lea.co.ao</strong>
-          </div>
-          <div class="artigo-meta-item">
-            <i class="ti ti-calendar"></i>
-            15 de Maio de 2026
-          </div>
-          <div class="artigo-meta-item">
-            <i class="ti ti-eye"></i>
-            3.241 visualizações
-          </div>
-          <div class="artigo-meta-item ms-auto">
-            <div class="share-bar">
-              <span class="share-lbl">Partilhar:</span>
-              <a class="share-btn share-fb" href="#" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
-              <a class="share-btn share-wa" href="#" title="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
-              <a class="share-btn share-tg" href="#" title="Telegram"><i class="ti ti-brand-telegram"></i></a>
-              <a class="share-btn share-tw" href="#" title="X/Twitter"><i class="ti ti-brand-x"></i></a>
-              <a class="share-btn share-copy" href="#" title="Copiar link" onclick="navigator.clipboard.writeText(location.href);return false;"><i class="ti ti-copy"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
+        <?php
+			$coresCat = [
+				'Politica'       => 'cat-politica',
+				'Tecnologia'     => 'cat-tecnologia',
+				'Desporto'       => 'cat-desporto',
+				'Cronicas'       => 'cat-cronicas',
+				'Arte & Cultura' => 'cat-arte',
+				'Economia'       => 'cat-economia',
+				'Entrevistas'    => 'cat-entrevistas',
+			];
+			$classCat = $coresCat[$noticia['categoria_noticias']] ?? 'cat-arte';
 
-      <!-- Imagem principal -->
-      <div class="artigo-img-wrap">
-        <img src="https://lea.co.ao/images/noticias/festival_infantil_rna_chitotolo.jpg"
-             alt="Festival Infantil RNA–Chitotolo"
-             onerror="this.style.display='none'">
-      </div>
+			// Calcular tempo de leitura
+			$palavras = str_word_count(strip_tags($noticia['conteudo'] ?? ''));
+			$tempoLeitura = max(1, ceil($palavras / 200));
+		?>
+		<div class="artigo-categoria">
+			<span class="cat-badge <?= $classCat ?>"><?= htmlspecialchars($noticia['categoria_noticias']) ?></span>
+			<span style="font-size:11px;color:var(--lea-muted);">· Tempo de leitura: <?= $tempoLeitura ?> min</span>
+		</div>
+        <h1 class="artigo-titulo"><?= htmlspecialchars($noticia['tema']) ?></h1>
+		<p class="artigo-subtitulo"><?= htmlspecialchars($noticia['breadcramble']) ?></p>
+		<div class="artigo-meta">
+			<div class="artigo-meta-item">
+				<i class="ti ti-news"></i>
+				<strong><?= htmlspecialchars($noticia['fontes']) ?></strong>
+			</div>
+			<div class="artigo-meta-item">
+				<i class="ti ti-calendar"></i>
+				<?= date('d \d\e F \d\e Y', strtotime($noticia['data_hora'])) ?>
+			</div>
+			<div class="artigo-meta-item">
+				<i class="ti ti-eye"></i>
+				<?= number_format($noticia['visual'] ?? 0, 0, ',', '.') ?> visualizações
+			</div>
+			<div class="artigo-meta-item ms-auto">
+				<div class="share-bar">
+					<span class="share-lbl">Partilhar:</span>
+					<a class="share-btn share-fb" href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode('https://lea.co.ao' . Helper::noticiaUrl($noticia)) ?>" target="_blank" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
+					<a class="share-btn share-wa" href="https://wa.me/?text=<?= urlencode($noticia['tema'] . ' https://lea.co.ao' . Helper::noticiaUrl($noticia)) ?>" target="_blank" title="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+					<a class="share-btn share-tg" href="https://t.me/share/url?url=<?= urlencode('https://lea.co.ao' . Helper::noticiaUrl($noticia)) ?>" target="_blank" title="Telegram"><i class="ti ti-brand-telegram"></i></a>
+					<a class="share-btn share-tw" href="https://twitter.com/intent/tweet?text=<?= urlencode($noticia['tema']) ?>&url=<?= urlencode('https://lea.co.ao' . Helper::noticiaUrl($noticia)) ?>" target="_blank" title="X/Twitter"><i class="ti ti-brand-x"></i></a>
+					<a class="share-btn share-copy" href="#" title="Copiar link" onclick="navigator.clipboard.writeText(location.href);return false;"><i class="ti ti-copy"></i></a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Imagem principal -->
+		<?php
+			$foto = trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticia['foto'] ?? ''));
+		?>
+		<div class="artigo-img-wrap">
+			<img src="<?= htmlspecialchars($foto) ?>"
+				 alt="<?= htmlspecialchars($noticia['tema']) ?>"
+				 onerror="this.style.display='none'">
+		</div>
       <p class="artigo-img-caption">Festival Infantil RNA–Chitotolo — 30ª edição · Foto: RNA</p>
 
       <!-- Corpo do artigo -->
       <div class="artigo-corpo">
 
-        <p>O <strong>Festival Infantil RNA–Chitotolo</strong> celebra este ano a sua 30ª edição com uma programação especial dedicada às crianças angolanas. O evento, que acontece a 1 de Junho — Dia Internacional da Criança — terá transmissão em directo pela Rádio Nacional de Angola e contará com a participação de centenas de crianças de diferentes províncias do país.</p>
-
-        <p>Ao longo de três décadas, o festival tornou-se um dos pilares da cultura infantil angolana, promovendo talentos jovens nas áreas da música, dança, teatro e poesia. Esta edição especial pretende homenagear todos os que fizeram parte desta história desde a sua fundação em 1996.</p>
-
-        <h2>Uma história de três décadas</h2>
-
-        <p>O festival nasceu de uma iniciativa da Rádio Nacional de Angola com o objetivo de dar voz às crianças e promover os valores culturais angolanos junto das novas gerações. Ao longo dos anos, o evento cresceu e tornou-se uma referência no calendário cultural do país.</p>
-
-        <blockquote>
-          <p>"O Chitotolo é mais do que um festival. É uma escola de vida, de cultura e de orgulho angolano. Trinta anos de histórias que pertencem a todos nós."</p>
-        </blockquote>
-
-        <p>A edição deste ano contará com actividades em várias províncias, com destaque para Luanda, Huambo e Benguela, onde serão realizados eventos satélite que levarão a magia do festival a mais crianças.</p>
-
-        <!-- Ad in-content -->
-        <div class="ad-incontent">
-          <span class="ad-pill">Pub</span>
-          <div class="ad-incontent-thumb" style="background:var(--lea-blue);">UN</div>
-          <div class="ad-incontent-copy flex-grow-1">
-            <strong>Unitel — Plano Ilimitado por Kz 3.500/mês</strong>
-            <span>Ligação rápida em todo o país · unitel.ao</span>
-          </div>
-          <button class="btn-lea-sm">Ver oferta</button>
-        </div>
-
-        <h2>Programação da 30ª edição</h2>
-
-        <p>A programação inclui concursos de música, dança tradicional e contemporânea, teatro infantil e recitação de poesia. Haverá também uma exposição fotográfica que documenta os 30 anos do festival e uma sessão especial de homenagem a artistas que participaram nas primeiras edições.</p>
-
-        <ul>
-          <li>Concurso de música infantil — categorias solo e grupo</li>
-          <li>Dança tradicional angolana — representação das 18 províncias</li>
-          <li>Teatro infantil — peças originais escritas por crianças</li>
-          <li>Exposição fotográfica — 30 anos de história em imagens</li>
-          <li>Acção social — distribuição de kits escolares</li>
-        </ul>
-
-        <p>A transmissão em directo estará disponível nas plataformas digitais da RNA e também na LEA.co.ao, que transmitirá o evento em parceria com a rádio nacional.</p>
-
-        <h2>Impacto cultural e social</h2>
-
-        <p>Ao longo de 30 anos, o Festival Infantil RNA–Chitotolo descobriu e lançou talentos que hoje são referências na música e nas artes angolanas. O evento tem também uma forte componente social, com acções de apoio a crianças em situação de vulnerabilidade.</p>
-
-        <p>Esta edição especial reafirma o compromisso da RNA e dos seus parceiros com a promoção da cultura angolana e com o investimento nas novas gerações de artistas e criadores.</p>
+        <p><?= $noticia['conteudo'] ?></p>
 
       </div>
 
       <!-- Tags -->
-      <div class="artigo-tags">
-        <span class="artigo-tags-lbl">Tags:</span>
-        <a class="tag-item" href="#">Festival</a>
-        <a class="tag-item" href="#">RNA</a>
-        <a class="tag-item" href="#">Chitotolo</a>
-        <a class="tag-item" href="#">Cultura</a>
-        <a class="tag-item" href="#">Crianças</a>
-        <a class="tag-item" href="#">Angola</a>
-      </div>
+      <?php $tags = array_filter(array_map('trim', explode(',', $noticia['keywords'] ?? ''))); ?>
+		<?php if (!empty($tags)): ?>
+		<div class="artigo-tags">
+			<span class="artigo-tags-lbl">Tags:</span>
+			<?php foreach ($tags as $tag): ?>
+				<!--<a class="tag-item" href="/noticias?tag=<?= urlencode($tag) ?>">-->
+				<a class="tag-item" href="#">
+					<?= htmlspecialchars($tag) ?>
+				</a>
+			<?php endforeach; ?>
+		</div>
+		<?php endif; ?>
 
       <!-- Fonte -->
       <div class="artigo-fonte">
         <i class="ti ti-building-newspaper"></i>
         <div class="artigo-fonte-text">
-          <strong>Fonte: Lea.co.ao</strong><br>
-          Conteúdo produzido pela equipa editorial da LEA com base em informações da RNA.
+          <strong>Fonte: <?= $noticia['fontes'] ?></strong><br>
+          <!--Conteúdo produzido pela equipa editorial da LEA com base em informações da RNA.-->
         </div>
       </div>
 
       <!-- Partilha final -->
       <div class="share-final">
-        <div class="share-final-text">Gostaste desta notícia? Partilha com os teus amigos!</div>
-        <div class="share-bar">
-          <a class="share-btn share-fb" href="#"><i class="ti ti-brand-facebook"></i></a>
-          <a class="share-btn share-wa" href="#"><i class="ti ti-brand-whatsapp"></i></a>
-          <a class="share-btn share-tg" href="#"><i class="ti ti-brand-telegram"></i></a>
-          <a class="share-btn share-tw" href="#"><i class="ti ti-brand-x"></i></a>
-          <a class="share-btn share-copy" href="#" onclick="navigator.clipboard.writeText(location.href);return false;"><i class="ti ti-copy"></i></a>
-        </div>
-      </div>
+    <div class="share-final-text">Gostaste desta notícia? Partilha com os teus amigos!</div>
+		<div class="share-bar">
+			<a class="share-btn share-fb" href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode('https://lea.co.ao' . Helper::noticiaUrl($noticia)) ?>" target="_blank"><i class="ti ti-brand-facebook"></i></a>
+			<a class="share-btn share-wa" href="https://wa.me/?text=<?= urlencode($noticia['tema'] . ' https://lea.co.ao' . Helper::noticiaUrl($noticia)) ?>" target="_blank"><i class="ti ti-brand-whatsapp"></i></a>
+			<a class="share-btn share-tg" href="https://t.me/share/url?url=<?= urlencode('https://lea.co.ao' . Helper::noticiaUrl($noticia)) ?>" target="_blank"><i class="ti ti-brand-telegram"></i></a>
+			<a class="share-btn share-tw" href="https://twitter.com/intent/tweet?text=<?= urlencode($noticia['tema']) ?>&url=<?= urlencode('https://lea.co.ao' . Helper::noticiaUrl($noticia)) ?>" target="_blank"><i class="ti ti-brand-x"></i></a>
+			<a class="share-btn share-copy" href="#" onclick="navigator.clipboard.writeText(location.href);return false;"><i class="ti ti-copy"></i></a>
+		</div>
+	</div>
 
-      <!-- Notícias relacionadas -->
-      <div class="mb-4">
-        <h2 style="font-size:16px;font-weight:700;margin-bottom:16px;">Notícias relacionadas</h2>
-        <div class="relacionadas-grid">
-
-          <a class="rel-card" href="#">
-            <div class="rel-card-img">
-              <img src="https://lea.co.ao/images/noticias/poetisa-ginga-preta-enfrenta-recuperacao-dificil.jpg" alt=""
-                   onerror="this.style.display='none'">
-              <div class="rel-card-img-placeholder" style="background:linear-gradient(135deg,#9D174D,#534AB7);">
-                <i class="ti ti-news"></i>
-              </div>
-            </div>
-            <div class="rel-card-body">
-              <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
-              <div class="rel-card-title">Poetisa Ginga Preta enfrenta recuperação difícil após acidente</div>
-              <div class="rel-card-date">25 Abr 2026</div>
-            </div>
-          </a>
-
-          <a class="rel-card" href="#">
-            <div class="rel-card-img">
-              <img src="https://lea.co.ao/images/noticias/Escritor-Poeta-Falso-disponibiliza-obra-literaria.jpg" alt=""
-                   onerror="this.style.display='none'">
-              <div class="rel-card-img-placeholder" style="background:linear-gradient(135deg,#534AB7,#2563B0);">
-                <i class="ti ti-news"></i>
-              </div>
-            </div>
-            <div class="rel-card-body">
-              <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
-              <div class="rel-card-title">Escritor Poeta Falso disponibiliza obra literária no mercado brasileiro</div>
-              <div class="rel-card-date">13 Mai 2026</div>
-            </div>
-          </a>
-
-          <a class="rel-card" href="#">
-            <div class="rel-card-img">
-              <img src="https://lea.co.ao/images/noticias/o-regresso-dos-bts.jpg" alt=""
-                   onerror="this.style.display='none'">
-              <div class="rel-card-img-placeholder" style="background:linear-gradient(135deg,#9D174D,#2563B0);">
-                <i class="ti ti-news"></i>
-              </div>
-            </div>
-            <div class="rel-card-body">
-              <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
-              <div class="rel-card-title">Clube S transmite BTS ao vivo e reúne centenas de fãs em Luanda</div>
-              <div class="rel-card-date">22 Mar 2026</div>
-            </div>
-          </a>
-
-        </div>
-      </div>
+		<!-- Notícias relacionadas -->
+		<div class="mb-4">
+			<h2 style="font-size:16px;font-weight:700;margin-bottom:16px;">Notícias relacionadas</h2>
+			<div class="relacionadas-grid">
+				<?php
+				$coresBg = [
+					'Política'       => 'linear-gradient(135deg,#DC2626,#374151)',
+					'Tecnologia'     => 'linear-gradient(135deg,#7C3AED,#534AB7)',
+					'Desporto'       => 'linear-gradient(135deg,#059669,#2563B0)',
+					'Crónicas'       => 'linear-gradient(135deg,#C07A1A,#534AB7)',
+					'Arte & Cultura' => 'linear-gradient(135deg,#9D174D,#534AB7)',
+					'Economia'       => 'linear-gradient(135deg,#0D6B4E,#2563B0)',
+					'Entrevistas'    => 'linear-gradient(135deg,#9D174D,#2563B0)',
+				];
+				foreach ($noticiasRelacionadas as $rel):
+					$fotoRel = trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $rel['foto'] ?? ''));
+					$bgRel = $coresBg[$rel['categoria_noticias']] ?? 'linear-gradient(135deg,#2563B0,#534AB7)';
+					$classCatRel = $coresCat[$rel['categoria_noticias']] ?? 'cat-arte';
+				?>
+					<a class="rel-card" href="<?= Helper::noticiaUrl($rel) ?>">
+						<div class="rel-card-img">
+							<?php if ($fotoRel): ?>
+								<img src="<?= htmlspecialchars($fotoRel) ?>" alt=""
+									 onerror="this.style.display='none'">
+							<?php endif; ?>
+							<div class="rel-card-img-placeholder" style="background:<?= $bgRel ?>;">
+								<i class="ti ti-news"></i>
+							</div>
+						</div>
+						<div class="rel-card-body">
+							<div class="mb-1"><span class="cat-badge <?= $classCatRel ?>"><?= htmlspecialchars($rel['categoria_noticias']) ?></span></div>
+							<div class="rel-card-title"><?= htmlspecialchars($rel['tema']) ?></div>
+							<div class="rel-card-date"><?= date('d M Y', strtotime($rel['data_hora'])) ?></div>
+						</div>
+					</a>
+				<?php endforeach; ?>
+			</div>
+		</div>
 
     </article>
 
@@ -228,7 +190,7 @@
 			<?php foreach ($noticiasMaisLidas as $maisLidas): 
 				$foto = trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $maisLidas['foto'] ?? ''));
 			?>
-				<a class="related-item" href="#">
+				<a class="related-item" href="<?= Helper::noticiaUrl($maisLidas) ?>">
 					<div class="related-thumb">
 						<img src="<?= $foto; ?>" alt=""
 					   onerror="this.parentElement.style.background='linear-gradient(135deg,#2563B0,#534AB7)'">
@@ -264,7 +226,7 @@
 		  <?php foreach ($artistasRecemAdicionados as $recemAdicionados): 
 				$foto = trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $recemAdicionados['art_img_url'] ?? ''));
 			?>
-          <a class="artist-sidebar-item" href="#">
+          <a class="artist-sidebar-item" href="https://lea.co.ao/artista.php?a=<?= base64_encode($recemAdicionados['artID']) ?>">
             <div class="artist-sidebar-avatar">
               <img src="<?= $foto; ?>" alt="Cassilva"
                    onerror="this.style.display='none'">

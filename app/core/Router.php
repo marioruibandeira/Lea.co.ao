@@ -4,6 +4,15 @@ class Router{
 
     public  function dispatch(): void{
         $uri = $this->getUri();
+		
+		// Rota dinâmica — leitura de notícia
+		if (preg_match('#^/noticias/([a-z0-9-]+)/([a-z0-9-]+-(\d+))$#u', $uri, $m)) {
+			$_GET['categoria_slug'] = $m[1];
+			$_GET['noticia_slug']   = $m[2];
+			$_GET['id']             = $m[3];
+			$this->load('NoticiasController', 'leitura');
+			return;
+		}
 
         switch ($uri){
             case '':
@@ -16,26 +25,20 @@ class Router{
 				$this->load('LojaController', 'certificacao');
 				break;
 				
+			case '/noticias':
 			case '/noticias/noticias':
+				$this->load('NoticiasController', 'noticias');
+				break;
+			
+			/*case '/noticias/noticias':
                 $this->load('NoticiasController', 'noticias');
                 break;
 				
 			case '/noticias/leitura':
                 $this->load('NoticiasController', 'leitura');
-                break;
+                break;*/
 				
-
-            /*case '/artes':
-                $this->load('ArteController', 'index');
-                break;
-
-            case '/artistas':
-                $this->load('ArtistaController', 'index');
-                break;
-
-            */
-
-            default:
+			default:
                 $this->load('ErrorController', 'notFound');
                 break;
         }

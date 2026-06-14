@@ -65,12 +65,38 @@ class NoticiasController extends Controller
 	
 	public function leitura(): void 
 	{
+		$id = (int)($_GET['id'] ?? 0);
+	
+		if ($id === 0) {
+			$this->redirect('/noticias');
+			return;
+		}
+		
+		$noticia = $this->noticiasDAO->getNoticiaById($id);
+
+		if (!$noticia) {
+			$this->redirect('/noticias');
+			return;
+		}
+		
 		$getNoticiasMaisLidas = $this->noticiasDAO->getNoticiasMaisLidas();
 		$getArtistasRecemAdicionados = $this->homeDAO->getArtistasRecemAdicionados();
+		$noticiasRelacionadas = $this->noticiasDAO->getNoticiasRelacionadas($noticia['tema'], $id);
+		$noticia = $this->noticiasDAO->getNoticiaById($id);
+
+		if (!$noticia) {
+			$this->redirect('/noticias');
+			return;
+		}
+
+		// Incrementar visualizações
+		$this->noticiasDAO->incrementarVisualizacoes($id);
 		
         $this->render('noticias/leitura', [
+			'noticia' => $noticia,
 			'noticiasMaisLidas' => $getNoticiasMaisLidas,
 			'artistasRecemAdicionados' => $getArtistasRecemAdicionados,
+			'noticiasRelacionadas'     => $noticiasRelacionadas,
 		]);
     }
 	

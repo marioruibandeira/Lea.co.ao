@@ -335,4 +335,62 @@ class NoticiasDAO
         $stmt->execute();
         return $stmt->fetchAll();
     }
+	
+	public function getNoticiaById(int $id): ?array {
+		$sql = "SELECT 
+					n.id_noticias, 
+					n.tema, 
+					n.breadcramble, 
+					n.conteudo, 
+					n.foto, 
+					n.data_hora, 
+					n.link_externo,
+					n.keywords,
+					n.ce_categoria_noticia,
+					cn.categoria_noticias,
+					f.fontes,
+					n.visual
+				FROM noticias n 
+				JOIN categorianoticias cn ON cn.id_categ_noticias = n.ce_categoria_noticia 
+				JOIN fontes f ON f.id_fonte = n.ce_fonte
+				WHERE n.id_noticias = :id
+				LIMIT 1";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+	}
+	
+	public function getNoticiasRelacionadas(string $tema, int $excludeId, int $limit = 3): array {
+		//ALTER TABLE noticias ADD FULLTEXT(tema, conteudo);
+		$sql = "SELECT 
+					n.id_noticias,
+					n.tema,
+					n.foto,
+					n.data_hora,
+					cn.categoria_noticias,
+					f.fontes,
+					MATCH(n.tema, n.conteudo) AGAINST(:tema) AS score
+				FROM noticias n
+				JOIN categorianoticias cn ON cn.id_categ_noticias = n.ce_categoria_noticia
+				JOIN fontes f ON f.id_fonte = n.ce_fonte
+				WHERE MATCH(n.tema, n.conteudo) AGAINST(:tema)
+				AND n.id_noticias != :exclude
+				AND n.foto IS NOT NULL
+				ORDER BY score DESC
+				LIMIT :limit";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':tema', $tema);
+		$stmt->bindValue(':exclude', $excludeId, PDO::PARAM_INT);
+		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+	
+	public function incrementarVisualizacoes(int $id): void {
+		$sql = "UPDATE noticias SET visual = visual + 1 WHERE id_noticias = :id";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+	}
 }
