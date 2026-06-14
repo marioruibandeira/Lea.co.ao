@@ -362,7 +362,6 @@ class NoticiasDAO
 	}
 	
 	public function getNoticiasRelacionadas(string $tema, int $excludeId, int $limit = 3): array {
-		//ALTER TABLE noticias ADD FULLTEXT(tema, conteudo);
 		$sql = "SELECT 
 					n.id_noticias,
 					n.tema,
@@ -385,6 +384,7 @@ class NoticiasDAO
 		$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
 		$stmt->execute();
 		return $stmt->fetchAll();
+		//ALTER TABLE noticias ADD FULLTEXT(tema, conteudo);
 	}
 	
 	public function incrementarVisualizacoes(int $id): void {
