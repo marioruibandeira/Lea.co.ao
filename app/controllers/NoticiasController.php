@@ -60,28 +60,25 @@ class NoticiasController extends Controller
 			//'getEntrevistas'           => $getEntrevistas,
 			//'paginaEntrevistas'        => $paginaEntrevistas,
 			//'totalPaginasEntrevistas'  => $totalPaginasEntrevistas,
+			
+			'seoTitulo'    => 'Notícias — LEA Angola',
+			'seoDescricao' => 'As últimas notícias sobre cultura, arte, música, desporto, política e economia de Angola. Fique sempre informado com a LEA.',
+			'seoKeywords'  => 'notícias angola, cultura angola, arte angola, música angola, desporto angola, política angola, economia angola',
+			'seoImagem'    => 'https://lea.co.ao/assets/img/og-default.jpg',
+			'seoCanonical' => 'https://lea.co.ao/noticias',
+			'ogType'       => 'website',
+			'cssExtra'     => ['/assets/css/paginas/noticias.css'],
 		]);
     }
 	
-	public function leitura(): void 
-	{
+	public function leitura(): void {
 		$id = (int)($_GET['id'] ?? 0);
-	
+
 		if ($id === 0) {
 			$this->redirect('/noticias');
 			return;
 		}
-		
-		$noticia = $this->noticiasDAO->getNoticiaById($id);
 
-		if (!$noticia) {
-			$this->redirect('/noticias');
-			return;
-		}
-		
-		$getNoticiasMaisLidas = $this->noticiasDAO->getNoticiasMaisLidas();
-		$getArtistasRecemAdicionados = $this->homeDAO->getArtistasRecemAdicionados();
-		$noticiasRelacionadas = $this->noticiasDAO->getNoticiasRelacionadas($noticia['tema'], $id);
 		$noticia = $this->noticiasDAO->getNoticiaById($id);
 
 		if (!$noticia) {
@@ -91,13 +88,43 @@ class NoticiasController extends Controller
 
 		// Incrementar visualizações
 		$this->noticiasDAO->incrementarVisualizacoes($id);
-		
-        $this->render('noticias/leitura', [
-			'noticia' => $noticia,
-			'noticiasMaisLidas' => $getNoticiasMaisLidas,
+
+		$getNoticiasMaisLidas        = $this->noticiasDAO->getNoticiasMaisLidas();
+		$getArtistasRecemAdicionados = $this->homeDAO->getArtistasRecemAdicionados();
+		$noticiasRelacionadas        = $this->noticiasDAO->getNoticiasRelacionadas($noticia['tema'], $id);
+
+		$this->render('noticias/leitura', [
+			'noticia'                  => $noticia,
+			'noticiasMaisLidas'        => $getNoticiasMaisLidas,
 			'artistasRecemAdicionados' => $getArtistasRecemAdicionados,
 			'noticiasRelacionadas'     => $noticiasRelacionadas,
+			'seoTitulo'                => htmlspecialchars($noticia['tema']) . ' — LEA',
+			'seoDescricao'             => htmlspecialchars($noticia['descricao'] ?? $noticia['breadcramble'] ?? ''),
+			'seoKeywords'              => htmlspecialchars($noticia['keywords'] ?? ''),
+			'seoImagem'                => 'https://lea.co.ao' . trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticia['foto'] ?? '')),
+			'seoCanonical'             => 'https://lea.co.ao' . Helper::noticiaUrl($noticia),
+			'ogType'                   => 'article',
+			'jsonLd'                   => json_encode([
+				'@context'         => 'https://schema.org',
+				'@type'            => 'NewsArticle',
+				'headline'         => $noticia['tema'],
+				'description'      => $noticia['descricao'] ?? $noticia['breadcramble'] ?? '',
+				'image'            => 'https://lea.co.ao' . trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticia['foto'] ?? '')),
+				'datePublished'    => $noticia['data_hora'],
+				'dateModified'     => $noticia['data_hora'],
+				'author'           => ['@type' => 'Organization', 'name' => $noticia['fontes'] ?? 'LEA'],
+				'publisher'        => [
+					'@type' => 'Organization',
+					'name'  => 'LEA — Plataforma Angolana de Artes',
+					'logo'  => ['@type' => 'ImageObject', 'url' => 'https://lea.co.ao/assets/img/logo.png']
+				],
+				'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => 'https://lea.co.ao' . Helper::noticiaUrl($noticia)],
+			], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+			
+			'cssExtra' => [
+				'/assets/css/paginas/noticias.css',
+				'/assets/css/paginas/noticia-leitura.css'
+			],
 		]);
-    }
-	
+	}
 }

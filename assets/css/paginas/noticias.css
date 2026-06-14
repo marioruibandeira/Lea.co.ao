@@ -190,7 +190,7 @@
        ============================================= */
     .news-sidebar { display: flex; flex-direction: column; gap: 20px; }
 
-    .sidebar-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 12px; overflow: hidden; margin-bottom:20px !important; }
+    .sidebar-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 12px; margin-bottom:20px !important; }
     .sidebar-card-header { padding: 12px 14px; border-bottom: 1px solid var(--lea-border); display: flex; align-items: center; gap: 8px; }
     .sidebar-card-header h3 { font-size: 13px; font-weight: 700; margin: 0; color: var(--lea-text); }
     .sidebar-card-header i { font-size: 16px; color: var(--lea-blue); }

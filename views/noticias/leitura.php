@@ -168,8 +168,8 @@
     </article>
 
     <!-- SIDEBAR -->
-    <aside class="desktop-only">
-      <div style="display:flex;flex-direction:column;gap:20px;position:sticky;top:80px;">
+    <aside style="position: sticky; top: 80px; height: fit-content;">
+		<div style="display:flex;flex-direction:column;gap:20px;">
 
         <!-- Ad 300x250 -->
         <div>
@@ -207,7 +207,7 @@
         <!-- Ad nativo -->
         <div>
           <div class="ann"><i class="ti ti-ad"></i> Nativo sidebar</div>
-          <div style="background:var(--lea-surface);border:1px dashed #ccd9ef;border-radius:10px;overflow:hidden;">
+          <div style="background:var(--lea-surface);border:1px dashed #ccd9ef;border-radius:10px;">
             <div style="height:68px;background:linear-gradient(135deg,#1D9E75,#2563B0);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;">BAI — Banco de poupança</div>
             <div style="padding:10px 12px;">
               <span class="ad-pill d-inline-block mb-1">Pub</span>
