@@ -1,300 +1,109 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" prefix="og: https://ogp.me/ns#">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEA — Plataforma Angolana de Artes</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    <!-- ============================================================
+         SEO BÁSICO
+         ============================================================ -->
+    <title><?= htmlspecialchars($seoTitulo ?? 'LEA — Plataforma Angolana de Artes') ?></title>
+    <meta name="description" content="<?= htmlspecialchars($seoDescricao ?? 'Descobre artistas, músicas, literatura, cinema e muito mais. A maior plataforma de cultura angolana — música, literatura, cinema, fotografia e artes visuais.') ?>">
+    <meta name="keywords" content="<?= htmlspecialchars($seoKeywords ?? 'artistas angolanos, música angola, cultura angola, literatura angolana, cinema angola, kuduro, semba, kizomba, lea angola') ?>">
+    <meta name="author" content="LEA — Plataforma Angolana de Artes">
+    <meta name="robots" content="<?= $seoRobots ?? 'index, follow' ?>">
+    <link rel="canonical" href="<?= $seoCanonical ?? 'https://lea.co.ao' . ($_SERVER['REQUEST_URI'] ?? '/') ?>">
+
+    <!-- ============================================================
+         GEO — Posicionamento geográfico Angola
+         ============================================================ -->
+    <meta name="geo.region" content="AO">
+    <meta name="geo.placename" content="Angola">
+    <meta name="geo.position" content="-11.2027;17.8739">
+    <meta name="ICBM" content="-11.2027, 17.8739">
+    <meta name="language" content="Portuguese">
+    <meta name="country" content="Angola">
+
+    <!-- ============================================================
+         OPEN GRAPH — Facebook, WhatsApp, LinkedIn
+         ============================================================ -->
+    <meta property="og:type" content="<?= $ogType ?? 'website' ?>">
+    <meta property="og:site_name" content="LEA — Plataforma Angolana de Artes">
+    <meta property="og:locale" content="pt_AO">
+    <meta property="og:title" content="<?= htmlspecialchars($seoTitulo ?? 'LEA — Plataforma Angolana de Artes') ?>">
+    <meta property="og:description" content="<?= htmlspecialchars($seoDescricao ?? 'A maior plataforma de cultura angolana — música, literatura, cinema, fotografia e artes visuais.') ?>">
+    <meta property="og:url" content="<?= $seoCanonical ?? 'https://lea.co.ao' . ($_SERVER['REQUEST_URI'] ?? '/') ?>">
+    <meta property="og:image" content="<?= htmlspecialchars($seoImagem ?? 'https://lea.co.ao/assets/img/og-default.jpg') ?>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="<?= htmlspecialchars($seoTitulo ?? 'LEA — Plataforma Angolana de Artes') ?>">
+
+    <!-- ============================================================
+         TWITTER / X CARD
+         ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@leacoao">
+    <meta name="twitter:title" content="<?= htmlspecialchars($seoTitulo ?? 'LEA — Plataforma Angolana de Artes') ?>">
+    <meta name="twitter:description" content="<?= htmlspecialchars($seoDescricao ?? 'A maior plataforma de cultura angolana.') ?>">
+    <meta name="twitter:image" content="<?= htmlspecialchars($seoImagem ?? 'https://lea.co.ao/assets/img/og-default.jpg') ?>">
+
+    <!-- ============================================================
+         JSON-LD — Schema.org (dados estruturados)
+         ============================================================ -->
+    <?php if (isset($jsonLd)): ?>
+        <script type="application/ld+json"><?= $jsonLd ?></script>
+    <?php else: ?>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "LEA — Plataforma Angolana de Artes",
+        "url": "https://lea.co.ao",
+        "description": "A maior plataforma de cultura angolana — música, literatura, cinema, fotografia e artes visuais.",
+        "inLanguage": "pt-AO",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://lea.co.ao/pesquisa?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "LEA — Plataforma Angolana de Artes",
+            "url": "https://lea.co.ao",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://lea.co.ao/assets/img/logo.png"
+            },
+            "sameAs": [
+                "https://www.facebook.com/profile.php?id=61585709784761",
+                "https://www.instagram.com/lea.co.ao/",
+                "https://www.youtube.com/channel/UC08rYMm8gs4KVmS0qpUI-Aw"
+            ]
+        }
+    }
+    </script>
+    <?php endif; ?>
+	
+	<link rel="icon" type="image/png" href="/assets/img/logo.png">
+	<link rel="apple-touch-icon" href="/assets/img/logo.png">
+
+    <!-- ============================================================
+         CSS
+         ============================================================ -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/menu.footer.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-	<link rel="stylesheet" href="/assets/css/paginas/certificacao.css">
-	<link rel="stylesheet" href="/assets/css/paginas/noticias.css">
-	<link rel="stylesheet" href="/assets/css/paginas/noticia-leitura.css">
+    <?php if (isset($cssExtra)): ?>
+		<?php foreach ((array)$cssExtra as $css): ?>
+			<link rel="stylesheet" href="<?= htmlspecialchars($css) ?>">
+		<?php endforeach; ?>
+	<?php endif; ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
 
-    <style>
-        
-		
-        /* =============================================
-           NAVBAR DESKTOP
-           ============================================= */
-        .navbar { border-bottom: 1px solid var(--lea-border); /*background: var(--lea-white); */}
-        .navbar-brand { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; color: var(--lea-text) !important; }
-        .nav-link { font-size: 13px; color: var(--lea-muted) !important; padding: 4px 10px !important; border-radius: 6px; }
-        .nav-link:hover { color: var(--lea-blue) !important; background-color: var(--lea-blue-light); }
-        .lea-search { font-size: 12px; color: var(--lea-muted); background: var(--lea-surface); border: 1px solid rgba(37,99,176,0.2); border-radius: 8px; padding: 6px 12px; min-width: 160px; cursor: pointer; }
-
-        /* =============================================
-           BOTÕES
-           ============================================= */
-        .btn-lea { background-color: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; padding: 8px 18px; transition: background .15s; cursor: pointer; }
-        .btn-lea:hover { background-color: var(--lea-blue-dark); color: #fff; }
-        .btn-lea-outline { background: transparent; color: var(--lea-text); border: 1px solid rgba(37,99,176,0.25); border-radius: 8px; font-size: 13px; padding: 8px 16px; transition: border-color .15s, color .15s; cursor: pointer; }
-        .btn-lea-outline:hover { border-color: var(--lea-blue); color: var(--lea-blue); }
-        .btn-lea-sm { background-color: var(--lea-blue); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; padding: 6px 14px; transition: background .15s; white-space: nowrap; cursor: pointer; }
-        .btn-lea-sm:hover { background-color: var(--lea-blue-dark); color: #fff; }
-
-	
-        /* =============================================
-           AD ELEMENTS
-           ============================================= */
-        .ad-pill { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: #bbb; border: 1px solid #ddd; border-radius: 4px; padding: 2px 6px; }
-        .ann { font-size: 10px; color: var(--lea-blue); display: flex; align-items: center; gap: 4px; }
-        .ann i { font-size: 12px; }
-        .ad-leaderboard { background: var(--lea-white); border-bottom: 1px solid var(--lea-border); }
-        .ad-leaderboard-inner { background: var(--lea-surface); border: 1px solid var(--lea-border); border-radius: 10px; }
-        .ad-lb-thumb { width: 52px; height: 40px; border-radius: 8px; background-color: var(--lea-blue); color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .ad-block { background: var(--lea-surface); border: 1px dashed #ccd9ef; border-radius: 10px; min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; gap: 4px; }
-        .ad-block .ad-size { font-size: 14px; font-weight: 600; color: #c0cfe8; }
-        .ad-block .ad-type { font-size: 10px; color: #c0cfe8; }
-        .ad-rectangle { background: var(--lea-white); border: 1px dashed #ccd9ef; border-radius: 10px; }
-        .ad-rect-thumb { width: 64px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #fff; flex-shrink: 0; }
-        .ad-native { border: 1px solid var(--lea-border); border-radius: 10px; overflow: hidden; background: var(--lea-surface); }
-        .ad-native-img { height: 68px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #fff; }
-        .ad-native-cta { font-size: 11px; font-weight: 500; color: var(--lea-blue); text-decoration: none; }
-        .ad-native-cta:hover { text-decoration: underline; }
-
-        /* =============================================
-           SIDEBARS DESKTOP
-           ============================================= */
-        .sidebar-left  { background: var(--lea-white); border-right: 1px solid var(--lea-border); }
-        .sidebar-right { background: var(--lea-white); border-left: 1px solid var(--lea-border); }
-        .sidebar-title { font-size: 10px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: #bbb; }
-        .cat-link { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--lea-muted); text-decoration: none; padding: 8px 4px; border-bottom: 1px solid var(--lea-border); transition: color .12s; }
-        .cat-link:last-of-type { border-bottom: none; }
-        .cat-link:hover { color: var(--lea-blue); }
-        .cat-link i { font-size: 16px; color: var(--lea-blue); }
-        .recent-artist { border-bottom: 1px solid var(--lea-border); }
-        .recent-artist:last-child { border-bottom: none; }
-        .ra-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #fff; flex-shrink: 0; }
-        .ra-name { font-size: 12px; font-weight: 500; }
-        .ra-type { font-size: 10px; color: var(--lea-muted); }
-
-        /* =============================================
-           HERO
-           ============================================= */
-        .hero-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 14px; }
-        .hero-tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: .4px; background: var(--lea-blue-light); color: var(--lea-blue-dark); padding: 3px 12px; border-radius: 99px; }
-        .hero-card h1 { font-size: 26px; font-weight: 600; line-height: 1.2; }
-        .hero-card h1 em { font-style: normal; color: var(--lea-blue); }
-        .hero-card p { font-size: 13px; color: var(--lea-muted); line-height: 1.65; }
-        .hero-tile { height: 72px; border-radius: 10px; display: flex; align-items: flex-end; padding: 8px 10px; }
-        .hero-tile span { font-size: 10px; font-weight: 500; color: #fff; background: rgba(0,0,0,.38); padding: 2px 9px; border-radius: 99px; }
-
-        /* =============================================
-           STAT CARDS
-           ============================================= */
-        .stat-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 10px; }
-        .stat-num { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 600; }
-        .stat-num span { color: var(--lea-blue); }
-        .stat-lbl { font-size: 11px; color: var(--lea-muted); }
-
-        /* =============================================
-           SECTION HEADERS
-           ============================================= */
-        .sec-title { font-size: 15px; font-weight: 600; margin: 0; }
-        .sec-link  { font-size: 12px; color: var(--lea-blue); text-decoration: none; }
-        .sec-link:hover { text-decoration: underline; }
-
-        /* =============================================
-           ARTIST CARDS
-           ============================================= */
-        .artist-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 12px; overflow: hidden; }
-        .artist-avatar { height: 84px; display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 600; color: #fff; }
-        .artist-name { font-size: 12px; font-weight: 500; }
-        .artist-type { font-size: 11px; color: var(--lea-muted); }
-        .badge-art { display: inline-block; font-size: 9px; font-weight: 500; background: var(--lea-blue-light); color: var(--lea-blue-dark); padding: 2px 8px; border-radius: 99px; }
-
-        /* =============================================
-           FEATURED / NEWS
-           ============================================= */
-        .featured-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 12px; overflow: hidden; }
-        .featured-img  { height: 110px; display: flex; align-items: flex-end; padding: 10px 12px; }
-        .featured-img span { font-size: 10px; color: #fff; background: rgba(0,0,0,.4); padding: 3px 10px; border-radius: 99px; }
-        .featured-tag  { display: inline-block; font-size: 9px; font-weight: 500; background: var(--lea-blue); color: #fff; padding: 2px 8px; border-radius: 99px; }
-        .featured-title { font-size: 13px; font-weight: 500; line-height: 1.4; }
-        .featured-date  { font-size: 11px; color: var(--lea-muted); }
-        .news-item { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 8px; }
-        .news-item.is-ad { background: var(--lea-surface); }
-        .news-dot { width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; }
-        .news-title { font-size: 12px; font-weight: 500; line-height: 1.4; }
-        .news-date  { font-size: 10px; color: var(--lea-muted); }
-
-        /* =============================================
-           TESTEMUNHOS
-           ============================================= */
-        .testimonials-section { background: var(--lea-surface); padding: 52px 0; border-top: 1px solid var(--lea-border); }
-        .section-eyebrow { display: inline-block; font-size: 11px; letter-spacing: .5px; text-transform: uppercase; background: var(--lea-blue); color: #fff; padding: 4px 14px; border-radius: 99px; margin-bottom: 12px; }
-        .testimonials-section h2 { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 600; color: var(--lea-text); margin-bottom: 4px; }
-        .section-sub { font-size: 13px; color: var(--lea-muted); }
-        .testimonial-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 14px; padding: 22px; height: 100%; transition: box-shadow .2s, transform .2s; }
-        .testimonial-card:hover { box-shadow: 0 8px 24px rgba(37,99,176,0.10); transform: translateY(-2px); }
-        .t-stars { color: #F59E0B; font-size: 13px; letter-spacing: 2px; }
-        .t-quote { font-size: 13px; color: var(--lea-muted); line-height: 1.75; font-style: italic; }
-        .t-quote::before { content: '\201C'; }
-        .t-quote::after  { content: '\201D'; }
-        .t-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; color: #fff; }
-        .t-name { font-size: 13px; font-weight: 600; color: var(--lea-text); }
-        .t-role { font-size: 11px; color: var(--lea-muted); }
-        .testimonials-cta { background: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; padding: 10px 28px; transition: background .15s; cursor: pointer; }
-        .testimonials-cta:hover { background: var(--lea-blue-dark); }
-
-        /* =============================================
-           FOOTER
-           ============================================= */
-        .lea-footer { background: var(--lea-white); border-top: 1px solid var(--lea-border); }
-        .footer-brand { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; }
-        .footer-brand span { color: var(--lea-blue); }
-        .footer-link { font-size: 12px; color: var(--lea-muted); text-decoration: none; }
-        .footer-link:hover { color: var(--lea-blue); }
-        .footer-social { color: var(--lea-blue); font-size: 20px; text-decoration: none; transition: opacity .15s; }
-        .footer-social:hover { opacity: .7; }
-
-        /* =============================================
-           MOBILE — TOPBAR
-           ============================================= */
-        .mobile-topbar {
-            display: none;
-            background: var(--lea-white);
-            border-bottom: 1px solid var(--lea-border);
-            padding: 10px 16px;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky; top: 0; z-index: 100;
-        }
-
-        /* =============================================
-           MOBILE — ELEMENTOS
-           ============================================= */
-        .ad-banner-mobile { background: var(--lea-white); border-bottom: 1px solid var(--lea-border); padding: 8px 14px; display: flex; align-items: center; gap: 10px; }
-        .ad-banner-mobile-inner { flex: 1; display: flex; align-items: center; gap: 10px; background: var(--lea-surface); border-radius: 8px; padding: 6px 10px; border: 1px solid var(--lea-border); }
-        .ad-thumb-sm { width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; }
-        .ad-banner-copy strong { font-size: 12px; font-weight: 500; color: var(--lea-text); display: block; }
-        .ad-banner-copy span { font-size: 10px; color: var(--lea-muted); }
-        .ad-native-hero { background: var(--lea-white); border-bottom: 1px solid var(--lea-border); padding: 10px 16px 12px; }
-        .ad-native-card { background: var(--lea-surface); border: 1px solid var(--lea-border); border-radius: 10px; overflow: hidden; }
-        .ad-native-card-img { height: 72px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; }
-        .ad-native-card-body { padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        .ad-native-card-cta { background: var(--lea-blue); color: #fff; border: none; border-radius: 99px; padding: 6px 14px; font-size: 11px; font-weight: 500; white-space: nowrap; flex-shrink: 0; cursor: pointer; }
-        .mobile-divider { height: 6px; background: var(--lea-surface); border-top: 1px solid var(--lea-border); border-bottom: 1px solid var(--lea-border); }
-        .hero-section-mobile { background: var(--lea-white); padding: 18px 16px 16px; border-bottom: 1px solid var(--lea-border); }
-        .hero-section-mobile h1 { font-size: 22px; font-weight: 600; line-height: 1.2; }
-        .hero-section-mobile h1 em { font-style: normal; color: var(--lea-blue); }
-        .hero-section-mobile p { font-size: 13px; color: var(--lea-muted); line-height: 1.6; }
-        .stats-mobile { background: var(--lea-white); display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--lea-border); }
-        .stat-mobile-cell { padding: 14px 16px; border-right: 1px solid var(--lea-border); border-bottom: 1px solid var(--lea-border); }
-        .stat-mobile-cell:nth-child(2n) { border-right: none; }
-        .stat-mobile-cell:nth-child(3), .stat-mobile-cell:nth-child(4) { border-bottom: none; }
-        .stat-mobile-num { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 600; color: var(--lea-text); }
-        .stat-mobile-num span { color: var(--lea-blue); }
-        .stat-mobile-lbl { font-size: 11px; color: var(--lea-muted); }
-        .cats-mobile { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .cat-mobile { background: var(--lea-surface); border: 1px solid var(--lea-border); border-radius: 10px; padding: 12px 6px; text-align: center; cursor: pointer; transition: border-color .12s; }
-        .cat-mobile:hover { border-color: var(--lea-blue); }
-        .cat-mobile i { font-size: 20px; color: var(--lea-blue); display: block; margin-bottom: 5px; }
-        .cat-mobile-name { font-size: 11px; color: var(--lea-muted); }
-        .artists-mobile { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .artist-card-mobile { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 12px; overflow: hidden; }
-        .artist-avatar-mobile { height: 96px; display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 600; color: #fff; }
-        .news-item-mobile { display: flex; gap: 10px; padding: 10px 11px; background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 8px; }
-        .news-item-mobile.is-ad { background: var(--lea-surface); }
-        .ad-banner-bottom-mobile { background: var(--lea-white); border-top: 1px solid var(--lea-border); border-bottom: 1px solid var(--lea-border); padding: 8px 14px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-
-        /* =============================================
-           BOTTOM NAV MOBILE
-           ============================================= */
-        .bottom-nav {
-            display: none;
-            background: var(--lea-white);
-            border-top: 1px solid var(--lea-border);
-            position: fixed; bottom: 0; left: 0; right: 0;
-            height: 62px;
-            align-items: center; justify-content: space-around;
-            z-index: 200;
-            padding-bottom: env(safe-area-inset-bottom, 0);
-        }
-        .bnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 22px; color: var(--lea-muted); cursor: pointer; text-decoration: none; flex: 1; justify-content: center; transition: color .12s; }
-        .bnav-item.active, .bnav-item:hover { color: var(--lea-blue); }
-        .bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
-
-        /* =============================================
-           MENU DRAWER MOBILE
-           ============================================= */
-        .menu-drawer {
-            position: fixed; inset: 0; z-index: 500;
-            visibility: hidden;
-        }
-        .menu-drawer.open { visibility: visible; }
-
-        .menu-overlay {
-            position: absolute; inset: 0;
-            background: rgba(0,0,0,0.5);
-            opacity: 0; transition: opacity .25s;
-        }
-        .menu-drawer.open .menu-overlay { opacity: 1; }
-
-        .menu-panel {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: var(--lea-white);
-            border-radius: 20px 20px 0 0;
-            padding: 0 0 env(safe-area-inset-bottom, 16px);
-            transform: translateY(100%);
-            transition: transform .3s cubic-bezier(.32,.72,0,1);
-            max-height: 90vh; overflow-y: auto;
-        }
-        .menu-drawer.open .menu-panel { transform: translateY(0); }
-
-        .menu-handle { width: 36px; height: 4px; background: #E5E7EB; border-radius: 2px; margin: 12px auto 0; }
-
-        .menu-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--lea-border); display: flex; align-items: center; justify-content: space-between; }
-        .menu-header-title { font-size: 15px; font-weight: 700; color: var(--lea-text); font-family: 'Sora', sans-serif; }
-        .btn-close-menu { background: var(--lea-surface); border: none; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--lea-muted); cursor: pointer; }
-
-        .menu-section-title { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: #bbb; padding: 14px 20px 6px; }
-
-        .menu-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; text-decoration: none; border-bottom: 1px solid var(--lea-border); transition: background .12s; }
-        .menu-item:last-child { border-bottom: none; }
-        .menu-item:hover { background: var(--lea-surface); }
-        .menu-item i { font-size: 20px; color: var(--lea-blue); width: 24px; text-align: center; flex-shrink: 0; }
-        .menu-item-label { font-size: 14px; font-weight: 500; color: var(--lea-text); }
-        .menu-item-sub { font-size: 11px; color: var(--lea-muted); }
-
-        .menu-social { padding: 16px 20px; display: flex; gap: 14px; }
-        .menu-social a { font-size: 22px; color: var(--lea-blue); text-decoration: none; transition: opacity .15s; }
-        .menu-social a:hover { opacity: .7; }
-
-        .btn-menu-entrar { display: block; width: calc(100% - 40px); margin: 0 20px 16px; background: var(--lea-blue); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; padding: 12px; cursor: pointer; transition: background .15s; }
-        .btn-menu-entrar:hover { background: var(--lea-blue-dark); }
-
-        /* =============================================
-           BREAKPOINTS
-           ============================================= */
-        /* Desktop — mostra navbar, esconde mobile */
-        @media (min-width: 992px) {
-            .mobile-topbar   { display: none !important; }
-            .mobile-only     { display: none !important; }
-            .bottom-nav      { display: none !important; }
-            .desktop-only    { display: block; }
-            body             { padding-bottom: 0; }
-        }
-
-        /* Mobile — esconde desktop, mostra mobile */
-        @media (max-width: 991px) {
-            .desktop-only    { display: none !important; }
-            .mobile-only     { display: block; }
-            .mobile-topbar   { display: flex; }
-            .bottom-nav      { display: flex; }
-            /* Padding para conteúdo não ficar atrás da bottom nav */
-            body             { padding-bottom: 62px; }
-            /* Footer não fica atrás da bottom nav */
-            .lea-footer      { padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px) + 12px) !important; }
-        }
-    </style>
 </head>
-
 <body>
 
 <!-- =============================================
