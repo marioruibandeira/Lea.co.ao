@@ -9,8 +9,8 @@
 		<i class="ti ti-chevron-right"></i>
 		<a href="/noticias">Notícias</a>
 		<i class="ti ti-chevron-right"></i>
-		<a href="/noticias?cat=<?= $noticia['ce_categoria_noticia'] ?>">
-		  <?= htmlspecialchars($noticia['categoria_noticias']) ?>
+		<a href="/noticias/categoria/<?= Helper::slug($noticia['categoria_noticias']) ?>">
+			<?= htmlspecialchars($noticia['categoria_noticias']) ?>
 		</a>
 		<i class="ti ti-chevron-right"></i>
 		<span><?= htmlspecialchars(substr($noticia['tema'], 0, 60)) ?>...</span>
@@ -27,15 +27,17 @@
       <!-- Cabeçalho -->
       <div class="artigo-header">
         <?php
-			$coresCat = [
-				'Politica'       => 'cat-politica',
-				'Tecnologia'     => 'cat-tecnologia',
-				'Desporto'       => 'cat-desporto',
-				'Cronicas'       => 'cat-cronicas',
-				'Arte & Cultura' => 'cat-arte',
-				'Economia'       => 'cat-economia',
-				'Entrevistas'    => 'cat-entrevistas',
+			$coresHex = [
+				'Politica'       => '#DC2626',
+				'Tecnologia'     => '#7C3AED',
+				'Desporto'       => '#059669',
+				'Crónicas'       => '#C07A1A',
+				'Arte & Cultura' => '#2563B0',
+				'Economia'       => '#0D6B4E',
+				'Entrevistas'    => '#9D174D',
+				'Autodidata'     => '#534AB7',
 			];
+			$corCat = $coresHex[$noticia['categoria_noticias']] ?? '#2563B0';
 			$classCat = $coresCat[$noticia['categoria_noticias']] ?? 'cat-arte';
 
 			// Calcular tempo de leitura
@@ -91,19 +93,19 @@
 
       </div>
 
-      <!-- Tags -->
-      <?php $tags = array_filter(array_map('trim', explode(',', $noticia['keywords'] ?? ''))); ?>
-		<?php if (!empty($tags)): ?>
-		<div class="artigo-tags">
-			<span class="artigo-tags-lbl">Tags:</span>
-			<?php foreach ($tags as $tag): ?>
-				<!--<a class="tag-item" href="/noticias?tag=<?= urlencode($tag) ?>">-->
-				<a class="tag-item" href="#">
-					<?= htmlspecialchars($tag) ?>
-				</a>
-			<?php endforeach; ?>
-		</div>
-		<?php endif; ?>
+    <!-- Tags -->
+    <?php $tags = array_filter(array_map('trim', explode(',', $noticia['keywords'] ?? ''))); ?>
+	<?php if (!empty($tags)): ?>
+	<div class="artigo-tags">
+		<span class="artigo-tags-lbl">Tags:</span>
+		<?php foreach ($tags as $tag): ?>
+			<a class="tag-item" href="/noticias/tag/<?= str_replace(' ', '-', strtolower($tag)) ?>"
+			   style="color:<?= $corCat ?>;background:<?= $corCat ?>1a;">
+				<?= htmlspecialchars($tag) ?>
+			</a>
+		<?php endforeach; ?>
+	</div>
+	<?php endif; ?>
 
       <!-- Fonte -->
       <div class="artigo-fonte">
@@ -131,19 +133,21 @@
 			<h2 style="font-size:16px;font-weight:700;margin-bottom:16px;">Notícias relacionadas</h2>
 			<div class="relacionadas-grid">
 				<?php
-				$coresBg = [
-					'Política'       => 'linear-gradient(135deg,#DC2626,#374151)',
-					'Tecnologia'     => 'linear-gradient(135deg,#7C3AED,#534AB7)',
-					'Desporto'       => 'linear-gradient(135deg,#059669,#2563B0)',
-					'Crónicas'       => 'linear-gradient(135deg,#C07A1A,#534AB7)',
-					'Arte & Cultura' => 'linear-gradient(135deg,#9D174D,#534AB7)',
-					'Economia'       => 'linear-gradient(135deg,#0D6B4E,#2563B0)',
-					'Entrevistas'    => 'linear-gradient(135deg,#9D174D,#2563B0)',
-				];
+				
+					$coresCat_ = [
+						'Politica'       => 'cat-politica',
+						'Tecnologia'     => 'cat-tecnologia',
+						'Desporto'       => 'cat-desporto',
+						'Cronicas'       => 'cat-cronicas',
+						'Arte & Cultura' => 'cat-arte',
+						'Economia'       => 'cat-economia',
+						'Entrevistas'    => 'cat-entrevistas',
+					];
+				
 				foreach ($noticiasRelacionadas as $rel):
 					$fotoRel = trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $rel['foto'] ?? ''));
 					$bgRel = $coresBg[$rel['categoria_noticias']] ?? 'linear-gradient(135deg,#2563B0,#534AB7)';
-					$classCatRel = $coresCat[$rel['categoria_noticias']] ?? 'cat-arte';
+					$classCatRel = $coresCat_[$rel['categoria_noticias']] ?? 'cat-arte';
 				?>
 					<a class="rel-card" href="<?= Helper::noticiaUrl($rel) ?>">
 						<div class="rel-card-img">
@@ -221,7 +225,7 @@
         <div class="sidebar-card">
           <div class="sidebar-card-header">
             <i class="ti ti-user-plus"></i>
-            <h3>Novos artistas</h3>
+            <h3>Artistas Recém adicionados</h3>
           </div>
 		  <?php foreach ($artistasRecemAdicionados as $recemAdicionados): 
 				$foto = trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $recemAdicionados['art_img_url'] ?? ''));

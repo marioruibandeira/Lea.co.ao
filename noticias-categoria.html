@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arte & Cultura — Notícias LEA Angola</title>
+
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+
+  <!-- ============================================================
+       CSS GLOBAL DO SITE
+       Já está no style.css — não repetir aqui
+       ============================================================ -->
+
+  <!-- ============================================================
+       CSS EXCLUSIVO DA PÁGINA DE CATEGORIA — INÍCIO
+       Recortar este bloco para noticias-categoria.css
+       ============================================================ -->
+  <style id="css-noticias-categoria">
+
+    /* Variáveis categoria */
+    :root {
+      --lea-blue:        #2563B0;
+      --lea-blue-dark:   #1A4A8A;
+      --lea-blue-light:  #E8F0FB;
+      --lea-blue-mid:    #3B7DD8;
+      --lea-teal:        #1D9E75;
+      --lea-purple:      #534AB7;
+      --lea-amber:       #C07A1A;
+      --lea-surface:     #f5f7fb;
+      --lea-white:       #ffffff;
+      --lea-border:      rgba(37,99,176,0.12);
+      --lea-text:        #111827;
+      --lea-muted:       #6B7280;
+      --cat-politica:    #DC2626;
+      --cat-tecnologia:  #7C3AED;
+      --cat-desporto:    #059669;
+      --cat-cronicas:    #C07A1A;
+      --cat-arte:        #2563B0;
+      --cat-economia:    #0D6B4E;
+      --cat-entrevistas: #9D174D;
+      --cat-autodidata:  #534AB7;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--lea-surface); color: var(--lea-text); margin: 0; }
+    h1,h2,h3,h4,h5 { font-family: 'Sora', sans-serif; }
+
+    /* ── Navbar ── */
+    .navbar { border-bottom: 1px solid var(--lea-border); }
+    .nav-link { font-size: 13px; color: var(--lea-muted) !important; padding: 4px 10px !important; border-radius: 6px; }
+    .nav-link:hover, .nav-link.active { color: var(--lea-blue) !important; background-color: var(--lea-blue-light); }
+    .lea-search { font-size: 12px; color: var(--lea-muted); background: var(--lea-surface); border: 1px solid rgba(37,99,176,0.2); border-radius: 8px; padding: 6px 12px; min-width: 160px; cursor: pointer; }
+    .btn-lea { background-color: var(--lea-blue); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; padding: 8px 18px; cursor: pointer; }
+    .btn-lea:hover { background-color: var(--lea-blue-dark); color: #fff; }
+    .btn-lea-sm { background-color: var(--lea-blue); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; padding: 6px 14px; white-space: nowrap; cursor: pointer; }
+
+    /* ── Mobile ── */
+    .desktop-only { display: block; }
+    .mobile-only  { display: none; }
+    .mobile-topbar { display: none; background: var(--lea-white); border-bottom: 1px solid var(--lea-border); padding: 10px 16px; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .bottom-nav { background: var(--lea-white); border-top: 1px solid var(--lea-border); position: fixed; bottom: 0; left: 0; right: 0; height: 62px; display: none; align-items: center; justify-content: space-around; z-index: 200; }
+    .bnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 22px; color: var(--lea-muted); cursor: pointer; text-decoration: none; flex: 1; justify-content: center; transition: color .12s; }
+    .bnav-item.active, .bnav-item:hover { color: var(--lea-blue); }
+    .bnav-lbl { font-size: 9px; font-weight: 500; }
+    .menu-drawer { position: fixed; inset: 0; z-index: 500; visibility: hidden; }
+    .menu-drawer.open { visibility: visible; }
+    .menu-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: opacity .25s; }
+    .menu-drawer.open .menu-overlay { opacity: 1; }
+    .menu-panel { position: absolute; bottom: 0; left: 0; right: 0; background: var(--lea-white); border-radius: 20px 20px 0 0; padding: 0 0 16px; transform: translateY(100%); transition: transform .3s cubic-bezier(.32,.72,0,1); max-height: 90vh; overflow-y: auto; }
+    .menu-drawer.open .menu-panel { transform: translateY(0); }
+    .menu-handle { width: 36px; height: 4px; background: #E5E7EB; border-radius: 2px; margin: 12px auto 0; }
+    .menu-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--lea-border); display: flex; align-items: center; justify-content: space-between; }
+    .menu-header-title { font-size: 15px; font-weight: 700; color: var(--lea-text); font-family: 'Sora', sans-serif; }
+    .btn-close-menu { background: var(--lea-surface); border: none; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--lea-muted); cursor: pointer; }
+    .menu-section-title { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: #bbb; padding: 14px 20px 6px; }
+    .menu-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; text-decoration: none; border-bottom: 1px solid var(--lea-border); transition: background .12s; }
+    .menu-item:hover { background: var(--lea-surface); }
+    .menu-item i { font-size: 20px; color: var(--lea-blue); width: 24px; text-align: center; flex-shrink: 0; }
+    .menu-item-label { font-size: 14px; font-weight: 500; color: var(--lea-text); }
+    .menu-item-sub { font-size: 11px; color: var(--lea-muted); }
+    .menu-social { padding: 16px 20px; display: flex; gap: 14px; }
+    .menu-social a { font-size: 22px; color: var(--lea-blue); text-decoration: none; }
+    .btn-menu-entrar { display: block; width: calc(100% - 40px); margin: 0 20px 16px; background: var(--lea-blue); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; padding: 12px; cursor: pointer; }
+
+    /* ── Footer ── */
+    .lea-footer { background: var(--lea-white); border-top: 1px solid var(--lea-border); }
+    .footer-link { font-size: 12px; color: var(--lea-muted); text-decoration: none; }
+    .footer-link:hover { color: var(--lea-blue); }
+    .footer-social { color: var(--lea-blue); font-size: 20px; text-decoration: none; }
+
+    /* ── Ad elements ── */
+    .ad-pill { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: #bbb; border: 1px solid #ddd; border-radius: 4px; padding: 2px 6px; }
+    .ann { font-size: 10px; color: var(--lea-blue); display: flex; align-items: center; gap: 4px; margin-bottom: 5px; }
+
+    /* ── Cat badge ── */
+    .cat-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; padding: 3px 9px; border-radius: 4px; color: #fff; }
+    .cat-politica    { background: var(--cat-politica); }
+    .cat-tecnologia  { background: var(--cat-tecnologia); }
+    .cat-desporto    { background: var(--cat-desporto); }
+    .cat-cronicas    { background: var(--cat-cronicas); }
+    .cat-arte        { background: var(--cat-arte); }
+    .cat-economia    { background: var(--cat-economia); }
+    .cat-entrevistas { background: var(--cat-entrevistas); }
+    .cat-autodidata  { background: var(--cat-autodidata); }
+
+    @media (max-width: 991px) {
+      .desktop-only { display: none !important; }
+      .mobile-only  { display: block; }
+      .mobile-topbar { display: flex; }
+      .bottom-nav   { display: flex; }
+      body          { padding-bottom: 62px; }
+      .lea-footer   { padding-bottom: calc(62px + 12px) !important; }
+    }
+
+    /* ──────────────────────────────────────────────────────────────
+       CSS EXCLUSIVO DA PÁGINA DE CATEGORIA — INÍCIO
+       ────────────────────────────────────────────────────────────── */
+
+    /* Breadcrumb */
+    .lea-breadcrumb { background: var(--lea-white); border-bottom: 1px solid var(--lea-border); padding: 10px 0; }
+    .lea-breadcrumb a { font-size: 12px; color: var(--lea-blue); text-decoration: none; }
+    .lea-breadcrumb a:hover { text-decoration: underline; }
+    .lea-breadcrumb span { font-size: 12px; color: var(--lea-muted); }
+    .lea-breadcrumb i { font-size: 10px; color: var(--lea-muted); margin: 0 4px; }
+
+    /* Hero da categoria */
+    .cat-hero {
+      padding: 32px 0 28px;
+      border-bottom: 1px solid var(--lea-border);
+      background: var(--lea-white);
+      margin-bottom: 0;
+    }
+    .cat-hero-inner { display: flex; align-items: center; gap: 20px; }
+    .cat-hero-icon {
+      width: 64px; height: 64px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px; color: #fff; flex-shrink: 0;
+    }
+    .cat-hero-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 28px; font-weight: 700;
+      color: var(--lea-text); margin: 0 0 4px;
+    }
+    .cat-hero-meta { font-size: 13px; color: var(--lea-muted); }
+    .cat-hero-meta strong { color: var(--lea-text); }
+
+    /* Filter bar */
+    .cat-filter-bar {
+      background: var(--lea-white);
+      border-bottom: 3px solid var(--lea-border);
+      padding: 0;
+      display: flex; align-items: center;
+      overflow-x: auto; position: sticky; top: 56px; z-index: 90;
+    }
+    .cat-filter-bar::-webkit-scrollbar { height: 0; }
+    .cat-filter-tab {
+      font-size: 12px; font-weight: 500; color: var(--lea-muted);
+      padding: 12px 16px; border-bottom: 3px solid transparent;
+      margin-bottom: -3px; cursor: pointer; white-space: nowrap;
+      text-decoration: none; display: block; transition: all .15s;
+    }
+    .cat-filter-tab:hover { color: var(--lea-text); }
+    .cat-filter-tab.active { color: var(--cat-cor, var(--lea-blue)); border-bottom-color: var(--cat-cor, var(--lea-blue)); font-weight: 600; }
+
+    /* Layout principal */
+    .cat-layout { display: grid; grid-template-columns: 1fr 300px; gap: 28px; padding: 28px 0 48px; align-items: start; }
+
+    /* Notícia destaque da categoria */
+    .cat-destaque {
+      background: var(--lea-white); border: 1px solid var(--lea-border);
+      border-radius: 14px; overflow: hidden; display: grid;
+      grid-template-columns: 1.2fr 1fr; margin-bottom: 24px;
+      text-decoration: none; transition: box-shadow .2s;
+    }
+    .cat-destaque:hover { box-shadow: 0 10px 28px rgba(37,99,176,0.12); }
+    .cat-destaque-img { position: relative; min-height: 260px; overflow: hidden; }
+    .cat-destaque-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+    .cat-destaque:hover .cat-destaque-img img { transform: scale(1.04); }
+    .cat-destaque-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, transparent 60%, rgba(255,255,255,0.02)); pointer-events: none; }
+    .cat-destaque-body { padding: 24px; display: flex; flex-direction: column; justify-content: space-between; }
+    .cat-destaque-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--cat-cor, var(--lea-blue)); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .cat-destaque-label::before { content: ''; width: 20px; height: 2px; background: var(--cat-cor, var(--lea-blue)); border-radius: 1px; }
+    .cat-destaque-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700; line-height: 1.3;
+      color: var(--lea-text); margin-bottom: 10px;
+    }
+    .cat-destaque:hover .cat-destaque-title { color: var(--cat-cor, var(--lea-blue)); }
+    .cat-destaque-excerpt { font-size: 13px; color: var(--lea-muted); line-height: 1.7; margin-bottom: 16px; flex: 1; }
+    .cat-destaque-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .cat-destaque-meta-item { font-size: 11px; color: var(--lea-muted); display: flex; align-items: center; gap: 4px; }
+    .cat-destaque-meta-item i { font-size: 13px; color: var(--cat-cor, var(--lea-blue)); }
+
+    /* Grelha de notícias */
+    .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
+    .cat-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+    /* Card notícia padrão */
+    .nc {
+      background: var(--lea-white); border: 1px solid var(--lea-border);
+      border-radius: 12px; overflow: hidden; text-decoration: none;
+      display: flex; flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .nc:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(37,99,176,0.10); }
+    .nc-img { position: relative; overflow: hidden; height: 160px; }
+    .nc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; display: block; }
+    .nc:hover .nc-img img { transform: scale(1.04); }
+    .nc-img-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 28px; color: rgba(255,255,255,0.25); }
+    .nc-body { padding: 12px 14px; flex: 1; display: flex; flex-direction: column; }
+    .nc-title { font-size: 13px; font-weight: 600; color: var(--lea-text); line-height: 1.45; margin-bottom: 8px; }
+    .nc:hover .nc-title { color: var(--cat-cor, var(--lea-blue)); }
+    .nc-excerpt { font-size: 12px; color: var(--lea-muted); line-height: 1.6; margin-bottom: 10px; flex: 1; }
+    .nc-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid var(--lea-border); margin-top: auto; }
+    .nc-source { font-size: 11px; color: var(--lea-muted); display: flex; align-items: center; gap: 4px; }
+    .nc-source i { font-size: 12px; color: var(--cat-cor, var(--lea-blue)); }
+    .nc-date { font-size: 10px; color: var(--lea-muted); }
+
+    /* Card horizontal */
+    .nc-h {
+      background: var(--lea-white); border: 1px solid var(--lea-border);
+      border-radius: 10px; overflow: hidden; text-decoration: none;
+      display: flex; align-items: stretch;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .nc-h:hover { border-color: var(--cat-cor, var(--lea-blue)); box-shadow: 0 2px 12px rgba(37,99,176,0.08); }
+    .nc-h-img { width: 110px; flex-shrink: 0; overflow: hidden; position: relative; }
+    .nc-h-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+    .nc-h:hover .nc-h-img img { transform: scale(1.05); }
+    .nc-h-img-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: rgba(255,255,255,0.25); }
+    .nc-h-body { padding: 12px 14px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+    .nc-h-title { font-size: 13px; font-weight: 600; color: var(--lea-text); line-height: 1.4; margin-bottom: 6px; }
+    .nc-h:hover .nc-h-title { color: var(--cat-cor, var(--lea-blue)); }
+    .nc-h-meta { font-size: 10px; color: var(--lea-muted); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+    /* Divisor de secção */
+    .sec-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--lea-border); }
+    .sec-hdr-line { width: 4px; height: 20px; border-radius: 2px; background: var(--cat-cor, var(--lea-blue)); flex-shrink: 0; }
+    .sec-hdr h2 { font-size: 15px; font-weight: 700; margin: 0; color: var(--lea-text); }
+    .sec-link { font-size: 12px; color: var(--cat-cor, var(--lea-blue)); text-decoration: none; margin-left: auto; }
+    .sec-link:hover { text-decoration: underline; }
+
+    /* Ad strip */
+    .ad-strip { background: var(--lea-white); border: 1px dashed #ccd9ef; border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .ad-strip-thumb { width: 44px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
+
+    /* Paginação */
+    .cat-pagination { display: flex; align-items: center; gap: 4px; }
+    .page-btn { width: 36px; height: 36px; border-radius: 8px; background: var(--lea-white); border: 1px solid var(--lea-border); color: var(--lea-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .12s; text-decoration: none; }
+    .page-btn:hover { background: var(--lea-blue-light); color: var(--lea-blue); border-color: var(--lea-blue); }
+    .page-btn.active { background: var(--cat-cor, var(--lea-blue)); color: #fff; border-color: var(--cat-cor, var(--lea-blue)); font-weight: 700; }
+
+    /* Sidebar */
+    .cat-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .sidebar-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 12px; overflow: hidden; }
+    .sidebar-card-header { padding: 12px 14px; border-bottom: 1px solid var(--lea-border); display: flex; align-items: center; gap: 8px; }
+    .sidebar-card-header h3 { font-size: 13px; font-weight: 700; margin: 0; color: var(--lea-text); }
+    .sidebar-card-header i { font-size: 16px; color: var(--cat-cor, var(--lea-blue)); }
+
+    /* Outras categorias sidebar */
+    .other-cat-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--lea-border); text-decoration: none; transition: background .12s; }
+    .other-cat-item:last-child { border-bottom: none; }
+    .other-cat-item:hover { background: var(--lea-surface); }
+    .other-cat-left { display: flex; align-items: center; gap: 10px; }
+    .other-cat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .other-cat-name { font-size: 13px; color: var(--lea-text); font-weight: 500; }
+    .other-cat-count { font-size: 11px; color: var(--lea-muted); background: var(--lea-surface); padding: 2px 8px; border-radius: 99px; }
+
+    /* Artistas sidebar */
+    .artist-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--lea-border); text-decoration: none; transition: background .12s; }
+    .artist-item:last-child { border-bottom: none; }
+    .artist-item:hover { background: var(--lea-surface); }
+    .artist-avatar { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .artist-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .artist-name { font-size: 12px; font-weight: 500; color: var(--lea-text); }
+    .artist-prof { font-size: 10px; color: var(--lea-muted); }
+
+    /* Notícias relacionadas sidebar */
+    .related-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; border-bottom: 1px solid var(--lea-border); text-decoration: none; transition: background .12s; }
+    .related-item:last-child { border-bottom: none; }
+    .related-item:hover { background: var(--lea-surface); }
+    .related-thumb { width: 60px; height: 44px; border-radius: 6px; overflow: hidden; flex-shrink: 0; }
+    .related-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .related-title { font-size: 12px; font-weight: 500; color: var(--lea-text); line-height: 1.4; margin-bottom: 3px; }
+    .related-item:hover .related-title { color: var(--cat-cor, var(--lea-blue)); }
+    .related-meta { font-size: 10px; color: var(--lea-muted); }
+
+    /* Ad sidebar */
+    .ad-block-sidebar { background: var(--lea-surface); border: 1px dashed #ccd9ef; border-radius: 10px; min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; gap: 4px; }
+    .ad-size { font-size: 13px; font-weight: 600; color: #c0cfe8; }
+    .ad-type { font-size: 10px; color: #c0cfe8; }
+
+    @media (max-width: 991px) {
+      .cat-layout { grid-template-columns: 1fr; }
+      .cat-destaque { grid-template-columns: 1fr; }
+      .cat-destaque-img { min-height: 200px; }
+      .cat-grid { grid-template-columns: 1fr; }
+      .cat-grid-3 { grid-template-columns: 1fr 1fr; }
+      .cat-hero-title { font-size: 22px; }
+    }
+    @media (max-width: 576px) {
+      .cat-grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ──────────────────────────────────────────────────────────────
+       CSS EXCLUSIVO DA PÁGINA DE CATEGORIA — FIM
+       ────────────────────────────────────────────────────────────── */
+
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER — recortar daqui para views/layouts/header.php
+     ============================================================ -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top desktop-only">
+  <div class="container-fluid px-4">
+    <div class="d-flex align-items-center gap-2">
+      <img src="assets/img/logo.png" alt="LEA" height="30">
+      <span style="font-family:'Sora',sans-serif;font-size:22px;font-weight:600;color:var(--lea-blue);">LEA</span>
+    </div>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav me-auto mb-0 ms-3">
+        <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="/artes">Artes</a></li>
+        <li class="nav-item"><a class="nav-link" href="/artistas">Artistas</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/noticias">Notícias</a></li>
+        <li class="nav-item"><a class="nav-link" href="/eventos">Eventos</a></li>
+        <li class="nav-item"><a class="nav-link" href="/loja">Loja</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-2">
+        <div class="lea-search d-flex align-items-center gap-2">
+          <i class="ti ti-search" style="font-size:13px;"></i> Pesquisar…
+        </div>
+        <button class="btn-lea">Entrar</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="mobile-topbar">
+  <div class="d-flex align-items-center gap-2">
+    <img src="assets/img/logo.png" alt="LEA" height="30">
+    <span style="font-family:'Sora',sans-serif;font-size:20px;font-weight:600;color:var(--lea-blue);">LEA</span>
+  </div>
+  <div class="d-flex gap-3" style="font-size:20px;color:var(--lea-muted);">
+    <i class="ti ti-search"></i>
+    <i class="ti ti-bell"></i>
+    <i class="ti ti-user-circle"></i>
+  </div>
+</header>
+<!-- ============================================================
+     FIM HEADER
+     ============================================================ -->
+
+
+<!-- ============================================================
+     INÍCIO PÁGINA DE CATEGORIA DE NOTÍCIAS
+     ============================================================ -->
+
+<!-- Breadcrumb -->
+<div class="lea-breadcrumb">
+  <div class="container">
+    <a href="/">Início</a>
+    <i class="ti ti-chevron-right"></i>
+    <a href="/noticias">Notícias</a>
+    <i class="ti ti-chevron-right"></i>
+    <span>Arte & Cultura</span>
+  </div>
+</div>
+
+<!-- Hero da categoria -->
+<div class="cat-hero" style="--cat-cor: var(--cat-arte);">
+  <div class="container">
+    <div class="cat-hero-inner">
+      <div class="cat-hero-icon" style="background: linear-gradient(135deg, #2563B0, #3B7DD8);">
+        <i class="ti ti-palette"></i>
+      </div>
+      <div>
+        <h1 class="cat-hero-title">Arte & Cultura</h1>
+        <div class="cat-hero-meta">
+          <strong>986</strong> notícias · Actualizado hoje
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Filter tabs — subsecções -->
+<div class="cat-filter-bar" style="--cat-cor: var(--cat-arte);">
+  <div class="container d-flex">
+    <a class="cat-filter-tab active" href="#">Todas</a>
+    <a class="cat-filter-tab" href="#">Música</a>
+    <a class="cat-filter-tab" href="#">Cinema</a>
+    <a class="cat-filter-tab" href="#">Literatura</a>
+    <a class="cat-filter-tab" href="#">Teatro</a>
+    <a class="cat-filter-tab" href="#">Dança</a>
+    <a class="cat-filter-tab" href="#">Fotografia</a>
+  </div>
+</div>
+
+
+<!-- Conteúdo principal -->
+<div class="container" style="--cat-cor: var(--cat-arte);">
+  <div class="cat-layout">
+
+    <!-- MAIN -->
+    <main>
+
+      <!-- Notícia destaque da categoria -->
+      <a class="cat-destaque" href="#">
+        <div class="cat-destaque-img">
+          <img src="https://lea.co.ao/images/noticias/festival_infantil_rna_chitotolo.jpg" alt=""
+               onerror="this.style.display='none'">
+          <div class="cat-destaque-img-overlay"></div>
+        </div>
+        <div class="cat-destaque-body">
+          <div class="cat-destaque-label">Em destaque</div>
+          <div class="cat-destaque-title">Festival Infantil RNA–Chitotolo celebra 30 anos com edição especial dedicada às crianças</div>
+          <p class="cat-destaque-excerpt">Evento acontece a 1 de Junho, com transmissão em directo, programação cultural e forte acção social. Uma das maiores celebrações da cultura infantil angolana completa três décadas de história.</p>
+          <div class="cat-destaque-meta">
+            <div class="cat-destaque-meta-item"><i class="ti ti-calendar"></i> 15 Mai 2026</div>
+            <div class="cat-destaque-meta-item"><i class="ti ti-building-newspaper"></i> Lea.co.ao</div>
+            <div class="cat-destaque-meta-item"><i class="ti ti-clock"></i> 4 min</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Grelha 2 colunas -->
+      <div class="sec-hdr">
+        <div class="sec-hdr-line"></div>
+        <h2>Últimas notícias</h2>
+        <a class="sec-link" href="#">Ver todas →</a>
+      </div>
+
+      <div class="cat-grid mb-4">
+
+        <a class="nc" href="#">
+          <div class="nc-img">
+            <img src="https://lea.co.ao/images/noticias/poetisa-ginga-preta-enfrenta-recuperacao-dificil.jpg" alt="" onerror="this.style.display='none'">
+            <div class="nc-img-ph" style="background:linear-gradient(135deg,#9D174D,#534AB7);"></div>
+          </div>
+          <div class="nc-body">
+            <div class="mb-2"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+            <div class="nc-title">Poetisa Ginga Preta enfrenta recuperação difícil após acidente e comunidade mobiliza apoio</div>
+            <p class="nc-excerpt">Artistas e membros da comunidade literária unem esforços para ajudar nas despesas médicas da poetisa.</p>
+            <div class="nc-footer">
+              <div class="nc-source"><i class="ti ti-building-newspaper"></i> Lea.co.ao</div>
+              <span class="nc-date">25 Abr 2026</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="nc" href="#">
+          <div class="nc-img">
+            <img src="https://lea.co.ao/images/noticias/autor-angolano-transforma-dor-em-esperanca-com-nova-obra-literaria.jpg" alt="" onerror="this.style.display='none'">
+            <div class="nc-img-ph" style="background:linear-gradient(135deg,#2563B0,#1D9E75);"></div>
+          </div>
+          <div class="nc-body">
+            <div class="mb-2"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+            <div class="nc-title">Autor angolano transforma dor em esperança com nova obra literária</div>
+            <p class="nc-excerpt">Paulo Francisco Gonçalves relata uma trajetória marcada por perdas, rejeições e superação.</p>
+            <div class="nc-footer">
+              <div class="nc-source"><i class="ti ti-building-newspaper"></i> Lea.co.ao</div>
+              <span class="nc-date">25 Abr 2026</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="nc" href="#">
+          <div class="nc-img">
+            <img src="https://lea.co.ao/images/noticias/Escritor-Poeta-Falso-disponibiliza-obra-literaria.jpg" alt="" onerror="this.style.display='none'">
+            <div class="nc-img-ph" style="background:linear-gradient(135deg,#534AB7,#2563B0);"></div>
+          </div>
+          <div class="nc-body">
+            <div class="mb-2"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+            <div class="nc-title">Escritor Poeta Falso disponibiliza obra literária no mercado brasileiro</div>
+            <p class="nc-excerpt">O autor angolano expande a sua presença além fronteiras com publicação no Brasil.</p>
+            <div class="nc-footer">
+              <div class="nc-source"><i class="ti ti-building-newspaper"></i> Jornal de Angola</div>
+              <span class="nc-date">13 Mai 2026</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="nc" href="#">
+          <div class="nc-img">
+            <img src="https://lea.co.ao/images/noticias/fofando-verdadeira-rainha.jpg" alt="" onerror="this.style.display='none'">
+            <div class="nc-img-ph" style="background:linear-gradient(135deg,#C07A1A,#534AB7);"></div>
+          </div>
+          <div class="nc-body">
+            <div class="mb-2"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+            <div class="nc-title">Noite & Dia assume erro do passado e reconhece Fofandó como a primeira kudurista</div>
+            <p class="nc-excerpt">Declaração histórica reposiciona a artista angolana no centro da narrativa do kuduro.</p>
+            <div class="nc-footer">
+              <div class="nc-source"><i class="ti ti-building-newspaper"></i> Lea.co.ao</div>
+              <span class="nc-date">02 Abr 2026</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Ad in-content -->
+      <div class="mb-4">
+        <div class="ann"><i class="ti ti-ad"></i> In-content</div>
+        <div class="ad-strip">
+          <span class="ad-pill">Pub</span>
+          <div class="ad-strip-thumb" style="background:var(--lea-blue);">UN</div>
+          <div class="flex-grow-1">
+            <strong style="font-size:13px;">Unitel — Plano Ilimitado por Kz 3.500/mês</strong><br>
+            <span style="font-size:11px;color:var(--lea-muted);">Ligação rápida em todo o país · unitel.ao</span>
+          </div>
+          <button class="btn-lea-sm">Ver oferta</button>
+        </div>
+      </div>
+
+      <!-- Lista horizontal -->
+      <div class="sec-hdr">
+        <div class="sec-hdr-line"></div>
+        <h2>Mais notícias</h2>
+      </div>
+
+      <div class="d-flex flex-column gap-2 mb-4">
+
+        <a class="nc-h" href="#">
+          <div class="nc-h-img">
+            <img src="https://lea.co.ao/images/noticias/Kanye-Wests-Wireless-performances.jpg" alt="" onerror="this.style.display='none'">
+            <div class="nc-h-img-ph" style="background:linear-gradient(135deg,#374151,#534AB7);"><i class="ti ti-news"></i></div>
+          </div>
+          <div class="nc-h-body">
+            <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+            <div class="nc-h-title">Reino Unido barra entrada de Kanye West e Wireless Festival é cancelado</div>
+            <div class="nc-h-meta">
+              <span><i class="ti ti-building-newspaper"></i> Lea.co.ao</span>
+              <span><i class="ti ti-calendar"></i> 07 Abr 2026</span>
+              <span><i class="ti ti-clock"></i> 3 min</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="nc-h" href="#">
+          <div class="nc-h-img">
+            <img src="https://lea.co.ao/images/noticias/o-regresso-dos-bts.jpg" alt="" onerror="this.style.display='none'">
+            <div class="nc-h-img-ph" style="background:linear-gradient(135deg,#9D174D,#2563B0);"><i class="ti ti-news"></i></div>
+          </div>
+          <div class="nc-h-body">
+            <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+            <div class="nc-h-title">Clube S transmite BTS ao vivo e reúne centenas de fãs em Luanda</div>
+            <div class="nc-h-meta">
+              <span><i class="ti ti-building-newspaper"></i> Lea.co.ao</span>
+              <span><i class="ti ti-calendar"></i> 22 Mar 2026</span>
+              <span><i class="ti ti-clock"></i> 2 min</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="nc-h" href="#">
+          <div class="nc-h-img">
+            <img src="https://lea.co.ao/images/noticias/Quem-e-Gerilson-Insrael.jpg" alt="" onerror="this.style.display='none'">
+            <div class="nc-h-img-ph" style="background:linear-gradient(135deg,#2563B0,#1D9E75);"><i class="ti ti-news"></i></div>
+          </div>
+          <div class="nc-h-body">
+            <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+            <div class="nc-h-title">Quem é Gerilson Israel? A história do cantor que conquistou uma geração</div>
+            <div class="nc-h-meta">
+              <span><i class="ti ti-building-newspaper"></i> Lea.co.ao</span>
+              <span><i class="ti ti-calendar"></i> 21 Abr 2026</span>
+              <span><i class="ti ti-clock"></i> 6 min</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="nc-h" href="#">
+          <div class="nc-h-img">
+            <div class="nc-h-img-ph" style="background:linear-gradient(135deg,#C07A1A,#2563B0);"><i class="ti ti-news"></i></div>
+          </div>
+          <div class="nc-h-body">
+            <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+            <div class="nc-h-title">Mano Chaba: o legado do kudurista que marcou uma geração</div>
+            <div class="nc-h-meta">
+              <span><i class="ti ti-building-newspaper"></i> Lea.co.ao</span>
+              <span><i class="ti ti-calendar"></i> 10 Mar 2026</span>
+              <span><i class="ti ti-clock"></i> 5 min</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="nc-h" href="#">
+          <div class="nc-h-img">
+            <div class="nc-h-img-ph" style="background:linear-gradient(135deg,#534AB7,#1D9E75);"><i class="ti ti-news"></i></div>
+          </div>
+          <div class="nc-h-body">
+            <div class="mb-1"><span class="cat-badge cat-arte">Arte & Cultura</span></div>
+            <div class="nc-h-title">Festival de música angolana reúne artistas de 12 províncias em Luanda</div>
+            <div class="nc-h-meta">
+              <span><i class="ti ti-building-newspaper"></i> Lea.co.ao</span>
+              <span><i class="ti ti-calendar"></i> 05 Mar 2026</span>
+              <span><i class="ti ti-clock"></i> 3 min</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Paginação -->
+      <div class="d-flex align-items-center justify-content-between mt-2 mb-4">
+        <div style="font-size:13px;color:var(--lea-muted);">A mostrar 10 de 986 notícias</div>
+        <div class="cat-pagination">
+          <a class="page-btn" href="#"><i class="ti ti-chevron-left"></i></a>
+          <a class="page-btn active" href="#">1</a>
+          <a class="page-btn" href="#">2</a>
+          <a class="page-btn" href="#">3</a>
+          <span style="color:var(--lea-muted);font-size:13px;padding:0 4px;">…</span>
+          <a class="page-btn" href="#">99</a>
+          <a class="page-btn" href="#"><i class="ti ti-chevron-right"></i></a>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside style="position:sticky;top:80px;height:fit-content;">
+      <div class="cat-sidebar">
+
+        <!-- Ad 300×250 -->
+        <div>
+          <div class="ann"><i class="ti ti-ad"></i> 300 × 250 · AdSense</div>
+          <div class="ad-block-sidebar" style="min-height:140px;">
+            <i class="ti ti-ad" style="font-size:26px;color:#c0cfe8;"></i>
+            <div class="ad-size">300 × 250</div>
+            <div class="ad-type">Medium Rectangle</div>
+          </div>
+        </div>
+
+        <!-- Outras categorias -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-header">
+            <i class="ti ti-layout-list"></i>
+            <h3>Outras categorias</h3>
+          </div>
+          <a class="other-cat-item" href="/noticias/politica">
+            <div class="other-cat-left">
+              <span class="other-cat-dot" style="background:var(--cat-politica);"></span>
+              <span class="other-cat-name">Política</span>
+            </div>
+            <span class="other-cat-count">709</span>
+          </a>
+          <a class="other-cat-item" href="/noticias/tecnologia">
+            <div class="other-cat-left">
+              <span class="other-cat-dot" style="background:var(--cat-tecnologia);"></span>
+              <span class="other-cat-name">Tecnologia</span>
+            </div>
+            <span class="other-cat-count">38</span>
+          </a>
+          <a class="other-cat-item" href="/noticias/desporto">
+            <div class="other-cat-left">
+              <span class="other-cat-dot" style="background:var(--cat-desporto);"></span>
+              <span class="other-cat-name">Desporto</span>
+            </div>
+            <span class="other-cat-count">57</span>
+          </a>
+          <a class="other-cat-item" href="/noticias/cronicas">
+            <div class="other-cat-left">
+              <span class="other-cat-dot" style="background:var(--cat-cronicas);"></span>
+              <span class="other-cat-name">Crónicas</span>
+            </div>
+            <span class="other-cat-count">7</span>
+          </a>
+          <a class="other-cat-item" href="/noticias/economia">
+            <div class="other-cat-left">
+              <span class="other-cat-dot" style="background:var(--cat-economia);"></span>
+              <span class="other-cat-name">Economia</span>
+            </div>
+            <span class="other-cat-count">52</span>
+          </a>
+          <a class="other-cat-item" href="/noticias/entrevistas">
+            <div class="other-cat-left">
+              <span class="other-cat-dot" style="background:var(--cat-entrevistas);"></span>
+              <span class="other-cat-name">Entrevistas</span>
+            </div>
+            <span class="other-cat-count">12</span>
+          </a>
+          <a class="other-cat-item" href="/noticias/autodidata">
+            <div class="other-cat-left">
+              <span class="other-cat-dot" style="background:var(--cat-autodidata);"></span>
+              <span class="other-cat-name">Autodidata</span>
+            </div>
+            <span class="other-cat-count">10</span>
+          </a>
+        </div>
+
+        <!-- Mais lidas -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-header">
+            <i class="ti ti-flame"></i>
+            <h3>Mais lidas</h3>
+          </div>
+          <a class="related-item" href="#">
+            <div class="related-thumb">
+              <img src="https://lea.co.ao/images/noticias/Quem-e-Gerilson-Insrael.jpg" alt="" onerror="this.parentElement.style.background='linear-gradient(135deg,#2563B0,#534AB7)'">
+            </div>
+            <div>
+              <div class="related-title">Quem é Gerilson Israel? A história do cantor angolano</div>
+              <div class="related-meta">Arte & Cultura · 21 Abr 2026</div>
+            </div>
+          </a>
+          <a class="related-item" href="#">
+            <div class="related-thumb">
+              <img src="https://lea.co.ao/images/noticias/fofando-verdadeira-rainha.jpg" alt="" onerror="this.parentElement.style.background='linear-gradient(135deg,#C07A1A,#534AB7)'">
+            </div>
+            <div>
+              <div class="related-title">Noite & Dia reconhece Fofandó como a primeira kudurista</div>
+              <div class="related-meta">Arte & Cultura · 02 Abr 2026</div>
+            </div>
+          </a>
+          <a class="related-item" href="#">
+            <div class="related-thumb">
+              <img src="https://lea.co.ao/images/noticias/festival_infantil_rna_chitotolo.jpg" alt="" onerror="this.parentElement.style.background='linear-gradient(135deg,#2563B0,#1D9E75)'">
+            </div>
+            <div>
+              <div class="related-title">Festival Infantil RNA–Chitotolo celebra 30 anos</div>
+              <div class="related-meta">Arte & Cultura · 15 Mai 2026</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Novos artistas -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-header">
+            <i class="ti ti-user-plus"></i>
+            <h3>Novos artistas</h3>
+          </div>
+          <a class="artist-item" href="#">
+            <div class="artist-avatar">
+              <img src="https://lea.co.ao/artistas/imgs/cassilva.jpg" alt="" onerror="this.parentElement.style.background='#2563B0'">
+            </div>
+            <div>
+              <div class="artist-name">Cassilva</div>
+              <div class="artist-prof">Cantora</div>
+            </div>
+          </a>
+          <a class="artist-item" href="#">
+            <div class="artist-avatar" style="background:#534AB7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;">BB</div>
+            <div>
+              <div class="artist-name">Bad Banzelo</div>
+              <div class="artist-prof">Cantor</div>
+            </div>
+          </a>
+          <a class="artist-item" href="#">
+            <div class="artist-avatar">
+              <img src="https://lea.co.ao/artistas/imgs/Faculdade-de-Rimas.jpg" alt="" onerror="this.parentElement.style.background='#1D9E75'">
+            </div>
+            <div>
+              <div class="artist-name">Faculdade de Rimas</div>
+              <div class="artist-prof">Cantor</div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     FIM PÁGINA DE CATEGORIA DE NOTÍCIAS
+     ============================================================ -->
+
+
+<!-- ============================================================
+     FOOTER — recortar daqui para views/layouts/footer.php
+     ============================================================ -->
+<footer class="lea-footer py-3 px-4 mt-2">
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <img src="assets/img/logo.png" alt="LEA" height="24">
+      <small class="text-muted fw-normal" style="font-size:11px;">© 2017–2026</small>
+    </div>
+    <div class="d-flex gap-3 flex-wrap">
+      <a class="footer-link" href="#">Sobre nós</a>
+      <a class="footer-link" href="#">Contactos</a>
+      <a class="footer-link" href="#">Privacidade</a>
+      <a class="footer-link" href="#">Termos</a>
+      <a class="footer-link" href="#">Publicitar</a>
+    </div>
+    <div class="d-flex gap-3">
+      <a class="footer-social" href="#"><i class="ti ti-brand-instagram"></i></a>
+      <a class="footer-social" href="#"><i class="ti ti-brand-facebook"></i></a>
+      <a class="footer-social" href="#"><i class="ti ti-brand-youtube"></i></a>
+      <a class="footer-social" href="#"><i class="ti ti-brand-whatsapp"></i></a>
+      <a class="footer-social" href="#"><i class="ti ti-brand-telegram"></i></a>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" id="bottomNav">
+  <a class="bnav-item" href="/"><i class="ti ti-home"></i><span class="bnav-lbl">Início</span></a>
+  <a class="bnav-item active" href="/noticias"><i class="ti ti-news"></i><span class="bnav-lbl">Notícias</span></a>
+  <a class="bnav-item" href="/eventos"><i class="ti ti-calendar-event"></i><span class="bnav-lbl">Eventos</span></a>
+  <a class="bnav-item" href="/loja"><i class="ti ti-shopping-bag"></i><span class="bnav-lbl">Loja</span></a>
+  <button class="bnav-item" id="btnOpenMenu" style="background:none;border:none;">
+    <i class="ti ti-menu-2"></i><span class="bnav-lbl">Menu</span>
+  </button>
+</nav>
+
+<div class="menu-drawer" id="menuDrawer">
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <div class="menu-panel">
+    <div class="menu-handle"></div>
+    <div class="menu-header">
+      <span class="menu-header-title">Menu</span>
+      <button class="btn-close-menu" id="btnCloseMenu"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="menu-section-title">Navegar</div>
+    <a class="menu-item" href="/"><i class="ti ti-home"></i><div><div class="menu-item-label">Início</div><div class="menu-item-sub">Página principal do LEA</div></div></a>
+    <a class="menu-item" href="/artistas"><i class="ti ti-users"></i><div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.200+ artistas angolanos</div></div></a>
+    <a class="menu-item" href="/noticias"><i class="ti ti-news"></i><div><div class="menu-item-label">Notícias</div><div class="menu-item-sub">Angola em dia</div></div></a>
+    <a class="menu-item" href="/loja"><i class="ti ti-shopping-bag"></i><div><div class="menu-item-label">Loja</div><div class="menu-item-sub">Livros, CDs, ingressos e mais</div></div></a>
+    <div class="menu-section-title">Conta</div>
+    <a class="menu-item" href="#"><i class="ti ti-user-circle"></i><div><div class="menu-item-label">Entrar</div><div class="menu-item-sub">Aceder à minha conta</div></div></a>
+    <a class="menu-item" href="/loja/certificacao"><i class="ti ti-rosette-discount-check"></i><div><div class="menu-item-label">Certificar artista</div><div class="menu-item-sub">Destaca-te na plataforma</div></div></a>
+    <div class="menu-section-title">Redes sociais</div>
+    <div class="menu-social">
+      <a href="#"><i class="ti ti-brand-instagram"></i></a>
+      <a href="#"><i class="ti ti-brand-facebook"></i></a>
+      <a href="#"><i class="ti ti-brand-youtube"></i></a>
+      <a href="#"><i class="ti ti-brand-whatsapp"></i></a>
+      <a href="#"><i class="ti ti-brand-telegram"></i></a>
+    </div>
+    <button class="btn-menu-entrar">Entrar na minha conta</button>
+  </div>
+</div>
+<!-- ============================================================
+     FIM FOOTER
+     ============================================================ -->
+
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script>
+  const drawer   = document.getElementById('menuDrawer');
+  const overlay  = document.getElementById('menuOverlay');
+  const btnOpen  = document.getElementById('btnOpenMenu');
+  const btnClose = document.getElementById('btnCloseMenu');
+  function openMenu()  { drawer.classList.add('open');    document.body.style.overflow = 'hidden'; }
+  function closeMenu() { drawer.classList.remove('open'); document.body.style.overflow = ''; }
+  btnOpen.addEventListener('click', openMenu);
+  btnClose.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+  drawer.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
+
+  // Filter tabs
+  document.querySelectorAll('.cat-filter-tab').forEach(tab => {
+    tab.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.cat-filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

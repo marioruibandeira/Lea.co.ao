@@ -102,14 +102,13 @@
 
   <!-- FILTER TABS -->
   <div class="filter-bar">
-    <a class="filter-tab active" href="#">Todas</a>
-	<a class="filter-tab" href="https://lea.co.ao/noticias/categorias_.php?cat=5">Arte & Cultura</a>
-	<a class="filter-tab" href="https://lea.co.ao/noticias/categorias_.php?cat=7">Entrevistas</a>
-    <a class="filter-tab" href="https://lea.co.ao/noticias/categorias_.php?cat=1">Política</a>
-    <a class="filter-tab" href="https://lea.co.ao/noticias/categorias_.php?cat=2">Tecnologia</a>
-    <a class="filter-tab" href="https://lea.co.ao/noticias/categorias_.php?cat=3">Desporto</a>
-    <!--<a class="filter-tab" href="https://lea.co.ao/noticias/categorias_.php?cat=4">Crónicas</a>-->
-    <a class="filter-tab" href="https://lea.co.ao/noticias/categorias_.php?cat=6">Economia</a>
+    <a class="filter-tab active" href="/noticias">Todas</a>
+	<a class="filter-tab" href="/noticias/categoria/arte-cultura">Arte & Cultura</a>
+	<a class="filter-tab" href="/noticias/categoria/entrevistas">Entrevistas</a>
+	<a class="filter-tab" href="/noticias/categoria/politica">Política</a>
+	<a class="filter-tab" href="/noticias/categoria/tecnologia">Tecnologia</a>
+	<a class="filter-tab" href="/noticias/categoria/desporto">Desporto</a>
+	<a class="filter-tab" href="/noticias/categoria/economia">Economia</a>
     
     <div class="filter-right">
       <select class="filter-select">
@@ -135,7 +134,7 @@
           <h2>⭐ Em <span>destaque</span></h2>
         </div>
 
-        <a class="news-featured-wide" href="https://lea.co.ao/noticias/noticia-detalhes.php?n=1874" target="_blank">
+        <a class="news-featured-wide" href="<?= Helper::noticiaUrl($noticiaDestaque) ?>">
           <div class="nfw-img">
             <img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticiaDestaque['foto'] ?? ''))) ?>" alt="Gerilson Israel"
                  onerror="this.style.display='none'">
@@ -177,12 +176,12 @@
         <div class="mb-4">
 			<div class="sec-hdr">
 				<h2>🎨 Arte & <span>Cultura</span></h2>
-				<a class="sec-link" href="https://lea.co.ao/noticias/categorias_.php?cat=5" target="_blank">Ver todas →</a>
+				<a class="sec-link" href="/noticias/categoria/arte-cultura">Ver todas →</a>
 			</div>
 			<div class="row g-3">
 				<?php foreach ($uNArteCultura as $arteCultura): ?>
 					<div class="col-md-6">
-						<a class="news-card h-100" href="https://lea.co.ao/noticias/noticia-detalhes.php?n=1876" target="_blank">
+						<a class="news-card h-100" href="<?= Helper::noticiaUrl($arteCultura) ?>">
 							<div class="nc-img nc-img-h160">
 								<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $arteCultura['foto'] ?? ''))) ?>" alt="" onerror="this.style.display='none'">
 								<div class="nc-placeholder" style="background:linear-gradient(135deg,#9D174D,#534AB7);"></div>
@@ -202,7 +201,7 @@
 			
 				<?php foreach ($uNArteCulturaContinuacao as $arteCulturaContinuacao): ?>
 					<div class="col-12">
-						<a class="news-card-h" href="https://lea.co.ao/noticias/noticia-detalhes.php?n=1872" target="_blank">
+						<a class="news-card-h" href="<?= Helper::noticiaUrl($arteCulturaContinuacao) ?>">
 							<div class="nch-img">
 								<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $arteCulturaContinuacao['foto'] ?? ''))) ?>" alt="" onerror="this.style.display='none'">
 								<div class="nch-placeholder" style="background:linear-gradient(135deg,#374151,#534AB7);"></div>
@@ -241,95 +240,95 @@
         <!-- POLÍTICA + DESPORTO — lado a lado -->
         <div class="row g-4 mb-4">
 
-          <div class="col-lg-6">
-            <div class="sec-hdr">
-              <h2>🏛️ <span>Política</span></h2>
-              <a class="sec-link" href="https://lea.co.ao/noticias/categorias_.php?cat=1" target="_blank">Ver →</a>
-            </div>
-            <div class="d-flex flex-column gap-2">
-				<?php foreach ($ultimasNoticiasPolitica as $noticiasPolitica): ?>
-					<a class="news-card-h" href="https://lea.co.ao/noticias/noticia-detalhes.php?n=1877" target="_blank">
-						<div class="nch-img">
-							<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticiasPolitica['foto'] ?? ''))) ?>" alt="" onerror="this.style.display='none'">
-							<div class="nch-placeholder" style="background:linear-gradient(135deg,#DC2626,#374151);"></div>
-						</div>
-						<div class="nch-body">
-							<div class="mb-1"><span class="cat-badge cat-politica">Política</span></div>
-							<div class="nch-title"><?= htmlspecialchars($noticiasPolitica['tema']) ?></div>
-							<div class="nch-meta"><span><?= date('d M Y', strtotime($noticiasPolitica['data_hora'])) ?></span></div>
-						</div>
-					</a>
-				<?php endforeach; ?>
-            </div>
-          </div>
+			<div class="col-lg-6">
+				<div class="sec-hdr">
+					<h2>🏛️ <span>Política</span></h2>
+					<a class="sec-link" href="/noticias/categoria/politica">Ver →</a>
+				</div>
+				<div class="d-flex flex-column gap-2">
+					<?php foreach ($ultimasNoticiasPolitica as $noticiasPolitica): ?>
+						<a class="news-card-h" href="<?= Helper::noticiaUrl($noticiasPolitica) ?>">
+							<div class="nch-img">
+								<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticiasPolitica['foto'] ?? ''))) ?>" alt="" onerror="this.style.display='none'">
+								<div class="nch-placeholder" style="background:linear-gradient(135deg,#DC2626,#374151);"></div>
+							</div>
+							<div class="nch-body">
+								<div class="mb-1"><span class="cat-badge cat-politica">Política</span></div>
+								<div class="nch-title"><?= htmlspecialchars($noticiasPolitica['tema']) ?></div>
+								<div class="nch-meta"><span><?= date('d M Y', strtotime($noticiasPolitica['data_hora'])) ?></span></div>
+							</div>
+						</a>
+					<?php endforeach; ?>
+				</div>
+			</div>
 
-          <div class="col-lg-6">
-            <div class="sec-hdr">
-              <h2>💻 <span>Tecnologia</span></h2>
-              <a class="sec-link" href="https://lea.co.ao/noticias/categorias_.php?cat=3" target="_blank">Ver →</a>
-            </div>
-            <div class="d-flex flex-column gap-2">
-				<?php foreach ($ultimasNoticiasTecnologia as $noticiasTecnologia): ?>
-					<a class="news-card-h" href="https://lea.co.ao/noticias/noticia-detalhes.php?n=1873" target="_blank">
-						<div class="nch-img">
-							<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticiasTecnologia['foto'] ?? ''))) ?>" alt="" onerror="this.style.display='none'">
-							<div class="nch-placeholder" style="background:linear-gradient(135deg,#059669,#2563B0);"></div>
-						</div>
-						<div class="nch-body">
-							<div class="mb-1"><span class="cat-badge cat-tecnologia">Tecnologia</span></div>
-							<div class="nch-title"><?= htmlspecialchars($noticiasTecnologia['tema']) ?></div>
-							<div class="nch-meta"><span><?= date('d M Y', strtotime($noticiasTecnologia['data_hora'])) ?></span></div>
-						</div>
-					</a>
-				<?php endforeach; ?>
-            </div>
-          </div>
-		  
-		  <div class="col-lg-6">
-            <div class="sec-hdr">
-              <h2>💰 <span>Economia</span></h2>
-              <a class="sec-link" href="https://lea.co.ao/noticias/categorias_.php?cat=1" target="_blank">Ver →</a>
-            </div>
-            <div class="d-flex flex-column gap-2">
-				<?php foreach ($ultimasNoticiasEconomia as $noticiasEconomia): ?>
-					<a class="news-card-h" href="https://lea.co.ao/noticias/noticia-detalhes.php?n=1877" target="_blank">
-						<div class="nch-img">
-							<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticiasEconomia['foto'] ?? ''))) ?>" alt="" onerror="this.style.display='none'">
-							<div class="nch-placeholder" style="background:linear-gradient(135deg,#DC2626,#374151);"></div>
-						</div>
-						<div class="nch-body">
-							<div class="mb-1"><span class="cat-badge cat-economia">Economia</span></div>
-							<div class="nch-title"><?= htmlspecialchars($noticiasEconomia['tema']) ?></div>
-							<div class="nch-meta"><span><?= date('d M Y', strtotime($noticiasEconomia['data_hora'])) ?></span></div>
-						</div>
-					</a>
-				<?php endforeach; ?>
-            </div>
-          </div>
+			<div class="col-lg-6">
+				<div class="sec-hdr">
+					<h2>💻 <span>Tecnologia</span></h2>
+					<a class="sec-link" href="/noticias/categoria/tecnologia">Ver →</a>
+				</div>
+				<div class="d-flex flex-column gap-2">
+					<?php foreach ($ultimasNoticiasTecnologia as $noticiasTecnologia): ?>
+						<a class="news-card-h" href="<?= Helper::noticiaUrl($noticiasTecnologia) ?>">
+							<div class="nch-img">
+								<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticiasTecnologia['foto'] ?? ''))) ?>" alt="" onerror="this.style.display='none'">
+								<div class="nch-placeholder" style="background:linear-gradient(135deg,#7C3AED,#534AB7);"></div>
+							</div>
+							<div class="nch-body">
+								<div class="mb-1"><span class="cat-badge cat-tecnologia">Tecnologia</span></div>
+								<div class="nch-title"><?= htmlspecialchars($noticiasTecnologia['tema']) ?></div>
+								<div class="nch-meta"><span><?= date('d M Y', strtotime($noticiasTecnologia['data_hora'])) ?></span></div>
+							</div>
+						</a>
+					<?php endforeach; ?>
+				</div>
+			</div>
 
-          <div class="col-lg-6">
-            <div class="sec-hdr">
-              <h2>⚽ <span>Desporto</span></h2>
-              <a class="sec-link" href="https://lea.co.ao/noticias/categorias_.php?cat=3" target="_blank">Ver →</a>
-            </div>
-            <div class="d-flex flex-column gap-2">
-				<?php foreach ($ultimasNoticiasDesporto as $noticiasDesporto): ?>
-					<a class="news-card-h" href="https://lea.co.ao/noticias/noticia-detalhes.php?n=1873" target="_blank">
-						<div class="nch-img">
-							<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticiasDesporto['foto'] ?? ''))) ?>" alt="" onerror="this.style.display='none'">
-							<div class="nch-placeholder" style="background:linear-gradient(135deg,#059669,#2563B0);"></div>
-						</div>
-						<div class="nch-body">
-							<div class="mb-1"><span class="cat-badge cat-desporto">Desporto</span></div>
-							<div class="nch-title"><?= htmlspecialchars($noticiasDesporto['tema']) ?></div>
-							<div class="nch-meta"><span><?= date('d M Y', strtotime($noticiasDesporto['data_hora'])) ?></span></div>
-						</div>
-					</a>
-				<?php endforeach; ?>
-            </div>
-          </div>
+			<div class="col-lg-6">
+				<div class="sec-hdr">
+					<h2>💰 <span>Economia</span></h2>
+					<a class="sec-link" href="/noticias/categoria/economia">Ver →</a>
+				</div>
+				<div class="d-flex flex-column gap-2">
+					<?php foreach ($ultimasNoticiasEconomia as $noticiasEconomia): ?>
+						<a class="news-card-h" href="<?= Helper::noticiaUrl($noticiasEconomia) ?>">
+							<div class="nch-img">
+								<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticiasEconomia['foto'] ?? ''))) ?>" alt="" onerror="this.style.display='none'">
+								<div class="nch-placeholder" style="background:linear-gradient(135deg,#0D6B4E,#2563B0);"></div>
+							</div>
+							<div class="nch-body">
+								<div class="mb-1"><span class="cat-badge cat-economia">Economia</span></div>
+								<div class="nch-title"><?= htmlspecialchars($noticiasEconomia['tema']) ?></div>
+								<div class="nch-meta"><span><?= date('d M Y', strtotime($noticiasEconomia['data_hora'])) ?></span></div>
+							</div>
+						</a>
+					<?php endforeach; ?>
+				</div>
+			</div>
 
-        </div>
+			<div class="col-lg-6">
+				<div class="sec-hdr">
+					<h2>⚽ <span>Desporto</span></h2>
+					<a class="sec-link" href="/noticias/categoria/desporto">Ver →</a>
+				</div>
+				<div class="d-flex flex-column gap-2">
+					<?php foreach ($ultimasNoticiasDesporto as $noticiasDesporto): ?>
+						<a class="news-card-h" href="<?= Helper::noticiaUrl($noticiasDesporto) ?>">
+							<div class="nch-img">
+								<img src="<?= htmlspecialchars(trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $noticiasDesporto['foto'] ?? ''))) ?>" alt="" onerror="this.style.display='none'">
+								<div class="nch-placeholder" style="background:linear-gradient(135deg,#059669,#2563B0);"></div>
+							</div>
+							<div class="nch-body">
+								<div class="mb-1"><span class="cat-badge cat-desporto">Desporto</span></div>
+								<div class="nch-title"><?= htmlspecialchars($noticiasDesporto['tema']) ?></div>
+								<div class="nch-meta"><span><?= date('d M Y', strtotime($noticiasDesporto['data_hora'])) ?></span></div>
+							</div>
+						</a>
+					<?php endforeach; ?>
+				</div>
+			</div>
+
+		</div>
 
 
         <!-- CRÓNICAS 
@@ -376,14 +375,14 @@
 				<div class="mb-4">
 					<div class="sec-hdr">
 						<h2>🎙️ <span>Entrevistas</span></h2>
-						<a class="sec-link" href="https://lea.co.ao/noticias/entrevistas.php?strt=0" target="_blank">Ver todas →</a>
+						<a class="sec-link" href="/noticias/categoria/entrevistas">Ver todas →</a>
 					</div>
 					<div class="row g-3">
 						<?php foreach ($getEntrevistas as $entrevista): 
 							$foto = trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $entrevista['foto'] ?? ''));
 						?>
 						<div class="col-md-4">
-							<a class="news-card h-100" href="/noticias/<?= $entrevista['id_noticias'] ?>" target="_blank">
+							<a class="news-card h-100" href="<?= Helper::noticiaUrl($entrevista) ?>">
 							  <div class="nc-img nc-img-h160">
 								<?php if ($foto): ?>
 								  <img src="<?= htmlspecialchars($foto) ?>" alt=""
@@ -409,38 +408,6 @@
 				</div>
 			</div>
         </div>
-
-
-        <!-- PAGINAÇÃO 
-        <div class="d-flex align-items-center justify-content-between mt-2 mb-4 pagination-wrapper">
-			<div class="pagination-info" style="font-size:13px;color:var(--lea-muted);">
-				A mostrar página <? //=$paginaEntrevistas ?> de <? //=$totalPaginasEntrevistas ?>
-			</div>
-
-			<div class="lea-pagination">
-				<?php //if ($paginaEntrevistas > 1): ?>
-			  <a class="page-btn" href="?pag_e=<? //=$paginaEntrevistas - 1 ?>">
-				<i class="ti ti-chevron-left"></i>
-			  </a>
-			<?php //endif; ?>
-
-			<?php //for ($i = 1; $i <= $totalPaginasEntrevistas; $i++): ?>
-			  <?php //if ($i == 1 || $i == $totalPaginasEntrevistas || abs($i - $paginaEntrevistas) <= 1): ?>
-				<a class="page-btn <? //=$i == $paginaEntrevistas ? 'active' : '' ?>" href="?pag_e=<? //=$i ?>">
-				  <? //=$i ?>
-				</a>
-			  <?php //elseif (abs($i - $paginaEntrevistas) == 2): ?>
-				<span style="color:var(--lea-muted);font-size:13px;padding:0 4px;">…</span>
-			  <?php //endif; ?>
-			<?php //endfor; ?>
-
-			<?php //if ($paginaEntrevistas < $totalPaginasEntrevistas): ?>
-			  <a class="page-btn" href="?pag_e=<? //=$paginaEntrevistas + 1 ?>">
-				<i class="ti ti-chevron-right"></i>
-			  </a>
-			<?php //endif; ?>
-			</div>
-		</div>-->
 
 
       </main>
@@ -554,12 +521,10 @@
 				<?php 
 					$categoria = $totalDCategoria['categoria_noticias'];
 					$cor = $catColors[$categoria] ?? 'var(--cat-arte)';
-					$idCat = $totalDCategoria['ce_categoria_noticia'];
+					$idCat = $totalDCategoria['id_categ_noticias'];
 				?>
 
-				<a class="cat-sidebar-item" 
-				   href="https://lea.co.ao/noticias/categorias_.php?cat=<?= $idCat ?>" 
-				   target="_blank">
+				<a class="cat-sidebar-item" href="/noticias/categoria/<?= Helper::slug($categoria) ?>">
 
 					<div class="cat-sidebar-label">
 						<span class="cat-sidebar-dot" style="background:<?= $cor ?>;"></span>
@@ -578,7 +543,7 @@
         <div class="sidebar-card">
 			<div class="sidebar-card-header">
 				<i class="ti ti-user-plus"></i>
-				<h3>Novos artistas</h3>
+				<h3>Artistas Recém adicionados</h3>
 			</div>
 			<?php foreach ($artistasRecemAdicionados as $recemAdicionados): 
 				$foto = trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $recemAdicionados['art_img_url'] ?? ''));

@@ -13,6 +13,18 @@ class Router{
 			$this->load('NoticiasController', 'leitura');
 			return;
 		}
+		
+		if (preg_match('#^/noticias/categoria/([a-z0-9-]+)$#u', $uri, $m)) {
+			$_GET['categoria_slug'] = $m[1];
+			$this->load('NoticiasController', 'categoria');
+			return;
+		}
+		
+		if (preg_match('#^/noticias/tag/([^/]+)$#u', $uri, $m)) {
+			$_GET['tag'] = urldecode($m[1]);
+			$this->load('NoticiasController', 'tag');
+			return;
+		}
 
         switch ($uri){
             case '':
@@ -29,15 +41,7 @@ class Router{
 			case '/noticias/noticias':
 				$this->load('NoticiasController', 'noticias');
 				break;
-			
-			/*case '/noticias/noticias':
-                $this->load('NoticiasController', 'noticias');
-                break;
-				
-			case '/noticias/leitura':
-                $this->load('NoticiasController', 'leitura');
-                break;*/
-				
+
 			default:
                 $this->load('ErrorController', 'notFound');
                 break;

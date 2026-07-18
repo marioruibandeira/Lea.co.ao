@@ -326,15 +326,14 @@ class NoticiasDAO
     }
 	
 	public function getTotalCategoria(): array {
-        $sql = "SELECT n.ce_categoria_noticia, cn.categoria_noticias, COUNT(n.ce_categoria_noticia) total 
-			FROM `noticias` n 
-			JOIN categorianoticias cn ON cn.id_categ_noticias = n.ce_categoria_noticia 
-			GROUP by ce_categoria_noticia";
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
+		$sql = "SELECT cn.id_categ_noticias, cn.categoria_noticias, COUNT(n.ce_categoria_noticia) total 
+				FROM `noticias` n 
+				JOIN categorianoticias cn ON cn.id_categ_noticias = n.ce_categoria_noticia 
+				GROUP BY n.ce_categoria_noticia";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
 	
 	public function getNoticiaById(int $id): ?array {
 		$sql = "SELECT 
@@ -393,4 +392,123 @@ class NoticiasDAO
 		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 		$stmt->execute();
 	}
+	
+	/*	================================================================================
+		CATEGORIAS DE NOTICIAS
+		================================================================================ */
+	public function getCategoriaIdBySlug(string $slug): ?array 
+	{
+		$sql = "SELECT id_categ_noticias, categoria_noticias FROM categorianoticias";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		$categorias = $stmt->fetchAll();
+
+		foreach ($categorias as $cat) {
+			if (Helper::slug($cat['categoria_noticias']) === $slug) {
+				return $cat;
+			}
+		}
+		return null;
+	}
+	
+	public function getTotalNoticiasPorCategoria(int $categoriaId): int {
+		$sql = "SELECT COUNT(*) FROM noticias WHERE ce_categoria_noticia = :cat AND foto IS NOT NULL";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':cat', $categoriaId, PDO::PARAM_INT);
+		$stmt->execute();
+		return (int) $stmt->fetchColumn();
+	}
+
+	public function getNoticiaDestaquePorCategoria(int $categoriaId): ?array {
+		$sql = "SELECT n.id_noticias, n.tema, n.breadcramble, n.foto, n.data_hora,
+					   n.ce_categoria_noticia, cn.categoria_noticias, f.fontes
+				FROM noticias n
+				JOIN categorianoticias cn ON cn.id_categ_noticias = n.ce_categoria_noticia
+				JOIN fontes f ON f.id_fonte = n.ce_fonte
+				WHERE n.ce_categoria_noticia = :cat
+				AND n.foto IS NOT NULL
+				ORDER BY n.data_hora DESC
+				LIMIT 1";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':cat', $categoriaId, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+	}
+
+	public function getNoticiasPorCategoria(int $categoriaId, int $excludeId, int $pagina = 1, int $porPagina = 10): array {
+		$offset = ($pagina - 1) * $porPagina;
+		$sql = "SELECT n.id_noticias, n.tema, n.breadcramble, n.foto, n.data_hora,
+					   n.ce_categoria_noticia, cn.categoria_noticias, f.fontes
+				FROM noticias n
+				JOIN categorianoticias cn ON cn.id_categ_noticias = n.ce_categoria_noticia
+				JOIN fontes f ON f.id_fonte = n.ce_fonte
+				WHERE n.ce_categoria_noticia = :cat
+				AND n.id_noticias != :exclude
+				AND n.foto IS NOT NULL
+				ORDER BY n.data_hora DESC
+				LIMIT :limit OFFSET :offset";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':cat', $categoriaId, PDO::PARAM_INT);
+		$stmt->bindValue(':exclude', $excludeId, PDO::PARAM_INT);
+		$stmt->bindValue(':limit', $porPagina, PDO::PARAM_INT);
+		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+	
+	public function getTagsPopulares(int $categoriaId, int $limit = 10): array {
+		$sql = "SELECT keywords FROM noticias 
+				WHERE ce_categoria_noticia = :cat 
+				AND keywords IS NOT NULL 
+				AND keywords != ''";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':cat', $categoriaId, PDO::PARAM_INT);
+		$stmt->execute();
+		$todasKeywords = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+		$contagem = [];
+		foreach ($todasKeywords as $kw) {
+			$tags = array_filter(array_map('trim', explode(',', $kw)));
+			foreach ($tags as $tag) {
+				$tag = mb_strtolower(trim($tag), 'UTF-8');
+				if (!empty($tag)) {
+					$contagem[$tag] = ($contagem[$tag] ?? 0) + 1;
+				}
+			}
+		}
+
+		arsort($contagem);
+		return array_slice($contagem, 0, $limit, true);
+	}
+	
+	public function getTotalNoticiasPorTag(string $tag): int {
+		$sql = "SELECT COUNT(*) FROM noticias 
+				WHERE keywords LIKE :tag
+				AND foto IS NOT NULL";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':tag', '%' . $tag . '%');
+		$stmt->execute();
+		return (int) $stmt->fetchColumn();
+	}
+
+	public function getNoticiasPorTag(string $tag, int $pagina = 1, int $porPagina = 10): array {
+		$offset = ($pagina - 1) * $porPagina;
+		$sql = "SELECT n.id_noticias, n.tema, n.breadcramble, n.foto, n.data_hora,
+					   n.ce_categoria_noticia, cn.categoria_noticias, f.fontes
+				FROM noticias n
+				JOIN categorianoticias cn ON cn.id_categ_noticias = n.ce_categoria_noticia
+				JOIN fontes f ON f.id_fonte = n.ce_fonte
+				WHERE n.keywords LIKE :tag
+				AND n.foto IS NOT NULL
+				ORDER BY n.data_hora DESC
+				LIMIT :limit OFFSET :offset";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':tag', '%' . $tag . '%');
+		$stmt->bindValue(':limit', $porPagina, PDO::PARAM_INT);
+		$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+	
+	
 }

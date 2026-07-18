@@ -127,4 +127,115 @@ class NoticiasController extends Controller
 			],
 		]);
 	}
+	
+	public function categoria(): void {
+		$slug = $_GET['categoria_slug'] ?? '';
+
+		$categoria = $this->noticiasDAO->getCategoriaIdBySlug($slug);
+
+		if (!$categoria) {
+			$this->redirect('/noticias');
+			return;
+		}
+
+		$pagina    = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+		$porPagina = 10;
+
+		$totalNoticias   = $this->noticiasDAO->getTotalNoticiasPorCategoria($categoria['id_categ_noticias']);
+		$totalPaginas    = max(1, ceil($totalNoticias / $porPagina));
+		$noticiaDestaque = $this->noticiasDAO->getNoticiaDestaquePorCategoria($categoria['id_categ_noticias']);
+		$excludeId       = $noticiaDestaque['id_noticias'] ?? 0;
+		$noticias        = $this->noticiasDAO->getNoticiasPorCategoria($categoria['id_categ_noticias'], $excludeId, $pagina, $porPagina);
+		$tagsPopulares   = $this->noticiasDAO->getTagsPopulares($categoria['id_categ_noticias']);
+		$maisLidas       = $this->noticiasDAO->getNoticiasMaisLidas();
+		$novosArtistas   = $this->homeDAO->getArtistasRecemAdicionados();
+		$outrasCategorias = $this->noticiasDAO->getTotalCategoria();
+
+		$this->render('noticias/categoria', [
+			'categoria'        => $categoria,
+			'noticiaDestaque'  => $noticiaDestaque,
+			'noticias'         => $noticias,
+			'pagina'           => $pagina,
+			'totalPaginas'     => $totalPaginas,
+			'totalNoticias'    => $totalNoticias,
+			'tagsPopulares'    => $tagsPopulares,
+			'maisLidas'        => $maisLidas,
+			'novosArtistas'    => $novosArtistas,
+			'outrasCategorias' => $outrasCategorias,
+			'seoTitulo'        => htmlspecialchars($categoria['categoria_noticias']) . ' — Notícias LEA Angola',
+			'seoDescricao'     => 'As últimas notícias sobre ' . htmlspecialchars($categoria['categoria_noticias']) . ' em Angola.',
+			'seoCanonical'     => 'https://lea.co.ao/noticias/categoria/' . $slug,
+			'ogType'           => 'website',
+			'cssExtra'         => [
+				'/assets/css/paginas/noticias.css',
+				'/assets/css/paginas/noticias-categoria.css'
+			],
+			'seoKeywords'  => htmlspecialchars($categoria['categoria_noticias']) . ', notícias angola, cultura angola, lea angola',
+			'seoImagem'    => 'https://lea.co.ao/assets/img/og-default.jpg',
+			'jsonLd'       => json_encode([
+				'@context'    => 'https://schema.org',
+				'@type'       => 'CollectionPage',
+				'name'        => $categoria['categoria_noticias'] . ' — LEA Angola',
+				'description' => 'As últimas notícias sobre ' . $categoria['categoria_noticias'] . ' em Angola.',
+				'url'         => 'https://lea.co.ao/noticias/categoria/' . $slug,
+				'publisher'   => [
+					'@type' => 'Organization',
+					'name'  => 'LEA — Plataforma Angolana de Artes',
+					'logo'  => ['@type' => 'ImageObject', 'url' => 'https://lea.co.ao/assets/img/logo.png']
+				],
+			], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+		]);
+	}
+	
+	public function tag(): void 
+	{
+		$tag = str_replace('-', ' ', $_GET['tag'] ?? '');
+
+		if (empty($tag)) {
+			$this->redirect('/noticias');
+			return;
+		}
+
+		$pagina    = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+		$porPagina = 10;
+
+		$totalNoticias = $this->noticiasDAO->getTotalNoticiasPorTag($tag);
+		$totalPaginas  = max(1, ceil($totalNoticias / $porPagina));
+		$noticias      = $this->noticiasDAO->getNoticiasPorTag($tag, $pagina, $porPagina);
+		$maisLidas     = $this->noticiasDAO->getNoticiasMaisLidas();
+		$novosArtistas = $this->homeDAO->getArtistasRecemAdicionados();
+		$totalNoticias = $this->noticiasDAO->getTotalNoticiasPorTag($tag);		
+
+		$this->render('noticias/tag', [
+			'tag'           => $tag,
+			'noticias'      => $noticias,
+			'pagina'        => $pagina,
+			'totalPaginas'  => $totalPaginas,
+			'totalNoticias' => $totalNoticias,
+			'maisLidas'     => $maisLidas,
+			'novosArtistas' => $novosArtistas,
+			'seoTitulo'     => '#' . $tag . ' — Notícias LEA Angola',
+			'seoDescricao'  => 'Todas as notícias sobre ' . $tag . ' na LEA Angola.',
+			'seoCanonical'  => 'https://lea.co.ao/noticias/tag/' . urlencode($tag),
+			'ogType'        => 'website',
+			'cssExtra'      => [
+				'/assets/css/paginas/noticias.css',
+				'/assets/css/paginas/noticias-categoria.css'
+			],
+			'seoKeywords'  => $tag . ', notícias angola, lea angola',
+			'seoImagem'    => 'https://lea.co.ao/assets/img/og-default.jpg',
+			'jsonLd'       => json_encode([
+				'@context'    => 'https://schema.org',
+				'@type'       => 'CollectionPage',
+				'name'        => '#' . $tag . ' — LEA Angola',
+				'description' => 'Todas as notícias sobre ' . $tag . ' na LEA Angola.',
+				'url'         => 'https://lea.co.ao/noticias/tag/' . urlencode($tag),
+				'publisher'   => [
+					'@type' => 'Organization',
+					'name'  => 'LEA — Plataforma Angolana de Artes',
+					'logo'  => ['@type' => 'ImageObject', 'url' => 'https://lea.co.ao/assets/img/logo.png']
+				],
+			], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+		]);
+	}
 }
