@@ -1,0 +1,92 @@
+/* ============================================================
+   CSS EXCLUSIVO DA PÁGINA DE ARTES — INÍCIO
+   Mover para: assets/css/paginas/artes.css
+   ============================================================ */
+
+/* HERO DA PÁGINA */
+        .page-hero {
+            background: linear-gradient(135deg, var(--lea-blue-dark) 0%, var(--lea-purple) 100%);
+            padding: 48px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .page-hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+        .page-hero h1 { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+        .page-hero p { font-size: 14px; color: rgba(255,255,255,0.75); max-width: 560px; line-height: 1.7; }
+        .hero-stat { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 20px; text-align: center; }
+        .hero-stat-num { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 700; color: #fff; }
+        .hero-stat-lbl { font-size: 11px; color: rgba(255,255,255,0.6); }
+
+        /* FILTROS */
+        .filter-bar { background: var(--lea-white); border-bottom: 1px solid var(--lea-border); padding: 12px 0; position: sticky; top: 0; z-index: 50; }
+        .filter-btn { font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 99px; border: 1px solid var(--lea-border); background: var(--lea-surface); color: var(--lea-muted); cursor: pointer; transition: all .15s; white-space: nowrap; }
+        .filter-btn:hover, .filter-btn.active { background: var(--lea-blue); color: #fff; border-color: var(--lea-blue); }
+
+        /* CARDS DE CATEGORIA */
+        .cat-section { padding: 32px 0; }
+        .cat-card { background: var(--lea-white); border: 1px solid var(--lea-border); border-radius: 16px; overflow: hidden; transition: box-shadow .2s, transform .2s; }
+        .cat-card:hover { box-shadow: 0 8px 32px rgba(37,99,176,0.12); transform: translateY(-2px); }
+        .cat-card-header { height: 140px; display: flex; align-items: flex-end; padding: 16px; position: relative; overflow: hidden; }
+        .cat-card-header-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%); }
+        .cat-card-number { position: absolute; top: 12px; right: 14px; font-family: 'Sora', sans-serif; font-size: 48px; font-weight: 700; color: rgba(255,255,255,0.15); line-height: 1; }
+        .cat-card-icon { position: relative; z-index: 1; width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; margin-right: 10px; flex-shrink: 0; }
+        .cat-card-title { position: relative; z-index: 1; }
+        .cat-card-title h3 { font-size: 16px; font-weight: 600; color: #fff; margin: 0; }
+        .cat-card-title span { font-size: 11px; color: rgba(255,255,255,0.7); }
+        .cat-card-body { padding: 16px; }
+        .cat-card-desc { font-size: 13px; color: var(--lea-muted); line-height: 1.65; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .cat-artists-preview { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; }
+        .cat-artist-thumb { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--lea-white); object-fit: cover; object-position: top; margin-left: -8px; }
+        .cat-artist-thumb:first-child { margin-left: 0; }
+        .cat-artist-count { font-size: 11px; color: var(--lea-muted); margin-left: 4px; }
+        .cat-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--lea-border); }
+        .cat-badge { display: inline-block; font-size: 9px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+        .btn-cat { font-size: 12px; font-weight: 500; color: var(--lea-blue); text-decoration: none; display: flex; align-items: center; gap: 4px; }
+        .btn-cat:hover { text-decoration: underline; }
+
+        /* SECÇÃO O QUE É A ARTE */
+        .arte-section { background: var(--lea-white); border-top: 1px solid var(--lea-border); border-bottom: 1px solid var(--lea-border); padding: 40px 0; }
+        .arte-section h2 { font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+        .arte-section p { font-size: 13px; color: var(--lea-muted); line-height: 1.8; }
+
+        /* CORES POR CATEGORIA */
+        .color-musica    { background: linear-gradient(135deg, #2563B0, #3B7DD8); }
+        .color-danca     { background: linear-gradient(135deg, #1D9E75, #2DC88F); }
+        .color-pintura   { background: linear-gradient(135deg, #C07A1A, #E89A3A); }
+        .color-escultura { background: linear-gradient(135deg, #534AB7, #7A6FD4); }
+        .color-teatro    { background: linear-gradient(135deg, #1A4A8A, #2563B0); }
+        .color-literatura{ background: linear-gradient(135deg, #0F766E, #1D9E75); }
+        .color-cinema    { background: linear-gradient(135deg, #7C3AED, #534AB7); }
+        .color-fotografia{ background: linear-gradient(135deg, #B45309, #C07A1A); }
+        .color-quadrinhos{ background: linear-gradient(135deg, #BE185D, #DB2777); }
+        .color-jogos     { background: linear-gradient(135deg, #0369A1, #2563B0); }
+        .color-digital   { background: linear-gradient(135deg, #065F46, #1D9E75); }
+		
+		#modalHeader{
+			border-radius: 6px 6px 0 0;
+			overflow: hidden;
+		}
+		
+		/* Desktop */
+		@media (min-width: 992px) {
+			.filter-bar {
+				top: 53px;
+			}
+		}
+
+		/* Mobile */
+		@media (max-width: 991px) {
+			.filter-bar {
+				top: 51px;
+			}
+		}
+
+/* ============================================================
+   CSS EXCLUSIVO DA PÁGINA DE ARTES — FIM
+   ============================================================ */

@@ -34,12 +34,6 @@ class NoticiasController extends Controller
 		
 		$totalCategoria = $this->noticiasDAO->getTotalCategoria();
 		
-		//$paginaEntrevistas = isset($_GET['pag_e']) ? (int)$_GET['pag_e'] : 1;
-		//$porPagina = 3;
-		//$totalEntrevistas = $this->noticiasDAO->getTotalEntrevistas();
-		//$totalPaginasEntrevistas = ceil($totalEntrevistas / $porPagina);
-		//$getEntrevistas = $this->noticiasDAO->getEntrevistas($ultimaNoticia['id_noticias'], $paginaEntrevistas, $porPagina);
-		
         $this->render('noticias/noticias', [
 			'ultimaNoticia' => $ultimaNoticia,
 			'ultimasNoticias' => $ultimasNoticias,
@@ -56,10 +50,6 @@ class NoticiasController extends Controller
 			'artistasRecemAdicionados' => $getArtistasRecemAdicionados,
 			
 			'totalCategoria' => $totalCategoria,
-			
-			//'getEntrevistas'           => $getEntrevistas,
-			//'paginaEntrevistas'        => $paginaEntrevistas,
-			//'totalPaginasEntrevistas'  => $totalPaginasEntrevistas,
 			
 			'seoTitulo'    => 'Notícias — LEA Angola',
 			'seoDescricao' => 'As últimas notícias sobre cultura, arte, música, desporto, política e economia de Angola. Fique sempre informado com a LEA.',
