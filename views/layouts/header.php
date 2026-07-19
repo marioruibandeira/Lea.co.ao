@@ -125,7 +125,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navMenu">
             <ul class="navbar-nav me-auto mb-0">
-                <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/arte/arte_.php">Artes</a></li>
+                <li class="nav-item"><a class="nav-link" href="/artes/">Artes</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/artistas/">Artistas</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/discografia.php?dsco=1">Músicas</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/videos.php?clipes=true">Vídeos</a></li>

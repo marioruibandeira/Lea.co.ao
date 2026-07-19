@@ -32,6 +32,14 @@ class Router{
             case '/':
                 $this->load('HomeController', 'index');
                 break;
+			
+			case '/artes':
+                $this->load('ArtesController', 'artes');
+                break;
+				
+			case '/artes/categoria':
+				$this->load('ArtesController', 'categoria');
+				break;
 				
 			case '/loja/certificacao':
 				$this->load('LojaController', 'certificacao');
