@@ -1,0 +1,2833 @@
+    /* =============================================
+       TOKENS
+       ============================================= */
+    :root {
+      --blue-dark:   #1A4A8A;
+      --blue-light:  #E8F0FB;
+      --blue-mid:    #3B7DD8;
+      --teal:        #1D9E75;
+      --purple:      #534AB7;
+      --amber:       #C07A1A;
+      --red:         #DC2626;
+      --surface:     #f5f7fb;
+      --border:      rgba(37,99,176,0.12);
+      --text:        #111827;
+      --muted:       #6B7280;
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --radius-lg:   16px;
+    }
+
+    /* =============================================
+       BUTTONS
+       ============================================= */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--lea-blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 18px;
+      transition: background .15s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--blue-dark); color: #fff; }
+	
+	.btn-aom-primary { background: #fff; color: var(--lea-blue); border: none; border-radius: 8px; font-size: 12px; font-weight: 600; padding: 8px 16px; cursor: pointer; transition: opacity .15s; white-space: nowrap; }
+    .btn-aom-primary:hover { opacity: .88; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 16px;
+      transition: background .15s;
+      white-space: nowrap;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.22); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--lea-blue);
+      border: 1px solid var(--lea-blue);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 14px;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .btn-outline:hover { background: var(--lea-blue); color: #fff; }
+
+    .btn-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--lea-blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      transition: background .15s;
+      white-space: nowrap;
+    }
+    .btn-sm:hover { background: var(--blue-dark); color: #fff; }
+
+    .btn-icon-round {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all .15s;
+      flex-shrink: 0;
+    }
+    .btn-icon-round:hover { background: var(--blue-light); color: var(--lea-blue); border-color: var(--lea-blue); }
+
+    /* =============================================
+       TOPBAR MOBILE
+       ============================================= */
+    .mobile-topbar {
+      display: none;
+      background: var(--lea-white);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .mobile-topbar img { height: 28px; }
+    .mobile-topbar-icons { display: flex; gap: 16px; font-size: 20px; color: var(--muted); }
+
+    /* =============================================
+       ARTIST COVER
+       ============================================= */
+    .artist-cover {
+      position: relative;
+      height: 300px;
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--lea-blue) 60%, var(--blue-mid) 100%);
+      overflow: hidden;
+    }
+    .artist-cover-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: brightness(0.55);
+    }
+    .artist-cover-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
+    }
+    .artist-cover-body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 28px;
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+    }
+    .artist-avatar-cover {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.45);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--lea-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .artist-avatar-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .artist-cover-info { flex: 1; min-width: 0; }
+    .artist-cover-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .badge-cat {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 99px;
+      backdrop-filter: blur(4px);
+    }
+    .badge-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      background: var(--lea-blue);
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+    .artist-name-cover {
+      font-family: 'Sora', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .artist-meta-cover {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .artist-meta-cover span {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		font-size: 12px;
+		color: rgba(255,255,255,0.75);
+    }
+    .artist-meta-cover i { font-size: 14px; color: rgba(255,255,255,0.5); }
+    .artist-cover-actions {
+		display: flex;
+		gap: 10px;
+		flex-shrink: 0;
+		align-self: flex-end;
+		padding-bottom: 6px;
+    }
+
+    /* =============================================
+       STATS BAR
+       ============================================= */
+    .stats-bar {
+		background: var(--lea-white);
+		border-bottom: 1px solid var(--border);
+		display: flex;
+		align-items: stretch;
+    }
+    .stat-bar-item {
+      flex: 1;
+      padding: 14px 12px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-bar-item:last-child { border-right: none; }
+    .stat-bar-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-bar-num span { color: var(--lea-blue); }
+    .stat-bar-lbl {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 3px;
+      white-space: nowrap;
+    }
+
+    /* Mobile follow bar */
+    .mobile-follow-bar {
+      display: none;
+      background: var(--lea-white);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      gap: 10px;
+      align-items: center;
+    }
+    .mobile-follow-bar .btn-primary { flex: 1; justify-content: center; }
+
+    /* =============================================
+       PROFILE TABS
+       ============================================= */
+    .profile-tabs {
+		background: var(--lea-white);
+		border-bottom: 1px solid var(--border);
+		display: flex;
+		align-items: center;
+		padding: 0 20px;
+		overflow-x: auto;
+		position: sticky;
+		top: 53px;
+		z-index: 80;
+		gap: 0;
+    }
+    .profile-tabs::-webkit-scrollbar { height: 0; }
+    .profile-tab {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 13px;
+		font-weight: 500;
+		color: var(--muted);
+		padding: 14px 16px;
+		border-bottom: 2px solid transparent;
+		white-space: nowrap;
+		transition: all .15s;
+		flex-shrink: 0;
+		text-decoration:none !important;
+    }
+    .profile-tab:hover { color: var(--text); cursor: pointer; }
+    .profile-tab.active { color: var(--lea-blue); border-bottom-color: var(--lea-blue); }
+    .profile-tab i { font-size: 15px; }
+
+    /* =============================================
+       LAYOUT
+       ============================================= */
+    .profile-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+    .profile-main { min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+    .profile-sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+    /* =============================================
+       SECTION HEADER
+       ============================================= */
+    .sec-hdr {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .sec-hdr h2 { font-size: 15px; font-weight: 700; color: var(--text); }
+    .sec-more { font-size: 12px; color: var(--lea-blue); }
+    .sec-more:hover { text-decoration: underline; }
+
+    /* =============================================
+       CARD BASE
+       ============================================= */
+    .card {
+      background: var(--lea-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .card-pad { padding: 20px; margin-bottom: 20px;}
+
+    /* =============================================
+       BIO
+       ============================================= */
+    .bio-text {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .bio-text + .bio-text { margin-top: 12px; }
+    .bio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 16px;
+    }
+    .bio-tag {
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--blue-light);
+      color: var(--lea-blue);
+      padding: 4px 12px;
+      border-radius: 99px;
+    }
+
+    /* =============================================
+       TRACK LIST
+       ============================================= */
+    .track-list { background: var(--lea-white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .track-list-header {
+      display: grid;
+      grid-template-columns: 36px 1fr 90px 64px 76px;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .track-row {
+      display: grid;
+      grid-template-columns: 36px 1fr 90px 64px 76px;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 16px;
+      border-bottom: 1px solid var(--border);
+      transition: background .12s;
+      position: relative;
+    }
+    .track-row:last-child { border-bottom: none; }
+    .track-row:hover { background: var(--surface); }
+    .track-row:hover .tr-num { opacity: 0; }
+    .track-row:hover .tr-play { opacity: 1; }
+
+    .tr-num {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      transition: opacity .12s;
+    }
+    .tr-play {
+      position: absolute;
+      left: 12px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--lea-blue);
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity .12s;
+    }
+
+    .tr-info { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .tr-thumb {
+      width: 38px;
+      height: 38px;
+      border-radius: 7px;
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .tr-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .tr-name { font-size: 13px; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tr-sub  { font-size: 11px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .tr-genre {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      background: var(--blue-light);
+      color: var(--lea-blue);
+      padding: 3px 9px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+    .tr-dur { font-size: 12px; color: var(--muted); }
+    .tr-actions { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+    .tr-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .12s;
+    }
+    .tr-btn:hover { background: var(--blue-light); color: var(--lea-blue); border-color: var(--lea-blue); }
+
+    /* =============================================
+       ALBUMS GRID
+       ============================================= */
+    .albums-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+      gap: 16px;
+    }
+    .album-card {
+      background: var(--lea-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .album-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(37,99,176,0.10); }
+    .album-cover {
+      width: 100%;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .album-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .album-play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .album-card:hover .album-play-overlay { opacity: 1; }
+    .album-play-overlay i { font-size: 28px; color: #fff; }
+    .album-body { padding: 12px; }
+    .album-title { font-size: 13px; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 2px; }
+    .album-meta  { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+    .album-buy-btn {
+      display: block;
+      width: 100%;
+      background: var(--blue-light);
+      color: var(--lea-blue);
+      border: none;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px;
+      text-align: center;
+      transition: all .12s;
+    }
+    .album-buy-btn:hover { background: var(--lea-blue); color: #fff; }
+
+    /* =============================================
+       VIDEOS GRID
+       ============================================= */
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .video-card {
+      background: var(--lea-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform .2s;
+    }
+    .video-card:hover { transform: translateY(-3px); }
+    .vc-thumb {
+      height: 120px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vc-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+    .video-card:hover .vc-thumb img { transform: scale(1.05); }
+    .vc-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 30px; color: rgba(255,255,255,0.3); }
+    .vc-play-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .2s; }
+    .vc-play-overlay i { font-size: 30px; color: #fff; }
+    .video-card:hover .vc-play-overlay { opacity: 1; }
+    .vc-duration { position: absolute; bottom: 7px; right: 7px; font-size: 10px; font-weight: 600; background: rgba(0,0,0,0.7); color: #fff; padding: 2px 6px; border-radius: 4px; }
+    .vc-cat-badge { position: absolute; top: 7px; left: 7px; font-size: 9px; font-weight: 700; text-transform: uppercase; background: var(--lea-blue); color: #fff; padding: 2px 7px; border-radius: 99px; }
+    .vc-body { padding: 10px 12px; }
+    .vc-title { font-size: 12px; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 2px; }
+    .vc-date  { font-size: 10px; color: var(--muted); }
+
+    /* =============================================
+       GALLERY
+       ============================================= */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 8px;
+    }
+    .gallery-item {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; display: block; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gi-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 28px; color: rgba(255,255,255,0.3); }
+    .gi-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); opacity: 0; transition: opacity .2s; display: flex; align-items: center; justify-content: center; }
+    .gi-overlay i { font-size: 22px; color: #fff; }
+    .gallery-item:hover .gi-overlay { opacity: 1; }
+    .gallery-more .gi-overlay { opacity: 1 !important; background: rgba(0,0,0,0.55); }
+    .gallery-more .gi-overlay span { font-size: 16px; font-weight: 700; color: #fff; }
+
+    /* =============================================
+       EVENTS
+       ============================================= */
+    .events-list { display: flex; flex-direction: column; gap: 12px; }
+    .event-item {
+      background: var(--lea-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      transition: border-color .15s;
+    }
+    .event-item:hover { border-color: var(--lea-blue); }
+    .event-date-col {
+      width: 68px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 8px;
+      gap: 2px;
+    }
+    .event-day   { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 700; color: #fff; line-height: 1; }
+    .event-month { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: rgba(255,255,255,0.75); }
+    .event-body  { flex: 1; padding: 14px 16px; border-left: 1px solid var(--border); }
+    .event-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    .event-meta  { display: flex; flex-wrap: wrap; gap: 10px; font-size: 11px; color: var(--muted); }
+    .event-meta i { font-size: 12px; color: var(--lea-blue); }
+    .event-action { padding: 14px 16px; border-left: 1px solid var(--border); display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 8px; min-width: 110px; }
+    .event-price { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); }
+    .event-price small { font-size: 10px; font-weight: 400; color: var(--muted); }
+
+    /* =============================================
+       AD ELEMENTS
+       ============================================= */
+    .ad-pill { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: #bbb; border: 1px solid #ddd; border-radius: 4px; padding: 2px 6px; }
+    .ann { font-size: 10px; color: var(--lea-blue); display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
+    .ad-placeholder {
+      background: var(--surface);
+      border: 1px dashed #ccd9ef;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      gap: 4px;
+    }
+    .ad-placeholder .ad-size { font-size: 13px; font-weight: 600; color: #c0cfe8; }
+    .ad-placeholder .ad-type { font-size: 10px; color: #c0cfe8; }
+
+    .ad-strip {
+      background: var(--lea-white);
+      border: 1px dashed #ccd9ef;
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+	  margin-bottom: 20px;
+    }
+    .ad-strip-thumb { width: 52px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .ad-strip-copy { flex: 1; }
+    .ad-strip-copy strong { font-size: 13px; font-weight: 500; color: var(--text); display: block; }
+    .ad-strip-copy small { font-size: 11px; color: var(--muted); }
+
+    /* =============================================
+       SIDEBAR CARDS
+       ============================================= */
+    .sidebar-card {
+      background: var(--lea-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .sidebar-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-card-header h3 { font-size: 13px; font-weight: 700; color: var(--text); }
+    .sidebar-card-header i { font-size: 16px; color: var(--lea-blue); }
+
+    .related-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      transition: background .12s;
+    }
+    .related-item:last-child { border-bottom: none; }
+    .related-item:hover { background: var(--surface); }
+    .rel-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .rel-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .rel-info { flex: 1; min-width: 0; }
+    .rel-name { font-size: 12px; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .rel-type { font-size: 10px; color: var(--muted); }
+    .rel-follow-btn {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--lea-blue);
+      background: var(--blue-light);
+      border: none;
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+      transition: all .12s;
+      flex-shrink: 0;
+    }
+    .rel-follow-btn:hover { background: var(--lea-blue); color: #fff; }
+
+    /* Próximo evento sidebar */
+    .sidebar-event { padding: 14px; }
+    .sidebar-event-label { font-size: 10px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--lea-blue); margin-bottom: 5px; }
+    .sidebar-event-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .sidebar-event-loc { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+    .sidebar-buy-btn {
+      display: block;
+      width: 100%;
+      background: var(--lea-blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px;
+      text-align: center;
+      transition: background .15s;
+    }
+    .sidebar-buy-btn:hover { background: var(--blue-dark); color: #fff; }
+
+    /* Ad nativo sidebar */
+    .sidebar-ad { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; background: var(--surface); }
+    .sidebar-ad-img { height: 68px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #fff; }
+    .sidebar-ad-body { padding: 10px 12px; }
+    .sidebar-ad-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .sidebar-ad-link { font-size: 11px; color: var(--lea-blue); }
+    .sidebar-ad-link:hover { text-decoration: underline; }
+
+    /* =============================================
+       BOTTOM NAV MOBILE
+       ============================================= */
+    .bottom-nav {
+      display: none;
+      background: var(--lea-white);
+      border-top: 1px solid var(--border);
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 62px;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 200;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+    .bnav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 22px;
+      color: var(--muted);
+      flex: 1;
+      justify-content: center;
+      background: none;
+      border: none;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0;
+    }
+    .bnav-btn.active, .bnav-btn:hover { color: var(--lea-blue); }
+    .bnav-lbl { font-size: 9px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+	
+	/* =============================================
+   LETRAS DE MÚSICAS
+   Usa os tokens de cor já definidos globalmente:
+   --lea-white, --lea-blue, --blue-light, --border,
+   --text, --muted, --radius-md, --radius-lg
+   ============================================= */
+
+	.lyrics-section { margin-bottom: 20px; }
+
+	.lyrics-list {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 10px;
+	}
+
+	.lyric-item {
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  overflow: hidden;
+	  transition: border-color .15s;
+	}
+	.lyric-item.open { border-color: var(--lea-blue); }
+
+	/* Cabeçalho clicável */
+	.lyric-head {
+	  width: 100%;
+	  display: flex;
+	  align-items: center;
+	  gap: 12px;
+	  padding: 12px 14px;
+	  background: transparent;
+	  border: none;
+	  text-align: left;
+	  transition: background .12s;
+	}
+	.lyric-head:hover { background: var(--surface); }
+
+	.lyric-thumb {
+	  width: 40px;
+	  height: 40px;
+	  border-radius: 8px;
+	  flex-shrink: 0;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  font-family: 'Sora', sans-serif;
+	  font-size: 12px;
+	  font-weight: 700;
+	  color: #fff;
+	}
+
+	.lyric-headinfo { flex: 1; min-width: 0; }
+	.lyric-name {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+	.lyric-sub {
+	  font-size: 11px;
+	  color: var(--muted);
+	  margin-top: 1px;
+	}
+
+	.lyric-chevron {
+	  font-size: 16px;
+	  color: var(--muted);
+	  flex-shrink: 0;
+	  transition: transform .2s;
+	}
+	.lyric-item.open .lyric-chevron { transform: rotate(180deg); color: var(--lea-blue); }
+
+	/* Corpo expansível (a letra) */
+	.lyric-body {
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height .3s ease;
+		border-top: 1px solid transparent;
+	}
+	.lyric-item.open .lyric-body {
+		max-height: 3000px; /* alto o suficiente para qualquer letra + os botões de ação */
+		border-top: 1px solid var(--border);
+	}
+
+	.lyric-text {
+	  font-size: 13px;
+	  color: var(--text);
+	  line-height: 1.9;
+	  padding: 16px 18px 4px;
+	  border-left: 3px solid var(--blue-light);
+	  margin: 12px 14px 0;
+	}
+
+	.lyric-actions {
+	  display: flex;
+	  gap: 8px;
+	  padding: 12px 18px 16px;
+	}
+	.lyric-btn {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 5px;
+	  font-size: 11px;
+	  font-weight: 600;
+	  color: var(--lea-blue);
+	  background: var(--blue-light);
+	  border: none;
+	  border-radius: 6px;
+	  padding: 6px 12px;
+	  transition: all .12s;
+	}
+	.lyric-btn:hover { background: var(--lea-blue); color: #fff; }
+	.lyric-btn i { font-size: 13px; }
+	
+	/* =============================================
+	   FILMES
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --radius-md, --radius-lg
+	   ============================================= */
+
+	.films-section { margin-bottom: 20px; }
+
+	.film-grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+	  gap: 16px;
+	}
+
+	.film-card {
+	  display: block;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  overflow: hidden;
+	  transition: transform .2s, box-shadow .2s;
+	}
+	.film-card:hover {
+	  transform: translateY(-3px);
+	  box-shadow: 0 8px 20px rgba(37,99,176,0.10);
+	}
+
+	/* Cartaz (proporção 2:3, típica de cartazes de cinema) */
+	.film-poster {
+	  position: relative;
+	  aspect-ratio: 2 / 3;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  color: rgba(255,255,255,0.55);
+	  font-size: 32px;
+	}
+
+	/* Badge com o papel do artista neste filme */
+	.film-role-badge {
+	  position: absolute;
+	  bottom: 8px;
+	  left: 8px;
+	  right: 8px;
+	  font-size: 10px;
+	  font-weight: 700;
+	  color: #fff;
+	  background: rgba(0,0,0,0.55);
+	  backdrop-filter: blur(3px);
+	  padding: 4px 8px;
+	  border-radius: 6px;
+	  text-align: center;
+	  white-space: nowrap;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	}
+
+	.film-body { padding: 10px 12px; }
+	.film-title {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	  margin-bottom: 3px;
+	}
+	.film-meta {
+	  font-size: 11px;
+	  color: var(--muted);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	.profile-tabs-wrapper {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    overflow: hidden;
+}
+
+.profile-tabs {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    white-space: nowrap;
+}
+
+.profile-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.profile-tab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.tabs-nav {
+    display: none;
+    flex: 0 0 40px;
+    border: 0;
+    background: #fff;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.tabs-nav i {
+    font-size: 20px;
+}
+
+.tabs-nav:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+
+
+
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 991px) {
+	  .film-grid { grid-template-columns: repeat(3, 1fr); }
+	}
+	@media (max-width: 480px) {
+	  .film-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+	
+	/* =============================================
+	   NOVELAS
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --radius-md, --radius-lg
+	   ============================================= */
+
+	.novelas-section { margin-bottom: 20px; }
+
+	.novela-list {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 12px;
+	}
+
+	.novela-card {
+	  display: flex;
+	  align-items: stretch;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  overflow: hidden;
+	  transition: border-color .15s, transform .15s;
+	}
+	.novela-card:hover {
+	  border-color: var(--lea-blue);
+	  transform: translateY(-2px);
+	}
+
+	/* Miniatura em formato TV (16:9) em vez de cartaz vertical */
+	.novela-thumb {
+	  width: 130px;
+	  aspect-ratio: 16 / 9;
+	  flex-shrink: 0;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  color: rgba(255,255,255,0.55);
+	  font-size: 26px;
+	}
+
+	.novela-body {
+	  flex: 1;
+	  min-width: 0;
+	  padding: 12px 16px;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  gap: 6px;
+	}
+
+	.novela-title {
+	  font-size: 14px;
+	  font-weight: 600;
+	  color: var(--text);
+	}
+
+	.novela-role {
+	  align-self: flex-start;
+	  font-size: 10px;
+	  font-weight: 700;
+	  color: var(--purple);
+	  background: rgba(83,74,183,0.1);
+	  padding: 3px 10px;
+	  border-radius: 99px;
+	}
+
+	.novela-meta {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 12px;
+	  margin-top: 2px;
+	}
+	.novela-meta span {
+	  display: flex;
+	  align-items: center;
+	  gap: 4px;
+	  font-size: 11px;
+	  color: var(--muted);
+	}
+	.novela-meta i { font-size: 13px; color: var(--lea-blue); }
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 480px) {
+	  .novela-thumb { width: 96px; }
+	  .novela-meta { gap: 8px; }
+	}
+	
+	/* =============================================
+	   SÉRIES
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --purple, --radius-md, --radius-lg
+	   ============================================= */
+
+	.series-section { margin-bottom: 20px; }
+
+	.series-grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	  gap: 16px;
+	}
+
+	.series-card {
+	  display: block;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  overflow: hidden;
+	  transition: transform .2s, box-shadow .2s;
+	}
+	.series-card:hover {
+	  transform: translateY(-3px);
+	  box-shadow: 0 8px 20px rgba(37,99,176,0.10);
+	}
+
+	/* Thumbnail em formato TV (16:9) — cada card é uma série completa,
+	   não um episódio, por isso mostra nº de temporadas, não duração */
+	.series-thumb {
+	  position: relative;
+	  aspect-ratio: 16 / 9;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  color: rgba(255,255,255,0.55);
+	  font-size: 28px;
+	}
+
+	.series-season-badge {
+	  position: absolute;
+	  top: 8px;
+	  left: 8px;
+	  font-size: 10px;
+	  font-weight: 700;
+	  color: #fff;
+	  background: rgba(0,0,0,0.55);
+	  backdrop-filter: blur(3px);
+	  padding: 4px 9px;
+	  border-radius: 99px;
+	}
+
+	.series-body {
+	  padding: 12px 14px;
+	  display: flex;
+	  flex-direction: column;
+	  gap: 6px;
+	}
+
+	.series-title {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+
+	.series-role {
+	  align-self: flex-start;
+	  font-size: 10px;
+	  font-weight: 700;
+	  color: var(--purple);
+	  background: rgba(83,74,183,0.1);
+	  padding: 3px 10px;
+	  border-radius: 99px;
+	}
+
+	.series-meta {
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  margin-top: 2px;
+	  font-size: 11px;
+	  color: var(--muted);
+	}
+
+	/* Plataforma/canal — destaca-se com ícone e cor própria */
+	.series-platform {
+	  display: flex;
+	  align-items: center;
+	  gap: 4px;
+	  font-weight: 600;
+	  color: var(--lea-blue);
+	}
+	.series-platform i { font-size: 14px; }
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 991px) {
+	  .series-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+	@media (max-width: 480px) {
+	  .series-grid { grid-template-columns: 1fr; }
+	}
+	
+	/* =============================================
+	   DOCUMENTÁRIOS
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --teal, --radius-md, --radius-lg
+	   ============================================= */
+
+	.docs-section { margin-bottom: 20px; }
+
+	.doc-grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	  gap: 16px;
+	}
+
+	.doc-card {
+	  display: block;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  overflow: hidden;
+	  transition: transform .2s, box-shadow .2s;
+	}
+	.doc-card:hover {
+	  transform: translateY(-3px);
+	  box-shadow: 0 8px 20px rgba(37,99,176,0.10);
+	}
+
+	/* Cartaz vertical, como filme — documentário é obra única */
+	.doc-poster {
+	  position: relative;
+	  aspect-ratio: 2 / 3;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  color: rgba(255,255,255,0.55);
+	  font-size: 30px;
+	}
+
+	.doc-role-badge {
+	  position: absolute;
+	  bottom: 8px;
+	  left: 8px;
+	  right: 8px;
+	  font-size: 10px;
+	  font-weight: 700;
+	  color: #fff;
+	  background: rgba(0,0,0,0.55);
+	  backdrop-filter: blur(3px);
+	  padding: 4px 8px;
+	  border-radius: 6px;
+	  text-align: center;
+	}
+
+	.doc-body {
+	  padding: 12px 14px;
+	  display: flex;
+	  flex-direction: column;
+	  gap: 6px;
+	}
+
+	.doc-title {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+
+	/* Tema/assunto em vez de género — é assim que se navega em documentários */
+	.doc-theme {
+	  align-self: flex-start;
+	  font-size: 10px;
+	  font-weight: 700;
+	  color: var(--teal);
+	  background: rgba(29,158,117,0.1);
+	  padding: 3px 10px;
+	  border-radius: 99px;
+	}
+
+	.doc-meta {
+	  display: flex;
+	  gap: 12px;
+	  font-size: 11px;
+	  color: var(--muted);
+	}
+	.doc-meta span { display: flex; align-items: center; gap: 4px; }
+	.doc-meta i { font-size: 12px; color: var(--lea-blue); }
+
+	/* Onde assistir — informação chave para documentários (dispersos por vários canais) */
+	.doc-watch {
+	  display: flex;
+	  align-items: center;
+	  gap: 5px;
+	  font-size: 11px;
+	  color: var(--lea-blue);
+	  font-weight: 600;
+	  border-top: 1px solid var(--border);
+	  padding-top: 8px;
+	  margin-top: 2px;
+	}
+	.doc-watch i { font-size: 14px; }
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 991px) {
+	  .doc-grid { grid-template-columns: repeat(3, 1fr); }
+	}
+	@media (max-width: 480px) {
+	  .doc-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+	
+	/* =============================================
+	   PUBLICIDADES
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --amber, --radius-md, --radius-lg
+	   ============================================= */
+
+	.ads-section { margin-bottom: 20px; }
+
+	.ad-work-list {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 10px;
+	}
+
+	.ad-work-card {
+	  display: flex;
+	  align-items: center;
+	  gap: 14px;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  padding: 14px 16px;
+	  transition: border-color .15s, transform .15s;
+	}
+	.ad-work-card:hover {
+	  border-color: var(--lea-blue);
+	  transform: translateY(-2px);
+	}
+
+	/* Bloco da marca — protagonista aqui, ao contrário das outras secções */
+	.ad-work-brand {
+	  width: 48px;
+	  height: 48px;
+	  border-radius: var(--radius-sm);
+	  flex-shrink: 0;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  font-family: 'Sora', sans-serif;
+	  font-size: 14px;
+	  font-weight: 700;
+	  color: #fff;
+	}
+
+	.ad-work-info { flex: 1; min-width: 0; }
+
+	.ad-work-title {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  margin-bottom: 2px;
+	}
+
+	.ad-work-campaign {
+	  font-size: 11px;
+	  color: var(--muted);
+	  margin-bottom: 8px;
+	}
+
+	.ad-work-meta {
+	  display: flex;
+	  flex-wrap: wrap;
+	  align-items: center;
+	  gap: 10px;
+	}
+	.ad-work-meta span {
+	  display: flex;
+	  align-items: center;
+	  gap: 4px;
+	  font-size: 11px;
+	  color: var(--muted);
+	}
+	.ad-work-meta i { font-size: 13px; color: var(--lea-blue); }
+
+	/* Papel do artista na campanha — destaque tipo badge, cor âmbar
+	   para diferenciar visualmente das outras categorias (roxo/verde) */
+	.ad-work-role {
+	  font-size: 10px;
+	  font-weight: 700;
+	  color: var(--amber);
+	  background: rgba(192,122,26,0.12);
+	  padding: 3px 10px;
+	  border-radius: 99px;
+	}
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 480px) {
+	  .ad-work-card { flex-wrap: wrap; }
+	  .ad-work-meta { gap: 8px; }
+	}
+	
+	/* =============================================
+	   PARTICIPAÇÕES EM MÚSICAS
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --purple, --radius-md, --radius-lg
+	   ============================================= */
+
+	.credits-section { margin-bottom: 20px; }
+
+	.credit-list {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 8px;
+	}
+
+	.credit-row {
+	  display: flex;
+	  align-items: center;
+	  gap: 12px;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  padding: 10px 14px;
+	  transition: border-color .15s;
+	}
+	.credit-row:hover { border-color: var(--lea-blue); }
+
+	.credit-thumb {
+	  width: 42px;
+	  height: 42px;
+	  border-radius: 8px;
+	  flex-shrink: 0;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  font-family: 'Sora', sans-serif;
+	  font-size: 12px;
+	  font-weight: 700;
+	  color: #fff;
+	}
+
+	.credit-info {
+	  flex: 1;
+	  min-width: 0;
+	}
+	.credit-title {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+	/* O nome do artista principal da faixa é o dado mais importante aqui —
+	   é a obra dele, não do dono do perfil */
+	.credit-artist {
+	  font-size: 11px;
+	  color: var(--lea-blue);
+	  font-weight: 600;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+	.credit-year {
+	  color: var(--muted);
+	  font-weight: 400;
+	}
+
+	/* Pode haver mais do que uma função na mesma faixa (ex: produção + mistura) */
+	.credit-roles {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 5px;
+	  justify-content: flex-end;
+	  max-width: 220px;
+	}
+	.credit-role {
+	  font-size: 10px;
+	  font-weight: 700;
+	  color: var(--purple);
+	  background: rgba(83,74,183,0.1);
+	  padding: 4px 10px;
+	  border-radius: 99px;
+	  white-space: nowrap;
+	}
+
+	.credit-play {
+	  width: 32px;
+	  height: 32px;
+	  border-radius: 50%;
+	  background: var(--blue-light);
+	  color: var(--lea-blue);
+	  border: none;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  font-size: 13px;
+	  flex-shrink: 0;
+	  transition: all .12s;
+	}
+	.credit-play:hover { background: var(--lea-blue); color: #fff; }
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 640px) {
+	  .credit-row { flex-wrap: wrap; }
+	  .credit-roles { justify-content: flex-start; max-width: none; margin-left: 54px; }
+	  .credit-play { order: -1; margin-left: auto; }
+	}
+	
+	/* =============================================
+	   LIVROS
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --blue-light, --border,
+	   --text, --muted, --radius-md, --radius-lg
+	   ============================================= */
+
+	.books-section { margin-bottom: 20px; }
+
+	.book-grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+	  gap: 16px;
+	}
+
+	.book-card {
+	  display: block;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  overflow: hidden;
+	  transition: transform .2s, box-shadow .2s;
+	}
+	.book-card:hover {
+	  transform: translateY(-3px);
+	  box-shadow: 0 8px 20px rgba(37,99,176,0.10);
+	}
+
+	/* Capa em proporção de livro (mais estreita e alta que cartaz de filme) */
+	.book-cover {
+	  aspect-ratio: 3 / 4;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  color: rgba(255,255,255,0.6);
+	  font-size: 32px;
+	}
+
+	.book-body {
+	  padding: 12px;
+	  display: flex;
+	  flex-direction: column;
+	  gap: 4px;
+	}
+
+	.book-title {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+
+	/* Ano · Género · Páginas — metadados próprios de livro, não de música */
+	.book-meta {
+	  display: flex;
+	  gap: 4px;
+	  font-size: 10px;
+	  color: var(--muted);
+	  margin-bottom: 4px;
+	}
+
+	.book-price {
+	  font-family: 'Sora', sans-serif;
+	  font-size: 15px;
+	  font-weight: 700;
+	  color: var(--lea-blue);
+	  margin-bottom: 8px;
+	}
+
+	/* Botão de compra — mesma lógica de loja usada nos Álbuns */
+	.book-buy-btn {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  gap: 5px;
+	  width: 100%;
+	  background: var(--blue-light);
+	  color: var(--lea-blue);
+	  border: none;
+	  border-radius: 6px;
+	  font-size: 11px;
+	  font-weight: 600;
+	  padding: 7px;
+	  transition: all .12s;
+	}
+	.book-buy-btn i { font-size: 13px; }
+	.book-card:hover .book-buy-btn { background: var(--lea-blue); color: #fff; }
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 991px) {
+	  .book-grid { grid-template-columns: repeat(3, 1fr); }
+	}
+	@media (max-width: 480px) {
+	  .book-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+	
+	/* =============================================
+	   POEMAS
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --blue-light, --border,
+	   --text, --muted, --radius-md
+	   ============================================= */
+
+	.poems-section { margin-bottom: 20px; }
+
+	.poems-list {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 10px;
+	}
+
+	.poem-item {
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  overflow: hidden;
+	  transition: border-color .15s;
+	}
+	.poem-item.open { border-color: var(--lea-blue); }
+
+	.poem-head {
+	  width: 100%;
+	  display: flex;
+	  align-items: center;
+	  gap: 12px;
+	  padding: 12px 14px;
+	  background: transparent;
+	  border: none;
+	  text-align: left;
+	  transition: background .12s;
+	}
+	.poem-head:hover { background: var(--surface); }
+
+	/* Ícone de pena em vez de thumbnail — poema não tem capa/imagem própria */
+	.poem-icon {
+	  width: 40px;
+	  height: 40px;
+	  border-radius: 8px;
+	  flex-shrink: 0;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  background: var(--blue-light);
+	  color: var(--lea-blue);
+	  font-size: 17px;
+	}
+
+	.poem-headinfo { flex: 1; min-width: 0; }
+	.poem-name {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+	.poem-sub {
+	  font-size: 11px;
+	  color: var(--muted);
+	  margin-top: 1px;
+	}
+
+	/* Tempo de leitura em vez de duração de faixa */
+	.poem-readtime {
+	  font-size: 11px;
+	  color: var(--muted);
+	  flex-shrink: 0;
+	  white-space: nowrap;
+	}
+
+	.poem-chevron {
+	  font-size: 16px;
+	  color: var(--muted);
+	  flex-shrink: 0;
+	  transition: transform .2s;
+	}
+	.poem-item.open .poem-chevron { transform: rotate(180deg); color: var(--lea-blue); }
+
+	.poem-body {
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height .3s ease;
+		border-top: 1px solid transparent;
+	}
+	.poem-item.open .poem-body {
+		max-height: 3000px;
+		border-top: 1px solid var(--border);
+	}
+
+	.poem-text {
+	  font-size: 13px;
+	  color: var(--text);
+	  line-height: 1.9;
+	  font-style: italic;
+	  padding: 16px 18px 4px;
+	  border-left: 3px solid var(--blue-light);
+	  margin: 12px 14px 0;
+	}
+
+	.poem-actions {
+	  display: flex;
+	  gap: 8px;
+	  padding: 12px 18px 16px;
+	}
+	.poem-btn {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 5px;
+	  font-size: 11px;
+	  font-weight: 600;
+	  color: var(--lea-blue);
+	  background: var(--blue-light);
+	  border: none;
+	  border-radius: 6px;
+	  padding: 6px 12px;
+	  transition: all .12s;
+	}
+	.poem-btn:hover { background: var(--lea-blue); color: #fff; }
+	.poem-btn i { font-size: 13px; }
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 480px) {
+	  .poem-readtime { display: none; }
+	  .poem-actions { flex-direction: column; }
+	  .poem-btn { width: 100%; justify-content: center; }
+	}
+	
+	/* =============================================
+	   DIZERES (citações, pensamentos, frases)
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-blue, --blue-light, --text, --muted, --radius-md
+	   ============================================= */
+
+	.quotes-section { margin-bottom: 20px; }
+
+	.quotes-grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+	  gap: 14px;
+	}
+
+	/* Fundo suave em vez de card branco com borda — dá um tom mais
+	   "citável"/editorial, distinto das listas de obra (livros, filmes) */
+	.quote-card {
+	  background: var(--blue-light);
+	  border-radius: var(--radius-md);
+	  padding: 18px;
+	  display: flex;
+	  flex-direction: column;
+	  gap: 10px;
+	}
+
+	.quote-mark {
+	  font-size: 22px;
+	  color: var(--lea-blue);
+	  opacity: .45;
+	}
+
+	.quote-text {
+	  font-size: 13.5px;
+	  font-weight: 500;
+	  color: var(--text);
+	  line-height: 1.6;
+	  font-style: italic;
+	  flex: 1;
+	}
+
+	.quote-footer {
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  margin-top: 4px;
+	}
+
+	/* Tema — permite "navegar" dizeres por assunto, como estes costumam
+	   circular nas redes (frases de amor, motivação, etc.) */
+	.quote-tag {
+	  font-size: 10px;
+	  font-weight: 700;
+	  color: var(--lea-blue);
+	  background: rgba(255,255,255,0.6);
+	  padding: 3px 10px;
+	  border-radius: 99px;
+	}
+
+	.quote-actions { display: flex; gap: 4px; }
+	.quote-icon-btn {
+	  width: 26px;
+	  height: 26px;
+	  border-radius: 50%;
+	  background: rgba(255,255,255,0.6);
+	  border: none;
+	  color: var(--lea-blue);
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  font-size: 12px;
+	  transition: all .12s;
+	}
+	.quote-icon-btn:hover { background: var(--lea-blue); color: #fff; }
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 480px) {
+	  .quotes-grid { grid-template-columns: 1fr; }
+	}
+	
+	/* =============================================
+	   ARTIGOS (notícias e entrevistas em imprensa)
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --teal, --purple, --radius-md
+	   ============================================= */
+
+	.press-section { margin-bottom: 20px; }
+
+	.press-list {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 8px;
+	}
+
+	.press-row {
+	  display: flex;
+	  align-items: center;
+	  gap: 14px;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  padding: 12px 16px;
+	  transition: border-color .15s, transform .15s;
+	}
+	.press-row:hover { border-color: var(--lea-blue); transform: translateY(-1px); }
+
+	/* Distingue visualmente notícia (factual, verde) de entrevista
+	   (o artista fala diretamente, roxo) */
+	.press-type {
+	  flex-shrink: 0;
+	  font-size: 10px;
+	  font-weight: 700;
+	  padding: 4px 10px;
+	  border-radius: 99px;
+	  white-space: nowrap;
+	}
+	.press-type-noticia { color: var(--teal); background: rgba(29,158,117,0.1); }
+	.press-type-entrevista { color: var(--purple); background: rgba(83,74,183,0.1); }
+
+	.press-info { flex: 1; min-width: 0; }
+	.press-source {
+	  font-size: 10px;
+	  font-weight: 700;
+	  text-transform: uppercase;
+	  letter-spacing: .4px;
+	  color: var(--lea-blue);
+	  margin-bottom: 3px;
+	}
+	.press-title {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  line-height: 1.4;
+	  margin-bottom: 4px;
+	}
+	.press-date { font-size: 11px; color: var(--muted); }
+
+	/* Indica que o link sai do site — imprensa é sempre conteúdo externo */
+	.press-ext {
+	  flex-shrink: 0;
+	  font-size: 15px;
+	  color: var(--muted);
+	  transition: color .12s;
+	}
+	.press-row:hover .press-ext { color: var(--lea-blue); }
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 480px) {
+	  .press-row { align-items: flex-start; }
+	  .press-type { margin-top: 2px; }
+	}
+	
+	/* =============================================
+	   JOGOS ELETRÓNICOS
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --purple, --radius-md, --radius-lg
+	   ============================================= */
+
+	.games-section { margin-bottom: 20px; }
+
+	.game-grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	  gap: 16px;
+	}
+
+	.game-card {
+	  display: block;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  overflow: hidden;
+	  transition: transform .2s, box-shadow .2s;
+	}
+	.game-card:hover {
+	  transform: translateY(-3px);
+	  box-shadow: 0 8px 20px rgba(37,99,176,0.10);
+	}
+
+	/* Capa quadrada — padrão de ícone/artwork de jogo, não cartaz 2:3 */
+	.game-cover {
+	  aspect-ratio: 1;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  color: rgba(255,255,255,0.55);
+	  font-size: 34px;
+	}
+
+	.game-body {
+	  padding: 12px 14px;
+	  display: flex;
+	  flex-direction: column;
+	  gap: 6px;
+	}
+
+	.game-title {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+
+	/* Plataforma(s) onde o jogo está disponível — dado essencial em jogos */
+	.game-platforms {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 8px;
+	}
+	.game-platform {
+	  display: flex;
+	  align-items: center;
+	  gap: 3px;
+	  font-size: 10.5px;
+	  color: var(--muted);
+	}
+	.game-platform i { font-size: 13px; color: var(--lea-blue); }
+
+	/* Pode haver várias funções no mesmo projeto */
+	.game-roles {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 5px;
+	}
+	.game-role {
+	  font-size: 10px;
+	  font-weight: 700;
+	  color: var(--purple);
+	  background: rgba(83,74,183,0.1);
+	  padding: 3px 9px;
+	  border-radius: 99px;
+	}
+
+	.game-year {
+	  font-size: 11px;
+	  color: var(--muted);
+	  margin-top: 2px;
+	}
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 991px) {
+	  .game-grid { grid-template-columns: repeat(3, 1fr); }
+	}
+	@media (max-width: 480px) {
+	  .game-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+	
+	/* =============================================
+	   QUADROS (pinturas)
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --teal, --red, --radius-md, --radius-lg
+	   ============================================= */
+
+	.paintings-section { margin-bottom: 20px; }
+
+	.painting-grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	  gap: 16px;
+	}
+
+	.painting-card {
+	  display: block;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  overflow: hidden;
+	  transition: transform .2s, box-shadow .2s;
+	}
+	.painting-card:hover {
+	  transform: translateY(-3px);
+	  box-shadow: 0 8px 20px rgba(37,99,176,0.10);
+	}
+
+	/* Formato quase quadrado, próximo da proporção de uma tela genérica */
+	.painting-img {
+	  position: relative;
+	  aspect-ratio: 4 / 5;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  color: rgba(255,255,255,0.55);
+	  font-size: 32px;
+	}
+
+	/* Estado da obra — substitui o botão de compra fixo, porque nem
+	   toda a pintura está disponível para venda */
+	.painting-status {
+	  position: absolute;
+	  top: 8px;
+	  left: 8px;
+	  font-size: 10px;
+	  font-weight: 700;
+	  padding: 4px 10px;
+	  border-radius: 99px;
+	  color: #fff;
+	  backdrop-filter: blur(3px);
+	}
+	.painting-status-available { background: rgba(29,158,117,0.85); }
+	.painting-status-sold       { background: rgba(220,38,38,0.85); }
+	.painting-status-private    { background: rgba(0,0,0,0.55); }
+
+	.painting-body {
+	  padding: 12px 14px;
+	  display: flex;
+	  flex-direction: column;
+	  gap: 4px;
+	}
+
+	.painting-title {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+
+	/* Técnica · Dimensões · Ano — próprios de obra plástica física */
+	.painting-meta {
+	  font-size: 11px;
+	  color: var(--muted);
+	  margin-bottom: 4px;
+	}
+
+	.painting-price {
+	  font-family: 'Sora', sans-serif;
+	  font-size: 14px;
+	  font-weight: 700;
+	  color: var(--lea-blue);
+	}
+	.painting-price-muted {
+	  font-family: 'DM Sans', sans-serif;
+	  font-size: 11px;
+	  font-weight: 500;
+	  color: var(--muted);
+	}
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 991px) {
+	  .painting-grid { grid-template-columns: repeat(3, 1fr); }
+	}
+	@media (max-width: 480px) {
+	  .painting-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+	
+	/* =============================================
+	   ORNAMENTOS
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --amber, --teal, --purple, --radius-md, --radius-lg
+	   ============================================= */
+
+	.ornaments-section { margin-bottom: 20px; }
+
+	.ornament-grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	  gap: 16px;
+	}
+
+	.ornament-card {
+	  display: block;
+	  background: var(--lea-white);
+	  border: 1px solid var(--border);
+	  border-radius: var(--radius-md);
+	  overflow: hidden;
+	  transition: transform .2s, box-shadow .2s;
+	}
+	.ornament-card:hover {
+	  transform: translateY(-3px);
+	  box-shadow: 0 8px 20px rgba(37,99,176,0.10);
+	}
+
+	.ornament-img {
+	  position: relative;
+	  aspect-ratio: 1;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  color: rgba(255,255,255,0.55);
+	  font-size: 30px;
+	}
+
+	/* Disponibilidade: peça única / edição limitada com contagem / stock —
+	   diferente de "vendido"; ornamento pode ter várias unidades */
+	.ornament-edition {
+	  position: absolute;
+	  bottom: 8px;
+	  left: 8px;
+	  right: 8px;
+	  font-size: 9.5px;
+	  font-weight: 700;
+	  color: #fff;
+	  padding: 4px 8px;
+	  border-radius: 6px;
+	  text-align: center;
+	  backdrop-filter: blur(3px);
+	}
+	.ornament-edition-unique  { background: rgba(83,74,183,0.85); }
+	.ornament-edition-limited { background: rgba(192,122,26,0.85); }
+	.ornament-edition-stock   { background: rgba(29,158,117,0.85); }
+
+	.ornament-body {
+	  padding: 12px 14px;
+	  display: flex;
+	  flex-direction: column;
+	  gap: 4px;
+	}
+
+	/* Categoria (colar, máscara, pulseira...) — forma como este tipo
+	   de item costuma ser filtrado/pesquisado numa loja de artesanato */
+	.ornament-category {
+	  align-self: flex-start;
+	  font-size: 9.5px;
+	  font-weight: 700;
+	  text-transform: uppercase;
+	  letter-spacing: .3px;
+	  color: var(--lea-blue);
+	  background: var(--blue-light);
+	  padding: 2px 8px;
+	  border-radius: 99px;
+	  margin-bottom: 2px;
+	}
+
+	.ornament-title {
+	  font-size: 13px;
+	  font-weight: 600;
+	  color: var(--text);
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	}
+
+	/* Material — próprio de artesanato, substitui técnica/dimensões de pintura */
+	.ornament-meta {
+	  font-size: 11px;
+	  color: var(--muted);
+	  margin-bottom: 4px;
+	}
+
+	.ornament-price {
+	  font-family: 'Sora', sans-serif;
+	  font-size: 14px;
+	  font-weight: 700;
+	  color: var(--lea-blue);
+	}
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 991px) {
+	  .ornament-grid { grid-template-columns: repeat(3, 1fr); }
+	}
+	@media (max-width: 480px) {
+	  .ornament-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+	
+	/* =============================================
+	   PRÉMIOS E DISTINÇÕES
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --amber, --radius-md
+	   ============================================= */
+
+	.awards-section { margin-bottom: 20px; }
+
+	/* Timeline vertical — histórico cronológico, não grid de conteúdo */
+	.award-timeline {
+	  position: relative;
+	  display: flex;
+	  flex-direction: column;
+	  gap: 0;
+	  padding-left: 4px;
+	}
+
+	.award-item {
+	  display: flex;
+	  gap: 16px;
+	  padding-bottom: 22px;
+	  position: relative;
+	}
+
+	/* Linha vertical ligando os marcadores, exceto no último item */
+	.award-item:not(:last-child)::before {
+	  content: '';
+	  position: absolute;
+	  left: 15px;
+	  top: 32px;
+	  bottom: 0;
+	  width: 2px;
+	  background: var(--border);
+	}
+
+	.award-marker {
+	  width: 32px;
+	  height: 32px;
+	  border-radius: 50%;
+	  background: var(--surface);
+	  border: 2px solid var(--border);
+	  color: var(--muted);
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  font-size: 14px;
+	  flex-shrink: 0;
+	  z-index: 1;
+	}
+	/* Vitória tem destaque em âmbar (cor de troféu); nomeação fica neutra */
+	.award-marker-won {
+	  background: var(--amber);
+	  border-color: var(--amber);
+	  color: #fff;
+	}
+
+	.award-content {
+	  flex: 1;
+	  min-width: 0;
+	  padding-top: 2px;
+	}
+
+	.award-status {
+	  display: inline-block;
+	  font-size: 9.5px;
+	  font-weight: 700;
+	  text-transform: uppercase;
+	  letter-spacing: .4px;
+	  padding: 3px 9px;
+	  border-radius: 99px;
+	  margin-bottom: 6px;
+	}
+	.award-status-won     { color: var(--amber); background: rgba(192,122,26,0.12); }
+	.award-status-nominee { color: var(--muted); background: var(--surface); border: 1px solid var(--border); }
+
+	.award-title {
+	  font-size: 13.5px;
+	  font-weight: 600;
+	  color: var(--text);
+	  margin-bottom: 2px;
+	}
+
+	.award-entity {
+	  font-size: 12px;
+	  color: var(--lea-blue);
+	  font-weight: 500;
+	  margin-bottom: 3px;
+	}
+
+	.award-year {
+	  font-size: 11px;
+	  color: var(--muted);
+	}
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 480px) {
+	  .award-item { gap: 12px; }
+	}
+	
+	/* =============================================
+	   FONTES (referências/bibliografia do perfil)
+	   Usa os tokens de cor já definidos globalmente:
+	   --lea-white, --lea-blue, --border, --text, --muted,
+	   --teal, --purple, --amber
+	   ============================================= */
+
+	.sources-section {
+	  background: var(--surface);
+	  border-top: 1px solid var(--border);
+	  padding: 24px;
+	}
+
+	.sources-inner {
+	  max-width: 1200px;
+	  margin: 0 auto;
+	}
+
+	.sources-hdr {
+	  display: flex;
+	  align-items: center;
+	  gap: 8px;
+	  margin-bottom: 6px;
+	}
+	.sources-hdr i { font-size: 16px; color: var(--lea-blue); }
+	.sources-hdr h3 { font-size: 13px; font-weight: 700; color: var(--text); }
+
+	.sources-intro {
+	  font-size: 11.5px;
+	  color: var(--muted);
+	  margin-bottom: 14px;
+	  max-width: 640px;
+	}
+
+	.sources-list {
+	  list-style: none;
+	  counter-reset: source-counter;
+	  display: flex;
+	  flex-direction: column;
+	  gap: 8px;
+	  margin-bottom: 16px;
+	}
+
+	.source-item {
+	  counter-increment: source-counter;
+	  display: flex;
+	  align-items: baseline;
+	  gap: 10px;
+	  font-size: 11.5px;
+	  line-height: 1.6;
+	}
+	/* Numeração de referência, como notas de rodapé/bibliografia */
+	.source-item::before {
+	  content: '[' counter(source-counter) ']';
+	  color: var(--muted);
+	  font-weight: 600;
+	  flex-shrink: 0;
+	  font-variant-numeric: tabular-nums;
+	}
+
+	/* Tipo de origem — distingue o que veio do PRÓPRIO artista (mais
+	   fiável/direto) de material de terceiros (imprensa) ou institucional */
+	.source-type {
+	  flex-shrink: 0;
+	  font-size: 9.5px;
+	  font-weight: 700;
+	  text-transform: uppercase;
+	  letter-spacing: .3px;
+	  padding: 2px 8px;
+	  border-radius: 99px;
+	  white-space: nowrap;
+	}
+	.source-type-artist   { color: var(--lea-blue); background: var(--blue-light); }
+	.source-type-press    { color: var(--teal); background: rgba(29,158,117,0.1); }
+	.source-type-official { color: var(--purple); background: rgba(83,74,183,0.1); }
+
+	.source-info {
+	  display: flex;
+	  flex-wrap: wrap;
+	  align-items: baseline;
+	  gap: 6px;
+	  min-width: 0;
+	}
+	.source-name {
+	  color: var(--text);
+	  font-weight: 500;
+	}
+	a.source-name { color: var(--lea-blue); }
+	a.source-name:hover { text-decoration: underline; }
+	.source-date {
+	  color: var(--muted);
+	  white-space: nowrap;
+	}
+
+	.sources-note {
+	  display: flex;
+	  align-items: center;
+	  gap: 6px;
+	  font-size: 11px;
+	  color: var(--muted);
+	  padding-top: 12px;
+	  border-top: 1px dashed var(--border);
+	}
+	.sources-note i { font-size: 14px; color: var(--amber); flex-shrink: 0; }
+	.sources-note a { color: var(--lea-blue); font-weight: 600; }
+	.sources-note a:hover { text-decoration: underline; }
+	
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 480px) {
+	  .sources-section { padding: 16px; }
+	  .source-item { flex-wrap: wrap; }
+	  .source-info { flex-direction: column; gap: 2px; }
+	}
+
+	.m-top {padding-top:20px;}
+
+	/* =============================================
+	   RESPONSIVO
+	   ============================================= */
+	@media (max-width: 480px) {
+	  .lyric-actions { flex-direction: column; }
+	  .lyric-btn { width: 100%; justify-content: center; }
+	}
+
+
+    /* =============================================
+       BREAKPOINTS
+       ============================================= */
+    @media (min-width: 992px) {
+      .mobile-topbar   { display: none !important; }
+      .mobile-follow-bar { display: none !important; }
+      .bottom-nav      { display: none !important; }
+      body             { padding-bottom: 0; }
+    }
+
+    @media (max-width: 991px) {
+      .lea-navbar      { display: none !important; }
+      .mobile-topbar   { display: flex; }
+      .mobile-follow-bar { display: flex; }
+      .bottom-nav      { display: flex; }
+      body             { padding-bottom: 62px; }
+      .lea-footer      { padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px) + 12px); }
+      .artist-cover    { height: 220px; }
+      .artist-cover-actions { display: none; }
+      .artist-name-cover { font-size: 20px; }
+      .profile-wrap    { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+      .profile-sidebar { display: none; }
+      .profile-tabs    { top: 49px; }
+      .track-list-header,
+      .track-row { grid-template-columns: 36px 1fr 76px; }
+      .th-genre, .th-dur,
+      .tr-genre, .tr-dur { display: none; }
+      .albums-grid     { grid-template-columns: repeat(3,1fr); }
+      .videos-grid     { grid-template-columns: repeat(2,1fr); }
+      .event-action    { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .albums-grid { grid-template-columns: repeat(2,1fr); }
+      .stats-bar   { flex-wrap: wrap; }
+      .stat-bar-item { flex: 1 1 33%; border-bottom: 1px solid var(--border); }
+    }
+	
+	@media (max-width: 768px) {
+
+		.profile-tabs-wrapper {
+			display: block;
+			overflow: visible;
+		}
+
+		.profile-tabs {
+			display: flex;
+			width: 100%;
+			overflow-x: auto;
+			overflow-y: hidden;
+
+			-webkit-overflow-scrolling: touch;
+			touch-action: pan-x;
+
+			scrollbar-width: none;
+		}
+
+		.profile-tabs::-webkit-scrollbar {
+			display: none;
+		}
+
+		.tabs-nav {
+			display: none !important;
+		}
+	}
+	
+	
+	
+	.pinfo-toggle-wrap {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+.pinfo-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--lea-blue), var(--lea-purple));
+    color: #fff;
+    border: none;
+    border-radius: 99px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(37,99,176,0.25);
+    transition: opacity .15s;
+}
+.pinfo-toggle:hover { opacity: .9; }
+.pinfo-chevron { transition: transform .2s; font-size: 14px; }
+.pinfo-toggle.collapsed .pinfo-chevron { transform: rotate(180deg); }
+
+.pinfo-card {
+    background: var(--lea-white);
+    border: 1px solid var(--lea-border);
+    border-left: 4px solid var(--lea-teal);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    max-height: 500px;
+    transition: max-height .3s ease, opacity .3s ease, margin .3s ease;
+}
+.pinfo-card.collapsed {
+    max-height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+    border: none;
+}
+
+.pinfo-header {
+    padding: 16px 18px 10px;
+    border-bottom: 1px dashed var(--lea-border);
+}
+.pinfo-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--lea-text);
+}
+.pinfo-prof {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--lea-teal);
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    margin-top: 2px;
+}
+
+.pinfo-body { padding: 10px 18px 16px; }
+.pinfo-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--lea-surface);
+    font-size: 13px;
+}
+.pinfo-row:last-child { border-bottom: none; }
+.pinfo-label { font-weight: 600; color: var(--lea-text); flex-shrink: 0; }
+.pinfo-value { color: var(--lea-muted); text-align: right; }
+
+
+
+
+
+
+
+
+
+/* =============================================
+       MODAL DA BIOGRAFIA
+       ============================================= */
+.bio-ler-mais {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--lea-blue);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 0 0;
+}
+.bio-ler-mais:hover { text-decoration: underline; }
+
+.bio-modal-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,0.55);
+    display: none; align-items: center; justify-content: center;
+    z-index: 3000; padding: 16px;
+}
+.bio-modal-overlay.active { display: flex; }
+
+.bio-modal {
+    background: var(--lea-white); border-radius: 16px;
+    width: 100%; max-width: 560px; max-height: 80vh; overflow-y: auto;
+    padding: 24px; position: relative;
+}
+.bio-modal-close {
+    position: absolute; top: 14px; right: 14px;
+    background: var(--lea-surface); border: none; border-radius: 50%;
+    width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--lea-muted); cursor: pointer;
+}
+.bio-modal-header {
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 16px; margin-bottom: 16px;
+    border-bottom: 1px solid var(--lea-border);
+}
+.bio-modal-avatar {
+    width: 48px; height: 48px; border-radius: 50%; overflow: hidden;
+    background: linear-gradient(135deg,#2563B0,#1D9E75);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.bio-modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.bio-modal-name { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; color: var(--lea-text); }
+.bio-modal-prof { font-size: 12px; color: var(--lea-muted); }
+.bio-modal-body .bio-text { line-height: 1.7; }
+
+
+.album-faixas-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,0.55);
+    display: none; align-items: center; justify-content: center;
+    z-index: 3000; padding: 16px;
+}
+.album-faixas-overlay.active { display: flex; }
+
+.album-faixas-modal {
+    background: var(--lea-white); border-radius: 16px;
+    width: 100%; max-width: 420px; max-height: 70vh; overflow-y: auto;
+    padding: 20px; position: relative;
+}
+.album-faixas-close {
+    position: absolute; top: 14px; right: 14px;
+    background: var(--lea-surface); border: none; border-radius: 50%;
+    width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+}
+.album-faixa-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid var(--lea-surface);
+    font-size: 13px;
+}
+.album-faixa-num { color: var(--lea-muted); width: 20px; }
+.album-faixa-nome { flex: 1; }
+.album-faixa-tempo { color: var(--lea-muted); font-size: 12px; }
+
+.album-faixas-header {
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 16px; margin-bottom: 12px;
+    border-bottom: 1px solid var(--lea-border);
+}
+.album-faixas-capa {
+    width: 56px; height: 56px; border-radius: 10px;
+    background-size: cover; background-position: center;
+    background-color: var(--lea-surface);
+    flex-shrink: 0;
+}
+.album-faixas-artista { font-size: 12px; color: var(--lea-muted); }
+.album-faixa-play {
+    background: none; border: none; cursor: pointer;
+    color: var(--lea-blue); font-size: 16px; padding: 0;
+    display: flex; align-items: center;
+}
+/* =============================================
+       FIM DO MODAL DA BIOGRAFIA
+       ============================================= */
+	   
+/* =============================================
+      botao dos livros, saber mais
+============================================= */
+.book-buy-btn-secondary {
+    background: var(--lea-surface);
+    color: var(--lea-text);
+    border: 1px solid var(--lea-border);
+}
+.book-buy-btn-secondary:hover {
+    background: var(--lea-blue-light);
+    color: var(--lea-blue);
+}
+
+
+/* =============================================
+      modal dos quadros
+============================================= */
+.quadro-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,0.75);
+    display: none; align-items: center; justify-content: center;
+    z-index: 3000; padding: 16px;
+}
+.quadro-overlay.active { display: flex; }
+
+.quadro-modal {
+    background: var(--lea-white); border-radius: 16px;
+    width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto;
+    padding: 20px; position: relative;
+}
+.quadro-close {
+    position: absolute; top: 14px; right: 14px;
+    background: var(--lea-surface); border: none; border-radius: 50%;
+    width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 2;
+}
+.quadro-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+}
+.quadro-artista-avatar {
+    width: 36px; height: 36px; border-radius: 50%; overflow: hidden;
+    background: linear-gradient(135deg,#2563B0,#1D9E75);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.quadro-artista-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.quadro-artista-nome { font-size: 14px; font-weight: 600; color: var(--lea-text); }
+
+.quadro-imagem {
+    width: 100%; border-radius: 10px; display: block;
+    max-height: 55vh; object-fit: contain; background: var(--lea-surface);
+}
+.quadro-titulo {
+    font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700;
+    color: var(--lea-text); margin-top: 14px;
+}
+.quadro-acoes {
+    display: flex; gap: 8px; margin-top: 16px;
+}
+.quadro-acoes a, .quadro-acoes button { flex: 1; text-align: center; }
+
+.quadro-btn {
+    flex: 1; text-align: center;
+    padding: 10px; border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    border: 1px solid var(--lea-border);
+}
+.quadro-btn-primario {
+    background: var(--lea-blue);
+    color: #fff;
+    border-color: var(--lea-blue);
+}
+.quadro-btn-primario:hover { background: var(--lea-blue-dark); color: #fff; }
+
+.quadro-btn-secundario {
+    background: var(--lea-surface);
+    color: var(--lea-text);
+}
+.quadro-btn-secundario:hover { background: var(--lea-blue-light); color: var(--lea-blue); }
