@@ -80,9 +80,13 @@
             <i class="ti ti-home"></i>
             <div><div class="menu-item-label">Início</div><div class="menu-item-sub">Página principal do LEA</div></div>
         </a>
-        <a class="menu-item" href="https://lea.co.ao/artistas/">
+		<a class="menu-item" href="/artes/">
+            <i class="ti ti-brush"></i>
+            <div><div class="menu-item-label">Artes</div><div class="menu-item-sub">As Artes em Angola</div></div>
+        </a>
+        <a class="menu-item" href="/artistas/">
             <i class="ti ti-users"></i>
-            <div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.200+ artistas angolanos</div></div>
+            <div><div class="menu-item-label">Artistas</div><div class="menu-item-sub">2.500+ artistas angolanos</div></div>
         </a>
         <a class="menu-item" href="https://lea.co.ao/discografia.php?dsco=1">
             <i class="ti ti-music"></i>
@@ -96,7 +100,7 @@
             <i class="ti ti-book"></i>
             <div><div class="menu-item-label">Literatura</div><div class="menu-item-sub">Livros, poesias e frases</div></div>
         </a>
-        <a class="menu-item" href="https://lea.co.ao/noticia.php">
+        <a class="menu-item" href="/noticias/">
             <i class="ti ti-news"></i>
             <div><div class="menu-item-label">Notícias</div><div class="menu-item-sub">Angola em dia</div></div>
         </a>
@@ -162,6 +166,38 @@
     drawer.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', closeMenu);
     });
+</script>
+
+<script>
+(function() {
+    const trigger  = document.getElementById('mobile-search-trigger');
+    const overlay  = document.getElementById('mobile-search-overlay');
+    const input    = document.getElementById('mobile-search-input');
+    const closeBtn = document.getElementById('mobile-search-close');
+
+    if (!trigger || !overlay) return;
+
+    function abrir() {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => input.focus(), 50);
+        history.pushState({ leaSearch: true }, '');
+    }
+
+    function fechar(voltarHistorico = true) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        if (voltarHistorico && history.state && history.state.leaSearch) {
+            history.back();
+        }
+    }
+
+    trigger.addEventListener('click', abrir);
+    closeBtn.addEventListener('click', () => fechar());
+
+    // Fecha com o botão "voltar" do telemóvel
+    window.addEventListener('popstate', () => fechar(false));
+})();
 </script>
 
 </body>

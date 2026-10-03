@@ -155,7 +155,7 @@
 									</div>
 									<div class="cat-card-footer">
 										<span class="cat-badge" style="background:<?= $config['badge_bg'] ?>;color:<?= $config['badge_cor'] ?>;"><?= $config['num'] ?> Arte</span>
-										<a href="https://lea.co.ao/artistas/todos_artistas.php?strt=0&cat=<?= $id ?>" target="_blank" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
+										<a href="https://lea.co.ao/artistas/todos_artistas.php?strt=0&cat=<?= $id ?>" class="btn-cat">Ver artistas <i class="ti ti-arrow-right" style="font-size:14px;"></i></a>
 									</div>
 								</div>
 							</div>
@@ -182,7 +182,7 @@
                     <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--lea-blue);margin-bottom:12px;">Total na LEA.co.ao</div>
                     <div style="font-family:'Sora',sans-serif;font-size:48px;font-weight:700;color:var(--lea-blue);line-height:1;"><?= number_format($totalArtistaRegistado, 0, ',', '.') ?></div>
                     <div style="font-size:13px;color:var(--lea-muted);margin-bottom:20px;">artistas registados</div>
-                    <a href="https://lea.co.ao/artistas/todos_artistas.php?strt=0" style="display:block;background:var(--lea-blue);color:#fff;text-align:center;padding:10px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;" target="_blank">Ver todos os artistas →</a>
+                    <a href="/artistas/" style="display:block;background:var(--lea-blue);color:#fff;text-align:center;padding:10px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;" target="_blank">Ver todos os artistas →</a>
                 </div>
             </div>
         </div>
