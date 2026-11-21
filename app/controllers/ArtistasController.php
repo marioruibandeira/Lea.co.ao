@@ -36,7 +36,8 @@ class ArtistasController extends Controller {
 		$totalPaginas = (int) ceil($total / $porPagina);
 		$totalGeral   = $total;
 		
-		$artistaDestaque = $this->artistasDAO->getArtistaAleatorio();
+		[$artistaDestaque, $jaSegueDestaque] = $this->artistaDestaque();
+		/*$artistaDestaque = $this->artistasDAO->getArtistaAleatorio();
 		
 		$jaSegueDestaque = false;
 		if ($artistaDestaque) {
@@ -50,7 +51,7 @@ class ArtistasController extends Controller {
 				$artistaDAO = new ArtistaDAO();
 				$jaSegueDestaque = $artistaDAO->jaSegue((int) $artistaDestaque['artID'], $utilizadorId);
 			}
-		}
+		}*/
 
 		$categorias = [
 			'musica'        => ['nome' => 'Música',            'icon' => 'ti-music',              'cor' => '#1D9E75'],

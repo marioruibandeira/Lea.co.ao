@@ -142,6 +142,7 @@
 
 <script src="/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/main.links.js"></script>
+<script src="/assets/js/seguir-artista.js" defer></script>
 
 <script>
     const drawer  = document.getElementById('menuDrawer');

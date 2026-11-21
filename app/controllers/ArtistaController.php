@@ -9,7 +9,9 @@ class ArtistaController extends Controller {
         $this->artistaDAO = new ArtistaDAO();
 		$this->artistasDAO = new ArtistasDAO();
     }
-
+	
+	//$artistaDestaque = $this->artistasDAO->getArtistaAleatorio();
+	
     public function artista(): void
 	{
 		$this->render('artistas/artista', [
@@ -316,7 +318,36 @@ class ArtistaController extends Controller {
 		$ranking = $this->artistaDAO->getRankingVisitas((int)($artista['visua'] ?? 0));
 
 		$musicas = $temMusicas ? $this->artistaDAO->getMusicas((int) $artista['artID']) : [];
+		
+		[$artistaDestaque, $jaSegueDestaque] = $this->artistaDestaque();
+		
+		
+		$artistasRelacionados = $this->artistaDAO->getRelacionados(
+			(int) $artista['artID'],
+			(int) ($artista['ce_categoria_artista'] ?? 0),
+			(int) ($artista['ce_provincia'] ?? 0)
+		);
 
+		$relacionadosSeguidos = [];
+		if ($utilizadorId = $this->utilizadorLogadoId()) {
+			foreach ($artistasRelacionados as $rel) {
+				if ($this->artistaDAO->jaSegue((int) $rel['artID'], $utilizadorId)) {
+					$relacionadosSeguidos[] = (int) $rel['artID'];
+				}
+			}
+		}
+		
+		//agenda
+		/*$proximoEvento = $this->artistaDAO->getProximoEvento(
+			(int) $artista['artID'],
+			(int) ($artista['ce_provincia'] ?? 0)
+		);*/
+		
+		$proximoEvento = $this->artistaDAO->getProximoEventoTeste(
+			(int) $artista['artID'],
+			(int) ($artista['ce_provincia'] ?? 0)
+		);
+		
 		$this->render('artistas/artista', [
 			'artista'      			=> $artista,
 			'totalPesquisas'      	=> $totalPesquisas,
@@ -370,6 +401,11 @@ class ArtistaController extends Controller {
 			'temOrnamentos' 		=> $temOrnamentos,
 			'ornamentos'    		=> $ornamentos,
 			'referencias' 			=> $referencias,
+			'artistaDestaque' 		=> $artistaDestaque,
+			'jaSegueDestaque' 		=> $jaSegueDestaque,
+			'artistasRelacionados'  => $artistasRelacionados,
+			'relacionadosSeguidos'  => $relacionadosSeguidos,
+			'proximoEvento' 		=> $proximoEvento,
 			'seoTitulo'    			=> htmlspecialchars($artista['nomeA']) . ' — LEA Angola',
 			'seoDescricao' 			=> htmlspecialchars($artista['descricao'] ?? $artista['bio'] ?? ''),
 			'seoKeywords'  			=> htmlspecialchars($artista['palavras_chave'] ?? ''),

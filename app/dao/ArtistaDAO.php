@@ -642,4 +642,66 @@ class ArtistaDAO
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 	
+	public function getRelacionados(int $artID, int $categoriaId, int $provinciaId, int $limite = 5): array
+	{
+		$sql = "SELECT a.artID, a.nomeA, a.prof, a.art_img_url, a.visua,
+					   c.categoria
+				FROM artistas a
+				LEFT JOIN categoriaartista c ON c.id_categoria_artista = a.ce_categoria_artista
+				WHERE a.artID <> :id
+				  AND (a.ce_categoria_artista = :cat1 OR a.ce_provincia = :prov)
+				ORDER BY (a.ce_categoria_artista = :cat2) DESC, a.visua DESC
+				LIMIT :limite";
+
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':id',     $artID,       PDO::PARAM_INT);
+		$stmt->bindValue(':cat1',   $categoriaId, PDO::PARAM_INT);
+		$stmt->bindValue(':cat2',   $categoriaId, PDO::PARAM_INT);
+		$stmt->bindValue(':prov',   $provinciaId, PDO::PARAM_INT);
+		$stmt->bindValue(':limite', $limite,      PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetchAll();
+	}
+	
+	/*public function getProximoEvento(int $artID, int $provinciaId): ?array
+	{
+		$sql = "SELECT g.id, g.evento, g.data_evento, g.hora_evento,
+					   g.local_evento, g.preco, p.provincia
+				FROM agenda g
+				LEFT JOIN provincia p ON p.id_provincia = g.ce_provincia
+				WHERE TIMESTAMP(g.data_evento, g.hora_evento) >= NOW()
+				  AND (g.ce_artista = :artista1 OR g.ce_provincia = :prov)
+				ORDER BY IFNULL(g.ce_artista = :artista2, 0) DESC,
+						 g.data_evento ASC, g.hora_evento ASC
+				LIMIT 1";
+
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':artista1', $artID,       PDO::PARAM_INT);
+		$stmt->bindValue(':artista2', $artID,       PDO::PARAM_INT);
+		$stmt->bindValue(':prov',     $provinciaId, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetch() ?: null;
+	}*/
+	
+	public function getProximoEventoTeste(int $artID, int $provinciaId): ?array
+	{
+		$sql = "SELECT g.id, g.evento, g.data_evento, g.hora_evento,
+					   g.local_evento, g.preco, p.provincia
+				FROM agenda g
+				LEFT JOIN provincia p ON p.id_provincia = g.ce_provincia
+				WHERE (g.ce_artista = :artista1 OR g.ce_provincia = :prov)
+				ORDER BY IFNULL(g.ce_artista = :artista2, 0) DESC,
+						 ABS(TIMESTAMPDIFF(SECOND, NOW(), TIMESTAMP(g.data_evento, g.hora_evento))) ASC
+				LIMIT 1";
+
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':artista1', $artID,       PDO::PARAM_INT);
+		$stmt->bindValue(':artista2', $artID,       PDO::PARAM_INT);
+		$stmt->bindValue(':prov',     $provinciaId, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetch() ?: null;
+	}
 }

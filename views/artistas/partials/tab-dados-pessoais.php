@@ -27,10 +27,11 @@
 						$idadeLinha = null;
 					}
 
-					$dataLeaFmt = dataValida($artista['anoreg'] ?? null) ? date('d/m/Y', strtotime($artista['anoreg'])) : null;
-				?>
-				<?php
-					function normalizarTexto(string $texto): string {
+	$dataLeaFmt = dataValida($artista['anoreg'] ?? null) ? date('d/m/Y', strtotime($artista['anoreg'])) : null;
+?>
+
+<?php
+	function normalizarTexto(string $texto): string {
 						$texto = mb_strtolower(trim($texto));
 						$texto = strtr($texto, [
 							'á'=>'a','à'=>'a','â'=>'a','ã'=>'a',
@@ -41,23 +42,34 @@
 							'ç'=>'c',
 						]);
 						return $texto;
-					}
+	}
 
-					$estadosCivisValidos = ['solteiro', 'solteira', 'casado', 'casada', 'divorciado', 'divorciada', 'viuvo', 'viuva', 'desconhecido', 'desconhecida'];
+	$estadosCivisValidos = ['solteiro', 'solteira', 'casado', 'casada', 'divorciado', 'divorciada', 'viuvo', 'viuva', 'desconhecido', 'desconhecida'];
 
-					$statuValor    = trim($artista['statu'] ?? '');
-					$statuNorm     = normalizarTexto($statuValor);
-					$ehEstadoCivil = in_array($statuNorm, $estadosCivisValidos, true);
-					$rotuloStatu   = $ehEstadoCivil ? 'Estado Civil' : 'Designação';
-				?>
+	$statuValor    = trim($artista['statu'] ?? '');
+	$statuNorm     = normalizarTexto($statuValor);
+	$ehEstadoCivil = in_array($statuNorm, $estadosCivisValidos, true);
+	$rotuloStatu   = $ehEstadoCivil ? 'Estado Civil' : 'Designação';
+?>
 
-				<div class="pinfo-toggle-wrap">
-					<button class="pinfo-toggle" id="btnTogglePInfo">
-						<i class="ti ti-id-badge-2"></i>
-						<span>Dados pessoais</span>
-						<i class="ti ti-chevron-up pinfo-chevron"></i> 
-					</button>
-				</div>
+<?php
+	require_once __DIR__ . '/perfil-pdf-btn.php';
+	$pdfAtivo = true; // TODO: mais tarde = é o dono do perfil E tem plano premium
+	renderPerfilPdfBtn($artista, $pdfAtivo);
+?>
+				
+<div class="pinfo-toggle-wrap">
+	<button class="pinfo-toggle" id="btnTogglePInfo">
+		<i class="ti ti-id-badge-2"></i>
+		<span>Dados pessoais</span>
+		<i class="ti ti-chevron-up pinfo-chevron"></i> 
+	</button>
+					
+	<?php
+		require_once __DIR__ . '/contratar-artista.php';
+		renderContratarBtn($artista, 'Contrata este artista', 'pinfo-toggle');
+	?>
+</div>
 
 				<div class="pinfo-card" id="pinfoCard">
 					<div class="pinfo-header">

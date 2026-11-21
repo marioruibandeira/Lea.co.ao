@@ -2522,7 +2522,8 @@
       .artist-cover-actions { display: none; }
       .artist-name-cover { font-size: 20px; }
       .profile-wrap    { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
-      .profile-sidebar { display: none; }
+      /*.profile-sidebar { display: none; }*/
+	  .profile-sidebar { margin-top: 20px; }
       .profile-tabs    { top: 49px; }
       .track-list-header,
       .track-row { grid-template-columns: 36px 1fr 76px; }
@@ -2831,3 +2832,176 @@
     color: var(--lea-text);
 }
 .quadro-btn-secundario:hover { background: var(--lea-blue-light); color: var(--lea-blue); }
+
+/* =============================================
+   COMPONENTE: Contratar artista (botão + modal)
+   Markup: partials/contratar-artista.php
+   Depende de: --lea-blue, --lea-blue-dark, --lea-purple, --lea-white,
+               --lea-surface, --lea-border, --lea-text, --lea-muted
+   ============================================= */
+
+/* ── Botão (mesmo look do "Dados pessoais") ── */
+.btn-contratar {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--lea-blue) 0%, var(--lea-purple) 100%);
+  color: #fff; border: none; border-radius: 99px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+  padding: 10px 18px; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 99, 176, 0.30);
+  transition: transform .15s, box-shadow .15s, opacity .15s;
+}
+.btn-contratar i { font-size: 15px; }
+.btn-contratar:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37, 99, 176, 0.38); }
+.btn-contratar:active { transform: translateY(0); opacity: .92; }
+
+/* ── Modal ── */
+body.contratar-aberto { overflow: hidden; }
+
+.contratar-overlay {
+  position: fixed; inset: 0; z-index: 3000;
+  background: rgba(15, 23, 42, 0.55);
+  display: none; align-items: center; justify-content: center;
+  padding: 16px;
+}
+.contratar-overlay.active { display: flex; }
+.contratar-overlay [hidden] { display: none !important; }
+
+.contratar-modal {
+  position: relative;
+  width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto;
+  background: var(--lea-white); border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
+}
+.contratar-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 30px; height: 30px; border: none; border-radius: 50%;
+  background: var(--lea-surface); color: var(--lea-muted);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; cursor: pointer;
+}
+.contratar-close:hover { color: var(--lea-text); }
+
+.contratar-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-right: 30px; }
+.contratar-icon {
+  width: 46px; height: 46px; flex-shrink: 0; border-radius: 14px;
+  background: linear-gradient(135deg, var(--lea-blue), var(--lea-purple));
+  color: #fff; font-size: 22px;
+  display: flex; align-items: center; justify-content: center;
+}
+.contratar-header h3 { font-size: 17px; font-weight: 700; margin: 0 0 2px; color: var(--lea-text); }
+.contratar-header p  { font-size: 12px; margin: 0; color: var(--lea-muted); line-height: 1.5; }
+
+/* ── Campos ── */
+.contratar-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.contratar-field { margin-bottom: 12px; min-width: 0; }
+.contratar-field label { display: block; font-size: 12px; font-weight: 600; color: var(--lea-text); margin-bottom: 5px; }
+.contratar-field input,
+.contratar-field select,
+.contratar-field textarea {
+  width: 100%;
+  background: var(--lea-white); color: var(--lea-text);
+  border: 1px solid var(--lea-border); border-radius: 8px;
+  padding: 9px 12px; font-size: 13px; font-family: 'DM Sans', sans-serif;
+  outline: none; transition: border-color .15s, box-shadow .15s;
+}
+.contratar-field textarea { resize: vertical; min-height: 76px; }
+.contratar-field input:focus,
+.contratar-field select:focus,
+.contratar-field textarea:focus {
+  border-color: var(--lea-blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 176, 0.12);
+}
+
+.contratar-check { display: flex; align-items: flex-start; gap: 8px; margin: 4px 0 14px; cursor: pointer; }
+.contratar-check input { margin-top: 2px; flex-shrink: 0; }
+.contratar-check span { font-size: 11px; color: var(--lea-muted); line-height: 1.5; }
+
+.contratar-erro {
+  background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA;
+  border-radius: 8px; padding: 8px 12px; font-size: 12px; margin-bottom: 12px;
+}
+
+/* ── Botão de enviar ── */
+.contratar-submit {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(135deg, var(--lea-blue) 0%, var(--lea-purple) 100%);
+  color: #fff; border: none; border-radius: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700;
+  padding: 12px; cursor: pointer; transition: opacity .15s;
+}
+.contratar-submit:hover { opacity: .92; }
+.contratar-submit:disabled { opacity: .6; cursor: wait; }
+
+/* ── Confirmação ── */
+.contratar-ok { text-align: center; padding: 16px 4px 4px; }
+.contratar-ok-icon {
+  width: 60px; height: 60px; margin: 0 auto 14px; border-radius: 50%;
+  background: #DCFCE7; color: #16A34A; font-size: 30px;
+  display: flex; align-items: center; justify-content: center;
+}
+.contratar-ok h3 { font-size: 18px; font-weight: 700; margin: 0 0 6px; color: var(--lea-text); }
+.contratar-ok p  { font-size: 13px; color: var(--lea-muted); margin: 0 0 18px; line-height: 1.6; }
+
+.pinfo-toggle-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ── Telemóvel ── */
+@media (max-width: 575px) {
+  .contratar-modal { padding: 18px; }
+  .contratar-row { grid-template-columns: 1fr; gap: 0; }
+}
+
+/* =============================================
+   COMPONENTE: Barra "Perfil em PDF" (premium)
+   Markup: perfil-pdf-btn.php
+   Depende de: --lea-white, --lea-border, --lea-text, --lea-muted
+   ============================================= */
+
+.pdf-barra {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+  background: var(--lea-white);
+  border: 1px solid var(--lea-border);
+  border-left: 4px solid #F59E0B;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.pdf-barra-info { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
+.pdf-barra-info > i { font-size: 26px; color: #DC2626; flex-shrink: 0; }
+.pdf-barra-info strong { display: block; font-size: 13px; font-weight: 700; color: var(--lea-text); }
+.pdf-barra-info span { display: block; font-size: 11px; color: var(--lea-muted); line-height: 1.5; }
+
+/* ── Botão (secundário, com contorno âmbar) ── */
+.btn-pdf {
+  display: inline-flex; align-items: center; gap: 8px;
+  flex-shrink: 0;
+  background: #FFFBEB; color: #B45309;
+  border: 1.5px solid #F59E0B; border-radius: 99px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+  padding: 9px 16px; text-decoration: none; cursor: pointer;
+  transition: background .15s, color .15s, transform .15s, box-shadow .15s;
+}
+.btn-pdf i { font-size: 15px; }
+.btn-pdf:hover {
+  background: #F59E0B; color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+/* etiqueta PRO */
+.btn-pdf-pro {
+  font-size: 9px; font-weight: 700; letter-spacing: .6px;
+  background: #F59E0B; color: #fff;
+  padding: 2px 6px; border-radius: 99px;
+  transition: background .15s, color .15s;
+}
+.btn-pdf:hover .btn-pdf-pro { background: #fff; color: #B45309; }
+
+/* ── Telemóvel: o botão ocupa a largura toda ── */
+@media (max-width: 575px) {
+  .pdf-barra { flex-direction: column; align-items: stretch; }
+  .btn-pdf { width: 100%; justify-content: center; padding: 11px 16px; }
+}

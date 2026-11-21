@@ -379,6 +379,30 @@
 			<!-- ── TAB: PRÉMIOS ── -->
 			<?php if ($temPremios): require __DIR__ . '/partials/tab-premios.php'; endif; ?>
 			<!-- /tab-premios -->
+			<br/>
+			<!-- ARTISTA DO MÊS — toque extra -->
+			<?php
+				require_once __DIR__ . '/partials/artista-destaque.php';
+				if ($artistaDestaque) {
+					renderArtistaDestaque($artistaDestaque, $jaSegueDestaque);
+				}
+			?>
+			
+			<?php
+				require_once __DIR__ . '/partials/patrocinado-card.php';
+				renderPatrocinado([
+					'titulo'       => 'Plano Ilimitado por Kz 3.500/mês',
+					'texto'        => 'Ligação rápida em todo o país.',
+					'imagem'       => '/images/patrocinados/unitel.jpg',
+					'url'          => 'https://unitel.ao',
+					'patrocinador' => 'Unitel',
+					'cta'          => 'Ver oferta',
+					'extras'       => [
+						['titulo' => 'Conta jovem sem comissões', 'imagem' => '', 'url' => 'https://bai.ao', 'patrocinador' => 'BAI'],
+						['titulo' => 'Entrega grátis em Luanda',  'imagem' => '', 'url' => '#',              'patrocinador' => 'Kero'],
+					],
+				]);
+			?>
 
     </main>
 
@@ -397,61 +421,65 @@
 		</div>
 
 		<!-- Próximo evento -->
+		<?php if (!empty($proximoEvento)):
+			$meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+			$dtEvento = new DateTime($proximoEvento['data_evento']);
+			$dataEvento = $dtEvento->format('j') . ' ' . $meses[(int) $dtEvento->format('n') - 1] . ' ' . $dtEvento->format('Y')
+						. ' · ' . substr($proximoEvento['hora_evento'], 0, 5);
+			$localEvento = implode(' · ', array_filter([$proximoEvento['local_evento'], $proximoEvento['provincia'] ?? '']));
+			$precoEvento = (float) $proximoEvento['preco'];
+		?>
 		<div class="sidebar-card">
 			<div class="sidebar-card-header">
-			  <i class="ti ti-calendar-event"></i>
-			  <h3>Próximo evento</h3>
+				<i class="ti ti-calendar-event"></i>
+				<h3>Próximo evento</h3>
 			</div>
 			<div class="sidebar-event">
-				<div class="sidebar-event-label">19 Jul 2026 · 21:00</div>
-				<div class="sidebar-event-title">Noite de Kizomba</div>
-				<div class="sidebar-event-loc"><i class="ti ti-map-pin" style="font-size:12px;color:var(--lea-blue);"></i> Hotel Presidente · Luanda</div>
-				<a href="loja.html#ingressos" class="sidebar-buy-btn">Comprar ingresso · Kz 7.500</a>
+				<div class="sidebar-event-label"><?= htmlspecialchars($dataEvento) ?></div>
+				<div class="sidebar-event-title"><?= htmlspecialchars($proximoEvento['evento']) ?></div>
+				<div class="sidebar-event-loc"><i class="ti ti-map-pin" style="font-size:12px;color:var(--lea-blue);"></i> <?= htmlspecialchars($localEvento) ?></div>
+				<a href="/loja#ingressos" class="sidebar-buy-btn">
+					<?= $precoEvento > 0 ? 'Comprar ingresso · Kz ' . number_format($precoEvento, 0, ',', '.') : 'Ver detalhes' ?>
+				</a>
 			</div>
 		</div>
+		<?php endif; ?>
 
 		<!-- Artistas relacionados -->
-		<div class="sidebar-card">
-			<div class="sidebar-card-header">
-				<i class="ti ti-users"></i>
-				<h3>Artistas relacionados</h3>
-			</div>
-			<div class="related-item">
-				<div class="rel-avatar" style="background:#534AB7;">
-					<img src="https://lea.co.ao/artistas/imgs/Nair Nany.jpg" alt="" onerror="this.style.display='none'">NN
+		<?php if (!empty($artistasRelacionados)): ?>
+			<div class="sidebar-card">
+				<div class="sidebar-card-header">
+					<i class="ti ti-users"></i>
+					<h3>Artistas relacionados</h3>
 				</div>
-				<div class="rel-info"><div class="rel-name">Nair Nany</div><div class="rel-type">Cantora · Semba</div></div>
-				<button class="rel-follow-btn">Seguir</button>
+				<?php
+				$coresRel = ['#534AB7', '#1D9E75', '#C07A1A', '#9D174D', '#3B7DD8'];
+				foreach ($artistasRelacionados as $i => $rel):
+					$fotoRel = trim(str_replace(['https://www.lea.co.ao', 'http://www.lea.co.ao'], '', $rel['art_img_url'] ?? ''));
+					$fotoRel = str_replace(' ', '%20', $fotoRel);
+					$iniciaisRel = strtoupper(substr($rel['nomeA'], 0, 2));
+					$tipoRel = implode(' · ', array_filter([$rel['prof'] ?? '', $rel['categoria'] ?? '']));
+				?>
+					<div class="related-item">
+						<a href="<?= htmlspecialchars(Helper::artistaUrl($rel)) ?>" style="display:contents;text-decoration:none;color:inherit;">
+							<div class="rel-avatar" style="background:<?= $coresRel[$i % count($coresRel)] ?>;">
+								<?php if ($fotoRel): ?>
+									<img src="<?= htmlspecialchars($fotoRel) ?>" alt="" onerror="this.style.display='none'">
+								<?php endif; ?>
+								<?= $iniciaisRel ?>
+							</div>
+							<div class="rel-info">
+								<div class="rel-name"><?= htmlspecialchars($rel['nomeA']) ?></div>
+								<div class="rel-type"><?= htmlspecialchars($tipoRel) ?></div>
+							</div>
+						</a>
+						<button type="button" class="rel-follow-btn js-seguir" data-artista-id="<?= (int) $rel['artID'] ?>">
+							<span class="js-seguir-texto"><?= in_array((int) $rel['artID'], $relacionadosSeguidos ?? [], true) ? 'A seguir' : 'Seguir' ?></span>
+						</button>
+					</div>
+				<?php endforeach; ?>
 			</div>
-        <div class="related-item">
-          <div class="rel-avatar" style="background:#1D9E75;">
-            <img src="https://lea.co.ao/artistas/imgs/Anderson-Mario.jpg" alt="" onerror="this.style.display='none'">AM
-          </div>
-          <div class="rel-info"><div class="rel-name">Anderson Mário</div><div class="rel-type">Cantor · Afrohouse</div></div>
-          <button class="rel-follow-btn">Seguir</button>
-        </div>
-        <div class="related-item">
-          <div class="rel-avatar" style="background:#C07A1A;">
-            <img src="https://lea.co.ao/artistas/imgs/Prodigio_na_lea.jpg" alt="" onerror="this.style.display='none'">PR
-          </div>
-          <div class="rel-info"><div class="rel-name">Prodígio</div><div class="rel-type">Cantor · Rap</div></div>
-          <button class="rel-follow-btn">Seguir</button>
-        </div>
-        <div class="related-item">
-          <div class="rel-avatar" style="background:#9D174D;">
-            <img src="https://lea.co.ao/artistas/imgs/Titica_na_lea.jpg" alt="" onerror="this.style.display='none'">TT
-          </div>
-          <div class="rel-info"><div class="rel-name">Titica</div><div class="rel-type">Cantora · Kuduro</div></div>
-          <button class="rel-follow-btn">Seguir</button>
-        </div>
-        <div class="related-item">
-          <div class="rel-avatar" style="background:#3B7DD8;">
-            <img src="https://lea.co.ao/artistas/imgs/Deezy-na-lea.jpg" alt="" onerror="this.style.display='none'">DZ
-          </div>
-          <div class="rel-info"><div class="rel-name">Deezy</div><div class="rel-type">Cantor · Rap</div></div>
-          <button class="rel-follow-btn">Seguir</button>
-        </div>
-      </div>
+			<?php endif; ?>
 
       <!-- AD nativo sidebar -->
       <div>
@@ -523,7 +551,10 @@
         <a href="http://localhost:8080/nasocial/login/login.php" class="login-necessario-btn">Iniciar sessão</a>
     </div>
 </div>
+
+<?php renderContratarModal(); ?>
   
+  <script src="/assets/js/contratar-artista.js" defer></script>
   <script src="assets/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/menu.footer.js"></script>
   

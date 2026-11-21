@@ -208,52 +208,15 @@
 
     <!-- ── CONTEÚDO PRINCIPAL ── -->
     <main class="page-main">
-
-		<?php if ($artistaDestaque): 
-			$fotoDestaque = trim(str_replace(['https://www.lea.co.ao','http://www.lea.co.ao'], '', $artistaDestaque['art_img_url'] ?? ''));
-			$iniciaisDestaque = strtoupper(substr($artistaDestaque['nomeA'], 0, 2));
-			//$urlDestaque = 'https://lea.co.ao/artista.php?a=' . base64_encode($artistaDestaque['artID']);
-			$urlDestaque = 'http://localhost:8080' . Helper::artistaUrl($artistaDestaque);
-			//$urlDestaque = Helper::artistaUrl($artistaDestaque['artID']);
-			$anoRegistoDestaque = date('Y', strtotime($artistaDestaque['anoreg']));
-		?>
+	
 		<!-- ARTISTA DO MÊS — toque extra -->
-		<div class="artist-of-month mb-4">
-			<div class="aom-avatar" style="background:linear-gradient(135deg,#1D9E75,#2563B0);overflow:hidden;position:relative;">
-				<?php if ($fotoDestaque): ?>
-					<img src="<?= htmlspecialchars($fotoDestaque) ?>" alt="" 
-						 style="width:100%;height:100%;object-fit:cover;object-position:top;position:absolute;top:0;left:0;" 
-						 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-					<span style="position:relative;z-index:1;display:none;"><?= $iniciaisDestaque ?></span>
-				<?php else: ?>
-					<span style="position:relative;z-index:1;"><?= $iniciaisDestaque ?></span>
-				<?php endif; ?>
-			</div>
-			<div style="position:relative;z-index:1;">
-				<div class="aom-badge"><i class="ti ti-star-filled"></i> Artista em destaque</div>
-				<div class="aom-name"><?= htmlspecialchars($artistaDestaque['nomeA']) ?></div>
-				<div class="aom-type">
-					<?= htmlspecialchars($artistaDestaque['prof'] ?? '') ?>
-					<?= !empty($artistaDestaque['categoria']) ? ' · ' . htmlspecialchars($artistaDestaque['categoria']) : '' ?>
-					<?= !empty($artistaDestaque['provincia']) ? ' · ' . htmlspecialchars($artistaDestaque['provincia']) : '' ?>
-				</div>
-				<div class="aom-stats">
-					<div><div class="aom-stat-num"><?= number_format($artistaDestaque['visua'] ?? 0, 0, ',', '.') ?></div><div class="aom-stat-lbl">Visitas</div></div>
-					<div><div class="aom-stat-num"><?= number_format($artistaDestaque['fans'] ?? 0, 0, ',', '.') ?></div><div class="aom-stat-lbl">Seguidores</div></div>
-					<div><div class="aom-stat-num"><?= $anoRegistoDestaque ?></div><div class="aom-stat-lbl">Registo</div></div>
-				</div>
-			</div>
-			<div class="aom-actions">
-				<button class="btn-aom-primary" id="btnSeguir" data-artista-id="<?= $artista['artID'] ?>">
-					<i class="ti ti-user-plus"></i> <span id="btnSeguirTexto"><?= $jaSegueDestaque ? 'A seguir' : 'Seguir' ?></span>
-				</button>
-				<a href="<?= htmlspecialchars($urlDestaque) ?>" class="btn-aom-outline" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
-					<i class="ti ti-user"></i> Visitar perfil
-				</a>
-			</div>
-		</div>
-		<?php endif; ?>
-
+		<?php
+			require_once __DIR__ . '/partials/artista-destaque.php';
+			if ($artistaDestaque) {
+				renderArtistaDestaque($artistaDestaque, $jaSegueDestaque);
+			}
+		?>
+		
       <!-- AD leaderboard in-content -->
       <div class="mb-4">
         <div class="ann"><i class="ti ti-ad"></i> Leaderboard 728×60</div>
@@ -631,40 +594,6 @@
 })();
 </script>
 
-<script>
-	document.getElementById('btnSeguir')?.addEventListener('click', function() 
-	{
-		const btn = this;
-		const artistaId = btn.dataset.artistaId;
 
-		fetch('/artista/seguir', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: 'artista_id=' + encodeURIComponent(artistaId)
-		})
-		.then(res => res.json())
-		.then(data => {
-			if (!data.logado) {
-				if (!data.logado) {
-					document.getElementById('loginNecessarioOverlay').classList.add('active');
-					return;
-				}
-				return;
-			}
-			document.getElementById('btnSeguirTexto').textContent = data.aSeguir ? 'A seguir' : 'Seguir';
-			const statNum = document.querySelector('.aom-stats > div:nth-child(2) .aom-stat-num');
-			if (statNum) statNum.textContent = data.fans.toLocaleString('pt-PT');
-		})
-		.catch(err => console.error(err));
-	});
-
-	document.getElementById('loginNecessarioClose')?.addEventListener('click', function() {
-		document.getElementById('loginNecessarioOverlay').classList.remove('active');
-	});
-	
-	document.getElementById('loginNecessarioOverlay')?.addEventListener('click', function(e) {
-		if (e.target === this) this.classList.remove('active');
-	});
-</script>
 
 
