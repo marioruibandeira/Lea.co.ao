@@ -122,17 +122,19 @@ class HomeDAO
         return $stmt->fetchAll();
     }
 
-    public function getArtistasRecemAdicionados(): array
-    {
-        $sql = "SELECT a.nomeA, a.prof, a.art_img_url, a.artID, a.anoreg FROM artistas a ORDER BY a.artID DESC LIMIT :limite";
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(':limite', 5, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
-
+    public function getArtistasRecemAdicionados(): array {
+		$sql = "SELECT a.nomeA, a.prof, a.art_img_url, a.artID, a.anoreg, a.visua,
+					   p.provincia
+				FROM artistas a
+				LEFT JOIN provincia p ON p.id_provincia = a.ce_provincia
+				ORDER BY a.artID DESC 
+				LIMIT :limite";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bindValue(':limite', 5, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+	
     public function getTestemunhos(int $limit = 6): array {
         $testemunhos = [
             ['id' => 141,  'img' => '/artistas/imgs/Street_da_Chagas_na_lea.jpg', 'nome' => 'Chaggas',           'texto' => 'Boa plataforma de divulgação, a ganhar espaço. Creio que tende a crescer mais e mais pela positiva, respect!'],

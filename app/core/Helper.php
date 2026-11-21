@@ -22,4 +22,11 @@ class Helper {
         $temaSlug = rtrim($temaSlug, '-');
         return "/noticias/{$categoriaSlug}/{$temaSlug}-{$noticia['id_noticias']}";
     }
+	
+	public static function artistaUrl(array $artista): string {
+		$nomeSlug = self::slug($artista['nomeA']);
+		$nomeSlug = substr($nomeSlug, 0, 60);
+		$nomeSlug = rtrim($nomeSlug, '-');
+		return "/artista/{$nomeSlug}-{$artista['artID']}";
+	}
 }

@@ -2,14 +2,7 @@
     /* ============================================================
        CSS EXCLUSIVO DA PÁGINA DE LEITURA — INÍCIO
        ============================================================ */
-
-    /* Breadcrumb */
-    .lea-breadcrumb { background: var(--lea-white); border-bottom: 1px solid var(--lea-border); padding: 10px 0; }
-    .lea-breadcrumb a { font-size: 12px; color: var(--lea-blue); text-decoration: none; }
-    .lea-breadcrumb a:hover { text-decoration: underline; }
-    .lea-breadcrumb span { font-size: 12px; color: var(--lea-muted); }
-    .lea-breadcrumb i { font-size: 10px; color: var(--lea-muted); margin: 0 4px; }
-
+	   
     /* Layout */
    .leitura-layout { 
 		display: grid; 

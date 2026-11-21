@@ -126,7 +126,7 @@
         <div class="collapse navbar-collapse" id="navMenu">
             <ul class="navbar-nav me-auto mb-0">
                 <li class="nav-item"><a class="nav-link" href="/artes/">Artes</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/artistas/">Artistas</a></li>
+                <li class="nav-item"><a class="nav-link" href="/artistas/">Artistas</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/discografia.php?dsco=1">Músicas</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/videos.php?clipes=true">Vídeos</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/downloads/todos-livros.php?strt=0&acc=1">Literatura</a></li>
@@ -135,9 +135,18 @@
                 <li class="nav-item"><a class="nav-link" href="https://lea.co.ao/loja/">Loja</a></li>
             </ul>
             <div class="d-flex align-items-center gap-2">
-                <div class="lea-search d-flex align-items-center gap-2">
-                    <i class="ti ti-search" style="font-size:13px;"></i> Pesquisar…
-                </div>
+                <!--<div class="lea-search d-flex align-items-center gap-2">
+                    <i class="ti ti-search" style="font-size:13px;"></i> Pesquisar…-->
+					<form method="GET" action="/pesquisa" style="display:contents;">
+						<div class="lea-search d-flex align-items-center gap-2">
+							<button type="submit" style="background:none;border:none;padding:0;display:flex;line-height:0;">
+								<i class="ti ti-search" style="font-size:13px;color:var(--lea-muted);"></i>
+							</button>
+							<input type="text" name="q" placeholder="Pesquisar…" 
+								   style="border:none;background:none;outline:none;font-size:12px;color:var(--lea-muted);width:120px;">
+						</div>
+					</form>
+                <!--</div>-->
                 <button class="btn-lea">Entrar</button>
             </div>
         </div>
@@ -154,11 +163,24 @@
         <span class="logo-lea">LEA</span>
     </a>
     <div class="d-flex gap-3" style="font-size:20px;color:var(--lea-muted);">
-        <i class="ti ti-search"></i>
+        <i class="ti ti-search" id="mobile-search-trigger" role="button" aria-label="Pesquisar"></i>
         <i class="ti ti-bell"></i>
         <i class="ti ti-user-circle"></i>
     </div>
 </header>
+
+<!-- Overlay de pesquisa mobile -->
+<div class="mobile-search-overlay" id="mobile-search-overlay">
+    <form method="GET" action="/pesquisa" class="mobile-search-form">
+        <i class="ti ti-search mobile-search-icon"></i>
+        <input type="text" name="q" id="mobile-search-input"
+               placeholder="Pesquisar artistas, notícias, músicas…"
+               autocomplete="off">
+        <button type="button" class="mobile-search-close" id="mobile-search-close" aria-label="Fechar">
+            <i class="ti ti-x"></i>
+        </button>
+    </form>
+</div>
 
 
 <!-- =============================================
